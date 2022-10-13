@@ -4,9 +4,39 @@
         xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:ProductQualityManager"
+        xmlns:UC="clr-namespace:ProductQualityManager.Views.UserControls"
         mc:Ignorable="d"
-        Title="MainWindow" Height="450" Width="800">
+        Title="MainWindow" Height="650" Width="1200">
     <Grid>
+        <TabControl VerticalAlignment="Top">
+            <TabItem Header="Tuấn">
+                <TabControl>
+                    <TabItem Header="Quản lý chỉ tiêu "></TabItem>
+                    <TabItem Header="Đăng nhập"></TabItem>
+                </TabControl>
+            </TabItem>
 
+            <TabItem Header="Tài">
+                <TabControl>
+                    <TabItem Header="Quản lý chủ cơ sở"></TabItem>
+                    <TabItem Header="Quản lý cơ sở sản xuất"></TabItem>
+                </TabControl>
+            </TabItem>
+            <TabItem Header="Khánh">
+                <TabControl>
+                    <TabItem Header="Phiếu kiểm nghiệm">
+                        <UC:TestingSheet></UC:TestingSheet>
+                    </TabItem>
+                    <TabItem Header="Quản lý sản phẩm"></TabItem>
+                </TabControl>
+            </TabItem>
+            <TabItem Header="Đăng">
+                <TabControl>
+                    <TabItem Header="Báo cáo ">
+                    </TabItem>
+                    <TabItem Header="Phiếu đăng ký"></TabItem>
+                </TabControl>
+            </TabItem>
+        </TabControl>
     </Grid>
 </Window>
