@@ -1,4 +1,5 @@
-﻿using System;
+﻿using ProductQualityManager.Models.Database;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
@@ -19,10 +20,10 @@ namespace ProductQualityManager.Models
             }
             set => _ins = value;
         }
-        public BookstoreManagerEntities DB { get; set; }
+        public QuanLySanXuatEntities DB { get; set; }
         private DataProvider()
         {
-            DB = new BookstoreManagerEntities();
+            DB = new QuanLySanXuatEntities();
 
         }
     }
