@@ -14,8 +14,8 @@
 *.user
 *.userosscache
 *.sln.docstates
-ProductQualityManager/ProductQualityManager/Models/Database
-
+ProductQualityManager/Models
+*.edmx
 # User-specific files (MonoDevelop/Xamarin Studio)
 *.userprefs
 

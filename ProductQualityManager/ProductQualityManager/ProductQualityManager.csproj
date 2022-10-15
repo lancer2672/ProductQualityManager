@@ -77,6 +77,11 @@
       <DesignTime>True</DesignTime>
       <DependentUpon>ProductQualityManager.Context.tt</DependentUpon>
     </Compile>
+    <Compile Include="Models\Database\ProductQualityManager.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>ProductQualityManager.tt</DependentUpon>
+    </Compile>
     <Compile Include="Models\Database\ProductQualityManager.Designer.cs">
       <AutoGen>True</AutoGen>
       <DesignTime>True</DesignTime>
@@ -145,6 +150,12 @@
     <Content Include="Models\Database\ProductQualityManager.Context.tt">
       <Generator>TextTemplatingFileGenerator</Generator>
       <LastGenOutput>ProductQualityManager.Context.cs</LastGenOutput>
+      <DependentUpon>ProductQualityManager.edmx</DependentUpon>
+    </Content>
+    <Content Include="Models\Database\ProductQualityManager.tt">
+      <Generator>TextTemplatingFileGenerator</Generator>
+      <DependentUpon>ProductQualityManager.edmx</DependentUpon>
+      <LastGenOutput>ProductQualityManager.cs</LastGenOutput>
     </Content>
   </ItemGroup>
   <ItemGroup>
