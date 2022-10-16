@@ -1,5 +1,6 @@
 ﻿<ResourceDictionary xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
-                    xmlns:TestingVM ="clr-namespace:ProductQualityManager.ViewModels"
+                    xmlns:Utils ="clr-namespace:ProductQualityManager.Resources.Utils"
                     xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml">
-    <TestingVM:TestingSheetViewModel x:Key="TestingSheetVM"></TestingVM:TestingSheetViewModel>
+    <Utils:IndexConverter x:Key="IndexConverter"></Utils:IndexConverter>
+
 </ResourceDictionary>
