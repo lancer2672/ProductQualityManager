@@ -9,7 +9,8 @@
              d:DesignHeight="450" d:DesignWidth="800">
     <StackPanel Margin="20">
         <Label Content="PHIẾU ĐĂNG KÝ" HorizontalAlignment="Center"></Label>
-        <ListView
+        <ListView 
+            x:Name="Listview"
             ItemsSource="{Binding TestingSheetListObs}">
             <ListView.View>
                 <GridView>
@@ -42,7 +43,12 @@
                     <GridViewColumn  >
                         <GridViewColumn.CellTemplate>
                             <DataTemplate>
-                                <Button Margin="100 0 0 0" Content="Chi tiết" CommandParameter="{Binding}"/>
+                                <Button Margin="100 0 0 0" Content="Chi tiết"
+                                        Command="{Binding ElementName=Listview, Path=DataContext.OpenViewDetailWindow }" CommandParameter="{Binding Path=SelectedItem, RelativeSource={
+                                    RelativeSource
+                                    Mode=FindAncestor,
+                                    AncestorType=ListView}}"
+                                        />
                             </DataTemplate>
                         </GridViewColumn.CellTemplate>
                     </GridViewColumn>

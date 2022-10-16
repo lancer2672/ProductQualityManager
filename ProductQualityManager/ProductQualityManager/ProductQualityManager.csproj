@@ -127,8 +127,12 @@
     <Compile Include="Resources\Utils\IndexConverter.cs" />
     <Compile Include="ViewModels\BaseViewModel.cs" />
     <Compile Include="ViewModels\TestingSheetViewModel.cs" />
+    <Compile Include="ViewModels\TestingSheet\DetailTestingSheetViewModel.cs" />
     <Compile Include="Views\TestingSheet\CreateSheet.xaml.cs">
       <DependentUpon>CreateSheet.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Views\TestingSheet\ViewDetailWindow.xaml.cs">
+      <DependentUpon>ViewDetailWindow.xaml</DependentUpon>
     </Compile>
     <Compile Include="Views\UserControls\TestingSheetUC.xaml.cs">
       <DependentUpon>TestingSheetUC.xaml</DependentUpon>
@@ -154,6 +158,10 @@
       <SubType>Designer</SubType>
     </Page>
     <Page Include="Views\TestingSheet\CreateSheet.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Views\TestingSheet\ViewDetailWindow.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>

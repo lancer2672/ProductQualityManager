@@ -6,8 +6,10 @@ using System.Collections.ObjectModel;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using System.Windows.Controls;
+using System.Windows.Input;
 using System.Windows.Navigation;
-
+using ProductQualityManager.Views.TestingSheet;
 namespace ProductQualityManager.ViewModels
 {
     public class TestingSheetViewModel  : BaseViewModel
@@ -26,9 +28,13 @@ namespace ProductQualityManager.ViewModels
         public ObservableCollection<TestingSheetModel> TestingSheetListObs { get { return _testingSheetListObs; } set { _testingSheetListObs = value; OnPropertyChanged(nameof(_testingSheetListObs)); } }
         
         
+        public ICommand OpenViewDetailWindow { get; set; }
+
         public TestingSheetViewModel()
         { 
             TestingSheetListObs = new ObservableCollection<TestingSheetModel>();
+            OpenViewDetailWindow = new RelayCommand<TestingSheetModel>((p) => { return true; }, (p) => { OpenDetailWindow(p); });
+
             LoadDataSheetList();
         }
         //Load danh sách phiếu đăng ký 
@@ -80,6 +86,14 @@ namespace ProductQualityManager.ViewModels
                     return "Được chấp thuận";
                 default:
                     return "Đang chờ duyệt";
+            }
+        }
+        public void OpenDetailWindow(TestingSheetModel SelectedItem)
+        {
+            if (SelectedItem != null)
+            {
+                ViewDetailWindow DetailWindow = new ViewDetailWindow(SelectedItem);
+                DetailWindow.Show();
             }
         }
     }
