@@ -21,7 +21,7 @@ namespace ProductQualityManager.Views.TestingSheet
     /// </summary>
     public partial class ViewDetailWindow : Window
     {
-        public ViewDetailWindow(TestingSheetModel SelectedItem)
+        public ViewDetailWindow(RegistrationSheetModel SelectedItem)
         {
             InitializeComponent();
             DetailRegistrationSheetViewModel VM = new DetailRegistrationSheetViewModel(SelectedItem);

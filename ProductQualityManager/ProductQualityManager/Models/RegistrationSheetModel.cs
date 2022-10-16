@@ -7,11 +7,11 @@ using System.Threading.Tasks;
 
 namespace ProductQualityManager.Models
 {
-    public class TestingSheetModel
+    public class RegistrationSheetModel
     {
 
-        public TestingSheetModel() { }
-        public TestingSheetModel(PHIEUDANGKY PhieuDangKy)
+        public RegistrationSheetModel() { }
+        public RegistrationSheetModel(PHIEUDANGKY PhieuDangKy)
         {
             this.MaPhieuDangKy = PhieuDangKy.MaPhieuDangKy;
             this.MaCoSo = PhieuDangKy.MaCoSo;

@@ -15,7 +15,7 @@ namespace ProductQualityManager.ViewModels
     public class RegistrationSheetViewModel  : BaseViewModel
     {
 
-        private ObservableCollection<TestingSheetModel> _testingSheetListObs;
+        private ObservableCollection<RegistrationSheetModel> _testingSheetListObs;
         private PHIEUDANGKY _selectedSheet;
         //enum State
         //{
@@ -25,15 +25,15 @@ namespace ProductQualityManager.ViewModels
         //}
 
         public PHIEUDANGKY SelectedSheet { get { return _selectedSheet; } set { _selectedSheet = value; OnPropertyChanged(nameof(_selectedSheet)); } }
-        public ObservableCollection<TestingSheetModel> TestingSheetListObs { get { return _testingSheetListObs; } set { _testingSheetListObs = value; OnPropertyChanged(nameof(_testingSheetListObs)); } }
+        public ObservableCollection<RegistrationSheetModel> TestingSheetListObs { get { return _testingSheetListObs; } set { _testingSheetListObs = value; OnPropertyChanged(nameof(_testingSheetListObs)); } }
         
         
         public ICommand OpenViewDetailWindow { get; set; }
 
         public RegistrationSheetViewModel()
         { 
-            TestingSheetListObs = new ObservableCollection<TestingSheetModel>();
-            OpenViewDetailWindow = new RelayCommand<TestingSheetModel>((p) => { return true; }, (p) => { OpenDetailWindow(p); });
+            TestingSheetListObs = new ObservableCollection<RegistrationSheetModel>();
+            OpenViewDetailWindow = new RelayCommand<RegistrationSheetModel>((p) => { return true; }, (p) => { OpenDetailWindow(p); });
 
             LoadDataSheetList();
         }
@@ -46,14 +46,14 @@ namespace ProductQualityManager.ViewModels
         }
 
         //chuyển dữ liệu từ list(PHieuDANGKY) về observable collection(TestingSheet)
-        public ObservableCollection<TestingSheetModel> GetDataSheetFromList( List<PHIEUDANGKY> SheetList)
+        public ObservableCollection<RegistrationSheetModel> GetDataSheetFromList( List<PHIEUDANGKY> SheetList)
         {
-            ObservableCollection<TestingSheetModel> SheetListObs = new ObservableCollection<TestingSheetModel>();
+            ObservableCollection<RegistrationSheetModel> SheetListObs = new ObservableCollection<RegistrationSheetModel>();
             int NumberOfRecord = SheetList.Count();
 
             for(int i = 0; i < NumberOfRecord; i++)
             {
-                TestingSheetModel TestingSheet = new TestingSheetModel(SheetList[i]);
+                RegistrationSheetModel TestingSheet = new RegistrationSheetModel(SheetList[i]);
                 TestingSheet.MauChu = GetColorState((int)TestingSheet.TrangThai);
                 TestingSheet.STrangThai = GetStringState((int)TestingSheet.TrangThai);
                 SheetListObs.Add(TestingSheet);
@@ -88,7 +88,7 @@ namespace ProductQualityManager.ViewModels
                     return "Đang chờ duyệt";
             }
         }
-        public void OpenDetailWindow(TestingSheetModel SelectedItem)
+        public void OpenDetailWindow(RegistrationSheetModel SelectedItem)
         {
             if (SelectedItem != null)
             {

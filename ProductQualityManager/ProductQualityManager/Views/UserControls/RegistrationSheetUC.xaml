@@ -16,7 +16,7 @@
                 <GridView>
                     <GridViewColumn Header="STT" DisplayMemberBinding="{Binding RelativeSource={RelativeSource Mode=FindAncestor,AncestorType=ListViewItem},Converter={StaticResource  IndexConverter}}"></GridViewColumn>
                     <GridViewColumn Header="Mã Cơ Sở" DisplayMemberBinding="{Binding MaCoSo}"></GridViewColumn>
-                    <GridViewColumn Header="Ngày đăng ký" DisplayMemberBinding="{Binding NgayDangKy}"></GridViewColumn>
+                    <GridViewColumn Header="Thời gian đăng ký" DisplayMemberBinding="{Binding NgayDangKy}"></GridViewColumn>
                     <GridViewColumn Header="Thời hạn đăng ký" DisplayMemberBinding="{Binding ThoiHanDangKy}"></GridViewColumn>
                     <GridViewColumn Header="Trạng thái" >
                         <GridViewColumn.CellTemplate>

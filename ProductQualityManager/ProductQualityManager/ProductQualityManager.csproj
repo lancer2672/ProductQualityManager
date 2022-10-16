@@ -123,7 +123,8 @@
       <DependentUpon>Model1.tt</DependentUpon>
     </Compile>
     <Compile Include="Models\DataProvider.cs" />
-    <Compile Include="Models\TestingSheetModel.cs" />
+    <Compile Include="Models\DetailRegistrationSheetModel.cs" />
+    <Compile Include="Models\RegistrationSheetModel.cs" />
     <Compile Include="Resources\Utils\IndexConverter.cs" />
     <Compile Include="ViewModels\BaseViewModel.cs" />
     <Compile Include="ViewModels\RegistrationSheetViewModel.cs" />
