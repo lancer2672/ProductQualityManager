@@ -8,17 +8,46 @@
              DataContext="{StaticResource TestingSheetVM}"
              d:DesignHeight="450" d:DesignWidth="800">
     <StackPanel Margin="20">
-        <Label Content="PHIẾU ĐĂNG KÝ"></Label>
+        <Label Content="PHIẾU ĐĂNG KÝ" HorizontalAlignment="Center"></Label>
         <ListView
             ItemsSource="{Binding TestingSheetListObs}">
             <ListView.View>
                 <GridView>
-                    <GridViewColumn Header=" STT" DisplayMemberBinding="{Binding RelativeSource={RelativeSource Mode=FindAncestor,AncestorType=ListViewItem},Converter={StaticResource  IndexConverter}}"></GridViewColumn>
-                    <GridViewColumn Header=" Mã Cơ Sở" DisplayMemberBinding="{Binding MaCoSo}"></GridViewColumn>
-                    <GridViewColumn Header=" Mã Cơ Sở" DisplayMemberBinding="{Binding MaCoSo}"></GridViewColumn>
+                    <GridViewColumn Header="STT" DisplayMemberBinding="{Binding RelativeSource={RelativeSource Mode=FindAncestor,AncestorType=ListViewItem},Converter={StaticResource  IndexConverter}}"></GridViewColumn>
+                    <GridViewColumn Header="Mã Cơ Sở" DisplayMemberBinding="{Binding MaCoSo}"></GridViewColumn>
+                    <GridViewColumn Header="Ngày đăng ký" DisplayMemberBinding="{Binding NgayDangKy}"></GridViewColumn>
+                    <GridViewColumn Header="Thời hạn đăng ký" DisplayMemberBinding="{Binding ThoiHanDangKy}"></GridViewColumn>
+                    <GridViewColumn Header="Trạng thái" >
+                        <GridViewColumn.CellTemplate>
+                            <DataTemplate>
+                                <TextBlock Text="{Binding Path=STrangThai}" Foreground="{Binding  MauChu}"/>
+                            </DataTemplate>
+                        </GridViewColumn.CellTemplate>
+                    </GridViewColumn>
+                    <GridViewColumn  >
+                        <GridViewColumn.CellTemplate>
+                            
+                            <DataTemplate>
+                                <Button Content="Chấp thuận" CommandParameter="{Binding}"/>
+                            </DataTemplate>
+                        </GridViewColumn.CellTemplate>
+                    </GridViewColumn>
+                    <GridViewColumn  >
+                        <GridViewColumn.CellTemplate>
+                            <DataTemplate>
+                                <Button Content="Từ chối" CommandParameter="{Binding}"/>
+                            </DataTemplate>
+                        </GridViewColumn.CellTemplate>
+                    </GridViewColumn>
+                    <GridViewColumn  >
+                        <GridViewColumn.CellTemplate>
+                            <DataTemplate>
+                                <Button Margin="100 0 0 0" Content="Chi tiết" CommandParameter="{Binding}"/>
+                            </DataTemplate>
+                        </GridViewColumn.CellTemplate>
+                    </GridViewColumn>
                 </GridView>
             </ListView.View>
-            
         </ListView>
     </StackPanel>   
 </UserControl>

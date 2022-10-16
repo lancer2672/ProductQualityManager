@@ -1,0 +1,33 @@
+﻿using ProductQualityManager.Models.Database;
+using System;
+using System.Collections.Generic;
+using System.Linq;
+using System.Text;
+using System.Threading.Tasks;
+
+namespace ProductQualityManager.Models
+{
+    public class TestingSheetModel
+    {
+
+        public TestingSheetModel() { }
+        public TestingSheetModel(PHIEUDANGKY PhieuDangKy)
+        {
+            this.MaPhieuDangKy = PhieuDangKy.MaPhieuDangKy;
+            this.MaCoSo = PhieuDangKy.MaCoSo;
+            this.NgayDangKy = PhieuDangKy.NgayDangKy;
+            this.ThoiHanDangKy = PhieuDangKy.ThoiHanDangKy;
+            this.TrangThai = PhieuDangKy.TrangThai;
+            MauChu = "";
+            STrangThai = "";
+        }
+        public int MaPhieuDangKy { get; set; }
+        public Nullable<int> MaCoSo { get; set; }
+        public Nullable<System.DateTime> NgayDangKy { get; set; }
+        public Nullable<int> ThoiHanDangKy { get; set; }
+        public Nullable<int> TrangThai { get; set; }
+        public string MauChu { get; set; }
+        public string STrangThai { get; set; }
+
+    }
+}
