@@ -7,19 +7,21 @@ using System.Threading.Tasks;
 
 namespace ProductQualityManager.ViewModels.TestingSheet
 {
-    public class DetailTestingSheetViewModel : BaseViewModel
+    public class DetailRegistrationSheetViewModel : BaseViewModel
     {
         private TestingSheetModel _selectedRecord;
-        private int _idTestingSheet;
+        private int _idTestSheet;
+        private int _idFactory;
         private DateTime _registrationDate;
 
         public TestingSheetModel SelectedRecord { get { return _selectedRecord; } set { _selectedRecord = value; OnPropertyChanged(nameof(_selectedRecord)); } }
-        public int IdTestingSheet { get { return _idTestingSheet; } set { _idTestingSheet = value; OnPropertyChanged(nameof(_idTestingSheet)); } }
+        public int IdTestSheet { get { return _idTestSheet; } set { _idTestSheet = value; OnPropertyChanged(nameof(_idTestSheet)); } }
+        public int IdFactory { get { return _idFactory; } set { _idFactory = value; OnPropertyChanged(nameof(_idFactory)); } }
         public DateTime RegistrationDate { get { return _registrationDate; } set { _registrationDate = value; OnPropertyChanged(nameof(_registrationDate)); } }
         
-        public DetailTestingSheetViewModel(TestingSheetModel SelectedItem)
+        public DetailRegistrationSheetViewModel(TestingSheetModel SelectedItem)
         {
-            IdTestingSheet = SelectedItem.MaPhieuDangKy;
+            IdTestSheet = SelectedItem.MaPhieuDangKy;
             RegistrationDate = (DateTime)SelectedItem.NgayDangKy;
             SelectedRecord = SelectedItem;
         }

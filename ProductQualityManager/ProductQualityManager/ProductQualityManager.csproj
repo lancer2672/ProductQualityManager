@@ -126,16 +126,16 @@
     <Compile Include="Models\TestingSheetModel.cs" />
     <Compile Include="Resources\Utils\IndexConverter.cs" />
     <Compile Include="ViewModels\BaseViewModel.cs" />
-    <Compile Include="ViewModels\TestingSheetViewModel.cs" />
-    <Compile Include="ViewModels\TestingSheet\DetailTestingSheetViewModel.cs" />
-    <Compile Include="Views\TestingSheet\CreateSheet.xaml.cs">
+    <Compile Include="ViewModels\RegistrationSheetViewModel.cs" />
+    <Compile Include="ViewModels\RegistrationSheet\DetailRegistrationSheetViewModel.cs" />
+    <Compile Include="Views\TestSheet\CreateSheet.xaml.cs">
       <DependentUpon>CreateSheet.xaml</DependentUpon>
     </Compile>
-    <Compile Include="Views\TestingSheet\ViewDetailWindow.xaml.cs">
+    <Compile Include="Views\TestSheet\ViewDetailWindow.xaml.cs">
       <DependentUpon>ViewDetailWindow.xaml</DependentUpon>
     </Compile>
-    <Compile Include="Views\UserControls\TestingSheetUC.xaml.cs">
-      <DependentUpon>TestingSheetUC.xaml</DependentUpon>
+    <Compile Include="Views\UserControls\RegistrationSheetUC.xaml.cs">
+      <DependentUpon>RegistrationSheetUC.xaml</DependentUpon>
     </Compile>
     <Page Include="MainWindow.xaml">
       <Generator>MSBuild:Compile</Generator>
@@ -157,15 +157,15 @@
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
     </Page>
-    <Page Include="Views\TestingSheet\CreateSheet.xaml">
+    <Page Include="Views\TestSheet\CreateSheet.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
-    <Page Include="Views\TestingSheet\ViewDetailWindow.xaml">
+    <Page Include="Views\TestSheet\ViewDetailWindow.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
-    <Page Include="Views\UserControls\TestingSheetUC.xaml">
+    <Page Include="Views\UserControls\RegistrationSheetUC.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>

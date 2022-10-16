@@ -16,11 +16,11 @@ using System.Windows.Shapes;
 namespace ProductQualityManager.Views.UserControls
 {
     /// <summary>
-    /// Interaction logic for TestingSheetUC.xaml
+    /// Interaction logic for RegistrationSheetUC.xaml
     /// </summary>
-    public partial class TestingSheetUC : UserControl
+    public partial class RegistrationSheetUC : UserControl
     {
-        public TestingSheetUC()
+        public RegistrationSheetUC()
         {
             InitializeComponent();
         }

@@ -25,7 +25,7 @@
             <TabItem Header="Khánh">
                 <TabControl>
                     <TabItem Header="Phiếu kiểm nghiệm">
-                        <UC:TestingSheetUC></UC:TestingSheetUC>
+                        <UC:RegistrationSheetUC></UC:RegistrationSheetUC>
                     </TabItem>
                     <TabItem Header="Quản lý sản phẩm"></TabItem>
                 </TabControl>

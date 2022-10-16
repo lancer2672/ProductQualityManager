@@ -2,6 +2,6 @@
                     xmlns:VM ="clr-namespace:ProductQualityManager.ViewModels"
                     xmlns:TestingSheetVM ="clr-namespace:ProductQualityManager.ViewModels.TestingSheet"
                     xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml">
-    <VM:TestingSheetViewModel x:Key="TestingSheetVM"></VM:TestingSheetViewModel>
+    <VM:RegistrationSheetViewModel x:Key="TestingSheetVM"></VM:RegistrationSheetViewModel>
     
 </ResourceDictionary>

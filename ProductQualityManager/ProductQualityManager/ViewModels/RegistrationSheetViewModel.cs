@@ -12,7 +12,7 @@ using System.Windows.Navigation;
 using ProductQualityManager.Views.TestingSheet;
 namespace ProductQualityManager.ViewModels
 {
-    public class TestingSheetViewModel  : BaseViewModel
+    public class RegistrationSheetViewModel  : BaseViewModel
     {
 
         private ObservableCollection<TestingSheetModel> _testingSheetListObs;
@@ -30,7 +30,7 @@ namespace ProductQualityManager.ViewModels
         
         public ICommand OpenViewDetailWindow { get; set; }
 
-        public TestingSheetViewModel()
+        public RegistrationSheetViewModel()
         { 
             TestingSheetListObs = new ObservableCollection<TestingSheetModel>();
             OpenViewDetailWindow = new RelayCommand<TestingSheetModel>((p) => { return true; }, (p) => { OpenDetailWindow(p); });

@@ -24,7 +24,7 @@ namespace ProductQualityManager.Views.TestingSheet
         public ViewDetailWindow(TestingSheetModel SelectedItem)
         {
             InitializeComponent();
-            DetailTestingSheetViewModel VM = new DetailTestingSheetViewModel(SelectedItem);
+            DetailRegistrationSheetViewModel VM = new DetailRegistrationSheetViewModel(SelectedItem);
             this.DataContext = VM;
         }
     }
