@@ -16,7 +16,7 @@ namespace ProductQualityManager.ViewModels
     {
 
         private ObservableCollection<RegistrationSheetModel> _testingSheetListObs;
-        private PHIEUDANGKY _selectedSheet;
+        private RegistrationSheetModel _selectedSheet;
         //enum State
         //{
         //    Denied,
@@ -24,16 +24,20 @@ namespace ProductQualityManager.ViewModels
         //    Aproved
         //}
 
-        public PHIEUDANGKY SelectedSheet { get { return _selectedSheet; } set { _selectedSheet = value; OnPropertyChanged(nameof(_selectedSheet)); } }
-        public ObservableCollection<RegistrationSheetModel> TestingSheetListObs { get { return _testingSheetListObs; } set { _testingSheetListObs = value; OnPropertyChanged(nameof(_testingSheetListObs)); } }
+        public RegistrationSheetModel SelectedSheet { get { return _selectedSheet; } set { _selectedSheet = value; OnPropertyChanged(nameof(_selectedSheet)); } }
+        public ObservableCollection<RegistrationSheetModel> TestingSheetListObs { get { return _testingSheetListObs; } set { _testingSheetListObs = value; OnPropertyChanged(nameof(TestingSheetListObs)); } }
         
         
         public ICommand OpenViewDetailWindow { get; set; }
-
+        public ICommand Approve { get; set; }
+        public ICommand Reject { get; set; }
+        
         public RegistrationSheetViewModel()
-        { 
+        {
             TestingSheetListObs = new ObservableCollection<RegistrationSheetModel>();
             OpenViewDetailWindow = new RelayCommand<RegistrationSheetModel>((p) => { return true; }, (p) => { OpenDetailWindow(p); });
+            Approve = new RelayCommand<ListView>((p) => { return true; }, (p) => { ApproveSheet(p); });
+            Reject = new RelayCommand<ListView>((p) => { return true; }, (p) => { RejectSheet(p); });
 
             LoadDataSheetList();
         }
@@ -41,10 +45,56 @@ namespace ProductQualityManager.ViewModels
         public void LoadDataSheetList() 
         {
             List<PHIEUDANGKY> SheetList = DataProvider.Ins.DB.PHIEUDANGKies.ToList();
-            SelectedSheet = new PHIEUDANGKY();
+            SelectedSheet = new RegistrationSheetModel();
             TestingSheetListObs = GetDataSheetFromList(SheetList);
         }
+        public void ApproveSheet(ListView p)
+        {
+            //if (p.SelectedIndex == -1)
+            //    return;
+            PHIEUDANGKY Sheet = DataProvider.Ins.DB.PHIEUDANGKies.Where(t => t.MaPhieuDangKy == SelectedSheet.MaPhieuDangKy).FirstOrDefault();
+            if (Sheet.TrangThai == 0)
+            {
+                Sheet.TrangThai = 1;
+            }
+            else return;
+            try
+            {
+                DataProvider.Ins.DB.SaveChanges();
+                RefreshList();
 
+            }catch(Exception e)
+            {
+
+            }          
+        }
+        public void RejectSheet(ListView p)
+        {
+            //if (p.SelectedIndex == -1)
+            //    return;
+
+            PHIEUDANGKY Sheet = DataProvider.Ins.DB.PHIEUDANGKies.Where(t => t.MaPhieuDangKy == SelectedSheet.MaPhieuDangKy).FirstOrDefault();
+            if (Sheet.TrangThai == 0)
+            {
+                Sheet.TrangThai = -1;
+            }
+            else return;
+            try
+            {
+                DataProvider.Ins.DB.SaveChanges();
+                RefreshList();
+            }
+            catch (Exception e)
+            {
+
+            }
+        }
+
+        public void RefreshList()
+        {
+            TestingSheetListObs.Clear();
+            LoadDataSheetList();
+        }
         //chuyển dữ liệu từ list(PHieuDANGKY) về observable collection(TestingSheet)
         public ObservableCollection<RegistrationSheetModel> GetDataSheetFromList( List<PHIEUDANGKY> SheetList)
         {
@@ -79,11 +129,11 @@ namespace ProductQualityManager.ViewModels
             switch (State)
             {
                 case -1:
-                    return "Bị từ chối";
+                    return "Từ chối";
                 case 0:
                     return "Đang chờ duyệt";
                 case 1:
-                    return "Được chấp thuận";
+                    return "Chấp thuận";
                 default:
                     return "Đang chờ duyệt";
             }

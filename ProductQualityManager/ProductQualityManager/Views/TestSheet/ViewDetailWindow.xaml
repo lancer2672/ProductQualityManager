@@ -10,7 +10,7 @@
     <StackPanel Margin="20">
         <Label HorizontalAlignment="Center" Content="THÔNG TIN CHI TIẾT PHIẾU ĐĂNG KÝ"></Label>
         <StackPanel>
-            <Label Content="{Binding  IdTestSheet }" ContentStringFormat="Mã phiếu đăng ký: {0}"></Label>
+            <Label Content="{Binding  IdRegistrationSheet }" ContentStringFormat="Mã phiếu đăng ký: {0}"></Label>
             <Label Content="{Binding  RegistrationDate}" ContentStringFormat="dd MMM yyyy"></Label>
             <Label Content="{Binding  IdFactory}" ContentStringFormat="Mã phiếu đăng ký: {0}"></Label>
             <ListView 

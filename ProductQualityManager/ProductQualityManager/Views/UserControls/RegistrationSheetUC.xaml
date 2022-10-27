@@ -21,9 +21,11 @@
         <Label Content="PHIẾU ĐĂNG KÝ" HorizontalAlignment="Center"></Label>
         <ListView 
             x:Name="Listview"
-           
+            SelectedItem="{Binding SelectedSheet}"
+            ScrollViewer.VerticalScrollBarVisibility="Visible"
+            ScrollViewer.HorizontalScrollBarVisibility="Hidden"
             ItemContainerStyle="{StaticResource  ListItemContainer}"
-            ItemsSource="{Binding TestingSheetListObs}">
+            ItemsSource="{Binding TestingSheetListObs, Mode=TwoWay}">
             <ListView.View>
                 <GridView>
                     <GridViewColumn Header="STT" DisplayMemberBinding="{Binding RelativeSource={RelativeSource Mode=FindAncestor,AncestorType=ListViewItem},Converter={StaticResource  IndexConverter}}"></GridViewColumn>
@@ -39,16 +41,16 @@
                     </GridViewColumn>
                     <GridViewColumn  >
                         <GridViewColumn.CellTemplate>
-
+                            <!--CommandParameter="{Binding ,RelativeSource={RelativeSource Mode=FindAncestor, AncestorType=ListView}}"-->
                             <DataTemplate>
-                                <Button Content="Chấp thuận" CommandParameter="{Binding}"/>
+                                <Button   Content="Chấp thuận"  Command="{Binding DataContext.Approve, RelativeSource={RelativeSource AncestorType=ListView}}"/>
                             </DataTemplate>
                         </GridViewColumn.CellTemplate>
                     </GridViewColumn>
                     <GridViewColumn  >
                         <GridViewColumn.CellTemplate>
                             <DataTemplate>
-                                <Button Content="Từ chối" CommandParameter="{Binding}"/>
+                                <Button  Content="Từ chối"  Command="{Binding DataContext.Reject, RelativeSource={RelativeSource AncestorType=ListView}}"/>
                             </DataTemplate>
                         </GridViewColumn.CellTemplate>
                     </GridViewColumn>
