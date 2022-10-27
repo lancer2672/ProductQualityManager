@@ -28,16 +28,16 @@ namespace ProductQualityManager.ViewModels
         public ObservableCollection<RegistrationSheetModel> TestingSheetListObs { get { return _testingSheetListObs; } set { _testingSheetListObs = value; OnPropertyChanged(nameof(TestingSheetListObs)); } }
         
         
-        public ICommand OpenViewDetailWindow { get; set; }
-        public ICommand Approve { get; set; }
-        public ICommand Reject { get; set; }
+        public ICommand COpenViewDetailWindow { get; set; }
+        public ICommand CApprove { get; set; }
+        public ICommand CReject { get; set; }
         
         public RegistrationSheetViewModel()
         {
             TestingSheetListObs = new ObservableCollection<RegistrationSheetModel>();
-            OpenViewDetailWindow = new RelayCommand<object>((p) => { return true; }, (p) => { OpenDetailWindow(p); });
-            Approve = new RelayCommand<object>((p) => { return true; }, (p) => { ApproveSheet(p); });
-            Reject = new RelayCommand<object>((p) => { return true; }, (p) => { RejectSheet(p); });
+            COpenViewDetailWindow = new RelayCommand<object>((p) => { return true; }, (p) => { OpenDetailWindow(p); });
+            CApprove = new RelayCommand<object>((p) => { return true; }, (p) => { ApproveSheet(p); });
+            CReject = new RelayCommand<object>((p) => { return true; }, (p) => { RejectSheet(p); });
 
             LoadDataSheetList();
         }
