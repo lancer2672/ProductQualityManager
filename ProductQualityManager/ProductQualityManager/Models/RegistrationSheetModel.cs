@@ -20,7 +20,7 @@ namespace ProductQualityManager.Models
             this.TrangThai = PhieuDangKy.TrangThai;
             MauChu = "";
             STrangThai = "";
-
+            
            
         }
         public int MaPhieuDangKy { get; set; }
