@@ -7,17 +7,29 @@
              mc:Ignorable="d" 
              DataContext="{StaticResource TestingSheetVM}"
              d:DesignHeight="450" d:DesignWidth="800">
+
+    <UserControl.Resources>
+        <ResourceDictionary>
+            <ResourceDictionary.MergedDictionaries>
+
+                <ResourceDictionary Source="../Styles/ListView.xaml"></ResourceDictionary>
+
+            </ResourceDictionary.MergedDictionaries>
+        </ResourceDictionary>
+    </UserControl.Resources>
     <StackPanel Margin="20">
         <Label Content="PHIẾU ĐĂNG KÝ" HorizontalAlignment="Center"></Label>
         <ListView 
             x:Name="Listview"
+           
+            ItemContainerStyle="{StaticResource  ListItemContainer}"
             ItemsSource="{Binding TestingSheetListObs}">
             <ListView.View>
                 <GridView>
                     <GridViewColumn Header="STT" DisplayMemberBinding="{Binding RelativeSource={RelativeSource Mode=FindAncestor,AncestorType=ListViewItem},Converter={StaticResource  IndexConverter}}"></GridViewColumn>
                     <GridViewColumn Header="Mã Cơ Sở" DisplayMemberBinding="{Binding MaCoSo}"></GridViewColumn>
                     <GridViewColumn Header="Thời gian đăng ký" DisplayMemberBinding="{Binding NgayDangKy}"></GridViewColumn>
-                    <GridViewColumn Header="Thời hạn đăng ký" DisplayMemberBinding="{Binding ThoiHanDangKy}"></GridViewColumn>
+                    <GridViewColumn Header="Ngày hết hạn" DisplayMemberBinding="{Binding ThoiHanDangKy}"></GridViewColumn>
                     <GridViewColumn Header="Trạng thái" >
                         <GridViewColumn.CellTemplate>
                             <DataTemplate>
