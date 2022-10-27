@@ -5,12 +5,32 @@
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:ProductQualityManager.Views.TestingSheet"
         mc:Ignorable="d"
-        Title="CreateSheet" Height="450" Width="800">
+        Title="CreateSheet" Height="300" Width="600">
     <Border Margin="20">
         <StackPanel>
             <Label HorizontalContentAlignment="Center" Content="PHIẾU ĐĂNG KÝ"></Label>
-               
-            
+            <StackPanel Orientation="Horizontal">
+                <Label Content="Mã cơ sỏ:"></Label>
+                <TextBox MinWidth="200" Text=""></TextBox>
+                <Button Content="Tìm"></Button>
+            </StackPanel>
+            <StackPanel Orientation="Horizontal">
+                <Label Content="Tên cơ sở:"></Label>
+                <TextBlock Text="" ></TextBlock>
+            </StackPanel>
+            <StackPanel Orientation="Horizontal">
+                <Label Content="Ngày đăng ký:"></Label>
+                <TextBox Text="(mặc định là ngày hôm nay)" ></TextBox>
+            </StackPanel>
+            <StackPanel Orientation="Horizontal">
+                <Label Content="Thời hạn đăng ký:"></Label>
+                <TextBox MinWidth="200" ></TextBox>
+            </StackPanel>
+            <StackPanel Margin="0 100 0 0" Orientation="Horizontal" HorizontalAlignment="Right">
+                <Button Content="Tạo"></Button>
+                <Button Margin="20 0 0 0" Content="Hủy"></Button>
+            </StackPanel>
         </StackPanel>
+        
     </Border>
 </Window>

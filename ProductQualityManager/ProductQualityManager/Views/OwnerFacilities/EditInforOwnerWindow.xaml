@@ -1,0 +1,73 @@
+﻿<Window x:Class="ProductQualityManager.Views.OwnerFacilities.EditInforOwnerWindow"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        xmlns:local="clr-namespace:ProductQualityManager.Views.OwnerFacilities"
+        xmlns:materialDesign="http://materialdesigninxaml.net/winfx/xaml/themes"
+        mc:Ignorable="d"
+        WindowStartupLocation="CenterScreen"
+        Title="Sửa thông tin chủ cơ sở" Height="450" Width="400">
+    <StackPanel>
+        <StackPanel.Resources>
+            <Style TargetType="TextBox" BasedOn="{StaticResource MaterialDesignFloatingHintTextBox}">
+                <Setter Property="Width"  Value="360"></Setter>
+                <Setter Property="Margin" Value="20 5 20 5"></Setter>
+            </Style>
+        </StackPanel.Resources>
+        <TextBlock Text="THÔNG TIN CHỦ CƠ SỞ" HorizontalAlignment="Center" Margin="0 5 0 5"/>
+        <WrapPanel>
+            <StackPanel Orientation="Horizontal">
+                <TextBox Name="Name"
+                         materialDesign:HintAssist.Hint="Họ tên" >
+                    <TextBox.Text>
+                        <Binding Path="Name" UpdateSourceTrigger="PropertyChanged" Mode="TwoWay"
+                                 NotifyOnValidationError="True" ValidatesOnExceptions="True">
+                        </Binding>
+                    </TextBox.Text>
+                </TextBox>
+            </StackPanel>
+            <StackPanel Orientation="Horizontal">
+                <TextBox Name="NumberPhone"
+                         materialDesign:HintAssist.Hint="Số điện thoại" >
+                    <TextBox.Text>
+                        <Binding Path="NumberPhone" UpdateSourceTrigger="PropertyChanged" Mode="TwoWay"
+                                 NotifyOnValidationError="True" ValidatesOnExceptions="True">
+                        </Binding>
+                    </TextBox.Text>
+                </TextBox>
+            </StackPanel>
+            <StackPanel Orientation="Horizontal">
+                <TextBox Name="OldPass"
+                         materialDesign:HintAssist.Hint="Mật khẩu cũ" >
+                    <TextBox.Text>
+                        <Binding Path="OldPass" UpdateSourceTrigger="PropertyChanged" Mode="TwoWay"
+                                 NotifyOnValidationError="True" ValidatesOnExceptions="True">
+                        </Binding>
+                    </TextBox.Text>
+                </TextBox>
+            </StackPanel>
+            <StackPanel Orientation="Horizontal">
+                <TextBox Name="NewPass1"
+                         materialDesign:HintAssist.Hint="Mật khẩu mới" >
+                    <TextBox.Text>
+                        <Binding Path="NewPass1" UpdateSourceTrigger="PropertyChanged" Mode="TwoWay"
+                                 NotifyOnValidationError="True" ValidatesOnExceptions="True">
+                        </Binding>
+                    </TextBox.Text>
+                </TextBox>
+            </StackPanel>
+            <StackPanel Orientation="Horizontal">
+                <TextBox Name="NewPass2"
+                         materialDesign:HintAssist.Hint="Nhập lại mật khẩu mới" >
+                    <TextBox.Text>
+                        <Binding Path="NewPass2" UpdateSourceTrigger="PropertyChanged" Mode="TwoWay"
+                                 NotifyOnValidationError="True" ValidatesOnExceptions="True">
+                        </Binding>
+                    </TextBox.Text>
+                </TextBox>
+            </StackPanel>
+            
+        </WrapPanel>
+    </StackPanel>
+</Window>

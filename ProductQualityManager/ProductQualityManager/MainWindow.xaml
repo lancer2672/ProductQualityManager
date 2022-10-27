@@ -23,12 +23,12 @@
                 </TabControl>
             </TabItem>
             <TabItem Header="Khánh">
-                <TabControl>
+                <!--<TabControl>
                     <TabItem Header="Phiếu kiểm nghiệm">
                         <UC:RegistrationSheetUC></UC:RegistrationSheetUC>
                     </TabItem>
                     <TabItem Header="Quản lý sản phẩm"></TabItem>
-                </TabControl>
+                </TabControl>-->
             </TabItem>
             <TabItem Header="Đăng">
                 <TabControl>

@@ -1,7 +1,8 @@
 ﻿<ResourceDictionary xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
                     xmlns:VM ="clr-namespace:ProductQualityManager.ViewModels"
                     xmlns:TestingSheetVM ="clr-namespace:ProductQualityManager.ViewModels.TestingSheet"
+                    
                     xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml">
     <VM:RegistrationSheetViewModel x:Key="TestingSheetVM"></VM:RegistrationSheetViewModel>
-    
+    <VM:ManageOwnerViewModel x:Key="ManageOwnerVM"></VM:ManageOwnerViewModel>
 </ResourceDictionary>

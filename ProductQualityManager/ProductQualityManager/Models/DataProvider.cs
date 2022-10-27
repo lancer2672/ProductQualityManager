@@ -20,10 +20,10 @@ namespace ProductQualityManager.Models
             }
             set => _ins = value;
         }
-        public QuanLySanXuatEntities1 DB { get; set; }
+        public QuanLySanXuatEntities DB { get; set; }
         private DataProvider()
         {
-            DB = new QuanLySanXuatEntities1();
+            DB = new QuanLySanXuatEntities();
 
         }
     }

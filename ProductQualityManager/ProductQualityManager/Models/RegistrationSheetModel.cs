@@ -16,7 +16,7 @@ namespace ProductQualityManager.Models
             this.MaPhieuDangKy = PhieuDangKy.MaPhieuDangKy;
             this.MaCoSo = PhieuDangKy.MaCoSo;
             this.NgayDangKy = PhieuDangKy.NgayDangKy;
-            this.ThoiHanDangKy = PhieuDangKy.ThoiHanDangKy;
+            //this.ThoiHanDangKy = PhieuDangKy.ThoiHanDangKy;
             this.TrangThai = PhieuDangKy.TrangThai;
             MauChu = "";
             STrangThai = "";
