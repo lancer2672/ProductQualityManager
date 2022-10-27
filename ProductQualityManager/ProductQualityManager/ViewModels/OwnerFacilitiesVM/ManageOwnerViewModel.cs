@@ -21,11 +21,11 @@ namespace ProductQualityManager.ViewModels.OwnerFacilitiesVM
         private COSOSANXUAT _selectFacilities;
         private SnackbarMessageQueue myMessageQueue;
 
-        public string Name { get { return _name; } set { _name = value; OnPropertyChanged(nameof(_name)); } }
-        public string PhoneNumber { get { return _phonenumber; } set { _phonenumber = value; OnPropertyChanged(nameof(_phonenumber)); } }
-        public int NumberFacilities { get { return _numberfacilities; } set { _numberfacilities = value; OnPropertyChanged(nameof(_numberfacilities)); } }
-        public ObservableCollection<COSOSANXUAT> ListFacilities { get { return _listFacilities; } set { _listFacilities = value; OnPropertyChanged(nameof(_listFacilities)); } }
-        public COSOSANXUAT SelectFacilities { get { return _selectFacilities; } set { _selectFacilities = value; OnPropertyChanged(nameof(_selectFacilities)); } }
+        public string Name { get { return _name; } set { _name = value; OnPropertyChanged(nameof(Name)); } }
+        public string PhoneNumber { get { return _phonenumber; } set { _phonenumber = value; OnPropertyChanged(nameof(PhoneNumber)); } }
+        public int NumberFacilities { get { return _numberfacilities; } set { _numberfacilities = value; OnPropertyChanged(nameof(NumberFacilities)); } }
+        public ObservableCollection<COSOSANXUAT> ListFacilities { get { return _listFacilities; } set { _listFacilities = value; OnPropertyChanged(nameof(ListFacilities)); } }
+        public COSOSANXUAT SelectFacilities { get { return _selectFacilities; } set { _selectFacilities = value; OnPropertyChanged(nameof(SelectFacilities)); } }
         public SnackbarMessageQueue MyMessageQueue { get => myMessageQueue; set { myMessageQueue = value; OnPropertyChanged(nameof(MyMessageQueue)); } }
 
         public int IdOwner;
@@ -44,7 +44,7 @@ namespace ProductQualityManager.ViewModels.OwnerFacilitiesVM
             LoadListFacilities();
             NumberFacilities = CountFacilities();
 
-            EditInfor = new RelayCommand<ManageOwnerViewModel>((p) => { return true; }, (p) => { OpenEditInforOwnerWindow(p); });
+            EditInfor = new RelayCommand<ManageOwnerViewModel>((p) => { return true; }, (p) => { OpenEditInforOwnerWindow(); });
         }
 
         //Load thông tin chủ cơ sở sản xuất
@@ -83,10 +83,12 @@ namespace ProductQualityManager.ViewModels.OwnerFacilitiesVM
         }
 
         //Hiện window sửa thông tin cá nhân của chủ cơ sở
-        public void OpenEditInforOwnerWindow(ManageOwnerViewModel manageownerVM)
+        public void OpenEditInforOwnerWindow()
         {
-            EditInforOwnerWindow EditInforWindow = new EditInforOwnerWindow(manageownerVM);
-            EditInforWindow.Show();
+            EditInforOwnerWindow EditInforWindow = new EditInforOwnerWindow(IdOwner);
+            EditInforWindow.ShowDialog();
+            //this.LoadDataOwner();
+            LoadDataOwner();
         }
     }
 }

@@ -7,6 +7,5 @@
                     <!--TestingSheetVM Cái này là của phiếu đăng ký mà đổi tên thì lỗi nên chưa sửa-->
     <VM:RegistrationSheetViewModel x:Key="TestingSheetVM"></VM:RegistrationSheetViewModel>
     <RegistrationSheetVM:CreateRegistrationSheetViewModel x:Key="CreateRegistrationSheetVM"></RegistrationSheetVM:CreateRegistrationSheetViewModel>
-    <!--<VM:ManageOwnerViewModel x:Key="ManageOwnerVM"></VM:ManageOwnerViewModel>-->
     <OwnerFacilitiesVM:ManageOwnerViewModel x:Key="ManageOwnerVM"></OwnerFacilitiesVM:ManageOwnerViewModel>
 </ResourceDictionary>

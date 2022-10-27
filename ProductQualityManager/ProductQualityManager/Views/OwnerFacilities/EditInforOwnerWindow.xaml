@@ -4,18 +4,30 @@
         xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:ProductQualityManager.Views.OwnerFacilities"
-        xmlns:materialDesign="http://materialdesigninxaml.net/winfx/xaml/themes"
+        xmlns:materialDesign="http://materialdesigninxaml.net/winfx/xaml/themes" xmlns:i="http://schemas.microsoft.com/expression/2010/interactivity" xmlns:i1="http://schemas.microsoft.com/expression/2010/interactions"
         mc:Ignorable="d"
         WindowStartupLocation="CenterScreen"
-        Title="Sửa thông tin chủ cơ sở" Height="450" Width="400">
+        Title="Sửa thông tin chủ cơ sở" Height="400" Width="400">
+    <!--<Window.Resources>
+        <ResourceDictionary>
+            <ResourceDictionary.MergedDictionaries>
+                <ResourceDictionary Source="../style.xaml"></ResourceDictionary>
+            </ResourceDictionary.MergedDictionaries>
+        </ResourceDictionary>
+    </Window.Resources>-->
     <StackPanel>
         <StackPanel.Resources>
             <Style TargetType="TextBox" BasedOn="{StaticResource MaterialDesignFloatingHintTextBox}">
                 <Setter Property="Width"  Value="360"></Setter>
                 <Setter Property="Margin" Value="20 5 20 5"></Setter>
             </Style>
+            <!--<Style TargetType="TextBlock">
+                <Setter Property="FontSize" Value="23"/>
+                <Setter Property="FontWeight" Value="DemiBold"/>
+                <Setter Property="Margin" Value="0 0 0 15"/>
+            </Style>-->
         </StackPanel.Resources>
-        <TextBlock Text="THÔNG TIN CHỦ CƠ SỞ" HorizontalAlignment="Center" Margin="0 5 0 5"/>
+        <TextBlock  Text="THÔNG TIN CHỦ CƠ SỞ" HorizontalAlignment="Center" Margin="0 5 0 5"/>
         <WrapPanel>
             <StackPanel Orientation="Horizontal">
                 <TextBox Name="Name"
@@ -28,10 +40,10 @@
                 </TextBox>
             </StackPanel>
             <StackPanel Orientation="Horizontal">
-                <TextBox Name="NumberPhone"
+                <TextBox Name="PhoneNumber"
                          materialDesign:HintAssist.Hint="Số điện thoại" >
                     <TextBox.Text>
-                        <Binding Path="NumberPhone" UpdateSourceTrigger="PropertyChanged" Mode="TwoWay"
+                        <Binding Path="PhoneNumber" UpdateSourceTrigger="PropertyChanged" Mode="TwoWay"
                                  NotifyOnValidationError="True" ValidatesOnExceptions="True">
                         </Binding>
                     </TextBox.Text>
@@ -67,7 +79,38 @@
                     </TextBox.Text>
                 </TextBox>
             </StackPanel>
-            
+            <StackPanel Margin="120 25 0 0" Orientation="Horizontal"  HorizontalAlignment="Left" >
+                <StackPanel.Resources>
+                    <Style TargetType="Button"  BasedOn="{StaticResource MaterialDesignRaisedButton}">
+                        <Setter Property="Margin" Value="10 0 15 0"/>
+                        <Setter Property="Height" Value="Auto"/>
+                        <Setter Property="HorizontalAlignment" Value="Left"/>
+                        <!--<Style.Triggers>
+                            <Trigger Property="IsMouseOver" Value="True">
+                                <Setter Property="Background" Value="#ff3838"/>
+                            </Trigger>
+                        </Style.Triggers>-->
+                    </Style>
+                </StackPanel.Resources>
+                <Button  ToolTip="Đổi mật khẩu" Command="{Binding ChangePass}">
+                    <DockPanel>
+                        <materialDesign:PackIcon Kind="Password" />
+                        <TextBlock Text="Đổi mật khẩu"/>
+                    </DockPanel>
+                </Button>
+                <Button ToolTip="Lưu thông tin" Command="{Binding SaveInfor}" >
+                    <DockPanel>
+                        <materialDesign:PackIcon Kind="ContentSaveEdit" />
+                        <TextBlock Text="Lưu"/>
+                    </DockPanel>
+                    <i:Interaction.Triggers>
+                        <i:EventTrigger EventName="Click">
+                            <i1:CallMethodAction MethodName="Close" 
+                                                 TargetObject="{Binding RelativeSource={RelativeSource Mode=FindAncestor, AncestorType=Window}}"/>
+                        </i:EventTrigger>
+                    </i:Interaction.Triggers>
+                </Button>
+            </StackPanel>
         </WrapPanel>
     </StackPanel>
 </Window>

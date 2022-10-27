@@ -11,21 +11,17 @@ using System.Windows.Input;
 using System.Windows.Media;
 using System.Windows.Media.Imaging;
 using System.Windows.Shapes;
-using ProductQualityManager.ViewModels.OwnerFacilitiesVM;
-using ProductQualityManager.ViewModels;
 
 namespace ProductQualityManager.Views.OwnerFacilities
 {
     /// <summary>
-    /// Interaction logic for EditInforOwnerWindow.xaml
+    /// Interaction logic for AddFacilitiesWindow.xaml
     /// </summary>
-    public partial class EditInforOwnerWindow : Window
+    public partial class AddFacilitiesWindow : Window
     {
-        public EditInforOwnerWindow(int idowner)
+        public AddFacilitiesWindow()
         {
             InitializeComponent();
-            EditInforOwnerViewModel editinforVM = new EditInforOwnerViewModel(idowner);
-            this.DataContext = editinforVM;
         }
     }
 }
