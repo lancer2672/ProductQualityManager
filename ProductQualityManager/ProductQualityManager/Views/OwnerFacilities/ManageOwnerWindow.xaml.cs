@@ -12,14 +12,14 @@ using System.Windows.Media;
 using System.Windows.Media.Imaging;
 using System.Windows.Shapes;
 
-namespace ProductQualityManager.Views
+namespace ProductQualityManager.Views.OwnerFacilities
 {
     /// <summary>
-    /// Interaction logic for ManageOwnersWindow.xaml
+    /// Interaction logic for ManageOwnerWindow.xaml
     /// </summary>
-    public partial class ManageOwnersWindow : Window
+    public partial class ManageOwnerWindow : Window
     {
-        public ManageOwnersWindow()
+        public ManageOwnerWindow()
         {
             InitializeComponent();
         }

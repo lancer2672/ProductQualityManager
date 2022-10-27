@@ -1,14 +1,14 @@
-﻿<Window x:Class="ProductQualityManager.Views.ManageOwnersWindow"
+﻿<Window x:Class="ProductQualityManager.Views.OwnerFacilities.ManageOwnerWindow"
         xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
         xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
         xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
-        xmlns:local="clr-namespace:ProductQualityManager.Views"
+        xmlns:local="clr-namespace:ProductQualityManager.Views.OwnerFacilities"
         xmlns:materialDesign="http://materialdesigninxaml.net/winfx/xaml/themes"
         mc:Ignorable="d"
         WindowStartupLocation="CenterScreen"
         DataContext="{StaticResource ManageOwnerVM}"
-        Title="ManageOwnersWindow" Height="650" Width="1200">
+        Title="ManageOwnerWindow" Height="650" Width="1200">
     <Grid>
         <Grid.ColumnDefinitions>
             <ColumnDefinition Width="1*"></ColumnDefinition>

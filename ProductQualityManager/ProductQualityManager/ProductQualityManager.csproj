@@ -80,9 +80,6 @@
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
     </ApplicationDefinition>
-    <Compile Include="Models\Database\BAIHAT.cs">
-      <DependentUpon>Model1.tt</DependentUpon>
-    </Compile>
     <Compile Include="Models\Database\CHITIETCHITIEUSANPHAM.cs">
       <DependentUpon>Model1.tt</DependentUpon>
     </Compile>
@@ -122,12 +119,6 @@
       <DesignTime>True</DesignTime>
       <DependentUpon>Model1.edmx</DependentUpon>
     </Compile>
-    <Compile Include="Models\Database\NHACSI.cs">
-      <DependentUpon>Model1.tt</DependentUpon>
-    </Compile>
-    <Compile Include="Models\Database\PHATHANH.cs">
-      <DependentUpon>Model1.tt</DependentUpon>
-    </Compile>
     <Compile Include="Models\Database\PHIEUDANGKY.cs">
       <DependentUpon>Model1.tt</DependentUpon>
     </Compile>
@@ -145,7 +136,7 @@
     <Compile Include="Models\RegistrationSheetModel.cs" />
     <Compile Include="Resources\Utils\IndexConverter.cs" />
     <Compile Include="ViewModels\BaseViewModel.cs" />
-    <Compile Include="ViewModels\ManageOwnerViewModel.cs" />
+    <Compile Include="ViewModels\OwnerFacilitiesVM\ManageOwnerViewModel.cs" />
     <Compile Include="ViewModels\OwnerFacilitiesVM\EditInforOwnerViewModel.cs" />
     <Compile Include="ViewModels\RegistrationSheetViewModel.cs" />
     <Compile Include="ViewModels\RegistrationSheet\CreateRegistrationSheetViewModel.cs" />
@@ -155,6 +146,9 @@
     </Compile>
     <Compile Include="Views\OwnerFacilities\EditInforOwnerWindow.xaml.cs">
       <DependentUpon>EditInforOwnerWindow.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Views\OwnerFacilities\ManageOwnerWindow.xaml.cs">
+      <DependentUpon>ManageOwnerWindow.xaml</DependentUpon>
     </Compile>
     <Compile Include="Views\TestSheet\CreateSheet.xaml.cs">
       <DependentUpon>CreateSheet.xaml</DependentUpon>
@@ -194,6 +188,10 @@
       <Generator>MSBuild:Compile</Generator>
     </Page>
     <Page Include="Views\OwnerFacilities\EditInforOwnerWindow.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Views\OwnerFacilities\ManageOwnerWindow.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>

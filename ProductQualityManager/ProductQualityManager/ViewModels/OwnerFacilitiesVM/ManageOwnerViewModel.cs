@@ -10,7 +10,7 @@ using System.Threading.Tasks;
 using System.Windows.Input;
 using ProductQualityManager.Views.OwnerFacilities;
 
-namespace ProductQualityManager.ViewModels
+namespace ProductQualityManager.ViewModels.OwnerFacilitiesVM
 {
     public class ManageOwnerViewModel : BaseViewModel
     {
