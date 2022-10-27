@@ -35,9 +35,9 @@ namespace ProductQualityManager.ViewModels
         public RegistrationSheetViewModel()
         {
             TestingSheetListObs = new ObservableCollection<RegistrationSheetModel>();
-            OpenViewDetailWindow = new RelayCommand<RegistrationSheetModel>((p) => { return true; }, (p) => { OpenDetailWindow(p); });
-            Approve = new RelayCommand<ListView>((p) => { return true; }, (p) => { ApproveSheet(p); });
-            Reject = new RelayCommand<ListView>((p) => { return true; }, (p) => { RejectSheet(p); });
+            OpenViewDetailWindow = new RelayCommand<object>((p) => { return true; }, (p) => { OpenDetailWindow(p); });
+            Approve = new RelayCommand<object>((p) => { return true; }, (p) => { ApproveSheet(p); });
+            Reject = new RelayCommand<object>((p) => { return true; }, (p) => { RejectSheet(p); });
 
             LoadDataSheetList();
         }
@@ -48,11 +48,11 @@ namespace ProductQualityManager.ViewModels
             SelectedSheet = new RegistrationSheetModel();
             TestingSheetListObs = GetDataSheetFromList(SheetList);
         }
-        public void ApproveSheet(ListView p)
+        public void ApproveSheet(object p)
         {
-            //if (p.SelectedIndex == -1)
-            //    return;
-            PHIEUDANGKY Sheet = DataProvider.Ins.DB.PHIEUDANGKies.Where(t => t.MaPhieuDangKy == SelectedSheet.MaPhieuDangKy).FirstOrDefault();
+            RegistrationSheetModel selectedItem = p as RegistrationSheetModel;
+            
+            PHIEUDANGKY Sheet = DataProvider.Ins.DB.PHIEUDANGKies.Where(t => t.MaPhieuDangKy == selectedItem.MaPhieuDangKy).FirstOrDefault();
             if (Sheet.TrangThai == 0)
             {
                 Sheet.TrangThai = 1;
@@ -68,12 +68,11 @@ namespace ProductQualityManager.ViewModels
 
             }          
         }
-        public void RejectSheet(ListView p)
+        public void RejectSheet(object p)
         {
-            //if (p.SelectedIndex == -1)
-            //    return;
+            RegistrationSheetModel selectedItem = p as RegistrationSheetModel;
 
-            PHIEUDANGKY Sheet = DataProvider.Ins.DB.PHIEUDANGKies.Where(t => t.MaPhieuDangKy == SelectedSheet.MaPhieuDangKy).FirstOrDefault();
+            PHIEUDANGKY Sheet = DataProvider.Ins.DB.PHIEUDANGKies.Where(t => t.MaPhieuDangKy == selectedItem.MaPhieuDangKy).FirstOrDefault();
             if (Sheet.TrangThai == 0)
             {
                 Sheet.TrangThai = -1;
@@ -138,13 +137,11 @@ namespace ProductQualityManager.ViewModels
                     return "Đang chờ duyệt";
             }
         }
-        public void OpenDetailWindow(RegistrationSheetModel SelectedItem)
+        public void OpenDetailWindow(object p)
         {
-            if (SelectedItem != null)
-            {
-                ViewDetailWindow DetailWindow = new ViewDetailWindow(SelectedItem);
-                DetailWindow.Show();
-            }
+            RegistrationSheetModel selectedItem = p as RegistrationSheetModel;
+            ViewDetailWindow DetailWindow = new ViewDetailWindow(selectedItem);
+            DetailWindow.Show();
         }
     }
 }

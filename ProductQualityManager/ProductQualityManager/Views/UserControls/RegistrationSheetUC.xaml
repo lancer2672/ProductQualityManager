@@ -5,14 +5,16 @@
              xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
              xmlns:local="clr-namespace:ProductQualityManager.Views.UserControls"
              mc:Ignorable="d" 
+             xmlns:materialDesign ="http://materialdesigninxaml.net/winfx/xaml/themes"
              DataContext="{StaticResource TestingSheetVM}"
              d:DesignHeight="450" d:DesignWidth="800">
 
     <UserControl.Resources>
         <ResourceDictionary>
             <ResourceDictionary.MergedDictionaries>
-
+                
                 <ResourceDictionary Source="../Styles/ListView.xaml"></ResourceDictionary>
+                <ResourceDictionary Source="../Styles/Button.xaml"></ResourceDictionary>
 
             </ResourceDictionary.MergedDictionaries>
         </ResourceDictionary>
@@ -43,26 +45,52 @@
                         <GridViewColumn.CellTemplate>
                             <!--CommandParameter="{Binding ,RelativeSource={RelativeSource Mode=FindAncestor, AncestorType=ListView}}"-->
                             <DataTemplate>
-                                <Button   Content="Chấp thuận"  Command="{Binding DataContext.Approve, RelativeSource={RelativeSource AncestorType=ListView}}"/>
+                                <Button ToolTip="Chấp thuận"  
+                                        Name="AddBtn"
+                                        Width="70"
+                                        CommandParameter="{Binding }" Command="{Binding DataContext.Approve, RelativeSource={RelativeSource AncestorType=ListView}}"
+                                        >
+                                    <DockPanel>
+                                        <materialDesign:PackIcon Kind="Check" />
+                                    </DockPanel>
+                                </Button>
+                                <!--<Button   Content="Chấp thuận" />-->
                             </DataTemplate>
                         </GridViewColumn.CellTemplate>
                     </GridViewColumn>
                     <GridViewColumn  >
                         <GridViewColumn.CellTemplate>
                             <DataTemplate>
-                                <Button  Content="Từ chối"  Command="{Binding DataContext.Reject, RelativeSource={RelativeSource AncestorType=ListView}}"/>
+                                <Button ToolTip="Từ chối"  
+                                        Name="AddBtn"
+                                        Width="70"
+                                        
+                                        Style="{StaticResource IconNegativeButton}"
+                                        CommandParameter="{Binding }"  Command="{Binding DataContext.Reject, RelativeSource={RelativeSource AncestorType=ListView}}"
+                                        >
+                                    <DockPanel>
+                                        <materialDesign:PackIcon Kind="Trash" />
+                                    </DockPanel>
+                                </Button>
+                                
                             </DataTemplate>
                         </GridViewColumn.CellTemplate>
                     </GridViewColumn>
                     <GridViewColumn  >
                         <GridViewColumn.CellTemplate>
                             <DataTemplate>
-                                <Button Margin="100 0 0 0" Content="Chi tiết"
-                                        Command="{Binding ElementName=Listview, Path=DataContext.OpenViewDetailWindow }" CommandParameter="{Binding Path=SelectedItem, RelativeSource={
-                                    RelativeSource
-                                    Mode=FindAncestor,
-                                    AncestorType=ListView}}"
-                                        />
+                                <Button ToolTip="Xem chi tiết"  
+                                        Name="AddBtn"
+                                        Width="100"
+                                        Margin="100 0 0 0"
+                                        
+                                        Command="{Binding ElementName=Listview, Path=DataContext.OpenViewDetailWindow }" CommandParameter="{Binding}"
+                                        >
+                                    <DockPanel>
+                                        <!--<materialDesign:PackIcon Kind="Details" />-->
+                                        <TextBlock Text="Chi tiết"/>
+                                    </DockPanel>
+                                </Button>
                             </DataTemplate>
                         </GridViewColumn.CellTemplate>
                     </GridViewColumn>
