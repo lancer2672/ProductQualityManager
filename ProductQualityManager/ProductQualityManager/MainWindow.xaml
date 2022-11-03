@@ -3,10 +3,21 @@
         xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
         xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        xmlns:i="http://schemas.microsoft.com/xaml/behaviors"
         xmlns:local="clr-namespace:ProductQualityManager"
-        xmlns:UC="clr-namespace:ProductQualityManager.Views.UserControls"
+        xmlns:UC="clr-namespace:ProductQualityManager.Views.UserControls" xmlns:i1="http://schemas.microsoft.com/expression/2010/interactivity"
         mc:Ignorable="d"
-        Title="MainWindow" Height="650" Width="1200">
+        Title="MainWindow" Height="650" Width="1200"
+        DataContext="{StaticResource MainVM}"
+        x:Name="mainWindow">
+    <i1:Interaction.Triggers>
+        <i1:EventTrigger EventName="Loaded">
+            <i1:InvokeCommandAction Command="{Binding LoadedWindowCommand}"
+                                    CommandParameter="{Binding ElementName=mainWindow}">
+                
+            </i1:InvokeCommandAction>
+        </i1:EventTrigger>
+    </i1:Interaction.Triggers>
     <Grid>
         <TabControl VerticalAlignment="Top">
             <TabItem Header="Tuấn">

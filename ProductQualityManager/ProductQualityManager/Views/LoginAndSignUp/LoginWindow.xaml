@@ -1,0 +1,124 @@
+﻿<Window x:Class="ProductQualityManager.Views.LoginAndSignUp.LoginWindow"
+             xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
+             xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
+             xmlns:i="http://schemas.microsoft.com/xaml/behaviors"
+             xmlns:materialDesign="http://materialdesigninxaml.net/winfx/xaml/themes" 
+             xmlns:local="clr-namespace:ProductQualityManager.Views.LoginAndSignUp" xmlns:i1="http://schemas.microsoft.com/expression/2010/interactivity" xmlns:i2="http://schemas.microsoft.com/expression/2010/interactions"
+        mc:Ignorable="d" 
+             DataContext="{StaticResource LoginVM}"
+             x:Name="loginWindow"
+             d:DesignHeight="650" d:DesignWidth="1200">
+    <Grid>
+        <Grid.ColumnDefinitions>
+            <ColumnDefinition Width="*"></ColumnDefinition>
+            <ColumnDefinition Width="550"></ColumnDefinition>
+        </Grid.ColumnDefinitions>
+        <Grid Grid.Column="0">
+            <Border Padding="35">
+                <Image Source="/Resources/Imgs/LoginImg.png" RenderOptions.BitmapScalingMode="HighQuality"/>
+            </Border>
+        </Grid>
+        <Grid Grid.Column="1">
+            <Grid.RowDefinitions>
+                <RowDefinition></RowDefinition>
+                <RowDefinition></RowDefinition>
+                <RowDefinition></RowDefinition>
+
+            </Grid.RowDefinitions>
+            <StackPanel Grid.Row="0" VerticalAlignment="Center">
+                <TextBlock HorizontalAlignment="Center" VerticalAlignment="Center"
+                               Text="ĐĂNG NHẬP" FontWeight="Bold" FontSize="30" />
+                <TextBlock HorizontalAlignment="Center" VerticalAlignment="Center"
+                    Text="Quản lý chất lượng sản phẩm" Foreground="{DynamicResource PrimaryHueDarkBrush}" FontWeight="DemiBold" FontSize="25" FontFamily="Lucida Handwriting" >
+                </TextBlock>
+            </StackPanel>
+            <StackPanel Margin="40 0 40 0" Grid.Row="1" VerticalAlignment="Center">
+                <StackPanel.Resources>
+                    <Style TargetType="materialDesign:PackIcon">
+                        <Setter Property="Width" Value="35"/>
+                        <Setter Property="Height" Value="35"/>
+                        <Setter Property="Margin" Value="0 0 10 0"/>
+                        <Setter Property="VerticalAlignment" Value="Bottom"/>
+                        <Setter Property="Foreground" Value="{DynamicResource PrimaryHueDarkBrush}"/>
+                    </Style>
+                </StackPanel.Resources>
+                <DockPanel Margin="0 0 0 30">
+                    <materialDesign:PackIcon Kind="Account" />
+                    <TextBox x:Name="usernameTxb"
+                            materialDesign:HintAssist.Hint="Tên đăng nhập" FontSize="16" 
+                            Style="{StaticResource MaterialDesignFloatingHintTextBox}" 
+                            Text="{Binding Username}" 
+                             />
+                </DockPanel>
+                <DockPanel >
+                    <materialDesign:PackIcon Kind="Lock" />
+                    <PasswordBox 
+                            x:Name="passwordTxb"
+                            materialDesign:HintAssist.Hint="Mật khẩu" FontSize="16"
+                            Style="{StaticResource MaterialDesignFloatingHintPasswordBox}">
+                        <i1:Interaction.Triggers>
+                            <i1:EventTrigger EventName="PasswordChanged">
+                                <i1:InvokeCommandAction Command="{Binding PasswordChangedCommand}" 
+                                   CommandParameter="{Binding ElementName=passwordTxb}"/>
+                            </i1:EventTrigger>
+                        </i1:Interaction.Triggers>
+
+
+                    </PasswordBox>
+                </DockPanel>
+            </StackPanel>
+            <StackPanel Grid.Row="2" Margin="0 0 40 0" Orientation="Horizontal" HorizontalAlignment="Right">
+                <StackPanel.Resources>
+                    <Style TargetType="Button" BasedOn="{StaticResource MaterialDesignRaisedButton}">
+                        <Setter Property="Width" Value="120"/>
+                        <Setter Property="Height" Value="40"/>
+
+                    </Style>
+                </StackPanel.Resources>
+                <Button  x:Name="loginBtn" 
+                        Margin="0 0 20 0"
+                         Command="{Binding LoginCommand}"
+                         CommandParameter="{Binding ElementName=loginWindow}">
+                    Đăng nhập
+                    <!--<i1:Interaction.Triggers>
+                        <i1:EventTrigger EventName="Click">
+                            <i2:CallMethodAction MethodName="Close"
+                                                TargetObject="{Binding RelativeSource={RelativeSource
+                                                  Mode=FindAncestor,
+                                                  AncestorType=Window}}" />
+
+                        </i1:EventTrigger>
+                    </i1:Interaction.Triggers>-->
+
+                </Button>
+                <Button x:Name="exitBtn"                  
+                    Background="{DynamicResource SecondaryHueMidBrush}" 
+                        Margin="0 0 20 0">
+                    Thoát
+                    <!--<i:Interaction.Triggers>
+                        <i:EventTrigger EventName="Click">
+                            <i:CallMethodAction MethodName="Close"
+                                                TargetObject="{Binding RelativeSource={RelativeSource
+                                                  Mode=FindAncestor,
+                                                  AncestorType=Window}}" />
+                        </i:EventTrigger>
+                    </i:Interaction.Triggers>-->
+                </Button>
+                <Button Command="{Binding OpenSignUpWindowCommand}"
+                        CommandParameter="{Binding ElementName=loginWindow}">
+                    Đăng kí
+                </Button>
+            </StackPanel>
+
+
+        </Grid>
+        <!--<materialDesign:Snackbar
+                HorizontalAlignment="Stretch"
+                VerticalAlignment="Bottom"
+                MessageQueue="{Binding MyMessageQueue}">
+        </materialDesign:Snackbar>-->
+    </Grid>
+</Window>
+
