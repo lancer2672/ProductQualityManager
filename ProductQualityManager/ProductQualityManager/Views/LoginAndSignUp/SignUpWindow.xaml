@@ -1,0 +1,100 @@
+﻿<Window x:Class="ProductQualityManager.Views.LoginAndSignUp.SignUpWindow"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        xmlns:local="clr-namespace:ProductQualityManager.Views.LoginAndSignUp"
+        xmlns:materialDesign="http://materialdesigninxaml.net/winfx/xaml/themes" xmlns:i="http://schemas.microsoft.com/expression/2010/interactivity" xmlns:i1="http://schemas.microsoft.com/expression/2010/interactions"
+        mc:Ignorable="d"
+        Title="SignUpWindow" Height="auto" Width="500" 
+        DataContext="{StaticResource SignUpVM}" x:Name="signUpWindow">
+    <StackPanel>
+        <TextBlock Text="Đăng kí tài khoản mới" FontSize="40" HorizontalAlignment="Center">
+        </TextBlock>
+        <Grid>
+            <Grid.RowDefinitions>
+                <RowDefinition></RowDefinition>
+                <RowDefinition></RowDefinition>
+                <RowDefinition></RowDefinition>
+                <RowDefinition></RowDefinition>
+                <RowDefinition></RowDefinition>
+                <RowDefinition></RowDefinition>
+            </Grid.RowDefinitions>
+            <Grid Grid.Row="0" Margin="30 20" Height="40">
+                <TextBox materialDesign:HintAssist.Hint="Tên đăng nhập" Text="{Binding Username}">
+
+                </TextBox>
+            </Grid>
+            <Grid Grid.Row="1" Margin="30 20">
+                <PasswordBox x:Name="passwordTxb" Style="{StaticResource MaterialDesignFloatingHintPasswordBox}"
+                             materialDesign:HintAssist.Hint="Mật khẩu" Height="40">
+                    <i:Interaction.Triggers>
+                        <i:EventTrigger EventName="PasswordChanged">
+                            <i:InvokeCommandAction Command="{Binding PasswordChangedCommand}" 
+                                   CommandParameter="{Binding ElementName=passwordTxb}"/>
+                        </i:EventTrigger>
+                    </i:Interaction.Triggers>
+
+                </PasswordBox>
+            </Grid>
+            <Grid Grid.Row="2" Margin="30 20 " Height="40">
+                <PasswordBox x:Name="rePasswordTxb" Style="{StaticResource MaterialDesignFloatingHintPasswordBox}"
+                             materialDesign:HintAssist.Hint="Xác nhận mật khẩu" Height="40">
+                    <i:Interaction.Triggers>
+                        <i:EventTrigger EventName="PasswordChanged">
+                            <i:InvokeCommandAction Command="{Binding RePasswordChangedCommand}" 
+                                   CommandParameter="{Binding ElementName=rePasswordTxb}"/>
+                        </i:EventTrigger>
+                    </i:Interaction.Triggers>
+
+                </PasswordBox>
+            </Grid>
+            <Grid Grid.Row="3" Margin="30 20 " Height="40">
+                <TextBox materialDesign:HintAssist.Hint="Họ tên" Text="{Binding Name}">
+
+                </TextBox>
+            </Grid>
+            <Grid Grid.Row="4" Margin="30 20 " Height="40">
+                <TextBox materialDesign:HintAssist.Hint="Số điện thoại" Text="{Binding Phone}">
+
+                </TextBox>
+            </Grid>
+            <StackPanel Grid.Row="5" Margin="0 40 40 0" Orientation="Horizontal" HorizontalAlignment="Right">
+
+                <Button  x:Name="loginBtn" 
+                        Margin="0 0 0 0"
+                         Width="100"
+                         Command="{Binding SignUpCommand}"
+                         CommandParameter="{Binding ElementName=signUpWindow}">
+                    Đăng kí
+                    <!--<i:Interaction.Triggers>
+                        <i:EventTrigger EventName="Click">
+                            <i:CallMethodAction MethodName="Close"
+                                                TargetObject="{Binding RelativeSource={RelativeSource
+                                                  Mode=FindAncestor,
+                                                  AncestorType=Window}}" />
+
+                        </i:EventTrigger>
+                    </i:Interaction.Triggers>-->
+
+                </Button>
+                <Button x:Name="exitBtn"                  
+                    
+                        Margin="20 0 0 0"
+                        Width="100">
+                    Thoát
+                    <i:Interaction.Triggers>
+                        <i:EventTrigger EventName="Click">
+                            <i1:CallMethodAction MethodName="Close"
+                                                TargetObject="{Binding RelativeSource={RelativeSource
+                                                  Mode=FindAncestor,
+                                                  AncestorType=Window}}" />
+                        </i:EventTrigger>
+                    </i:Interaction.Triggers>
+                </Button>
+
+            </StackPanel>
+
+        </Grid>
+    </StackPanel>
+</Window>

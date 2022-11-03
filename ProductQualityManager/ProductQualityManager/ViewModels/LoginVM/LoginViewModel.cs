@@ -36,7 +36,7 @@ namespace ProductQualityManager.ViewModels.LoginVM
 
             LoginCommand = new RelayCommand<Window>((p) => { return true; }, (p) => { Login(p); });
             PasswordChangedCommand = new RelayCommand<PasswordBox>((p) => { return true; }, (p) => { Password = p.Password; });
-            //OpenSignUpWindowCommand = new RelayCommand<object>((p) => { return true; }, (p) => { OpenSignUpWindow(p); });
+            OpenSignUpWindowCommand = new RelayCommand<object>((p) => { return true; }, (p) => { OpenSignUpWindow(p); });
 
             //MyMessageQueue = new SnackbarMessageQueue(TimeSpan.FromMilliseconds(2000));
             //MyMessageQueue.DiscardDuplicates = true;
@@ -50,10 +50,8 @@ namespace ProductQualityManager.ViewModels.LoginVM
             if (accCount > 0)
             {
                 IsLogin = true;
-                p.Close();
-                //AdminWindow adminWindow = new AdminWindow();
-                //adminWindow.ShowDialog();
-                MessageBox.Show("Đăng nhập thành công");
+                p.Close();             
+                
                 //Username = "";
                 //Password = "";
             }
@@ -70,10 +68,10 @@ namespace ProductQualityManager.ViewModels.LoginVM
             LoginWindow loginWindow = new LoginWindow();
             loginWindow.Close();
         }
-        //void OpenSignUpWindow(object p)
-        //{
-        //    var window = new SignUpWindow();
-        //    window.ShowDialog();
-        //}
+        void OpenSignUpWindow(object p)
+        {
+            var window = new SignUpWindow();
+            window.ShowDialog();
+        }
     }
 }
