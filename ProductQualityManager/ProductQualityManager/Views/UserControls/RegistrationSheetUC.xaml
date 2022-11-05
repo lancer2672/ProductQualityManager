@@ -19,6 +19,7 @@
     </UserControl.Resources>
     <StackPanel Margin="20">
         <Label Content="PHIẾU ĐĂNG KÝ" HorizontalAlignment="Center"></Label>
+        <DatePicker Width="120" SelectedDate="{Binding SelectedDate}"></DatePicker>
         <ListView 
             x:Name="Listview"
             SelectedItem="{Binding SelectedSheet}"

@@ -46,6 +46,7 @@ namespace ProductQualityManager.ViewModels.Product
             {
                 return;
             }
+            CriteriaList.Clear();
             //Lấy ra phiếu đăng ký của cơ sở cho sản phẩm đó
             DANGKYCHITIEU RegisterCritera = DataProvider.Ins.DB.DANGKYCHITIEUx.Where(t => t.MaCoSo == SelectedProduct.MaCoSo && t.MaSanPham == SelectedProduct.MaSanPham).FirstOrDefault();
             // lấy ra chi tiết của phiếu ở phía trên
