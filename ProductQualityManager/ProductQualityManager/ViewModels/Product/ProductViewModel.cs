@@ -15,6 +15,11 @@ namespace ProductQualityManager.ViewModels.Product
         private SANPHAM _selectedProduct;
         private ObservableCollection<SANPHAM> _productList;
         private ObservableCollection<ProductCriteria> _criteriaList;
+        private COSOSANXUAT _selectedFacility;
+        private ObservableCollection<COSOSANXUAT> _facilityList;
+
+        public ObservableCollection<COSOSANXUAT> FacilityList { get { return _facilityList; } set { _facilityList = value; OnPropertyChanged(nameof(FacilityList)); } }
+        public COSOSANXUAT SelectedFacility { get { return _selectedFacility; } set { _selectedFacility = value; LoadProductList(); OnPropertyChanged(nameof(SelectedFacility)); } }
         public ObservableCollection<SANPHAM> ProductList { get { return _productList; } set { _productList = value; OnPropertyChanged(nameof(ProductList)); } }
         public ObservableCollection<ProductCriteria> CriteriaList { get { return _criteriaList; } set { _criteriaList = value; OnPropertyChanged(nameof(CriteriaList)); } }
 
@@ -24,17 +29,28 @@ namespace ProductQualityManager.ViewModels.Product
 
         public ProductViewModel()
         {
+            SelectedFacility = new COSOSANXUAT();
+            App.Current.Properties["FacilityOwner"] = 1;
             SelectedProduct = new SANPHAM();
             CDelete = new RelayCommand<object>((p) => { return true; }, (p) => { DeleteProduct(p); });
             CriteriaList = new ObservableCollection<ProductCriteria>();
+            LoadFacitlityList();
             LoadProductList();
+        }
+        public void LoadFacitlityList()
+        {
+            int facilityOwnerId = (int)App.Current.Properties["FacilityOwner"];
+            List<COSOSANXUAT> facilityList = DataProvider.Ins.DB.COSOSANXUATs.Where(t => t.MaChuCoSo == facilityOwnerId).ToList();
+            FacilityList = new ObservableCollection<COSOSANXUAT>(facilityList);
         }
         public void LoadProductList()
         {
-            
-            List<SANPHAM> products = DataProvider.Ins.DB.SANPHAMs.ToList();
+            if (SelectedFacility.MaCoSo == 0) return;
+            List<SANPHAM> products = DataProvider.Ins.DB.SANPHAMs.Where(t => t.MaCoSo == SelectedFacility.MaCoSo).ToList();
             ProductList = new ObservableCollection<SANPHAM>(products);
+
         }
+        
         public void DeleteProduct(object p)
         {
             

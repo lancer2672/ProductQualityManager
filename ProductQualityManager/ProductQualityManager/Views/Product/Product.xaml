@@ -4,7 +4,7 @@
              xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
              xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
              xmlns:local="clr-namespace:ProductQualityManager.Views.Product"
-             xmlns:materialDesgin ="http://materialdesigninxaml.net/winfx/xaml/themes"
+             xmlns:materialDesign ="http://materialdesigninxaml.net/winfx/xaml/themes"
              mc:Ignorable="d" 
              DataContext="{StaticResource ProductVM}"
              d:DesignHeight="450" d:DesignWidth="1200">
@@ -22,7 +22,16 @@
             <ColumnDefinition Width="2.5*"></ColumnDefinition>
         </Grid.ColumnDefinitions>
         <StackPanel>
-            <TextBlock HorizontalAlignment="Center">QUẢN LÝ SẢN PHẨM</TextBlock>
+            <TextBlock Margin="0 0 0 20" HorizontalAlignment="Center">QUẢN LÝ SẢN PHẨM</TextBlock>
+            <ComboBox x:Name="A"
+                                  
+                                  materialDesign:HintAssist.Hint="Tên cơ sở sản xuất"
+                                  Width="215" Margin="0,0,0,20" 
+                      
+                                  IsEditable="True"
+                                  ItemsSource="{Binding FacilityList}"
+                                  DisplayMemberPath="TenCoSo"
+                                  SelectedItem="{Binding SelectedFacility, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"  VerticalContentAlignment="Bottom"/>
             <ListView 
             x:Name="Listview"
             SelectedItem="{Binding SelectedProduct}"

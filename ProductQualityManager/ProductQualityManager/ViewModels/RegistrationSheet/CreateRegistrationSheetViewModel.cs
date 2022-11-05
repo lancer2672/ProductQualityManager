@@ -18,19 +18,19 @@ namespace ProductQualityManager.ViewModels.RegistrationSheet
         private DateTime _startDate;
         private string _productName;
         //private COSOSANXUAT _facility;
-        private COSOSANXUAT _selectedFacility;
         private SANPHAM _selectedProduct;
+        private COSOSANXUAT _selectedFacility;
         private ObservableCollection<COSOSANXUAT> _facilityList;
         private ObservableCollection<SANPHAM> _productList;
 
 
         public ObservableCollection<COSOSANXUAT> FacilityList { get { return _facilityList; } set { _facilityList = value; OnPropertyChanged(nameof(FacilityList)); } }
+        public COSOSANXUAT SelectedFacility { get { return _selectedFacility; } set { _selectedFacility = value; LoadDataProductList(); OnPropertyChanged(nameof(SelectedFacility)); } }
         public ObservableCollection<SANPHAM> ProductList { get { return _productList; } set { _productList = value; OnPropertyChanged(nameof(ProductList)); } }
         public string FacilityName { get { return _facilityName; } set { _facilityName = value; OnPropertyChanged(nameof(FacilityName)); } }
         public int Quantity { get { return _quantity; } set { _quantity = value; OnPropertyChanged(nameof(Quantity)); } }
         public DateTime StartDay { get { return _startDate; } set { _startDate = value; OnPropertyChanged(nameof(StartDay)); } }
         public string ProductName { get { return _productName; } set { _productName = value; OnPropertyChanged(nameof(ProductName)); } }
-        public COSOSANXUAT SelectedFacility { get { return _selectedFacility; } set { _selectedFacility = value; LoadDataProductList(); LoadDataProductList(); OnPropertyChanged(nameof(SelectedFacility)); } }
         public SANPHAM SelectedProduct { get { return _selectedProduct; } set { _selectedProduct = value;  OnPropertyChanged(nameof(SelectedProduct)); } }
 
         public ICommand CSubmitForm { get; set; }
