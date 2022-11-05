@@ -10,4 +10,8 @@
     <VM:RegistrationSheetViewModel x:Key="TestingSheetVM"></VM:RegistrationSheetViewModel>
     <RegistrationSheetVM:CreateRegistrationSheetViewModel x:Key="CreateRegistrationSheetVM"></RegistrationSheetVM:CreateRegistrationSheetViewModel>
     <OwnerFacilitiesVM:ManageOwnerViewModel x:Key="ManageOwnerVM"></OwnerFacilitiesVM:ManageOwnerViewModel>
+    <LoginViewModel:LoginViewModel x:Key="LoginVM"></LoginViewModel:LoginViewModel>
+    <LoginViewModel:SignUpViewModel x:Key="SignUpVM"></LoginViewModel:SignUpViewModel>
+    <VM:MainViewModel x:Key="MainVM"></VM:MainViewModel>
+    <ProductVM:ProductViewModel x:Key="ProductVM"></ProductVM:ProductViewModel>
 </ResourceDictionary>
