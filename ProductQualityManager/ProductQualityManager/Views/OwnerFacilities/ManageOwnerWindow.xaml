@@ -24,7 +24,7 @@
         </Grid.ColumnDefinitions>
         <Grid Grid.Column="0" >
             <StackPanel>
-                <TextBlock Text="Chủ cơ sở " HorizontalAlignment="Center" Margin="0,15,0,15" FontSize="15" FontWeight="Bold" />
+                <TextBlock Text="Chủ cơ sở" HorizontalAlignment="Center" Margin="0,15,0,15" FontSize="15" FontWeight="Bold" />
                 <StackPanel>
                     <Border Padding="15" BorderThickness="0,0.5,0,0" BorderBrush="Black">
                         <StackPanel>
