@@ -12,10 +12,8 @@
     <UserControl.Resources>
         <ResourceDictionary>
             <ResourceDictionary.MergedDictionaries>
-                
                 <ResourceDictionary Source="../Styles/ListView.xaml"></ResourceDictionary>
                 <ResourceDictionary Source="../Styles/Button.xaml"></ResourceDictionary>
-
             </ResourceDictionary.MergedDictionaries>
         </ResourceDictionary>
     </UserControl.Resources>

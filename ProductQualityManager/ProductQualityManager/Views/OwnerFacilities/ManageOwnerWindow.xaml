@@ -18,7 +18,6 @@
     </Window.Resources>
     <Grid>
         <Grid.ColumnDefinitions>
-            
             <ColumnDefinition Width="1.25*"></ColumnDefinition>
             <ColumnDefinition Width="1.75*"></ColumnDefinition>
         </Grid.ColumnDefinitions>

@@ -3,9 +3,11 @@
                     xmlns:TestingSheetVM ="clr-namespace:ProductQualityManager.ViewModels.TestingSheet"
                     xmlns:OwnerFacilitiesVM ="clr-namespace:ProductQualityManager.ViewModels.OwnerFacilitiesVM"
                     xmlns:RegistrationSheetVM ="clr-namespace:ProductQualityManager.ViewModels.RegistrationSheet"
+                    xmlns:ProductVM ="clr-namespace:ProductQualityManager.ViewModels.Product"
                     xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml">
                     <!--TestingSheetVM Cái này là của phiếu đăng ký mà đổi tên thì lỗi nên chưa sửa-->
     <VM:RegistrationSheetViewModel x:Key="TestingSheetVM"></VM:RegistrationSheetViewModel>
     <RegistrationSheetVM:CreateRegistrationSheetViewModel x:Key="CreateRegistrationSheetVM"></RegistrationSheetVM:CreateRegistrationSheetViewModel>
     <OwnerFacilitiesVM:ManageOwnerViewModel x:Key="ManageOwnerVM"></OwnerFacilitiesVM:ManageOwnerViewModel>
+    <ProductVM:ProductViewModel x:Key="ProductVM"></ProductVM:ProductViewModel>
 </ResourceDictionary>
