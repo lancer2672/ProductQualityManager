@@ -5,8 +5,11 @@
     "\\ProductQualityManager\\ProductQualityManager",
     "\\ProductQualityManager\\ProductQualityManager\\Resources",
     "\\ProductQualityManager\\ProductQualityManager\\ViewModels",
-    "\\ProductQualityManager\\ProductQualityManager\\ViewModels\\LoginVM"
+    "\\ProductQualityManager\\ProductQualityManager\\ViewModels\\LoginVM",
+    "\\ProductQualityManager\\ProductQualityManager\\Views",
+    "\\ProductQualityManager\\ProductQualityManager\\Views\\LoginAndSignUp",
+    "\\ProductQualityManager\\ProductQualityManager\\Views\\OwnerFacilities"
   ],
-  "SelectedNode": "\\ProductQualityManager\\ProductQualityManager\\ViewModels\\LoginVM\\SignUpViewModel.cs",
+  "SelectedNode": "\\ProductQualityManager\\ProductQualityManager\\Views\\LoginAndSignUp\\SignUpWindow.xaml",
   "PreviewInSolutionExplorer": false
 }
