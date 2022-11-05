@@ -5,6 +5,8 @@
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:ProductQualityManager.Views.TestingSheet"
         xmlns:materialDesign ="http://materialdesigninxaml.net/winfx/xaml/themes"
+        xmlns:i="http://schemas.microsoft.com/expression/2010/interactivity"
+        xmlns:i1="http://schemas.microsoft.com/expression/2010/interactions"
         mc:Ignorable="d"
         DataContext="{StaticResource CreateRegistrationSheetVM}"
         Title="CreateSheet" Height="450" Width="450">
@@ -50,9 +52,17 @@
             </StackPanel>
             <StackPanel Margin="0 100 0 0" Orientation="Horizontal" HorizontalAlignment="Right">
                 <Button Content="Gửi" Command="{Binding CSubmitForm}"></Button>
-                <Button Margin="20 0 0 0" Content="Hủy"></Button>
+                <Button Margin="20 0 0 0" Content="Hủy">
+                    <i:Interaction.Triggers>
+                        <i:EventTrigger EventName="Click">
+                            <i1:CallMethodAction MethodName="Close"
+                           TargetObject="{Binding RelativeSource={RelativeSource
+                                                  Mode=FindAncestor,
+                                                  AncestorType=Window}}" />
+                        </i:EventTrigger>
+                    </i:Interaction.Triggers>
+                </Button>
             </StackPanel>
         </StackPanel>
-        
     </Border>
 </Window>

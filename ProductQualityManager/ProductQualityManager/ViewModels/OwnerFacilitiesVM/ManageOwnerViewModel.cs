@@ -31,7 +31,8 @@ namespace ProductQualityManager.ViewModels.OwnerFacilitiesVM
         public int IdOwner;
 
         public ICommand EditInfor { get; set; }
-        public ICommand AddProduct { get; set; }
+        public ICommand AddFacility { get; set; }
+        public ICommand RegisterProduct { get; set; }
 
 
         //Khởi tạo
@@ -45,6 +46,8 @@ namespace ProductQualityManager.ViewModels.OwnerFacilitiesVM
             NumberFacilities = CountFacilities();
 
             EditInfor = new RelayCommand<ManageOwnerViewModel>((p) => { return true; }, (p) => { OpenEditInforOwnerWindow(); });
+            AddFacility = new RelayCommand<object>((p) => { return true; }, (p) => { OpenAddFacilityWindow(); });
+            RegisterProduct = new RelayCommand<ManageOwnerViewModel>((p) => { return true; }, (p) => { OpenEditInforOwnerWindow(); });
         }
 
         //Load thông tin chủ cơ sở sản xuất
@@ -87,8 +90,13 @@ namespace ProductQualityManager.ViewModels.OwnerFacilitiesVM
         {
             EditInforOwnerWindow EditInforWindow = new EditInforOwnerWindow(IdOwner);
             EditInforWindow.ShowDialog();
-            //this.LoadDataOwner();
             LoadDataOwner();
+        }
+
+        //Hiện window thêm cơ sở sản xuất
+        public void OpenAddFacilityWindow()
+        {
+
         }
     }
 }

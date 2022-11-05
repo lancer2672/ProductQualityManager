@@ -16,6 +16,7 @@ namespace ProductQualityManager.ViewModels
     {
 
         private ObservableCollection<RegistrationSheetModel> _testingSheetListObs;
+        private DateTime _selectedDate;
         private RegistrationSheetModel _selectedSheet;
         //enum State
         //{
@@ -25,6 +26,7 @@ namespace ProductQualityManager.ViewModels
         //}
 
         public RegistrationSheetModel SelectedSheet { get { return _selectedSheet; } set { _selectedSheet = value; OnPropertyChanged(nameof(_selectedSheet)); } }
+        public DateTime SelectedDate { get { return _selectedDate; } set { _selectedDate = value; LoadDataSheetList(); OnPropertyChanged(nameof(SelectedDate)); } }
         public ObservableCollection<RegistrationSheetModel> TestingSheetListObs { get { return _testingSheetListObs; } set { _testingSheetListObs = value; OnPropertyChanged(nameof(TestingSheetListObs)); } }
         
         
@@ -34,6 +36,7 @@ namespace ProductQualityManager.ViewModels
         
         public RegistrationSheetViewModel()
         {
+            SelectedDate = DateTime.Today;
             TestingSheetListObs = new ObservableCollection<RegistrationSheetModel>();
             COpenViewDetailWindow = new RelayCommand<object>((p) => { return true; }, (p) => { OpenDetailWindow(p); });
             CApprove = new RelayCommand<object>((p) => { return true; }, (p) => { ApproveSheet(p); });
@@ -44,7 +47,10 @@ namespace ProductQualityManager.ViewModels
         //Load danh sách phiếu đăng ký 
         public void LoadDataSheetList() 
         {
-            List<PHIEUDANGKY> SheetList = DataProvider.Ins.DB.PHIEUDANGKies.ToList();
+            List<PHIEUDANGKY> SheetList = DataProvider.Ins.DB.PHIEUDANGKies.
+                Where(t =>t.NgayDangKy.Value.Day == SelectedDate.Day && t.NgayDangKy.Value.Month == SelectedDate.Month && t.NgayDangKy.Value.Year == SelectedDate.Year).
+                ToList();
+            if (SheetList == null) return;
             SelectedSheet = new RegistrationSheetModel();
             TestingSheetListObs = GetDataSheetFromList(SheetList);
         }
