@@ -1,4 +1,5 @@
 ﻿using ProductQualityManager.Models;
+using ProductQualityManager.Models.Database;
 using ProductQualityManager.Views.LoginAndSignUp;
 using System;
 using System.Collections.Generic;
@@ -72,6 +73,18 @@ namespace ProductQualityManager.ViewModels.LoginVM
         {
             var window = new SignUpWindow();
             window.ShowDialog();
+        }
+        public bool IsExist(TAIKHOAN NewAccount)
+        {
+            List<TAIKHOAN> AccountList = DataProvider.Ins.DB.TAIKHOANs.ToList();
+            for (int i = 0; i < AccountList.Count; i++)
+            {
+                if (AccountList[i].TenDangNhap == NewAccount.TenDangNhap)
+                {
+                    return true;
+                }
+            }
+            return false;
         }
     }
 }

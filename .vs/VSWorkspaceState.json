@@ -3,8 +3,10 @@
     "",
     "\\ProductQualityManager",
     "\\ProductQualityManager\\ProductQualityManager",
-    "\\ProductQualityManager\\ProductQualityManager\\Resources"
+    "\\ProductQualityManager\\ProductQualityManager\\Resources",
+    "\\ProductQualityManager\\ProductQualityManager\\ViewModels",
+    "\\ProductQualityManager\\ProductQualityManager\\ViewModels\\LoginVM"
   ],
-  "SelectedNode": "\\ProductQualityManager\\ProductQualityManager\\Resources\\ViewModel.xaml",
+  "SelectedNode": "\\ProductQualityManager\\ProductQualityManager\\ViewModels\\LoginVM\\SignUpViewModel.cs",
   "PreviewInSolutionExplorer": false
 }

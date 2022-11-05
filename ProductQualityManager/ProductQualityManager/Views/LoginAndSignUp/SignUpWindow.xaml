@@ -21,7 +21,7 @@
                 <RowDefinition></RowDefinition>
             </Grid.RowDefinitions>
             <Grid Grid.Row="0" Margin="30 20" Height="40">
-                <TextBox materialDesign:HintAssist.Hint="Tên đăng nhập" Text="{Binding Username}">
+                <TextBox materialDesign:HintAssist.Hint="Tên đăng nhập" Style="{StaticResource MaterialDesignFloatingHintTextBox}" Text="{Binding Username}">
 
                 </TextBox>
             </Grid>
@@ -50,12 +50,12 @@
                 </PasswordBox>
             </Grid>
             <Grid Grid.Row="3" Margin="30 20 " Height="40">
-                <TextBox materialDesign:HintAssist.Hint="Họ tên" Text="{Binding Name}">
+                <TextBox materialDesign:HintAssist.Hint="Họ tên" Style="{StaticResource MaterialDesignFloatingHintTextBox}" Text="{Binding Name}">
 
                 </TextBox>
             </Grid>
             <Grid Grid.Row="4" Margin="30 20 " Height="40">
-                <TextBox materialDesign:HintAssist.Hint="Số điện thoại" Text="{Binding Phone}">
+                <TextBox materialDesign:HintAssist.Hint="Số điện thoại" Style="{StaticResource MaterialDesignFloatingHintTextBox}" Text="{Binding Phone}">
 
                 </TextBox>
             </Grid>

@@ -93,19 +93,19 @@
                     </i1:Interaction.Triggers>-->
 
                 </Button>
-                <Button x:Name="exitBtn"                  
+                <!--<Button x:Name="exitBtn"                  
                     Background="{DynamicResource SecondaryHueMidBrush}" 
                         Margin="0 0 20 0">
                     Thoát
-                    <!--<i:Interaction.Triggers>
+                    --><!--<i:Interaction.Triggers>
                         <i:EventTrigger EventName="Click">
                             <i:CallMethodAction MethodName="Close"
                                                 TargetObject="{Binding RelativeSource={RelativeSource
                                                   Mode=FindAncestor,
                                                   AncestorType=Window}}" />
                         </i:EventTrigger>
-                    </i:Interaction.Triggers>-->
-                </Button>
+                    </i:Interaction.Triggers>--><!--
+                </Button>-->
                 <Button Command="{Binding OpenSignUpWindowCommand}"
                         CommandParameter="{Binding ElementName=loginWindow}">
                     Đăng kí
