@@ -8,7 +8,7 @@
         mc:Ignorable="d"
         WindowStartupLocation="CenterScreen"
         DataContext="{StaticResource ManageOwnerVM}"
-        Title="ManageOwnerWindow" Height="650" Width="1200">
+        Title="ManageOwnerWindow" Height="550" Width="1000">
     <Window.Resources>
         <ResourceDictionary>
             <ResourceDictionary.MergedDictionaries>
@@ -18,8 +18,8 @@
     </Window.Resources>
     <Grid>
         <Grid.ColumnDefinitions>
-            <ColumnDefinition Width="1*"></ColumnDefinition>
-            <ColumnDefinition Width="2*"></ColumnDefinition>
+            <ColumnDefinition Width="1.25*"></ColumnDefinition>
+            <ColumnDefinition Width="1.75*"></ColumnDefinition>
         </Grid.ColumnDefinitions>
         <Grid Grid.Column="0" >
             <StackPanel>
@@ -57,7 +57,7 @@
                     <StackPanel Margin="0 10 0 0" Orientation="Horizontal" HorizontalAlignment="Right">
                         <StackPanel.Resources>
                             <Style TargetType="Button"  BasedOn="{StaticResource MaterialDesignRaisedButton}">
-                                <Setter Property="Margin" Value="0 0 15 0"/>
+                                <Setter Property="Margin" Value="0,0,10,0"/>
                                 <Setter Property="Height" Value="Auto"/>
                                 <Setter Property="HorizontalAlignment" Value="Right"/>
                                 <Style.Triggers>
@@ -69,14 +69,20 @@
                         </StackPanel.Resources>
                         <Button  ToolTip="Sửa thông tin cá nhân" Command="{Binding EditInfor}">
                             <DockPanel>
-                                <materialDesign:PackIcon Kind="Edit" />
-                                <TextBlock Text="Sửa thông tin"/>
+                                <materialDesign:PackIcon Kind="AccountEditOutline" />
+                                <TextBlock Text="Sửa thông tin" FontSize="12"/>
                             </DockPanel>
                         </Button>
-                        <Button ToolTip="Thêm cơ sở sản xuất" Command="{Binding AddProduct}">
+                        <Button ToolTip="Thêm cơ sở sản xuất" Command="{Binding AddFacility}">
                             <DockPanel>
                                 <materialDesign:PackIcon Kind="Add" />
-                                <TextBlock Text="Thêm cơ sở"/>
+                                <TextBlock Text="Thêm cơ sở" FontSize="12"/>
+                            </DockPanel>
+                        </Button>
+                        <Button ToolTip="Dăng kí sản phẩm" Command="{Binding RegisterProduct}">
+                            <DockPanel>
+                                <materialDesign:PackIcon Kind="RegisteredTrademark" />
+                                <TextBlock Text="Đăng kí" FontSize="12"/>
                             </DockPanel>
                         </Button>
                     </StackPanel>
@@ -85,9 +91,15 @@
         </Grid>
         <Grid Grid.Column="1">
             <Border BorderBrush="Black" BorderThickness="0.5 0.5 0 0" >
-                <StackPanel>
-                    <TextBlock Text="Danh sách cơ sở" HorizontalAlignment="Center" Margin="0,15,0,15" FontSize="15" FontWeight="Bold" />
-                    <ScrollViewer  ScrollViewer.HorizontalScrollBarVisibility="Auto"  Width="auto" Height="579">
+                <Grid>
+                    <Grid.RowDefinitions>
+                        <RowDefinition Height="auto"></RowDefinition>
+                        <RowDefinition></RowDefinition>
+                    </Grid.RowDefinitions>
+                    <Grid Grid.Row="0">
+                        <TextBlock Text="Danh sách cơ sở" HorizontalAlignment="Center" Margin="0,15,0,15" FontSize="15" FontWeight="Bold" />
+                    </Grid>
+                    <ScrollViewer Grid.Row="1" ScrollViewer.HorizontalScrollBarVisibility="Auto"  Width="auto" Height="auto">
                         <ListView x:Name="listProduct"
                                   ItemsSource="{Binding ListFacilities}" 
                                   HorizontalAlignment="Stretch"
@@ -95,16 +107,64 @@
                                   ItemContainerStyle="{StaticResource ListItemContainer}">
                             <ListView.View>
                                 <GridView>
-                                    <GridViewColumn Header="STT" DisplayMemberBinding="{Binding RelativeSource={RelativeSource Mode=FindAncestor,AncestorType=ListViewItem},Converter={StaticResource  IndexConverter}}"/>
+                                    <GridViewColumn Header="STT" DisplayMemberBinding="{Binding RelativeSource={RelativeSource Mode=FindAncestor,AncestorType=ListViewItem},Converter={StaticResource  IndexConverter}}" />
                                     <GridViewColumn Header="Tên cơ sở" DisplayMemberBinding="{Binding TenCoSo}"/>
                                     <GridViewColumn Header="Địa chỉ" DisplayMemberBinding="{Binding DiaChi}"/>
                                     <GridViewColumn Header="Tình trạng" DisplayMemberBinding="{Binding TinhTrang}"/>
-                                    <GridViewColumn Header="Sản phẩm sản xuất" DisplayMemberBinding="{Binding Product}"/>
+                                    <GridViewColumn>
+                                        <GridViewColumn.CellTemplate>
+                                            <DataTemplate>
+                                                <Button ToolTip="Thông tin chi tiết"
+                                                        Name="AddBtn" 
+                                                        Width="auto"
+                                                        CommandParameter="{Binding }" Command="{Binding DataContext.CApprove, RelativeSource={RelativeSource AncestorType=ListView}}">
+                                                    <DockPanel>
+                                                        <materialDesign:PackIcon Kind="Edit" />
+                                                    </DockPanel>
+                                                </Button>
+                                            </DataTemplate>
+                                        </GridViewColumn.CellTemplate>
+                                    </GridViewColumn>
                                 </GridView>
                             </ListView.View>
                         </ListView>
                     </ScrollViewer>
-                </StackPanel>
+                </Grid>
+                <!--<StackPanel>
+                    <TextBlock Text="Danh sách cơ sở" HorizontalAlignment="Center" Margin="0,15,0,15" FontSize="15" FontWeight="Bold" />
+                    <ScrollViewer  ScrollViewer.HorizontalScrollBarVisibility="Auto"  Width="auto" Height="459">
+                        <ListView x:Name="listProduct"
+                                  ItemsSource="{Binding ListFacilities}" 
+                                  HorizontalAlignment="Stretch"
+                                  SelectedItem="{Binding SelectFacilities}" 
+                                  ItemContainerStyle="{StaticResource ListItemContainer}">
+                            <ListView.View>
+                                <GridView>
+                                    <GridViewColumn Header="STT" DisplayMemberBinding="{Binding RelativeSource={RelativeSource Mode=FindAncestor,AncestorType=ListViewItem},Converter={StaticResource  IndexConverter}}" />
+                                    <GridViewColumn Header="Tên cơ sở" DisplayMemberBinding="{Binding TenCoSo}"/>
+                                    <GridViewColumn Header="Địa chỉ" DisplayMemberBinding="{Binding DiaChi}"/>
+                                    <GridViewColumn Header="Tình trạng" DisplayMemberBinding="{Binding TinhTrang}"/>
+                                    <GridViewColumn Header="Sản phẩm sản xuất" DisplayMemberBinding="{Binding Product}"/>
+                                    <GridViewColumn  >
+                                        <GridViewColumn.CellTemplate>
+                                            CommandParameter="{Binding ,RelativeSource={RelativeSource Mode=FindAncestor, AncestorType=ListView}}"
+                                            <DataTemplate>
+                                                <Button ToolTip="Thông tin chi tiết"
+                                                        Name="AddBtn" 
+                                                        Width="auto"
+                                                        CommandParameter="{Binding }" Command="{Binding DataContext.CApprove, RelativeSource={RelativeSource AncestorType=ListView}}">
+                                                    <DockPanel>
+                                                        <materialDesign:PackIcon Kind="Edit" />
+                                                    </DockPanel>
+                                                </Button>
+                                            </DataTemplate>
+                                        </GridViewColumn.CellTemplate>
+                                    </GridViewColumn>
+                                </GridView>
+                            </ListView.View>
+                        </ListView>
+                    </ScrollViewer>
+                </StackPanel>-->
             </Border>
         </Grid>
     </Grid>

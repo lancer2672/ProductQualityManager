@@ -133,6 +133,7 @@
     </Compile>
     <Compile Include="Models\DataProvider.cs" />
     <Compile Include="Models\DetailRegistrationSheetModel.cs" />
+    <Compile Include="Models\FacilitiesModel.cs" />
     <Compile Include="Models\RegistrationSheetModel.cs" />
     <Compile Include="Resources\Utils\IndexConverter.cs" />
     <Compile Include="ViewModels\BaseViewModel.cs" />
@@ -141,6 +142,9 @@
     <Compile Include="ViewModels\RegistrationSheetViewModel.cs" />
     <Compile Include="ViewModels\RegistrationSheet\CreateRegistrationSheetViewModel.cs" />
     <Compile Include="ViewModels\RegistrationSheet\DetailRegistrationSheetViewModel.cs" />
+    <Compile Include="Views\OwnerFacilities\AddFacilitiesWindow.xaml.cs">
+      <DependentUpon>AddFacilitiesWindow.xaml</DependentUpon>
+    </Compile>
     <Compile Include="Views\OwnerFacilities\EditInforOwnerWindow.xaml.cs">
       <DependentUpon>EditInforOwnerWindow.xaml</DependentUpon>
     </Compile>
@@ -179,6 +183,10 @@
     <Page Include="Resources\ViewModel.xaml">
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
+    </Page>
+    <Page Include="Views\OwnerFacilities\AddFacilitiesWindow.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
     </Page>
     <Page Include="Views\OwnerFacilities\EditInforOwnerWindow.xaml">
       <SubType>Designer</SubType>
