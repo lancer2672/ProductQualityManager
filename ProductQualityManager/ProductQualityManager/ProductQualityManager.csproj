@@ -57,8 +57,10 @@
     </Reference>
     <Reference Include="System.ComponentModel.DataAnnotations" />
     <Reference Include="System.Data" />
+    <Reference Include="System.Drawing" />
     <Reference Include="System.Runtime.Serialization" />
     <Reference Include="System.Security" />
+    <Reference Include="System.Windows.Forms" />
     <Reference Include="System.Windows.Interactivity, Version=4.0.0.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
       <HintPath>..\packages\System.Windows.Interactivity.WPF.2.0.20525\lib\net40\System.Windows.Interactivity.dll</HintPath>
     </Reference>
@@ -146,6 +148,9 @@
     <Compile Include="ViewModels\MainViewModel.cs" />
     <Compile Include="ViewModels\OwnerFacilitiesVM\ManageOwnerViewModel.cs" />
     <Compile Include="ViewModels\OwnerFacilitiesVM\EditInforOwnerViewModel.cs" />
+    <Compile Include="ViewModels\ProductCriteriaVM\AddProductCriteriaViewModel.cs" />
+    <Compile Include="ViewModels\ProductCriteriaVM\EditProductCriteriaViewModel.cs" />
+    <Compile Include="ViewModels\ProductCriteriaVM\ManageProductCriteriaViewModel.cs" />
     <Compile Include="ViewModels\Product\ProductViewModel.cs" />
     <Compile Include="ViewModels\RegistrationSheetViewModel.cs" />
     <Compile Include="ViewModels\RegistrationSheet\CreateRegistrationSheetViewModel.cs" />
@@ -164,6 +169,15 @@
     </Compile>
     <Compile Include="Views\OwnerFacilities\ManageOwnerWindow.xaml.cs">
       <DependentUpon>ManageOwnerWindow.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Views\ProductCriteria\AddProductCriteria.xaml.cs">
+      <DependentUpon>AddProductCriteria.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Views\ProductCriteria\EditProductCriteria.xaml.cs">
+      <DependentUpon>EditProductCriteria.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Views\ProductCriteria\ManageProductCriteria.xaml.cs">
+      <DependentUpon>ManageProductCriteria.xaml</DependentUpon>
     </Compile>
     <Compile Include="Views\Product\Product.xaml.cs">
       <DependentUpon>Product.xaml</DependentUpon>
@@ -218,6 +232,18 @@
       <Generator>MSBuild:Compile</Generator>
     </Page>
     <Page Include="Views\OwnerFacilities\ManageOwnerWindow.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Views\ProductCriteria\AddProductCriteria.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Views\ProductCriteria\EditProductCriteria.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Views\ProductCriteria\ManageProductCriteria.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
@@ -298,6 +324,7 @@
       <LastGenOutput>Model1.cs</LastGenOutput>
     </Content>
   </ItemGroup>
+  <ItemGroup />
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <Import Project="..\packages\MaterialDesignThemes.4.6.1\build\MaterialDesignThemes.targets" Condition="Exists('..\packages\MaterialDesignThemes.4.6.1\build\MaterialDesignThemes.targets')" />
   <Target Name="EnsureNuGetPackageBuildImports" BeforeTargets="PrepareForBuild">

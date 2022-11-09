@@ -9,7 +9,7 @@ namespace ProductQualityManager.Models
     public class ProductCriteria
     {
         //public int MaCTChiTieu { get; set; }
-        //public Nullable<int> MaChiTieu { get; set; }
+        public Nullable<int> MaChiTieu { get; set; }
         //public Nullable<int> MaDangKyChiTieu { get; set; }
         public Nullable<decimal> GiaTriDangKy { get; set; }
         public string TenChiTieu { get; set; }
