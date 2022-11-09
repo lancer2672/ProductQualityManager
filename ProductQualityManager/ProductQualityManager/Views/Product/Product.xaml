@@ -33,6 +33,7 @@
                                   DisplayMemberPath="TenCoSo"
                                   SelectedItem="{Binding SelectedFacility, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"  VerticalContentAlignment="Bottom"/>
             <ListView 
+                MaxHeight="290"
             x:Name="Listview"
             SelectedItem="{Binding SelectedProduct}"
             ScrollViewer.VerticalScrollBarVisibility="Visible"
@@ -43,9 +44,22 @@
                     <GridView>
                         <GridViewColumn Header="STT" DisplayMemberBinding="{Binding RelativeSource={RelativeSource Mode=FindAncestor,AncestorType=ListViewItem},Converter={StaticResource  IndexConverter}}"></GridViewColumn>
                         <GridViewColumn Header="Tên sản phẩm" DisplayMemberBinding="{Binding TenSanPham}"></GridViewColumn>
+                        
                     </GridView>
                 </ListView.View>
             </ListView>
+            <StackPanel Margin="0 16 0 0 " Orientation="Horizontal">
+                <TextBox materialDesign:HintAssist.Hint="Thêm sản phẩm mới" Style="{StaticResource MaterialDesignFloatingHintTextBox}"  MinWidth="200" Margin="0 0 10 0" HorizontalAlignment="Stretch" Text="{Binding ProductName}"></TextBox>
+                <Button ToolTip="Thêm sản phẩm"  
+                                        Name="AddProductBtn"
+                                       
+                                        Command="{Binding CAddProduct}"
+                                            >
+                    <DockPanel>
+                        <materialDesign:PackIcon Kind="Add" />
+                    </DockPanel>
+                </Button>
+            </StackPanel>
         </StackPanel>
         <StackPanel Grid.Column="1">
             <TextBlock HorizontalAlignment="Center">THÔNG TIN CHỈ TIÊU</TextBlock>

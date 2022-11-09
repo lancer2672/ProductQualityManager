@@ -13,11 +13,13 @@ namespace ProductQualityManager.ViewModels.Product
     public class ProductViewModel: BaseViewModel
     {
         private SANPHAM _selectedProduct;
+        private string _productName;
         private ObservableCollection<SANPHAM> _productList;
         private ObservableCollection<ProductCriteria> _criteriaList;
         private COSOSANXUAT _selectedFacility;
         private ObservableCollection<COSOSANXUAT> _facilityList;
 
+        public string ProductName { get { return _productName; } set { _productName = value; OnPropertyChanged(nameof(ProductName)); } }
         public ObservableCollection<COSOSANXUAT> FacilityList { get { return _facilityList; } set { _facilityList = value; OnPropertyChanged(nameof(FacilityList)); } }
         public COSOSANXUAT SelectedFacility { get { return _selectedFacility; } set { _selectedFacility = value; LoadProductList(); OnPropertyChanged(nameof(SelectedFacility)); } }
         public ObservableCollection<SANPHAM> ProductList { get { return _productList; } set { _productList = value; OnPropertyChanged(nameof(ProductList)); } }
@@ -26,16 +28,39 @@ namespace ProductQualityManager.ViewModels.Product
         public SANPHAM SelectedProduct { get { return _selectedProduct; } set { _selectedProduct = value; LoadCriteriaList(); OnPropertyChanged(nameof(SelectedProduct)); } }
 
         public ICommand CDelete { get; set; }
+        public ICommand CAddProduct { get; set; }
 
         public ProductViewModel()
         {
             SelectedFacility = new COSOSANXUAT();
             App.Current.Properties["FacilityOwner"] = 1;
+            ProductName = "";
             SelectedProduct = new SANPHAM();
             CDelete = new RelayCommand<object>((p) => { return true; }, (p) => { DeleteProduct(p); });
+            CAddProduct = new RelayCommand<object>((p) => { return true; }, (p) => { HandleAddProduct(p); });
             CriteriaList = new ObservableCollection<ProductCriteria>();
             LoadFacitlityList();
             LoadProductList();
+        }
+        public void HandleAddProduct(object p)
+        {
+            if (SelectedFacility.MaCoSo != 0)
+            {
+                SANPHAM newProduct = new SANPHAM();
+                newProduct.MaCoSo = SelectedFacility.MaCoSo;
+                newProduct.TenSanPham = ProductName;
+         
+                try
+                {
+                    DataProvider.Ins.DB.SANPHAMs.Add(newProduct);
+                    DataProvider.Ins.DB.SaveChanges();
+                    LoadProductList();
+                }
+                catch (Exception e)
+                {
+                    throw (e);
+                }
+            }
         }
         public void LoadFacitlityList()
         {
@@ -58,7 +83,7 @@ namespace ProductQualityManager.ViewModels.Product
         public void LoadCriteriaList()
         {
             //chưa chọn gì
-            if (SelectedProduct.MaSanPham == 0)
+            if (SelectedProduct == null ||SelectedProduct.MaSanPham == 0)
             {
                 return;
             }
@@ -66,18 +91,25 @@ namespace ProductQualityManager.ViewModels.Product
             //Lấy ra phiếu đăng ký của cơ sở cho sản phẩm đó
             DANGKYCHITIEU RegisterCritera = DataProvider.Ins.DB.DANGKYCHITIEUx.Where(t => t.MaCoSo == SelectedProduct.MaCoSo && t.MaSanPham == SelectedProduct.MaSanPham).FirstOrDefault();
             // lấy ra chi tiết của phiếu ở phía trên
-            List<CHITIETCHITIEUSANPHAM> DetailRegisterCriteria = DataProvider.Ins.DB.CHITIETCHITIEUSANPHAMs.Where(t => t.MaDangKyChiTieu == RegisterCritera.MaDangKyChiTieu).ToList();
-            foreach (var item in DetailRegisterCriteria)
+            if (RegisterCritera != null)
             {
-                CHITIEUSANPHAM criteria = DataProvider.Ins.DB.CHITIEUSANPHAMs.Where(t => t.MaChiTieu == item.MaChiTieu).FirstOrDefault();
-                DONVITINH unit = DataProvider.Ins.DB.DONVITINHs.Where(t => t.MaDonViTinh == criteria.MaDonViTinh).FirstOrDefault();
+                List<CHITIETCHITIEUSANPHAM> DetailRegisterCriteria = DataProvider.Ins.DB.CHITIETCHITIEUSANPHAMs.Where(t => t.MaDangKyChiTieu == RegisterCritera.MaDangKyChiTieu).ToList();
+                if (DetailRegisterCriteria.Count == 0)
+                {
+                    return;
+                }
+                foreach (var item in DetailRegisterCriteria)
+                {
+                    CHITIEUSANPHAM criteria = DataProvider.Ins.DB.CHITIEUSANPHAMs.Where(t => t.MaChiTieu == item.MaChiTieu).FirstOrDefault();
+                    DONVITINH unit = DataProvider.Ins.DB.DONVITINHs.Where(t => t.MaDonViTinh == criteria.MaDonViTinh).FirstOrDefault();
 
-                string criteriaName = criteria.TenChiTieu;
-                decimal criteriaStandard = (decimal)criteria.GiaTriTieuChuan;
-                string unitName = unit.TenDonViTinh;
-                decimal registeredValue = (decimal)item.GiaTriDangKy;
-                ProductCriteria productCriteria = new ProductCriteria(registeredValue, criteriaName, criteriaStandard, unitName);
-                CriteriaList.Add(productCriteria);
+                    string criteriaName = criteria.TenChiTieu;
+                    decimal criteriaStandard = (decimal)criteria.GiaTriTieuChuan;
+                    string unitName = unit.TenDonViTinh;
+                    decimal registeredValue = (decimal)item.GiaTriDangKy;
+                    ProductCriteria productCriteria = new ProductCriteria(registeredValue, criteriaName, criteriaStandard, unitName);
+                    CriteriaList.Add(productCriteria);
+                }
             }
         }
     }
