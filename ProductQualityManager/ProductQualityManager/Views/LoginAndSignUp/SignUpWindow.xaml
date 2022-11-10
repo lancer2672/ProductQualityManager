@@ -20,14 +20,18 @@
                 <RowDefinition></RowDefinition>
                 <RowDefinition></RowDefinition>
                 <RowDefinition></RowDefinition>
-                <RowDefinition></RowDefinition>
             </Grid.RowDefinitions>
             <Grid Grid.Row="0" Margin="30 20" Height="40">
-                <TextBox materialDesign:HintAssist.Hint="Tên đăng nhập" Style="{StaticResource MaterialDesignFloatingHintTextBox}" Text="{Binding Username}">
+                <TextBox materialDesign:HintAssist.Hint="Nhập gmail" Style="{StaticResource MaterialDesignFloatingHintTextBox}" Text="{Binding Username}">
 
                 </TextBox>
             </Grid>
-            <Grid Grid.Row="1" Margin="30 20">
+            <Grid Grid.Row="1" Margin="30 20" Height="40">
+                <TextBox materialDesign:HintAssist.Hint="Xác nhận lại gmail" Style="{StaticResource MaterialDesignFloatingHintTextBox}" Text="{Binding ReUsername}">
+
+                </TextBox>
+            </Grid>
+            <!--<Grid Grid.Row="1" Margin="30 20">
                 <PasswordBox x:Name="passwordTxb" Style="{StaticResource MaterialDesignFloatingHintPasswordBox}"
                              materialDesign:HintAssist.Hint="Mật khẩu" Height="40">
                     <i:Interaction.Triggers>
@@ -50,18 +54,18 @@
                     </i:Interaction.Triggers>
 
                 </PasswordBox>
-            </Grid>
-            <Grid Grid.Row="3" Margin="30 20 " Height="40">
+            </Grid>-->
+            <Grid Grid.Row="2" Margin="30 20 " Height="40">
                 <TextBox materialDesign:HintAssist.Hint="Họ tên" Style="{StaticResource MaterialDesignFloatingHintTextBox}" Text="{Binding Name}">
 
                 </TextBox>
             </Grid>
-            <Grid Grid.Row="4" Margin="30 20 " Height="40">
+            <Grid Grid.Row="3" Margin="30 20 " Height="40">
                 <TextBox materialDesign:HintAssist.Hint="Số điện thoại" Style="{StaticResource MaterialDesignFloatingHintTextBox}" Text="{Binding Phone}">
 
                 </TextBox>
             </Grid>
-            <StackPanel Grid.Row="5" Margin="0 40 40 0" Orientation="Horizontal" HorizontalAlignment="Right">
+            <StackPanel Grid.Row="4" Margin="0 40 40 0" Orientation="Horizontal" HorizontalAlignment="Right">
 
                 <Button  x:Name="loginBtn" 
                         Margin="0 0 0 0"

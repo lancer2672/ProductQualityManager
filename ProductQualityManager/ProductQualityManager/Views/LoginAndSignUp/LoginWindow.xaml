@@ -47,7 +47,7 @@
                 <DockPanel Margin="0 0 0 30">
                     <materialDesign:PackIcon Kind="Account" />
                     <TextBox x:Name="usernameTxb"
-                            materialDesign:HintAssist.Hint="Tên đăng nhập" FontSize="16" 
+                            materialDesign:HintAssist.Hint="Email" FontSize="16" 
                             Style="{StaticResource MaterialDesignFloatingHintTextBox}" 
                             Text="{Binding Username}" 
                              />

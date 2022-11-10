@@ -3,7 +3,10 @@ using ProductQualityManager.Models.Database;
 using ProductQualityManager.Views.LoginAndSignUp;
 using System;
 using System.Collections.Generic;
+using System.Diagnostics;
 using System.Linq;
+using System.Net;
+using System.Net.Mail;
 using System.Text;
 using System.Threading.Tasks;
 using System.Windows;
@@ -15,13 +18,13 @@ namespace ProductQualityManager.ViewModels.LoginVM
     public class SignUpViewModel : BaseViewModel
     {
         private string _username;
+        private string _reUsername;
         private string _password;
-        private string _rePassword;
         private string _name;
         private string _phone;
         public string Username { get => _username; set { _username = value; OnPropertyChanged(); } }
+        public string ReUsername { get => _reUsername; set { _reUsername = value; OnPropertyChanged(); } }
         public string Password { get => _password; set { _password = value; OnPropertyChanged(); } }
-        public string RePassword { get => _rePassword; set { _rePassword = value; OnPropertyChanged(); } }
         public string Name { get => _name; set { _name = value; OnPropertyChanged(); } }
         public string Phone { get => _phone; set { _phone = value; OnPropertyChanged(); } }
         //public SnackbarMessageQueue MyMessageQueue { get => myMessageQueue; set { myMessageQueue = value; OnPropertyChanged(nameof(MyMessageQueue)); } }
@@ -32,28 +35,28 @@ namespace ProductQualityManager.ViewModels.LoginVM
         public SignUpViewModel()
         {
             Username = "";
+            ReUsername = "";
             Password = "";
-            RePassword = "";
             Name = "";
             Phone = "";
 
             SignUpCommand = new RelayCommand<Window>((p) => { return true; }, (p) => { SignUp(p); });
-            PasswordChangedCommand = new RelayCommand<PasswordBox>((p) => { return true; }, (p) => { Password = p.Password; });
-            RePasswordChangedCommand = new RelayCommand<PasswordBox>((p) => { return true; }, (p) => { RePassword = p.Password; });
-
+            //PasswordChangedCommand = new RelayCommand<PasswordBox>((p) => { return true; }, (p) => { Password = p.Password; });
+            //RePasswordChangedCommand = new RelayCommand<PasswordBox>((p) => { return true; }, (p) => { RePassword = p.Password; });
+            
+            
         }
 
         void SignUp(Window p)
         {
-            if (string.IsNullOrEmpty(Username) || string.IsNullOrEmpty(Password) || string.IsNullOrEmpty(RePassword) || string.IsNullOrEmpty(Name) || string.IsNullOrEmpty(Phone))
+            if (string.IsNullOrEmpty(Username) || string.IsNullOrEmpty(ReUsername) || string.IsNullOrEmpty(Name) || string.IsNullOrEmpty(Phone))
             {
                 MessageBox.Show("Vui lòng điền đầy đủ thông tin");
             }
             else
             {
                 TAIKHOAN newAccount = new TAIKHOAN();
-                newAccount.TenDangNhap = Username;
-                newAccount.MatKhau = Password;
+                newAccount.TenDangNhap = Username;              
                 CHUCOSO newChuCoSo = new CHUCOSO();
                 newChuCoSo.HoTen = Name;
                 newChuCoSo.DienTHoai = Phone;
@@ -61,12 +64,18 @@ namespace ProductQualityManager.ViewModels.LoginVM
                 {
                     MessageBox.Show("tài khoản đã tồn tại");
                 }
-                else if (Password != RePassword)
+                else if (Username != ReUsername)
                 {
-                    MessageBox.Show("Mật khẩu không trùng khớp");
+                    MessageBox.Show("Email không trùng khớp");
                 }
                 else
                 {
+                    var random = new Random();
+                    for (int i = 0; i < 8; i++)
+                    {
+                        Password = String.Concat(Password, random.Next(10).ToString());
+                    }
+                    newAccount.MatKhau = Password;
                     DataProvider.Ins.DB.CHUCOSOes.Add(newChuCoSo);
 
                     newAccount.MaChuCoSo = (int)newChuCoSo.MaChuCoSo;
@@ -74,6 +83,7 @@ namespace ProductQualityManager.ViewModels.LoginVM
 
                     DataProvider.Ins.DB.SaveChanges();
                     MessageBox.Show("Tạo tài khoản mới thành công");
+                    CreateTimeoutTestMessage(Username, Password);
                     p.Close();
                 }
             }
@@ -89,6 +99,31 @@ namespace ProductQualityManager.ViewModels.LoginVM
                 }
             }
             return false;
+        }
+        public static void CreateTimeoutTestMessage(string to, string password)
+        {
+            string from = "quanlychatluongsanpham@gmail.com";
+            string subject = "Thông báo tạo tài khoản mới thành công";
+            string body = "Bạn đã tạo thành công tài khoản mới ! Mật khẩu đăng nhập vào ứng dụng của bạn là " + password;
+
+            MailMessage message = new MailMessage(from, to, subject, body);
+
+            var client = new SmtpClient("smtp.gmail.com", 587)
+            {
+                Credentials = new NetworkCredential("quanlychatluongsanpham@gmail.com", "yzojpnmxyrgwwjyt"),
+                EnableSsl = true
+            };
+
+            try
+            {
+                client.Send(message);
+            }
+            catch
+            {
+                throw;
+            }
+
+
         }
     }
 }
