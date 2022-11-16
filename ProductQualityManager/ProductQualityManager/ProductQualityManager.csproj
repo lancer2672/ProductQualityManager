@@ -157,6 +157,9 @@
     <Compile Include="Views\LoginAndSignUp\SignUpWindow.xaml.cs">
       <DependentUpon>SignUpWindow.xaml</DependentUpon>
     </Compile>
+    <Compile Include="Views\OwnerFacilities\DetailFacilityWindow.xaml.cs">
+      <DependentUpon>DetailFacilityWindow.xaml</DependentUpon>
+    </Compile>
     <Compile Include="Views\OwnerFacilities\EditInforOwnerWindow.xaml.cs">
       <DependentUpon>EditInforOwnerWindow.xaml</DependentUpon>
     </Compile>
@@ -204,6 +207,10 @@
       <Generator>MSBuild:Compile</Generator>
     </Page>
     <Page Include="Views\LoginAndSignUp\SignUpWindow.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Views\OwnerFacilities\DetailFacilityWindow.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>

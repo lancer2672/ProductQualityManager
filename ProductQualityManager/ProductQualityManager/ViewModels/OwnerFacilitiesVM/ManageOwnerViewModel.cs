@@ -9,6 +9,8 @@ using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Input;
 using ProductQualityManager.Views.OwnerFacilities;
+using System.Windows.Controls;
+using System.Windows;
 
 namespace ProductQualityManager.ViewModels.OwnerFacilitiesVM
 {
@@ -17,6 +19,8 @@ namespace ProductQualityManager.ViewModels.OwnerFacilitiesVM
         private string _name;
         private string _phonenumber;
         private int _numberfacilities;
+        private string _namefacility;
+        private string _addressfacility;
         private ObservableCollection<COSOSANXUAT> _listFacilities;
         private COSOSANXUAT _selectFacilities;
         private SnackbarMessageQueue myMessageQueue;
@@ -24,6 +28,8 @@ namespace ProductQualityManager.ViewModels.OwnerFacilitiesVM
         public string Name { get { return _name; } set { _name = value; OnPropertyChanged(nameof(Name)); } }
         public string PhoneNumber { get { return _phonenumber; } set { _phonenumber = value; OnPropertyChanged(nameof(PhoneNumber)); } }
         public int NumberFacilities { get { return _numberfacilities; } set { _numberfacilities = value; OnPropertyChanged(nameof(NumberFacilities)); } }
+        public string NameFacility { get { return _namefacility; } set { _namefacility = value; OnPropertyChanged(nameof(NameFacility)); } }
+        public string AddressFacility { get { return _addressfacility; } set { _addressfacility = value; OnPropertyChanged(nameof(AddressFacility)); } }
         public ObservableCollection<COSOSANXUAT> ListFacilities { get { return _listFacilities; } set { _listFacilities = value; OnPropertyChanged(nameof(ListFacilities)); } }
         public COSOSANXUAT SelectFacilities { get { return _selectFacilities; } set { _selectFacilities = value; OnPropertyChanged(nameof(SelectFacilities)); } }
         public SnackbarMessageQueue MyMessageQueue { get => myMessageQueue; set { myMessageQueue = value; OnPropertyChanged(nameof(MyMessageQueue)); } }
@@ -33,6 +39,7 @@ namespace ProductQualityManager.ViewModels.OwnerFacilitiesVM
         public ICommand EditInfor { get; set; }
         public ICommand AddFacility { get; set; }
         public ICommand RegisterProduct { get; set; }
+        public ICommand DetailFacility { get; set; }
 
 
         //Khởi tạo
@@ -46,8 +53,9 @@ namespace ProductQualityManager.ViewModels.OwnerFacilitiesVM
             NumberFacilities = CountFacilities();
 
             EditInfor = new RelayCommand<ManageOwnerViewModel>((p) => { return true; }, (p) => { OpenEditInforOwnerWindow(); });
-            AddFacility = new RelayCommand<object>((p) => { return true; }, (p) => { OpenAddFacilityWindow(); });
-            RegisterProduct = new RelayCommand<ManageOwnerViewModel>((p) => { return true; }, (p) => { OpenEditInforOwnerWindow(); });
+            AddFacility = new RelayCommand<object>((p) => { return true; }, (p) => { AddInforFacility(); });
+            RegisterProduct = new RelayCommand<ManageOwnerViewModel>((p) => { return true; }, (p) => { });
+            DetailFacility = new RelayCommand<object>((p) => { return true; }, (p) => { OpenDetailFacilityWindow(); });
         }
 
         //Load thông tin chủ cơ sở sản xuất
@@ -63,9 +71,9 @@ namespace ProductQualityManager.ViewModels.OwnerFacilitiesVM
         {
             int number = 0;
             List<COSOSANXUAT> listfacilities = DataProvider.Ins.DB.COSOSANXUATs.ToList();
-            foreach(COSOSANXUAT item in listfacilities)
+            foreach (COSOSANXUAT item in listfacilities)
             {
-                if(item.MaChuCoSo == IdOwner)
+                if (item.MaChuCoSo == IdOwner)
                     number++;
             }
             return number;
@@ -83,6 +91,7 @@ namespace ProductQualityManager.ViewModels.OwnerFacilitiesVM
                     ListFacilities.Add(item);
                 }
             }
+            NumberFacilities = CountFacilities();
         }
 
         //Hiện window sửa thông tin cá nhân của chủ cơ sở
@@ -93,10 +102,53 @@ namespace ProductQualityManager.ViewModels.OwnerFacilitiesVM
             LoadDataOwner();
         }
 
-        //Hiện window thêm cơ sở sản xuất
-        public void OpenAddFacilityWindow()
+        //Kiểm tra địa chỉ (true: đã có, false: chưa có)
+        public bool CheckAddress()
         {
+            List<COSOSANXUAT> listfacilities = DataProvider.Ins.DB.COSOSANXUATs.ToList();
+            foreach (var item in listfacilities)
+            {
+                if (AddressFacility == item.DiaChi)
+                    return true;
+            }
+            return false;
+        }
 
+        //Thêm cơ sở sản xuất
+        public void AddInforFacility()
+        {
+            if (NameFacility == null || AddressFacility == null)
+                MessageBox.Show("Điền đầy đủ thông tin để thêm cơ sở");
+            else
+            {
+                if (CheckAddress())
+                {
+                    MessageBox.Show("Địa chỉ cơ sở đã có.");
+                }
+                else
+                {
+                    COSOSANXUAT NewFacility = new COSOSANXUAT()
+                    {
+                        TenCoSo = NameFacility,
+                        MaChuCoSo = IdOwner,
+                        DiaChi = AddressFacility,
+                        TinhTrang = "Còn hoạt động",
+                    };
+                    DataProvider.Ins.DB.COSOSANXUATs.Add(NewFacility);
+                    DataProvider.Ins.DB.SaveChanges();
+
+                    NameFacility = AddressFacility = " ";
+                    LoadListFacilities();
+                }
+            }
+        }
+        //Đăng kí sản phẩm
+
+        //Hiện window thông tin chi tiết của cơ sở
+        public void OpenDetailFacilityWindow()
+        {
+            DetailFacilityWindow DetailFacilityWindow = new DetailFacilityWindow();
+            DetailFacilityWindow.Show();
         }
     }
 }
