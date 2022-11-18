@@ -55,7 +55,7 @@ namespace ProductQualityManager.ViewModels.OwnerFacilitiesVM
             EditInfor = new RelayCommand<ManageOwnerViewModel>((p) => { return true; }, (p) => { OpenEditInforOwnerWindow(); });
             AddFacility = new RelayCommand<object>((p) => { return true; }, (p) => { AddInforFacility(); });
             RegisterProduct = new RelayCommand<ManageOwnerViewModel>((p) => { return true; }, (p) => { });
-            DetailFacility = new RelayCommand<object>((p) => { return true; }, (p) => { OpenDetailFacilityWindow(); });
+            DetailFacility = new RelayCommand<object>((p) => { return true; }, (p) => { OpenDetailFacilityWindow(p); });
         }
 
         //Load thông tin chủ cơ sở sản xuất
@@ -145,9 +145,10 @@ namespace ProductQualityManager.ViewModels.OwnerFacilitiesVM
         //Đăng kí sản phẩm
 
         //Hiện window thông tin chi tiết của cơ sở
-        public void OpenDetailFacilityWindow()
+        public void OpenDetailFacilityWindow(object p)
         {
-            DetailFacilityWindow DetailFacilityWindow = new DetailFacilityWindow();
+            SelectFacilities = p as COSOSANXUAT;
+            DetailFacilityWindow DetailFacilityWindow = new DetailFacilityWindow(SelectFacilities);
             DetailFacilityWindow.Show();
         }
     }

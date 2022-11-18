@@ -145,6 +145,7 @@
     <Compile Include="ViewModels\LoginVM\LoginViewModel.cs" />
     <Compile Include="ViewModels\LoginVM\SignUpViewModel.cs" />
     <Compile Include="ViewModels\MainViewModel.cs" />
+    <Compile Include="ViewModels\OwnerFacilitiesVM\DetailFacilityViewModel.cs" />
     <Compile Include="ViewModels\OwnerFacilitiesVM\ManageOwnerViewModel.cs" />
     <Compile Include="ViewModels\OwnerFacilitiesVM\EditInforOwnerViewModel.cs" />
     <Compile Include="ViewModels\Product\ProductViewModel.cs" />

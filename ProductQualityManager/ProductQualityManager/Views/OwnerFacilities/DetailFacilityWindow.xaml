@@ -43,21 +43,23 @@
                 </TextBox>
             </StackPanel>
             <TextBlock  Text="Danh sách sản phẩm" Margin="20,25,0,5"/>
-            <ScrollViewer Grid.Row="1" ScrollViewer.HorizontalScrollBarVisibility="Auto"  Width="auto" Height="auto" Margin="20,10,0,5">
-                <ListView x:Name="listProduct"
-                                  ItemsSource="{Binding ListFacilities}" 
+            <Grid Height="268">
+                <ScrollViewer ScrollViewer.HorizontalScrollBarVisibility="Auto"  Width="auto" Height="auto" Margin="10,10,10,5">
+                    <ListView x:Name="ListProduct"
+                                  ItemsSource="{Binding ListProduct}" 
                                   HorizontalAlignment="Stretch"
-                                  SelectedItem="{Binding SelectFacilities}" >
-                    <!--ItemContainerStyle="{StaticResource ListItemContainer}">-->
-                    <ListView.View>
-                        <GridView>
-                            <GridViewColumn Header="STT" DisplayMemberBinding="{Binding RelativeSource={RelativeSource Mode=FindAncestor,AncestorType=ListViewItem},Converter={StaticResource  IndexConverter}}" />
-                            <GridViewColumn Header="Tên cơ sở" DisplayMemberBinding="{Binding TenCoSo}"/>
-                            <GridViewColumn Header="Tình trạng" DisplayMemberBinding="{Binding TinhTrang}"/>
-                        </GridView>
-                    </ListView.View>
-                </ListView>
-            </ScrollViewer>
+                                  SelectedItem="{Binding SelectedProduct}" >
+                        <!--ItemContainerStyle="{StaticResource ListItemContainer}">-->
+                        <ListView.View>
+                            <GridView>
+                                <GridViewColumn Header="STT" DisplayMemberBinding="{Binding RelativeSource={RelativeSource Mode=FindAncestor,AncestorType=ListViewItem},Converter={StaticResource  IndexConverter}}" />
+                                <GridViewColumn Header="Tên sản phẩm" DisplayMemberBinding="{Binding TenSanPham}"/>
+                                <GridViewColumn Header="Tình trạng" DisplayMemberBinding="{Binding TinhTrang}"/>
+                            </GridView>
+                        </ListView.View>
+                    </ListView>
+                </ScrollViewer>
+            </Grid>
         </WrapPanel>
     </StackPanel>
 </Window>
