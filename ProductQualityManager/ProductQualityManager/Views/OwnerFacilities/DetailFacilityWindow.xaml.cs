@@ -11,17 +11,21 @@ using System.Windows.Input;
 using System.Windows.Media;
 using System.Windows.Media.Imaging;
 using System.Windows.Shapes;
+using ProductQualityManager.Models.Database;
+using ProductQualityManager.ViewModels.OwnerFacilitiesVM;
 
 namespace ProductQualityManager.Views.OwnerFacilities
 {
     /// <summary>
-    /// Interaction logic for AddFacilitiesWindow.xaml
+    /// Interaction logic for DetailFacilityWindow.xaml
     /// </summary>
-    public partial class AddFacilitiesWindow : Window
+    public partial class DetailFacilityWindow : Window
     {
-        public AddFacilitiesWindow()
+        public DetailFacilityWindow(COSOSANXUAT SelectedFacility)
         {
             InitializeComponent();
+            DetailFacilityViewModel detailfacilityVM = new DetailFacilityViewModel(SelectedFacility);
+            this.DataContext = detailfacilityVM;
         }
     }
 }

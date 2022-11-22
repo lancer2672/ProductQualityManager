@@ -54,7 +54,7 @@
       <HintPath>..\packages\System.Windows.Interactivity.WPF.2.0.20525\lib\net40\Microsoft.Expression.Interactions.dll</HintPath>
     </Reference>
     <Reference Include="System">
-      <HintPath>..\..\..\..\..\..\..\Program Files (x86)\Reference Assemblies\Microsoft\Framework\.NETFramework\v4.7.2\System.dll</HintPath>
+      <HintPath>C:\Program Files (x86)\Reference Assemblies\Microsoft\Framework\.NETFramework\v4.7.2\System.dll</HintPath>
     </Reference>
     <Reference Include="System.ComponentModel.DataAnnotations" />
     <Reference Include="System.Data" />
@@ -147,6 +147,7 @@
     <Compile Include="ViewModels\LoginVM\LoginViewModel.cs" />
     <Compile Include="ViewModels\LoginVM\SignUpViewModel.cs" />
     <Compile Include="ViewModels\MainViewModel.cs" />
+    <Compile Include="ViewModels\OwnerFacilitiesVM\DetailFacilityViewModel.cs" />
     <Compile Include="ViewModels\OwnerFacilitiesVM\ManageOwnerViewModel.cs" />
     <Compile Include="ViewModels\OwnerFacilitiesVM\EditInforOwnerViewModel.cs" />
     <Compile Include="ViewModels\ProductCriteriaVM\AddProductCriteriaViewModel.cs" />
@@ -162,8 +163,8 @@
     <Compile Include="Views\LoginAndSignUp\SignUpWindow.xaml.cs">
       <DependentUpon>SignUpWindow.xaml</DependentUpon>
     </Compile>
-    <Compile Include="Views\OwnerFacilities\AddFacilitiesWindow.xaml.cs">
-      <DependentUpon>AddFacilitiesWindow.xaml</DependentUpon>
+    <Compile Include="Views\OwnerFacilities\DetailFacilityWindow.xaml.cs">
+      <DependentUpon>DetailFacilityWindow.xaml</DependentUpon>
     </Compile>
     <Compile Include="Views\OwnerFacilities\EditInforOwnerWindow.xaml.cs">
       <DependentUpon>EditInforOwnerWindow.xaml</DependentUpon>
@@ -224,7 +225,7 @@
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
-    <Page Include="Views\OwnerFacilities\AddFacilitiesWindow.xaml">
+    <Page Include="Views\OwnerFacilities\DetailFacilityWindow.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
@@ -313,7 +314,6 @@
   <ItemGroup>
     <Resource Include="Resources\Imgs\LoginImg.png" />
   </ItemGroup>
-  <ItemGroup />
   <ItemGroup>
     <Content Include="Models\Database\Model1.Context.tt">
       <Generator>TextTemplatingFileGenerator</Generator>
