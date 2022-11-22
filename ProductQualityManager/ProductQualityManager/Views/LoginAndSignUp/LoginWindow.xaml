@@ -80,7 +80,8 @@
                 <Button  x:Name="loginBtn" 
                         Margin="0 0 20 0"
                          Command="{Binding LoginCommand}"
-                         CommandParameter="{Binding ElementName=loginWindow}">
+                         CommandParameter="{Binding ElementName=loginWindow}"
+                         IsDefault="True">
                     Đăng nhập
                     <!--<i1:Interaction.Triggers>
                         <i1:EventTrigger EventName="Click">
