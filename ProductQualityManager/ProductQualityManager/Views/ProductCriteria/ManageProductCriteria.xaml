@@ -16,18 +16,41 @@
             </ResourceDictionary.MergedDictionaries>
         </ResourceDictionary>
     </Page.Resources>
-    <Grid>
-        <Grid.RowDefinitions>
-            <RowDefinition Height="auto"></RowDefinition>
-            <RowDefinition Height="auto"></RowDefinition>
-            <RowDefinition Height="*"></RowDefinition>
-        </Grid.RowDefinitions>
-        <Grid Grid.Row="0">
+   
+        <Grid>
+            <Grid.RowDefinitions>
+                <RowDefinition Height="*"></RowDefinition>
+                <RowDefinition Height="auto"></RowDefinition>
+            </Grid.RowDefinitions>
             <TextBlock HorizontalAlignment="Center">THÔNG TIN CHỈ TIÊU</TextBlock>
-        </Grid>
-        <StackPanel  Grid.Row="1" Orientation="Horizontal" VerticalAlignment="Top">
+
+
+        
+        <ListView  Grid.Row="0"  Margin="0 20"
+                 x:Name="listCriteria"
+                           ItemsSource="{Binding CriteriaList, Mode=TwoWay}" 
+                           SelectedItem="{Binding SelectedCriteria}"
+                           ItemContainerStyle="{StaticResource  ListItemContainer}"
+                            ScrollViewer.VerticalScrollBarVisibility="Visible"
+                            ScrollViewer.HorizontalScrollBarVisibility="Hidden">
+              <ListView.View>
+                  <GridView>
+                      <!--<GridViewColumn Header="STT" DisplayMemberBinding="{Binding RelativeSource={RelativeSource Mode=FindAncestor,AncestorType=ListViewItem},Converter={StaticResource  IndexConverter}}"></GridViewColumn>-->
+                      <GridViewColumn Header="Mã chỉ tiêu" DisplayMemberBinding="{Binding MaChiTieu}" ></GridViewColumn>
+                      <GridViewColumn Header="Chỉ tiêu" DisplayMemberBinding="{Binding  TenChiTieu}"></GridViewColumn>
+                      <GridViewColumn Header="Giá trị tiêu chuẩn" DisplayMemberBinding="{Binding  GiaTriTieuChuan}"></GridViewColumn>
+                      <GridViewColumn Header="Đơn vị tính" DisplayMemberBinding="{Binding  TenDonViTinh}"></GridViewColumn>
+                  </GridView>
+              </ListView.View>
+        </ListView>
+
+
+            <StackPanel Grid.Row="1"  Orientation="Horizontal"  HorizontalAlignment="Right">
+              
             <!--<UC2:SearchBarCombobox x:Name="SearchBarCombobox" ></UC2:SearchBarCombobox>-->
-            <Button ToolTip="Làm mới "  
+                <Button Margin="0 20 10 0"
+                        
+                ToolTip="Làm mới "  
                     Name="RefreshBtn"
                     Command="{Binding RefreshDataCommand}"
                     >
@@ -37,17 +60,18 @@
                     <TextBlock Text="Làm mới"/>
                 </DockPanel>
             </Button>
-            <Button ToolTip="Thêm "  
+                <Button Margin="0 20 10 0"
+                        Width="100"
+                ToolTip="Thêm "  
                     Name="AddBtn"
-                    Width="100"
                 Command="{Binding OpenAddCriteriaCommand}">
                 <DockPanel>
                     <materialDesign:PackIcon Kind="Add" />
                     <TextBlock Text="Thêm"/>
                 </DockPanel>
             </Button>
-            <Button 
-                     Width="70"
+                <Button Margin="0 20 10 0"
+                        Width="100"
                     ToolTip="Chỉnh sửa thông tin"
                 Command="{Binding OpenEditCriteriaCommand}"
                 CommandParameter="{Binding ElementName=listCriteria}">
@@ -59,31 +83,12 @@
             </Button>
 
         </StackPanel>
-        <Grid Grid.Row="2">
-            <StackPanel Margin="40 10">
-
-                <ListView  x:Name="listCriteria"
-            
-           
-                           ItemsSource="{Binding CriteriaList, Mode=TwoWay}" 
-                           SelectedItem="{Binding SelectedCriteria}">
-                    <ListView.View>
-                        <GridView>
-                            <!--<GridViewColumn Header="STT" DisplayMemberBinding="{Binding RelativeSource={RelativeSource Mode=FindAncestor,AncestorType=ListViewItem},Converter={StaticResource  IndexConverter}}"></GridViewColumn>-->
-                            <GridViewColumn Header="Mã chỉ tiêu" DisplayMemberBinding="{Binding MaChiTieu}" ></GridViewColumn>
-                            <GridViewColumn Header="Chỉ tiêu" DisplayMemberBinding="{Binding  TenChiTieu}"></GridViewColumn>
-                            <GridViewColumn Header="Giá trị tiêu chuẩn" DisplayMemberBinding="{Binding  GiaTriTieuChuan}"></GridViewColumn>
-                            <GridViewColumn Header="Đơn vị tính" DisplayMemberBinding="{Binding  TenDonViTinh}"></GridViewColumn>
-                        </GridView>
-                    </ListView.View>
-                </ListView>
-            </StackPanel>
-        </Grid>
-        <materialDesign:Snackbar
+        <materialDesign:Snackbar Grid.Row="1"
                 HorizontalAlignment="Stretch"
                 VerticalAlignment="Bottom"
                 MessageQueue="{Binding MyMessageQueue}">
         </materialDesign:Snackbar>
     </Grid>
-    
+      
+
 </Page>

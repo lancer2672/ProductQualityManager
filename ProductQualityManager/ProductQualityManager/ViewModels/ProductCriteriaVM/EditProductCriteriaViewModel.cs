@@ -66,7 +66,8 @@ namespace ProductQualityManager.ViewModels.ProductCriteriaVM
                 change.GiaTriTieuChuan = StandardValue;
                 change.MaDonViTinh = SelectedUnit.MaDonViTinh;
                 DataProvider.Ins.DB.SaveChanges();
-                MessageBox.Show("Chỉnh sửa thành công !");
+                //MessageBox.Show("Chỉnh sửa thành công !");
+                _manageProductCriteria.MyMessageQueue.Enqueue("Chỉnh sửa thành công");
                 p.Close();
                 ManageProductCriteria window = new ManageProductCriteria();
                 _manageProductCriteria.RefreshData(window);

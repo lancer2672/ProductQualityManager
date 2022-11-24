@@ -66,7 +66,8 @@ namespace ProductQualityManager.ViewModels.ProductCriteriaVM
                 newCriteria.MaDonViTinh = SelectedUnit.MaDonViTinh;
                 DataProvider.Ins.DB.CHITIEUSANPHAMs.Add(newCriteria);
                 DataProvider.Ins.DB.SaveChanges();
-                MessageBox.Show("Thêm chỉ tiêu thành công");
+                //MessageBox.Show("Thêm chỉ tiêu thành công");
+                _manageProductCriteria.MyMessageQueue.Enqueue("Thêm chỉ tiêu thành công");
                 CriteriaName = "";
                 StandardValue = 0;
                 p.Close();

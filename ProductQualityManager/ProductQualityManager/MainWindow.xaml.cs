@@ -39,6 +39,9 @@ namespace ProductQualityManager
                 case "NavManageOwner":
                     Main.Content = Pages.ProductPage;
                     break;
+                case "NavQLCT":
+                    Main.Content = Pages.ProductCriteriaPage;
+                    break;
                     //case "NavEmployeeList":
                     //    Main.Content = Pages.EmployeePage;
                     //    break;
