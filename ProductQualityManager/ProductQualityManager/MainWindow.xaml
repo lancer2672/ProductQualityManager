@@ -8,6 +8,7 @@
         xmlns:syncfusion="http://schemas.syncfusion.com/wpf"
          xmlns:i1="http://schemas.microsoft.com/expression/2010/interactivity"
         mc:Ignorable="d"
+        WindowStartupLocation="CenterScreen"
         Title="MainWindow" Height="650" Width="1300"
         DataContext="{StaticResource MainVM}"
         x:Name="mainWindow">

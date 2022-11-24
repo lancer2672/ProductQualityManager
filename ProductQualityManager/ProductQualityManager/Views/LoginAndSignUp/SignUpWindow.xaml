@@ -6,7 +6,8 @@
         xmlns:local="clr-namespace:ProductQualityManager.Views.LoginAndSignUp"
         xmlns:materialDesign="http://materialdesigninxaml.net/winfx/xaml/themes" 
         xmlns:i="http://schemas.microsoft.com/expression/2010/interactivity" 
-        xmlns:i1="http://schemas.microsoft.com/expression/2010/interactions" xmlns:rule="clr-namespace:ProductQualityManager.Resources.Utils"
+        xmlns:i1="http://schemas.microsoft.com/expression/2010/interactions"
+        xmlns:rule="clr-namespace:ProductQualityManager.Resources.Utils"
         mc:Ignorable="d"
         Title="SignUpWindow" Height="auto" Width="500" 
         DataContext="{StaticResource SignUpVM}" x:Name="signUpWindow">
@@ -26,14 +27,7 @@
                     <TextBox x:Name="usernameTxb"
                         materialDesign:HintAssist.Hint="Nhập gmail" 
                          Style="{StaticResource MaterialDesignFloatingHintTextBox}">
-                        <TextBox.Text>
-                            <Binding Path="Username" UpdateSourceTrigger="PropertyChanged" NotifyOnValidationError="True" ValidatesOnExceptions="True">
-                                <Binding.ValidationRules>
-                                    <rule:NonEmptyRule/>
-                                    <rule:EmailRule/>
-                                </Binding.ValidationRules>
-                            </Binding>
-                        </TextBox.Text>
+                       
                     </TextBox>
                 </Grid>
                 <Grid Grid.Row="1" Margin="30 20" Height="40">

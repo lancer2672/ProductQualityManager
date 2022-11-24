@@ -1,4 +1,5 @@
-﻿using ProductQualityManager.Models;
+﻿using MaterialDesignThemes.Wpf;
+using ProductQualityManager.Models;
 using ProductQualityManager.Models.Database;
 using System;
 using System.Collections.Generic;
@@ -18,14 +19,16 @@ namespace ProductQualityManager.ViewModels.Product
         private ObservableCollection<ProductCriteria> _criteriaList;
         private COSOSANXUAT _selectedFacility;
         private ObservableCollection<COSOSANXUAT> _facilityList;
+        private SnackbarMessageQueue _myMessageQueue;
 
         public string ProductName { get { return _productName; } set { _productName = value; OnPropertyChanged(nameof(ProductName)); } }
         public ObservableCollection<COSOSANXUAT> FacilityList { get { return _facilityList; } set { _facilityList = value; OnPropertyChanged(nameof(FacilityList)); } }
         public COSOSANXUAT SelectedFacility { get { return _selectedFacility; } set { _selectedFacility = value; LoadProductList(); OnPropertyChanged(nameof(SelectedFacility)); } }
         public ObservableCollection<SANPHAM> ProductList { get { return _productList; } set { _productList = value; OnPropertyChanged(nameof(ProductList)); } }
         public ObservableCollection<ProductCriteria> CriteriaList { get { return _criteriaList; } set { _criteriaList = value; OnPropertyChanged(nameof(CriteriaList)); } }
-
         public SANPHAM SelectedProduct { get { return _selectedProduct; } set { _selectedProduct = value; LoadCriteriaList(); OnPropertyChanged(nameof(SelectedProduct)); } }
+        public SnackbarMessageQueue MyMessageQueue { get { return _myMessageQueue; } set { _myMessageQueue = value; OnPropertyChanged(nameof(MyMessageQueue)); } }
+
 
         public ICommand CDelete { get; set; }
         public ICommand CAddProduct { get; set; }
@@ -39,6 +42,10 @@ namespace ProductQualityManager.ViewModels.Product
             CDelete = new RelayCommand<object>((p) => { return true; }, (p) => { DeleteProduct(p); });
             CAddProduct = new RelayCommand<object>((p) => { return true; }, (p) => { HandleAddProduct(p); });
             CriteriaList = new ObservableCollection<ProductCriteria>();
+
+            MyMessageQueue = new SnackbarMessageQueue(TimeSpan.FromMilliseconds(1500));
+            MyMessageQueue.DiscardDuplicates = true;
+
             LoadFacitlityList();
             LoadProductList();
         }
@@ -49,18 +56,26 @@ namespace ProductQualityManager.ViewModels.Product
                 SANPHAM newProduct = new SANPHAM();
                 newProduct.MaCoSo = SelectedFacility.MaCoSo;
                 newProduct.TenSanPham = ProductName;
-         
+                if(ProductName == "")
+                {
+                    MyMessageQueue.Enqueue("Tên sản phẩm trống!");
+                    return;
+                }
                 try
                 {
                     DataProvider.Ins.DB.SANPHAMs.Add(newProduct);
                     DataProvider.Ins.DB.SaveChanges();
                     LoadProductList();
+                    MyMessageQueue.Enqueue("Thêm sản phẩm thành công!");
                 }
                 catch (Exception e)
                 {
+                    MyMessageQueue.Enqueue("Không thể thêm sản phẩm!");
                     throw (e);
+
                 }
             }
+            else MyMessageQueue.Enqueue("Bạn cần phải chọn 1 cơ sở!");
         }
         public void LoadFacitlityList()
         {
