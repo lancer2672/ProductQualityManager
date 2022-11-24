@@ -13,14 +13,14 @@ using System.Windows.Media.Imaging;
 using System.Windows.Navigation;
 using System.Windows.Shapes;
 
-namespace ProductQualityManager.Views.UserControls
+namespace ProductQualityManager.Views.TestSheet
 {
     /// <summary>
-    /// Interaction logic for RegistrationSheetUC.xaml
+    /// Interaction logic for EnrollSheet.xaml
     /// </summary>
-    public partial class RegistrationSheetUC : UserControl
+    public partial class EnrollSheet : Page
     {
-        public RegistrationSheetUC()
+        public EnrollSheet()
         {
             InitializeComponent();
         }

@@ -50,9 +50,10 @@ namespace ProductQualityManager.ViewModels.LoginVM
             var accCount = DataProvider.Ins.DB.TAIKHOANs.Where(x => x.TenDangNhap == Username && x.MatKhau == Password).Count();
             if (accCount > 0)
             {
+                //App.Current.Properties["FacilityOwner"] = Id chu co so 
+
                 IsLogin = true;
                 p.Close();             
-                
                 //Username = "";
                 //Password = "";
             }

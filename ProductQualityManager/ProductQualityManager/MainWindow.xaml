@@ -5,49 +5,87 @@
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:i="http://schemas.microsoft.com/xaml/behaviors"
         xmlns:local="clr-namespace:ProductQualityManager"
-        xmlns:UC="clr-namespace:ProductQualityManager.Views.UserControls" xmlns:i1="http://schemas.microsoft.com/expression/2010/interactivity"
+        xmlns:syncfusion="http://schemas.syncfusion.com/wpf"
+         xmlns:i1="http://schemas.microsoft.com/expression/2010/interactivity"
         mc:Ignorable="d"
-        Title="MainWindow" Height="650" Width="1200"
+        Title="MainWindow" Height="650" Width="1300"
         DataContext="{StaticResource MainVM}"
         x:Name="mainWindow">
-    <i1:Interaction.Triggers>
+    <!--<i1:Interaction.Triggers>
         <i1:EventTrigger EventName="Loaded">
             <i1:InvokeCommandAction Command="{Binding LoadedWindowCommand}"
                                     CommandParameter="{Binding ElementName=mainWindow}">
                 
             </i1:InvokeCommandAction>
         </i1:EventTrigger>
-    </i1:Interaction.Triggers>
-    <Grid>
-        <TabControl VerticalAlignment="Top">
-            <TabItem Header="Tuấn">
-                <TabControl>
-                    <TabItem Header="Quản lý chỉ tiêu "></TabItem>
-                    <TabItem Header="Đăng nhập"></TabItem>
-                </TabControl>
-            </TabItem>
-
-            <TabItem Header="Tài">
-                <TabControl>
-                    <TabItem Header="Quản lý chủ cơ sở"></TabItem>
-                    <TabItem Header="Quản lý cơ sở sản xuất"></TabItem>
-                </TabControl>
-            </TabItem>
-            <TabItem Header="Khánh">
-                <TabControl>
-                    <TabItem Header="Phiếu kiểm nghiệm">
-                        <UC:RegistrationSheetUC></UC:RegistrationSheetUC>
-                    </TabItem>
-                    <TabItem Header="Quản lý sản phẩm"></TabItem>
-                </TabControl>
-            </TabItem>
-            <TabItem Header="Đăng">
-                <TabControl>
-                    <TabItem Header="Báo cáo ">
-                    </TabItem>
-                    <TabItem Header="Phiếu đăng ký"></TabItem>
-                </TabControl>
-            </TabItem>
-        </TabControl>
-    </Grid>
+    </i1:Interaction.Triggers>-->
+    <DockPanel>
+        <syncfusion:SfNavigationDrawer x:Name="navigationDrawer" DisplayMode="Expanded" ItemClicked="navigationDrawer_ItemClicked">
+            <!--<syncfusion:NavigationItem Header="Quán Cafe" ItemType="Button" FontSize="26" Height="70">
+                <syncfusion:NavigationItem.Icon>
+                    <Image Source="../Resources/Assets/Images/coffee-cup.png"/>
+                </syncfusion:NavigationItem.Icon>
+            </syncfusion:NavigationItem>-->
+            <!--<syncfusion:NavigationItem ItemType="Separator" />-->
+            <syncfusion:NavigationItem 
+                Header="Quản lý phiếu đăng ký"
+                x:Name="NavEnrollPage"
+            >
+                <!--<syncfusion:NavigationItem.Icon >
+                    <Image Source="../Resources/Assets/Images/Dashboard.png"/>
+                </syncfusion:NavigationItem.Icon>-->
+            </syncfusion:NavigationItem>
+            <syncfusion:NavigationItem
+                    Header="Quản lý sản phẩm"
+                    x:Name="NavManageOwner"
+                    IsExpanded="True">
+                <!--<syncfusion:NavigationItem.Icon >
+                    <Image Source="../Resources/Assets/Images/food.png"/>
+                </syncfusion:NavigationItem.Icon>-->
+                
+            </syncfusion:NavigationItem>
+            <syncfusion:NavigationItem
+                    Header="Quản lý chỉ tiêu"
+                    x:Name="NavQLCT"
+                    IsExpanded="True">
+                <!--<syncfusion:NavigationItem.Icon >
+                    <Image Source="../Resources/Assets/Images/businessman.png"/>
+                </syncfusion:NavigationItem.Icon>-->
+                
+            </syncfusion:NavigationItem>
+            <syncfusion:NavigationItem
+                    Header="Nguồn hàng"
+                    x:Name="NavSource">
+                <!--<syncfusion:NavigationItem.Icon >
+                    <Image Source="../Resources/Assets/Images/boxes.png"/>
+                </syncfusion:NavigationItem.Icon>-->
+            </syncfusion:NavigationItem>
+            <syncfusion:NavigationItem
+                    Header="Thống kê"
+                    x:Name="NavStatistic"
+                    IsExpanded="True">
+                <!--<syncfusion:NavigationItem.Icon >
+                    <Image Source="../Resources/Assets/Images/stats.png"/>
+                </syncfusion:NavigationItem.Icon>-->
+               
+            </syncfusion:NavigationItem>
+            <syncfusion:NavigationItem
+                    Header="Quy định"
+                    x:Name="NavRule">
+                <!--<syncfusion:NavigationItem.Icon >
+                    <Image Source="../Resources/Assets/Images/adjustment.png"/>
+                </syncfusion:NavigationItem.Icon>-->
+            </syncfusion:NavigationItem>
+            <syncfusion:SfNavigationDrawer.ContentView>
+                <Grid>
+                    <Grid.RowDefinitions>
+                        <RowDefinition Height="70"/>
+                        <RowDefinition/>
+                    </Grid.RowDefinitions>
+                   
+                    <Frame Padding="30 10" Grid.Row="1" x:Name="Main" x:FieldModifier="public" NavigationUIVisibility="Hidden"/>
+                </Grid>
+            </syncfusion:SfNavigationDrawer.ContentView>
+        </syncfusion:SfNavigationDrawer>
+    </DockPanel>
 </Window>
