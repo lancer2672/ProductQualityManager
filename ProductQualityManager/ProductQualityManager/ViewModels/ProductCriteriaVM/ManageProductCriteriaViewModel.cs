@@ -1,4 +1,5 @@
-﻿using ProductQualityManager.Models;
+﻿using MaterialDesignThemes.Wpf;
+using ProductQualityManager.Models;
 using ProductQualityManager.Models.Database;
 using ProductQualityManager.Views.ProductCriteria;
 using System;
@@ -21,6 +22,9 @@ namespace ProductQualityManager.ViewModels.ProductCriteriaVM
         public ICommand OpenAddCriteriaCommand { get; set; }
         public ICommand OpenEditCriteriaCommand { get; set; }
         public ICommand RefreshDataCommand { get; set; }
+
+        public SnackbarMessageQueue MyMessageQueue { get => myMessageQueue; set { myMessageQueue = value; OnPropertyChanged(nameof(MyMessageQueue)); } }
+        private SnackbarMessageQueue myMessageQueue;
         public ManageProductCriteriaViewModel()
         {
             CriteriaList = new ObservableCollection<ProductCriteria>();
@@ -28,6 +32,9 @@ namespace ProductQualityManager.ViewModels.ProductCriteriaVM
             OpenEditCriteriaCommand = new RelayCommand<ListView>((p) => { return true; }, (p) => { OpenEditCriteria(p); });
             RefreshDataCommand = new RelayCommand<object>((p) => { return true; }, (p) => { RefreshData(p); });
             LoadCriteriaList();
+
+            MyMessageQueue = new SnackbarMessageQueue(TimeSpan.FromMilliseconds(2000));
+            MyMessageQueue.DiscardDuplicates = true;
         }
         public ObservableCollection<ProductCriteria> GetCriteriaFromList(List<CHITIEUSANPHAM> criteriaList)
         {

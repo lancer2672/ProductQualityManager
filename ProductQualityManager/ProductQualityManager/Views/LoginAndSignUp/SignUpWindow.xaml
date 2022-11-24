@@ -6,7 +6,7 @@
         xmlns:local="clr-namespace:ProductQualityManager.Views.LoginAndSignUp"
         xmlns:materialDesign="http://materialdesigninxaml.net/winfx/xaml/themes" 
         xmlns:i="http://schemas.microsoft.com/expression/2010/interactivity" 
-        xmlns:i1="http://schemas.microsoft.com/expression/2010/interactions"
+        xmlns:i1="http://schemas.microsoft.com/expression/2010/interactions" xmlns:rule="clr-namespace:ProductQualityManager.Resources.Utils"
         mc:Ignorable="d"
         Title="SignUpWindow" Height="auto" Width="500" 
         DataContext="{StaticResource SignUpVM}" x:Name="signUpWindow">
@@ -21,17 +21,36 @@
                 <RowDefinition></RowDefinition>
                 <RowDefinition></RowDefinition>
             </Grid.RowDefinitions>
-            <Grid Grid.Row="0" Margin="30 20" Height="40">
-                <TextBox materialDesign:HintAssist.Hint="Nhập gmail" Style="{StaticResource MaterialDesignFloatingHintTextBox}" Text="{Binding Username}">
-
-                </TextBox>
-            </Grid>
-            <Grid Grid.Row="1" Margin="30 20" Height="40">
-                <TextBox materialDesign:HintAssist.Hint="Xác nhận lại gmail" Style="{StaticResource MaterialDesignFloatingHintTextBox}" Text="{Binding ReUsername}">
-
-                </TextBox>
-            </Grid>
-            <!--<Grid Grid.Row="1" Margin="30 20">
+            <StackPanel x:Name="InfoSignUpform">
+                <Grid Grid.Row="0" Margin="30 20" Height="40">
+                    <TextBox x:Name="usernameTxb"
+                        materialDesign:HintAssist.Hint="Nhập gmail" 
+                         Style="{StaticResource MaterialDesignFloatingHintTextBox}">
+                        <TextBox.Text>
+                            <Binding Path="Username" UpdateSourceTrigger="PropertyChanged" NotifyOnValidationError="True" ValidatesOnExceptions="True">
+                                <Binding.ValidationRules>
+                                    <rule:NonEmptyRule/>
+                                    <rule:EmailRule/>
+                                </Binding.ValidationRules>
+                            </Binding>
+                        </TextBox.Text>
+                    </TextBox>
+                </Grid>
+                <Grid Grid.Row="1" Margin="30 20" Height="40">
+                    <TextBox x:Name="reUsernameTxb"
+                        materialDesign:HintAssist.Hint="Xác nhận lại gmail" 
+                         Style="{StaticResource MaterialDesignFloatingHintTextBox}">
+                        <TextBox.Text>
+                            <Binding Path="ReUsername" UpdateSourceTrigger="PropertyChanged" NotifyOnValidationError="True" ValidatesOnExceptions="True">
+                                <Binding.ValidationRules>
+                                    <rule:NonEmptyRule/>
+                                    <rule:EmailRule/>
+                                </Binding.ValidationRules>
+                            </Binding>
+                        </TextBox.Text>
+                    </TextBox>
+                </Grid>
+                <!--<Grid Grid.Row="1" Margin="30 20">
                 <PasswordBox x:Name="passwordTxb" Style="{StaticResource MaterialDesignFloatingHintPasswordBox}"
                              materialDesign:HintAssist.Hint="Mật khẩu" Height="40">
                     <i:Interaction.Triggers>
@@ -55,34 +74,70 @@
 
                 </PasswordBox>
             </Grid>-->
-            <Grid Grid.Row="2" Margin="30 20 " Height="40">
-                <TextBox materialDesign:HintAssist.Hint="Họ tên" Style="{StaticResource MaterialDesignFloatingHintTextBox}" Text="{Binding Name}">
+                <Grid Grid.Row="2" Margin="30 20 " Height="40">
+                    <TextBox x:Name="nameTxb"
+                        materialDesign:HintAssist.Hint="Họ tên" 
+                         Style="{StaticResource MaterialDesignFloatingHintTextBox}" >
+                        <TextBox.Text>
+                            <Binding Path="Name" UpdateSourceTrigger="PropertyChanged" NotifyOnValidationError="True" ValidatesOnExceptions="True">
+                                <Binding.ValidationRules>
+                                    <rule:NonEmptyRule/>
+                                    <rule:NameRule/>
+                                </Binding.ValidationRules>
+                            </Binding>
+                        </TextBox.Text>
 
-                </TextBox>
-            </Grid>
-            <Grid Grid.Row="3" Margin="30 20 " Height="40">
-                <TextBox materialDesign:HintAssist.Hint="Số điện thoại" Style="{StaticResource MaterialDesignFloatingHintTextBox}" Text="{Binding Phone}">
-
-                </TextBox>
-            </Grid>
+                    </TextBox>
+                </Grid>
+                <Grid Grid.Row="3" Margin="30 20 " Height="40">
+                    <TextBox x:Name="phoneTxb"
+                        materialDesign:HintAssist.Hint="Số điện thoại" 
+                         Style="{StaticResource MaterialDesignFloatingHintTextBox}">
+                        <TextBox.Text>
+                            <Binding Path="Phone" UpdateSourceTrigger="PropertyChanged" NotifyOnValidationError="True" ValidatesOnExceptions="True">
+                                <Binding.ValidationRules>
+                                    <rule:NonEmptyRule/>
+                                    <rule:PhoneNumberRule/>
+                                </Binding.ValidationRules>
+                            </Binding>
+                        </TextBox.Text>
+                    </TextBox>
+                </Grid>
+            </StackPanel>
+            
             <StackPanel Grid.Row="4" Margin="0 40 40 0" Orientation="Horizontal" HorizontalAlignment="Right">
 
                 <Button  x:Name="loginBtn" 
                         Margin="0 0 0 0"
                          Width="100"
                          Command="{Binding SignUpCommand}"
-                         CommandParameter="{Binding ElementName=signUpWindow}">
+                         CommandParameter="{Binding ElementName=InfoSignUpform}">
                     Đăng kí
-                    <!--<i:Interaction.Triggers>
+                    <Button.Style >
+                        <Style TargetType="Button" >
+
+                            <Setter Property="IsEnabled" Value="False"></Setter>
+                            <Style.Triggers>
+                                <MultiDataTrigger>
+                                    <MultiDataTrigger.Conditions>
+                                        <Condition Binding="{Binding Path=(Validation.HasError), ElementName=usernameTxb}" Value="False"/>
+                                        <Condition Binding="{Binding Path=(Validation.HasError), ElementName=reUsernameTxb}" Value="False"/>
+                                        <Condition Binding="{Binding Path=(Validation.HasError), ElementName=nameTxb}" Value="False"/>
+                                        <Condition Binding="{Binding Path=(Validation.HasError), ElementName=phoneTxb}" Value="False"/>
+                                    </MultiDataTrigger.Conditions>
+                                    <Setter Property="IsEnabled" Value="True"/>
+                                </MultiDataTrigger>
+                            </Style.Triggers>
+                        </Style>
+                    </Button.Style>
+                    <i:Interaction.Triggers>
                         <i:EventTrigger EventName="Click">
-                            <i:CallMethodAction MethodName="Close"
+                            <i1:CallMethodAction MethodName="Close"
                                                 TargetObject="{Binding RelativeSource={RelativeSource
                                                   Mode=FindAncestor,
                                                   AncestorType=Window}}" />
-
                         </i:EventTrigger>
-                    </i:Interaction.Triggers>-->
-
+                    </i:Interaction.Triggers>
                 </Button>
                 <Button x:Name="exitBtn"                  
                     

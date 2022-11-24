@@ -115,11 +115,11 @@
 
 
         </Grid>
-        <!--<materialDesign:Snackbar
+        <materialDesign:Snackbar
                 HorizontalAlignment="Stretch"
                 VerticalAlignment="Bottom"
                 MessageQueue="{Binding MyMessageQueue}">
-        </materialDesign:Snackbar>-->
+        </materialDesign:Snackbar>
     </Grid>
 </Window>
 

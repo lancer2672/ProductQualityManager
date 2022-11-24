@@ -40,23 +40,19 @@ namespace ProductQualityManager.ViewModels.LoginVM
             Name = "";
             Phone = "";
 
-            SignUpCommand = new RelayCommand<Window>((p) => { return true; }, (p) => { SignUp(p); });
+            SignUpCommand = new RelayCommand<StackPanel>((p) => { return true; }, (p) => { SignUp(p); });
             //PasswordChangedCommand = new RelayCommand<PasswordBox>((p) => { return true; }, (p) => { Password = p.Password; });
             //RePasswordChangedCommand = new RelayCommand<PasswordBox>((p) => { return true; }, (p) => { RePassword = p.Password; });
             
             
         }
 
-        void SignUp(Window p)
+        void SignUp(StackPanel infoSignUpForm)
         {
-            if (string.IsNullOrEmpty(Username) || string.IsNullOrEmpty(ReUsername) || string.IsNullOrEmpty(Name) || string.IsNullOrEmpty(Phone))
-            {
-                MessageBox.Show("Vui lòng điền đầy đủ thông tin");
-            }
-            else
+            if (Resources.Utils.Validator.IsValid(infoSignUpForm))
             {
                 TAIKHOAN newAccount = new TAIKHOAN();
-                newAccount.TenDangNhap = Username;              
+                newAccount.TenDangNhap = Username;
                 CHUCOSO newChuCoSo = new CHUCOSO();
                 newChuCoSo.HoTen = Name;
                 newChuCoSo.DienTHoai = Phone;
@@ -84,9 +80,17 @@ namespace ProductQualityManager.ViewModels.LoginVM
                     DataProvider.Ins.DB.SaveChanges();
                     MessageBox.Show("Tạo tài khoản mới thành công");
                     CreateTimeoutTestMessage(Username, Password);
-                    p.Close();
+                    Refresh();
+                    //p.Close();
                 }
             }
+        }
+        void Refresh()
+        {
+            Username = "";
+            ReUsername = "";
+            Name = "";
+            Phone = "";
         }
         public bool IsExist(TAIKHOAN NewAccount)
         {
@@ -122,8 +126,7 @@ namespace ProductQualityManager.ViewModels.LoginVM
             {
                 throw;
             }
-
-
         }
+        
     }
 }
