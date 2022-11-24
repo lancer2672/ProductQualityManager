@@ -8,24 +8,49 @@
         xmlns:i="http://schemas.microsoft.com/expression/2010/interactivity"
         xmlns:i1="http://schemas.microsoft.com/expression/2010/interactions"
         mc:Ignorable="d"
+        x:Name="window"
+        xmlns:rule="clr-namespace:ProductQualityManager.Resources.Utils"
+        WindowStartupLocation="CenterOwner"
         DataContext="{StaticResource CreateRegistrationSheetVM}"
-        Title="CreateSheet" Height="450" Width="450">
+        Title="CreateSheet" Height="550" Width="800">
+    <Window.Resources>
+     
+            <ResourceDictionary>
+                <ResourceDictionary.MergedDictionaries>
+                    <ResourceDictionary Source="../Styles/ListView.xaml"></ResourceDictionary>
+                </ResourceDictionary.MergedDictionaries>
+            </ResourceDictionary>
+   
+    </Window.Resources>
     <Border Margin="20">
-        <StackPanel>
-            <StackPanel.Resources>
-                <Style TargetType="TextBox" 
+        <Grid>
+            <Grid.RowDefinitions>
+                <RowDefinition Height="*"></RowDefinition>
+                <RowDefinition Height="50"></RowDefinition>
+            </Grid.RowDefinitions>
+
+            <Grid Grid.Row="0">
+                <Grid.ColumnDefinitions>
+                    <ColumnDefinition Width="*"></ColumnDefinition>
+                    <ColumnDefinition Width="2*"></ColumnDefinition>
+                </Grid.ColumnDefinitions>
+
+                <StackPanel>
+                    <StackPanel.Resources>
+                        <Style TargetType="TextBox" 
                        BasedOn="{StaticResource MaterialDesignFloatingHintTextBox}">
-                    <Setter Property="MinHeight"  Value ="40"></Setter>
-                    <Setter Property="MinWidth"  Value ="400"></Setter>
-                </Style>
-                <Style TargetType="TextBlock" 
+                            <Setter Property="MinHeight"  Value ="40"></Setter>
+                            <Setter Property="MinWidth"  Value ="400"></Setter>
+                        </Style>
+                        <Style TargetType="TextBlock" 
                        BasedOn="{StaticResource MaterialDesignBody1TextBlock}">
-                    <Setter Property="MinHeight"  Value ="40"></Setter>
-                </Style>
-            </StackPanel.Resources>
-            <TextBlock HorizontalAlignment="Center" Text ="PHIẾU ĐĂNG KÝ"></TextBlock>
-            <Label Margin="0 0 0 12"  HorizontalContentAlignment="Center" Content="Ngày 27/10/2020"></Label>
-            <ComboBox x:Name="A"
+                            <Setter Property="MinHeight"  Value ="40"></Setter>
+                        </Style>
+                    </StackPanel.Resources>
+                    <TextBlock HorizontalAlignment="Center" Text ="PHIẾU ĐĂNG KÝ"></TextBlock>
+
+                    <Label Margin="0 0 0 12"  HorizontalContentAlignment="Center" Content="{Binding DateNow}" ContentStringFormat="dd MMM yyyy"></Label>
+                    <ComboBox x:Name="facilityCbx"
                                   
                                   materialDesign:HintAssist.Hint="Tên cơ sở sản xuất"
                                   Width="215" Margin="0,0,0,20" 
@@ -33,25 +58,127 @@
                                   IsEditable="True"
                                   ItemsSource="{Binding FacilityList}"
                                   DisplayMemberPath="TenCoSo"
-                                  SelectedItem="{Binding SelectedFacility, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"  VerticalContentAlignment="Bottom"/>
-            <Label Padding="0" Content="Thông tin sản phẩm"></Label>
-            <ComboBox
+                                   VerticalContentAlignment="Bottom">
+                        <ComboBox.SelectedItem>
+                            <Binding Path="SelectedFacility">
+                                <Binding.ValidationRules>
+                                    <rule:SelectionValidationRule ValidatesOnTargetUpdated="True"/>
+                                </Binding.ValidationRules>
+                            </Binding>
+                        </ComboBox.SelectedItem>
+                    </ComboBox>
+                    <StackPanel Orientation="Horizontal">
+                        <Label  Margin="0 10 0 0" Content="Ngày hết hạn"></Label>
+                        <DatePicker Padding="0" materialDesign:HintAssist.Hint="Ngày hết hạn" SelectedDate="{Binding StartDay}" Width="150" Margin="0 10 0 0" >
+
+                        </DatePicker>
+                    </StackPanel>
+                    <Label Margin="0 10 0 0" Padding="0" Content="Thông tin sản phẩm"></Label>
+                    <ComboBox  x:Name="productCbx"
                                   materialDesign:HintAssist.Hint="Tên sản phẩm"
-                                  Width="390" Margin="0 10 0 0" 
+                                  Width="234" Margin="0 10 0 0" 
                                   HorizontalAlignment="Left"
                                   IsEditable="True"
                                   ItemsSource="{Binding ProductList}"
                                   DisplayMemberPath="TenSanPham"
-                                  SelectedItem="{Binding SelectedProduct, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"  VerticalContentAlignment="Bottom"/>
-            <StackPanel Orientation="Horizontal">
-                <TextBox  materialDesign:HintAssist.Hint="Số lượng" Text="{Binding Quantity}" ></TextBox>
-            </StackPanel>
-            <StackPanel Orientation="Horizontal">
-                <DatePicker materialDesign:HintAssist.Hint="Ngày hết hạn" SelectedDate="{Binding StartDay}" Width="200" Margin="0 10 0 0" >
-                </DatePicker>
-            </StackPanel>
-            <StackPanel Margin="0 100 0 0" Orientation="Horizontal" HorizontalAlignment="Right">
-                <Button Content="Gửi" Command="{Binding CSubmitForm}"></Button>
+                                  VerticalContentAlignment="Bottom">
+                        <ComboBox.SelectedItem>
+                            <Binding Path="SelectedProduct">
+                                <Binding.ValidationRules>
+                                    <rule:SelectionValidationRule ValidatesOnTargetUpdated="True"/>
+                                </Binding.ValidationRules>
+                            </Binding>
+                        </ComboBox.SelectedItem>
+                    </ComboBox>
+
+
+                    <StackPanel Orientation="Horizontal">
+
+                        <TextBox x:Name="productQuantity"
+                        Width="234"
+                        materialDesign:HintAssist.Hint="Số lượng" 
+                         Style="{StaticResource MaterialDesignFloatingHintTextBox}">
+                            <TextBox.Text>
+                                <Binding Path="Quantity" UpdateSourceTrigger="PropertyChanged" NotifyOnValidationError="True" ValidatesOnExceptions="True">
+                                    <Binding.ValidationRules>
+                                        <rule:NonEmptyRule/>
+                                        <rule:PositiveNumberRule/>
+                                    </Binding.ValidationRules>
+                                </Binding>
+                            </TextBox.Text>
+                        </TextBox>
+
+                    </StackPanel>
+                    <Button ToolTip="Thêm sản phẩm"  
+                                     Margin="0 20 20 0"   
+                                     Command="{Binding CAddProduct}"
+                                        >
+                        <DockPanel>
+                            <materialDesign:PackIcon Kind="Add" />
+                        </DockPanel>
+                        <Button.Style>
+                            <Style  TargetType="Button" BasedOn="{StaticResource MaterialDesignRaisedButton}">
+                                <Setter Property="IsEnabled" Value="False"/>
+                                <Style.Triggers>
+                                    <MultiDataTrigger>
+                                        <MultiDataTrigger.Conditions>
+                                            <Condition Binding="{Binding Path=(Validation.HasError), ElementName=productQuantity}" Value="False"/>
+                                            <Condition Binding="{Binding Path=(Validation.HasError), ElementName=facilityCbx}" Value="False"/>
+                                            <Condition Binding="{Binding Path=(Validation.HasError), ElementName=productCbx}" Value="False"/>
+                                        </MultiDataTrigger.Conditions>
+                                        <Setter Property="IsEnabled" Value="True"/>
+                                    </MultiDataTrigger>
+                                </Style.Triggers>
+                            </Style>
+                        </Button.Style>
+                    </Button>
+                  
+                </StackPanel>
+                
+                <StackPanel Grid.Column="1">
+                    <Label HorizontalAlignment="Center" Content="Danh sách sản phẩm đăng ký"></Label>
+                    <ListView 
+                        ItemContainerStyle="{StaticResource  ListItemContainer}"
+                            x:Name="Listview"
+                            ItemsSource="{Binding SelectedProductList}">
+                        <ListView.View>
+                            <GridView>
+                                <GridViewColumn Header="STT" DisplayMemberBinding="{Binding RelativeSource={RelativeSource Mode=FindAncestor,AncestorType=ListViewItem},Converter={StaticResource  IndexConverter}}"></GridViewColumn>
+                                <GridViewColumn Header="Mã sản phẩm" DisplayMemberBinding="{Binding MaSanPham}"></GridViewColumn>
+                                <GridViewColumn Header="Tên sản phẩm" DisplayMemberBinding="{Binding TenSanPham}"></GridViewColumn>
+                                <GridViewColumn Header="Số lượng" DisplayMemberBinding="{Binding SoLuong}"></GridViewColumn>
+                            </GridView>
+                        </ListView.View>
+                    </ListView>
+                </StackPanel>
+            </Grid>
+
+
+            <StackPanel Grid.Row="1"  Orientation="Horizontal" HorizontalAlignment="Right">
+                <Button  x:Name="createBtn" 
+                        Margin="0 0 0 0"
+                            CommandParameter="{Binding ElementName=window}"
+                        Command="{Binding CSubmitForm}"
+                        >
+                    Gửi
+                    <Button.Style>
+                        <Style  TargetType="Button" BasedOn="{StaticResource MaterialDesignRaisedButton}">
+                            <Setter Property="IsEnabled" Value="False"/>
+                            <Style.Triggers>
+                                <MultiDataTrigger>
+                                    <MultiDataTrigger.Conditions>
+
+
+                                    </MultiDataTrigger.Conditions>
+                                    <Setter Property="IsEnabled" Value="True"/>
+                                </MultiDataTrigger>
+                            </Style.Triggers>
+                        </Style>
+                    </Button.Style>
+
+
+                </Button>
+
                 <Button Margin="20 0 0 0" Content="Hủy">
                     <i:Interaction.Triggers>
                         <i:EventTrigger EventName="Click">
@@ -62,7 +189,15 @@
                         </i:EventTrigger>
                     </i:Interaction.Triggers>
                 </Button>
+                
             </StackPanel>
-        </StackPanel>
+            <materialDesign:Snackbar
+                Grid.Row="3"
+                    HorizontalAlignment="Stretch"
+                    VerticalAlignment="Bottom"
+                    
+                    MessageQueue="{Binding MyMessageQueue}" Height="40"/>
+        </Grid>
+
     </Border>
 </Window>

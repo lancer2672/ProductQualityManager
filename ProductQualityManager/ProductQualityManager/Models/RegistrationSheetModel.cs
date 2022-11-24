@@ -20,9 +20,9 @@ namespace ProductQualityManager.Models
             this.TrangThai = PhieuDangKy.TrangThai;
             MauChu = "";
             STrangThai = "";
-            
            
         }
+  
         public int MaPhieuDangKy { get; set; }
         public Nullable<int> MaCoSo { get; set; }
         public Nullable<System.DateTime> NgayDangKy { get; set; }

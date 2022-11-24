@@ -18,6 +18,15 @@ namespace ProductQualityManager.Resources.Utils
             return ValidationResult.ValidResult;
         }
     }
+    public class SelectionValidationRule : ValidationRule
+    {
+        public override ValidationResult Validate(object value, System.Globalization.CultureInfo cultureInfo)
+        {
+            return value == null
+                ? new ValidationResult(false, "Không được để trống")
+                : new ValidationResult(true, null);
+        }
+    }
     public class NameRule : ValidationRule
     {
         public override ValidationResult Validate(object value, CultureInfo cultureInfo)

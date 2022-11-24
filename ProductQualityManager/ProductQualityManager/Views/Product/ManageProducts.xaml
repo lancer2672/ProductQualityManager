@@ -5,6 +5,7 @@
       xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
       xmlns:local="clr-namespace:ProductQualityManager.Views.Product"
       mc:Ignorable="d" 
+       xmlns:rule="clr-namespace:ProductQualityManager.Resources.Utils"
         DataContext="{StaticResource ProductVM}"
              xmlns:materialDesign ="http://materialdesigninxaml.net/winfx/xaml/themes"
       d:DesignHeight="450" d:DesignWidth="1100"
@@ -51,16 +52,43 @@
                 </ListView.View>
             </ListView>
             <StackPanel Margin="0 16 0 0 " Orientation="Horizontal">
-                <TextBox materialDesign:HintAssist.Hint="Thêm sản phẩm mới" Style="{StaticResource MaterialDesignFloatingHintTextBox}"  MinWidth="200" Margin="0 0 10 0" HorizontalAlignment="Stretch" Text="{Binding ProductName}"></TextBox>
-                <Button ToolTip="Thêm sản phẩm"  
-                                        Name="AddProductBtn"
-                                       
-                                        Command="{Binding CAddProduct}"
-                                            >
+                <TextBox x:Name="newProductName"
+                         MinWidth="200" Margin="0 0 10 0"
+                        materialDesign:HintAssist.Hint="Thêm sản phẩm mới" 
+                         Style="{StaticResource MaterialDesignFloatingHintTextBox}">
+                    <TextBox.Text>
+                        <Binding Path="ProductName" UpdateSourceTrigger="PropertyChanged" NotifyOnValidationError="True" ValidatesOnExceptions="True">
+                            <Binding.ValidationRules>
+                                <rule:NonEmptyRule/>
+                            </Binding.ValidationRules>
+                        </Binding>
+                    </TextBox.Text>
+                </TextBox>
+                <Button  x:Name="loginBtn" 
+                        Margin="0 0 0 0"
+                         
+                         Command="{Binding CAddProduct}"
+                        >
                     <DockPanel>
                         <materialDesign:PackIcon Kind="Add" />
                     </DockPanel>
+                    <Button.Style>
+                        <Style  TargetType="Button" BasedOn="{StaticResource MaterialDesignRaisedButton}">
+                            <Setter Property="IsEnabled" Value="False"/>
+                            <Style.Triggers>
+                                <MultiDataTrigger>
+                                    <MultiDataTrigger.Conditions>
+                                        <Condition Binding="{Binding Path=(Validation.HasError), ElementName=newProductName}" Value="False"/>
+                                    </MultiDataTrigger.Conditions>
+                                    <Setter Property="IsEnabled" Value="True"/>
+                                </MultiDataTrigger>
+                            </Style.Triggers>
+                        </Style>
+                    </Button.Style>
+                    
+                  
                 </Button>
+           
             </StackPanel>
         </StackPanel>
         <StackPanel Grid.Column="1">
@@ -81,5 +109,10 @@
                 </ListView.View>
             </ListView>
         </StackPanel>
+        <materialDesign:Snackbar Grid.Row="2"
+                HorizontalAlignment="Stretch"
+                VerticalAlignment="Bottom"
+                MessageQueue="{Binding MyMessageQueue}">
+        </materialDesign:Snackbar>
     </Grid>
 </Page>

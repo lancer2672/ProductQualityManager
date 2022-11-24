@@ -7,14 +7,23 @@
         mc:Ignorable="d"
         
         Title="ViewDetailWindow" Height="450" Width="800">
+    <Window.Resources>
+        <ResourceDictionary>
+            <ResourceDictionary.MergedDictionaries>
+                <ResourceDictionary Source="../Styles/ListView.xaml"></ResourceDictionary>
+            </ResourceDictionary.MergedDictionaries>
+        </ResourceDictionary>
+    </Window.Resources>
     <StackPanel Margin="20">
         <Label HorizontalAlignment="Center" Content="THÔNG TIN CHI TIẾT PHIẾU ĐĂNG KÝ"></Label>
+        <Label HorizontalAlignment="Center" FontSize="14" Content="{Binding  RegistrationDate}" ContentStringFormat="dd MMM yyyy"></Label>
         <StackPanel>
             <Label Content="{Binding  IdRegistrationSheet }" ContentStringFormat="Mã phiếu đăng ký: {0}"></Label>
-            <Label Content="{Binding  RegistrationDate}" ContentStringFormat="dd MMM yyyy"></Label>
+         
             <Label Content="{Binding  IdFactory}" ContentStringFormat="Mã phiếu đăng ký: {0}"></Label>
             <ListView 
             x:Name="Listview"
+                ItemContainerStyle="{StaticResource ListItemContainer}"
             ItemsSource="{Binding DetailRegistrationSheetList}">
                 <ListView.View>
                     <GridView>

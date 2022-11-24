@@ -10,6 +10,8 @@ using System.Windows.Controls;
 using System.Windows.Input;
 using System.Windows.Navigation;
 using ProductQualityManager.Views.TestingSheet;
+using ProductQualityManager.Views.TestSheet;
+
 namespace ProductQualityManager.ViewModels
 {
     public class RegistrationSheetViewModel  : BaseViewModel
@@ -33,7 +35,8 @@ namespace ProductQualityManager.ViewModels
         public ICommand COpenViewDetailWindow { get; set; }
         public ICommand CApprove { get; set; }
         public ICommand CReject { get; set; }
-        
+        public ICommand COpenModificationHistoryWindow { get; set; }
+
         public RegistrationSheetViewModel()
         {
             SelectedDate = DateTime.Today;
@@ -41,9 +44,11 @@ namespace ProductQualityManager.ViewModels
             COpenViewDetailWindow = new RelayCommand<object>((p) => { return true; }, (p) => { OpenDetailWindow(p); });
             CApprove = new RelayCommand<object>((p) => { return true; }, (p) => { ApproveSheet(p); });
             CReject = new RelayCommand<object>((p) => { return true; }, (p) => { RejectSheet(p); });
+            COpenModificationHistoryWindow = new RelayCommand<object>((p) => { return true; }, (p) => { OpenModificationHistoryWindow(p); });
 
             LoadDataSheetList();
         }
+       
         //Load danh sách phiếu đăng ký 
         public void LoadDataSheetList() 
         {
@@ -53,6 +58,13 @@ namespace ProductQualityManager.ViewModels
             if (SheetList == null) return;
             SelectedSheet = new RegistrationSheetModel();
             TestingSheetListObs = GetDataSheetFromList(SheetList);
+        }
+        public void OpenModificationHistoryWindow(object p)
+        {
+
+            RegistrationSheetModel selectedItem = p as RegistrationSheetModel;
+            ModificationHistory window = new ModificationHistory(selectedItem);
+            window.Show();
         }
         public void ApproveSheet(object p)
         {

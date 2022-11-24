@@ -30,7 +30,7 @@
             ItemsSource="{Binding TestingSheetListObs, Mode=TwoWay}">
             <ListView.View>
                 <GridView>
-                    <GridViewColumn Header="STT" DisplayMemberBinding="{Binding RelativeSource={RelativeSource Mode=FindAncestor,AncestorType=ListViewItem},Converter={StaticResource  IndexConverter}}"></GridViewColumn>
+                    <!--<GridViewColumn Header="STT" DisplayMemberBinding="{Binding RelativeSource={RelativeSource Mode=FindAncestor,AncestorType=ListViewItem},Converter={StaticResource  IndexConverter}}"></GridViewColumn>-->
                     <GridViewColumn Header="Mã Cơ Sở" DisplayMemberBinding="{Binding MaCoSo}"></GridViewColumn>
                     <GridViewColumn Header="Thời gian đăng ký" DisplayMemberBinding="{Binding NgayDangKy}"></GridViewColumn>
                     <GridViewColumn Header="Ngày hết hạn" DisplayMemberBinding="{Binding ThoiHanDangKy}"></GridViewColumn>
@@ -46,7 +46,7 @@
                             <!--CommandParameter="{Binding ,RelativeSource={RelativeSource Mode=FindAncestor, AncestorType=ListView}}"-->
                             <DataTemplate>
                                 <Button ToolTip="Chấp thuận"  
-                                        Name="AddBtn"
+                                      
                                         Width="70"
                                         CommandParameter="{Binding }" Command="{Binding DataContext.CApprove, RelativeSource={RelativeSource AncestorType=ListView}}"
                                         >
@@ -62,7 +62,7 @@
                         <GridViewColumn.CellTemplate>
                             <DataTemplate>
                                 <Button ToolTip="Từ chối"  
-                                        Name="AddBtn"
+                                        
                                         Width="70"
                                         
                                         Style="{StaticResource IconNegativeButton}"
@@ -80,15 +80,32 @@
                         <GridViewColumn.CellTemplate>
                             <DataTemplate>
                                 <Button ToolTip="Xem chi tiết"  
-                                        Name="AddBtn"
+                                       
                                         Width="100"
-                                        Margin="100 0 0 0"
+                                        Margin="20 0 0 0"
                                         
                                         Command="{Binding ElementName=Listview, Path=DataContext.COpenViewDetailWindow }" CommandParameter="{Binding}"
                                         >
                                     <DockPanel>
                                         <!--<materialDesign:PackIcon Kind="Details" />-->
                                         <TextBlock Text="Chi tiết"/>
+                                    </DockPanel>
+                                </Button>
+                            </DataTemplate>
+                        </GridViewColumn.CellTemplate>
+                    </GridViewColumn>
+                    <GridViewColumn  >
+                        <GridViewColumn.CellTemplate>
+                            <DataTemplate>
+                                <Button ToolTip="Xem lịch sử"  
+                                      
+                                        Width="70"
+                                     
+                                        
+                                        Command="{Binding ElementName=Listview, Path=DataContext.COpenModificationHistoryWindow }" CommandParameter="{Binding}"
+                                        >
+                                    <DockPanel>
+                                        <materialDesign:PackIcon Kind="History" />
                                     </DockPanel>
                                 </Button>
                             </DataTemplate>
