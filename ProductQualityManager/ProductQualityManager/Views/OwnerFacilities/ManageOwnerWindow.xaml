@@ -6,7 +6,6 @@
         xmlns:local="clr-namespace:ProductQualityManager.Views.OwnerFacilities"
         xmlns:materialDesign="http://materialdesigninxaml.net/winfx/xaml/themes"
         mc:Ignorable="d"
-        WindowStartupLocation="CenterScreen"
         DataContext="{StaticResource ManageOwnerVM}"
         Title="ManageOwnerWindow" Height="550" Width="1000">
     <Window.Resources>

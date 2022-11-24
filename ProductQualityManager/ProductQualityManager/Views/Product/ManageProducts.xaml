@@ -1,21 +1,23 @@
-﻿<UserControl x:Class="ProductQualityManager.Views.Product.Product"
-             xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
-             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
-             xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
-             xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
-             xmlns:local="clr-namespace:ProductQualityManager.Views.Product"
+﻿<Page x:Class="ProductQualityManager.Views.Product.ManageProducts"
+      xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+      xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+      xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
+      xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
+      xmlns:local="clr-namespace:ProductQualityManager.Views.Product"
+      mc:Ignorable="d" 
+        DataContext="{StaticResource ProductVM}"
              xmlns:materialDesign ="http://materialdesigninxaml.net/winfx/xaml/themes"
-             mc:Ignorable="d" 
-             DataContext="{StaticResource ProductVM}"
-             d:DesignHeight="450" d:DesignWidth="1200">
-    <UserControl.Resources>
+      d:DesignHeight="450" d:DesignWidth="1100"
+      Title="ManageProducts">
+
+    <Page.Resources>
         <ResourceDictionary>
             <ResourceDictionary.MergedDictionaries>
                 <ResourceDictionary Source="../Styles/ListView.xaml"></ResourceDictionary>
                 <ResourceDictionary Source="../Styles/Button.xaml"></ResourceDictionary>
             </ResourceDictionary.MergedDictionaries>
         </ResourceDictionary>
-    </UserControl.Resources>
+    </Page.Resources>
     <Grid Margin="20">
         <Grid.ColumnDefinitions>
             <ColumnDefinition Width="1*"></ColumnDefinition>
@@ -44,7 +46,7 @@
                     <GridView>
                         <GridViewColumn Header="STT" DisplayMemberBinding="{Binding RelativeSource={RelativeSource Mode=FindAncestor,AncestorType=ListViewItem},Converter={StaticResource  IndexConverter}}"></GridViewColumn>
                         <GridViewColumn Header="Tên sản phẩm" DisplayMemberBinding="{Binding TenSanPham}"></GridViewColumn>
-                        
+
                     </GridView>
                 </ListView.View>
             </ListView>
@@ -80,4 +82,4 @@
             </ListView>
         </StackPanel>
     </Grid>
-</UserControl>
+</Page>

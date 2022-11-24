@@ -16,11 +16,11 @@ using System.Windows.Shapes;
 namespace ProductQualityManager.Views.Product
 {
     /// <summary>
-    /// Interaction logic for Product.xaml
+    /// Interaction logic for ManageProducts.xaml
     /// </summary>
-    public partial class Product : UserControl
+    public partial class ManageProducts : Page
     {
-        public Product()
+        public ManageProducts()
         {
             InitializeComponent();
         }

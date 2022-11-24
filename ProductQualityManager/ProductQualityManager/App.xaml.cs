@@ -13,5 +13,10 @@ namespace ProductQualityManager
     /// </summary>
     public partial class App : Application
     {
+        public App()
+        {
+            //Register Syncfusion license
+            Syncfusion.Licensing.SyncfusionLicenseProvider.RegisterLicense("NzY1NzE1QDMyMzAyZTMzMmUzMGFKSU0veGNudy84ZXZVRXBmUTFaNzJOMS9wR1ZRRGY5ZDNETkdFVDlTdFk9");
+        }
     }
 }
