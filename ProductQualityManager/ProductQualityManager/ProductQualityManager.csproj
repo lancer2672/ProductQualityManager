@@ -186,6 +186,7 @@
     <Compile Include="Views\Pages.cs" />
     <Compile Include="Views\Product\ManageProducts.xaml.cs">
       <DependentUpon>ManageProducts.xaml</DependentUpon>
+    </Compile>
     <Compile Include="Views\ProductCriteria\AddProductCriteria.xaml.cs">
       <DependentUpon>AddProductCriteria.xaml</DependentUpon>
     </Compile>
@@ -194,9 +195,6 @@
     </Compile>
     <Compile Include="Views\ProductCriteria\ManageProductCriteria.xaml.cs">
       <DependentUpon>ManageProductCriteria.xaml</DependentUpon>
-    </Compile>
-    <Compile Include="Views\Product\Product.xaml.cs">
-      <DependentUpon>Product.xaml</DependentUpon>
     </Compile>
     <Compile Include="Views\TestSheet\CreateSheet.xaml.cs">
       <DependentUpon>CreateSheet.xaml</DependentUpon>
@@ -252,6 +250,9 @@
       <Generator>MSBuild:Compile</Generator>
     </Page>
     <Page Include="Views\Product\ManageProducts.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
     <Page Include="Views\ProductCriteria\AddProductCriteria.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
@@ -261,10 +262,6 @@
       <Generator>MSBuild:Compile</Generator>
     </Page>
     <Page Include="Views\ProductCriteria\ManageProductCriteria.xaml">
-      <SubType>Designer</SubType>
-      <Generator>MSBuild:Compile</Generator>
-    </Page>
-    <Page Include="Views\Product\Product.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
