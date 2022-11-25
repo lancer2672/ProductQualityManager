@@ -29,7 +29,7 @@ namespace ProductQualityManager.ViewModels.ProductCriteriaVM
         {
             CriteriaList = new ObservableCollection<ProductCriteria>();
             OpenAddCriteriaCommand  = new RelayCommand<object>((p) => { return true; }, (p) => { OpenAddCriteria(p); });
-            OpenEditCriteriaCommand = new RelayCommand<ListView>((p) => { return true; }, (p) => { OpenEditCriteria(p); });
+            OpenEditCriteriaCommand = new RelayCommand<object>((p) => { return true; }, (p) => { OpenEditCriteria(p); });
             RefreshDataCommand = new RelayCommand<object>((p) => { return true; }, (p) => { RefreshData(p); });
             LoadCriteriaList();
 
@@ -78,15 +78,21 @@ namespace ProductQualityManager.ViewModels.ProductCriteriaVM
             AddProductCriteria window = new AddProductCriteria(this);
             window.ShowDialog();
         }
-        public void OpenEditCriteria(ListView listView)
+        //public void OpenEditCriteria(ListView listView)
+        //{
+        //    System.Collections.IList list = listView.SelectedItems;
+        //    if (list.Count != 1)
+        //    {
+        //        return;
+        //    }
+        //    EditProductCriteria editCriteriaWindow = new EditProductCriteria(this);
+        //    editCriteriaWindow.ShowDialog();
+        //}
+        public void OpenEditCriteria(object p)
         {
-            System.Collections.IList list = listView.SelectedItems;
-            if (list.Count != 1)
-            {
-                return;
-            }
-            EditProductCriteria editCriteriaWindow = new EditProductCriteria(this);
-            editCriteriaWindow.ShowDialog();
+            ProductCriteria selectedItem = p as ProductCriteria;
+            EditProductCriteria editProductCriteria = new EditProductCriteria(selectedItem, this);
+            editProductCriteria.Show();
         }
         public void RefreshData(object p)
         {
