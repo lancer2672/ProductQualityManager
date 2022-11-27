@@ -56,7 +56,8 @@ namespace ProductQualityManager.ViewModels.LoginVM
                 //IsLogin = true;
                 //p.Close();
                 //Username = "";
-                //Password = "";                            
+                //Password = "";
+                TAIKHOAN Account = DataProvider.Ins.DB.TAIKHOANs.Where(x => x.TenDangNhap == Username && x.MatKhau == Password).FirstOrDefault();
                 if (Username == "admin")
                 {
                     MainWindow mainWindow = new MainWindow();
@@ -65,7 +66,7 @@ namespace ProductQualityManager.ViewModels.LoginVM
                 }
                 else
                 {
-                    ManageOwnerWindow manageOwnerWindow = new ManageOwnerWindow();
+                    ManageOwnerWindow manageOwnerWindow = new ManageOwnerWindow((int)Account.MaChuCoSo);
                     manageOwnerWindow.Show();
                     p.Close();
                 }
