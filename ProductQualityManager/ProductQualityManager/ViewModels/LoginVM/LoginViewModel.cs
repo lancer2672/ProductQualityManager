@@ -5,6 +5,7 @@ using ProductQualityManager.Views.OwnerFacilities;
 using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Security.Cryptography;
 using System.Text;
 using System.Threading.Tasks;
 using System.Windows;
@@ -48,7 +49,8 @@ namespace ProductQualityManager.ViewModels.LoginVM
             IsLogin = false;
             if (p == null)
                 return;
-            var accCount = DataProvider.Ins.DB.TAIKHOANs.Where(x => x.TenDangNhap == Username && x.MatKhau == Password).Count();
+            string passEncode = MD5Hash(Base64Encode(Password));
+            var accCount = DataProvider.Ins.DB.TAIKHOANs.Where(x => x.TenDangNhap == Username && x.MatKhau == passEncode).Count();
             if (accCount > 0)
             {
                 //App.Current.Properties["FacilityOwner"] = Id chu co so 
@@ -99,6 +101,23 @@ namespace ProductQualityManager.ViewModels.LoginVM
                 }
             }
             return false;
+        }
+        public static string Base64Encode(string plainText)
+        {
+            var plainTextBytes = System.Text.Encoding.UTF8.GetBytes(plainText);
+            return System.Convert.ToBase64String(plainTextBytes);
+        }
+        public static string MD5Hash(string input)
+        {
+            StringBuilder hash = new StringBuilder();
+            MD5CryptoServiceProvider md5provider = new MD5CryptoServiceProvider();
+            byte[] bytes = md5provider.ComputeHash(new UTF8Encoding().GetBytes(input));
+
+            for (int i = 0; i < bytes.Length; i++)
+            {
+                hash.Append(bytes[i].ToString("x2"));
+            }
+            return hash.ToString();
         }
     }
 }
