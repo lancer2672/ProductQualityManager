@@ -40,6 +40,19 @@
                       <GridViewColumn Header="Chỉ tiêu" DisplayMemberBinding="{Binding  TenChiTieu}"></GridViewColumn>
                       <GridViewColumn Header="Giá trị tiêu chuẩn" DisplayMemberBinding="{Binding  GiaTriTieuChuan}"></GridViewColumn>
                       <GridViewColumn Header="Đơn vị tính" DisplayMemberBinding="{Binding  TenDonViTinh}"></GridViewColumn>
+                      <GridViewColumn>
+                        <GridViewColumn.CellTemplate>
+                            <DataTemplate>
+                                <Button Width="70"
+                                        Command="{Binding ElementName=listCriteria, Path=DataContext.OpenEditCriteriaCommand}" 
+                                        CommandParameter="{Binding }">
+                                    <DockPanel>
+                                        <materialDesign:PackIcon Kind="BorderColor" />
+                                    </DockPanel> 
+                                </Button>
+                            </DataTemplate>
+                        </GridViewColumn.CellTemplate>
+                    </GridViewColumn>
                   </GridView>
               </ListView.View>
         </ListView>
@@ -73,6 +86,7 @@
                 <Button Margin="0 20 10 0"
                         Width="100"
                     ToolTip="Chỉnh sửa thông tin"
+                        
                 Command="{Binding OpenEditCriteriaCommand}"
                 CommandParameter="{Binding ElementName=listCriteria}">
 

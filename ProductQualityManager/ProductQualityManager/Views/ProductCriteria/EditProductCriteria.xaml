@@ -24,7 +24,7 @@
             </Grid.RowDefinitions>
             <StackPanel Grid.Row="0" Margin="40 20">
                 <ComboBox materialDesign:HintAssist.Hint="Đơn vị chỉ tiêu"
-                          IsEditable="True"
+                          IsEditable="False"
                           ItemsSource="{Binding UnitList}"
                           DisplayMemberPath="TenDonViTinh"
                           SelectedItem="{Binding SelectedUnit,Mode=TwoWay,UpdateSourceTrigger=PropertyChanged}">

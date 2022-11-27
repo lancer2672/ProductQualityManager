@@ -1,4 +1,5 @@
 ﻿using ProductQualityManager.ViewModels.ProductCriteriaVM;
+using ProductQualityManager.Models;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -20,10 +21,10 @@ namespace ProductQualityManager.Views.ProductCriteria
     /// </summary>
     public partial class EditProductCriteria : Window
     {
-        public EditProductCriteria(ManageProductCriteriaViewModel ProductCriteriaVM)
+        public EditProductCriteria(ProductQualityManager.Models.ProductCriteria selectedItem, ManageProductCriteriaViewModel ProductCriteriaVM)
         {
             InitializeComponent();
-            EditProductCriteriaViewModel editCriteriaVM = new EditProductCriteriaViewModel(ProductCriteriaVM);
+            EditProductCriteriaViewModel editCriteriaVM = new EditProductCriteriaViewModel(selectedItem, ProductCriteriaVM);
             this.DataContext = editCriteriaVM;
         }
     }

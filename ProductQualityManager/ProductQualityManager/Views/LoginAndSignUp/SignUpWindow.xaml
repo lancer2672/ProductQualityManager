@@ -27,7 +27,14 @@
                     <TextBox x:Name="usernameTxb"
                         materialDesign:HintAssist.Hint="Nhập gmail" 
                          Style="{StaticResource MaterialDesignFloatingHintTextBox}">
-                       
+                        <TextBox.Text>
+                            <Binding Path="Username" UpdateSourceTrigger="PropertyChanged" NotifyOnValidationError="True" ValidatesOnExceptions="True">
+                                <Binding.ValidationRules>
+                                    <rule:NonEmptyRule/>
+                                    <rule:EmailRule/>
+                                </Binding.ValidationRules>
+                            </Binding>
+                        </TextBox.Text>
                     </TextBox>
                 </Grid>
                 <Grid Grid.Row="1" Margin="30 20" Height="40">
