@@ -64,7 +64,7 @@ namespace ProductQualityManager.ViewModels.ProductCriteriaVM
         //}
         public void EditProductCriteria(Window p)
         {
-            if ( CriteriaName == "" || StandardValue.ToString() == "")
+            if ( CriteriaName == "" || StandardValue.ToString() == "" ||SelectedUnit.ToString() == "")
             {
                 MessageBox.Show("Vui lòng điền đẩy đủ thông tin!");
             }
