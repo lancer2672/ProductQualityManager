@@ -1,4 +1,5 @@
-﻿using System;
+﻿using ProductQualityManager.Models.Database;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
@@ -11,6 +12,7 @@ namespace ProductQualityManager.Models
         //public int MaCTChiTieu { get; set; }
         public Nullable<int> MaChiTieu { get; set; }
         //public Nullable<int> MaDangKyChiTieu { get; set; }
+        public Nullable<int> MaDonViTinh { get; set; }
         public Nullable<decimal> GiaTriDangKy { get; set; }
         public string TenChiTieu { get; set; }
         public decimal GiaTriTieuChuan { get; set; }
@@ -24,6 +26,13 @@ namespace ProductQualityManager.Models
             TenChiTieu = tenChiTieu;
             GiaTriTieuChuan = giaTriTieuChuan;
             TenDonViTinh = tenDonViTinh;
+        }
+        public ProductCriteria(CHITIEUSANPHAM ChiTieuSanPham)
+        {
+            this.MaChiTieu = ChiTieuSanPham.MaChiTieu;
+            this.TenChiTieu = ChiTieuSanPham.TenChiTieu;
+            this.GiaTriTieuChuan = (decimal)ChiTieuSanPham.GiaTriTieuChuan;
+            this.MaDonViTinh = (int)ChiTieuSanPham.MaDonViTinh;
         }
         public ProductCriteria() { }
     }

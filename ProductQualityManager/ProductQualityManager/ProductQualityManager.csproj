@@ -340,6 +340,10 @@
     <Resource Include="Resources\Imgs\LoginImg.png" />
   </ItemGroup>
   <ItemGroup>
+    <Resource Include="Resources\Imgs\meo.jpg" />
+    <Resource Include="Resources\Imgs\AccountWallpaper.jpg" />
+  </ItemGroup>
+  <ItemGroup>
     <Content Include="Models\Database\Model1.Context.tt">
       <Generator>TextTemplatingFileGenerator</Generator>
       <DependentUpon>Model1.edmx</DependentUpon>

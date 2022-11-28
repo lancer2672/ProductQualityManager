@@ -5,8 +5,15 @@
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:ProductQualityManager.Views.TestSheet"
         mc:Ignorable="d"
-        WindowStartupLocation="CenterOwner"
-        Title="ModificationHistory" Height="450" Width="800">
+        WindowStartupLocation="CenterScreen"
+        Title="ModificationHistory" Height="400" Width="600">
+    <Window.Resources>
+        <ResourceDictionary>
+            <ResourceDictionary.MergedDictionaries>
+                <ResourceDictionary Source="../Styles/ListView.xaml"></ResourceDictionary>
+            </ResourceDictionary.MergedDictionaries>
+        </ResourceDictionary>
+    </Window.Resources>
     <StackPanel Margin="20">
         <Label HorizontalAlignment="Center" Content="LỊCH SỬ DUYỆT PHIẾU ĐĂNG KÝ"></Label>
         <!--<Label HorizontalAlignment="Center" FontSize="14" Content="{Binding  RegistrationDate}" ContentStringFormat="dd MMM yyyy"></Label>-->
@@ -16,6 +23,7 @@
             <Label Content="{Binding  IdFactory}" ContentStringFormat="Mã phiếu đăng ký: {0}"></Label>-->
             <ListView 
             x:Name="Listview"
+            ItemContainerStyle="{StaticResource ListItemContainer}"
             ItemsSource="{Binding ModificationHistoryList}">
                 <ListView.View>
                     <GridView>
@@ -24,7 +32,7 @@
                         <GridViewColumn Header="Giá trị duyệt" >
                             <GridViewColumn.CellTemplate>
                                 <DataTemplate>
-                                    <TextBlock Text="{Binding Path=SGiaTriDuyet}" Foreground="{Binding  MauChu}"/>
+                                    <TextBlock FontWeight="Medium" Text="{Binding Path=SGiaTriChinhSua}" Foreground="{Binding  MauChu}"/>
                                 </DataTemplate>
                             </GridViewColumn.CellTemplate>
                         </GridViewColumn>

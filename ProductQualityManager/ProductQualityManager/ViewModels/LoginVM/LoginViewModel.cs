@@ -1,6 +1,7 @@
 ﻿using ProductQualityManager.Models;
 using ProductQualityManager.Models.Database;
 using ProductQualityManager.Views.LoginAndSignUp;
+using ProductQualityManager.Views.OwnerFacilities;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -52,10 +53,23 @@ namespace ProductQualityManager.ViewModels.LoginVM
             {
                 //App.Current.Properties["FacilityOwner"] = Id chu co so 
 
-                IsLogin = true;
-                p.Close();             
+                //IsLogin = true;
+                //p.Close();
                 //Username = "";
                 //Password = "";
+                TAIKHOAN Account = DataProvider.Ins.DB.TAIKHOANs.Where(x => x.TenDangNhap == Username && x.MatKhau == Password).FirstOrDefault();
+                if (Username == "admin")
+                {
+                    MainWindow mainWindow = new MainWindow();
+                    mainWindow.Show();
+                    p.Close();
+                }
+                else
+                {
+                    ManageOwnerWindow manageOwnerWindow = new ManageOwnerWindow((int)Account.MaChuCoSo);
+                    manageOwnerWindow.Show();
+                    p.Close();
+                }
             }
             else
             {

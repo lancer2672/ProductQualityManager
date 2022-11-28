@@ -70,12 +70,17 @@ namespace ProductQualityManager.ViewModels
         {
             RegistrationSheetModel selectedItem = p as RegistrationSheetModel;
             
-            PHIEUDANGKY Sheet = DataProvider.Ins.DB.PHIEUDANGKies.Where(t => t.MaPhieuDangKy == selectedItem.MaPhieuDangKy).FirstOrDefault();
-            if (Sheet.TrangThai == 0)
+            PHIEUDANGKY sheet = DataProvider.Ins.DB.PHIEUDANGKies.Where(t => t.MaPhieuDangKy == selectedItem.MaPhieuDangKy).FirstOrDefault();
+            if (sheet.TrangThai == 1)
             {
-                Sheet.TrangThai = 1;
+                return;
             }
-            else return;
+            sheet.TrangThai = 1;
+            LICHSUDUYETPHIEUDANGKY historySheet = new LICHSUDUYETPHIEUDANGKY();
+            historySheet.MaPhieuDangKy = selectedItem.MaPhieuDangKy;
+            historySheet.ThoiGianChinhSua = DateTime.Now;
+            historySheet.GiaTriChinhSua = 1;
+            DataProvider.Ins.DB.LICHSUDUYETPHIEUDANGKies.Add(historySheet);
             try
             {
                 DataProvider.Ins.DB.SaveChanges();
@@ -90,12 +95,17 @@ namespace ProductQualityManager.ViewModels
         {
             RegistrationSheetModel selectedItem = p as RegistrationSheetModel;
 
-            PHIEUDANGKY Sheet = DataProvider.Ins.DB.PHIEUDANGKies.Where(t => t.MaPhieuDangKy == selectedItem.MaPhieuDangKy).FirstOrDefault();
-            if (Sheet.TrangThai == 0)
-            {
-                Sheet.TrangThai = -1;
+            PHIEUDANGKY sheet = DataProvider.Ins.DB.PHIEUDANGKies.Where(t => t.MaPhieuDangKy == selectedItem.MaPhieuDangKy).FirstOrDefault();
+            if (sheet.TrangThai == -1)
+            { 
+                return; 
             }
-            else return;
+            sheet.TrangThai = -1;
+            LICHSUDUYETPHIEUDANGKY historySheet = new LICHSUDUYETPHIEUDANGKY();
+            historySheet.MaPhieuDangKy = selectedItem.MaPhieuDangKy;
+            historySheet.ThoiGianChinhSua = DateTime.Now;
+            historySheet.GiaTriChinhSua = -1;
+            DataProvider.Ins.DB.LICHSUDUYETPHIEUDANGKies.Add(historySheet);
             try
             {
                 DataProvider.Ins.DB.SaveChanges();

@@ -43,10 +43,10 @@ namespace ProductQualityManager.ViewModels.OwnerFacilitiesVM
 
 
         //Khởi tạo
-        public ManageOwnerViewModel()
+        public ManageOwnerViewModel(int idowner)
         {
             //Chọn chủ cơ sở đầu tiên
-            IdOwner = 1;
+            IdOwner = idowner;
             ListFacilities = new ObservableCollection<COSOSANXUAT>();
             LoadDataOwner();
             LoadListFacilities();
@@ -118,12 +118,12 @@ namespace ProductQualityManager.ViewModels.OwnerFacilitiesVM
         public void AddInforFacility()
         {
             if (NameFacility == null || AddressFacility == null)
-                MessageBox.Show("Điền đầy đủ thông tin để thêm cơ sở");
+                MyMessageQueue.Enqueue("Vui lòng điền đầy đủ thông tin!");
             else
             {
                 if (CheckAddress())
                 {
-                    MessageBox.Show("Địa chỉ cơ sở đã có.");
+                    MyMessageQueue.Enqueue("Địa chỉ cơ sở đã có.");
                 }
                 else
                 {
