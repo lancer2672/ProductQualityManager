@@ -59,7 +59,7 @@ namespace ProductQualityManager.ViewModels.LoginVM
                 //p.Close();
                 //Username = "";
                 //Password = "";
-                TAIKHOAN Account = DataProvider.Ins.DB.TAIKHOANs.Where(x => x.TenDangNhap == Username && x.MatKhau == Password).FirstOrDefault();
+                TAIKHOAN Account = DataProvider.Ins.DB.TAIKHOANs.Where(x => x.TenDangNhap == Username && x.MatKhau == passEncode).FirstOrDefault();
                 if (Username == "admin")
                 {
                     MainWindow mainWindow = new MainWindow();
