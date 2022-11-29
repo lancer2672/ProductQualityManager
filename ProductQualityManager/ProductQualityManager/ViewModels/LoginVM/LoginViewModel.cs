@@ -18,11 +18,11 @@ namespace ProductQualityManager.ViewModels.LoginVM
         public bool IsLogin { get; set; }
         private string _username;
         private string _password;
-        public string Username { get => _username; set { _username = value; OnPropertyChanged(); } }
+        public string Username { get => _username; set { _username = value; OnPropertyChanged(Username); } }
 
         //public SnackbarMessageQueue MyMessageQueue { get => myMessageQueue; set { myMessageQueue = value; OnPropertyChanged(nameof(MyMessageQueue)); } }
         //private SnackbarMessageQueue myMessageQueue;
-        public string Password { get => _password; set { _password = value; OnPropertyChanged(); } }
+        public string Password { get => _password; set { _password = value; OnPropertyChanged(Password); } }
 
         public ICommand LoginCommand { get; set; }
         public ICommand PasswordChangedCommand { get; set; }
@@ -67,8 +67,11 @@ namespace ProductQualityManager.ViewModels.LoginVM
                 else
                 {
                     ManageOwnerWindow manageOwnerWindow = new ManageOwnerWindow((int)Account.MaChuCoSo);
-                    manageOwnerWindow.Show();
+                    Username = "";
+                    Password = "";
                     p.Close();
+                    manageOwnerWindow.Show();
+                    
                 }
             }
             else
