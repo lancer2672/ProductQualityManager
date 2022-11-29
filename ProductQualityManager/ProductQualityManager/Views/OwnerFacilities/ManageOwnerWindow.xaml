@@ -4,9 +4,11 @@
         xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:ProductQualityManager.Views.OwnerFacilities"
-        xmlns:materialDesign="http://materialdesigninxaml.net/winfx/xaml/themes"
+        xmlns:materialDesign="http://materialdesigninxaml.net/winfx/xaml/themes" 
+        xmlns:i="http://schemas.microsoft.com/expression/2010/interactivity" 
+        xmlns:i1="http://schemas.microsoft.com/expression/2010/interactions"
         mc:Ignorable="d"
-        DataContext="{StaticResource ManageOwnerVM}"
+        
         WindowStartupLocation="CenterScreen"
         Title="ManageOwnerWindow" Height="550" Width="1000">
     <Window.Resources>
@@ -24,7 +26,7 @@
         <Grid Grid.Column="0" >
             <Grid.RowDefinitions>
                 <RowDefinition Height="120"></RowDefinition>
-                <RowDefinition Height="auto"></RowDefinition>
+                <RowDefinition Height="*"></RowDefinition>
                 <RowDefinition Height="auto"></RowDefinition>
             </Grid.RowDefinitions>
             <StackPanel Grid.Row="0">
@@ -156,20 +158,25 @@
                                 <TextBlock Text="Sửa thông tin" FontSize="12"/>
                             </DockPanel>
                         </Button>
-                        <Button ToolTip="Dăng kí sản phẩm" Command="{Binding RegisterProduct}">
+                        <Button ToolTip="Dăng xuất" Click="Button_Click">
                             <DockPanel>
-                                <materialDesign:PackIcon Kind="RegisteredTrademark" />
-                                <TextBlock Text="Đăng kí" FontSize="12"/>
+                                <materialDesign:PackIcon Kind="Logout" />
+                                <TextBlock Text="Đăng xuất" FontSize="12"/>
                             </DockPanel>
+                            <!--<i:Interaction.Triggers>
+                                <i:EventTrigger EventName="Click">
+                                    <i1:CallMethodAction MethodName="Close" 
+                                                 TargetObject="{Binding RelativeSource={RelativeSource Mode=FindAncestor, AncestorType=Window}}"/>
+                                </i:EventTrigger>
+                            </i:Interaction.Triggers>-->
                         </Button>
                     </StackPanel>
                 </StackPanel>
             </StackPanel>
-            <StackPanel Grid.Row="2" VerticalAlignment="Bottom" >
-                <materialDesign:Snackbar
-                HorizontalAlignment="Stretch"
-                VerticalAlignment="Bottom"
-                MessageQueue="{Binding MyMessageQueue}">
+            <StackPanel Grid.Row="2" >
+                <materialDesign:Snackbar HorizontalAlignment="Stretch"
+                                         VerticalAlignment="Bottom"
+                                         MessageQueue="{Binding MyMessageQueue}">
                 </materialDesign:Snackbar>
             </StackPanel>
         </Grid>

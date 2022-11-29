@@ -11,6 +11,9 @@ using System.Windows.Input;
 using System.Windows.Media;
 using System.Windows.Media.Imaging;
 using System.Windows.Shapes;
+using ProductQualityManager.ViewModels.OwnerFacilitiesVM;
+using ProductQualityManager.ViewModels;
+using ProductQualityManager.Views.LoginAndSignUp;
 
 namespace ProductQualityManager.Views.OwnerFacilities
 {
@@ -19,9 +22,18 @@ namespace ProductQualityManager.Views.OwnerFacilities
     /// </summary>
     public partial class ManageOwnerWindow : Window
     {
-        public ManageOwnerWindow()
+        public ManageOwnerWindow(int IdOwner)
         {
             InitializeComponent();
+            ManageOwnerViewModel manageownerVM = new ManageOwnerViewModel(IdOwner);
+            this.DataContext = manageownerVM;
+        }
+
+        private void Button_Click(object sender, RoutedEventArgs e)
+        {
+            LoginWindow loginWindow = new LoginWindow();
+            loginWindow.Show(); 
+            this.Close();
         }
     }
 }

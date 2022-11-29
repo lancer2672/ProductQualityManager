@@ -189,7 +189,6 @@
     <Compile Include="Views\OwnerFacilities\ManageOwnerWindow.xaml.cs">
       <DependentUpon>ManageOwnerWindow.xaml</DependentUpon>
     </Compile>
-    <Compile Include="Views\Pages.cs" />
     <Compile Include="Views\Product\ManageProducts.xaml.cs">
       <DependentUpon>ManageProducts.xaml</DependentUpon>
     </Compile>
@@ -340,6 +339,10 @@
     <Resource Include="Resources\Imgs\LoginImg.png" />
   </ItemGroup>
   <ItemGroup>
+    <Resource Include="Resources\Imgs\meo.jpg" />
+    <Resource Include="Resources\Imgs\AccountWallpaper.jpg" />
+  </ItemGroup>
+  <ItemGroup>
     <Content Include="Models\Database\Model1.Context.tt">
       <Generator>TextTemplatingFileGenerator</Generator>
       <DependentUpon>Model1.edmx</DependentUpon>
@@ -350,8 +353,9 @@
       <DependentUpon>Model1.edmx</DependentUpon>
       <LastGenOutput>Model1.cs</LastGenOutput>
     </Content>
-    <Resource Include="Resources\Imgs\meo.jpg" />
-    <Resource Include="Resources\Imgs\AccountWallpaper.jpg" />
+    <Resource Include="Resources\Imgs\IconSidebar\tgBtn_default.png" />
+    <Resource Include="Resources\Imgs\IconSidebar\tgBtn_MouseOver.png" />
+    <Resource Include="Resources\Imgs\IconSidebar\img_home.png" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <Import Project="..\packages\MaterialDesignThemes.4.6.1\build\MaterialDesignThemes.targets" Condition="Exists('..\packages\MaterialDesignThemes.4.6.1\build\MaterialDesignThemes.targets')" />

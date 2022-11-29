@@ -19,11 +19,11 @@ namespace ProductQualityManager.ViewModels.LoginVM
         public bool IsLogin { get; set; }
         private string _username;
         private string _password;
-        public string Username { get => _username; set { _username = value; OnPropertyChanged(); } }
+        public string Username { get => _username; set { _username = value; OnPropertyChanged(Username); } }
 
         //public SnackbarMessageQueue MyMessageQueue { get => myMessageQueue; set { myMessageQueue = value; OnPropertyChanged(nameof(MyMessageQueue)); } }
         //private SnackbarMessageQueue myMessageQueue;
-        public string Password { get => _password; set { _password = value; OnPropertyChanged(); } }
+        public string Password { get => _password; set { _password = value; OnPropertyChanged(Password); } }
 
         public ICommand LoginCommand { get; set; }
         public ICommand PasswordChangedCommand { get; set; }
@@ -53,12 +53,13 @@ namespace ProductQualityManager.ViewModels.LoginVM
             var accCount = DataProvider.Ins.DB.TAIKHOANs.Where(x => x.TenDangNhap == Username && x.MatKhau == passEncode).Count();
             if (accCount > 0)
             {
-                //App.Current.Properties["FacilityOwner"] = Id chu co so 
+             
 
                 //IsLogin = true;
                 //p.Close();
                 //Username = "";
-                //Password = "";                            
+                //Password = "";
+                TAIKHOAN Account = DataProvider.Ins.DB.TAIKHOANs.Where(x => x.TenDangNhap == Username && x.MatKhau == Password).FirstOrDefault();
                 if (Username == "admin")
                 {
                     MainWindow mainWindow = new MainWindow();
@@ -67,9 +68,13 @@ namespace ProductQualityManager.ViewModels.LoginVM
                 }
                 else
                 {
-                    ManageOwnerWindow manageOwnerWindow = new ManageOwnerWindow();
-                    manageOwnerWindow.Show();
+         
+                    ManageOwnerWindow manageOwnerWindow = new ManageOwnerWindow((int)Account.MaChuCoSo);
+                    Username = "";
+                    Password = "";
                     p.Close();
+                    manageOwnerWindow.Show();
+                    
                 }
             }
             else

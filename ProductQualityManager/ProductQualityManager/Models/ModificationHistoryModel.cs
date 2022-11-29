@@ -21,7 +21,7 @@ namespace ProductQualityManager.Models
             this.MaPhieuDangKy = item.MaPhieuDangKy;
             this.ThoiGianChinhSua = item.ThoiGianChinhSua;
             this.GiaTriChinhSua = item.GiaTriChinhSua;
-            this.SGiaTriChinhSua = item.GiaTriChinhSua == -1 ? "Từ chối" : "Đồng ý";
+            this.SGiaTriChinhSua = item.GiaTriChinhSua == -1 ? "Từ chối" : "Chấp thuận";
             this.MauChu = item.GiaTriChinhSua == -1 ? "Red" : "Green";
         }
     }

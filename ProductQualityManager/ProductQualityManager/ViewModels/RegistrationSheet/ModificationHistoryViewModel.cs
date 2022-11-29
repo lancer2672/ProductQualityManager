@@ -26,7 +26,7 @@ namespace ProductQualityManager.ViewModels.RegistrationSheet
         public void LoadData()
         {
             List<LICHSUDUYETPHIEUDANGKY> list = DataProvider.Ins.DB.LICHSUDUYETPHIEUDANGKies.Where(t => t.MaPhieuDangKy == _idSheet).ToList();
-            for (int i = 0; i < list.Count; i++)
+            for (int i = list.Count-1; i > 0; i--)
             {
                 ModificationHistoryModel newItem = new ModificationHistoryModel(list[i]);
                 ModificationHistoryList.Add(newItem);

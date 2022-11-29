@@ -9,6 +9,7 @@ using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Input;
 using ProductQualityManager.Views.OwnerFacilities;
+using ProductQualityManager.Views.LoginAndSignUp;
 using System.Windows.Controls;
 using System.Windows;
 
@@ -38,23 +39,26 @@ namespace ProductQualityManager.ViewModels.OwnerFacilitiesVM
 
         public ICommand EditInfor { get; set; }
         public ICommand AddFacility { get; set; }
-        public ICommand RegisterProduct { get; set; }
+        public ICommand Logout { get; set; }
         public ICommand DetailFacility { get; set; }
 
 
         //Khởi tạo
-        public ManageOwnerViewModel()
+        public ManageOwnerViewModel(int idowner)
         {
             //Chọn chủ cơ sở đầu tiên
-            IdOwner = 1;
+            IdOwner = idowner;
             ListFacilities = new ObservableCollection<COSOSANXUAT>();
             LoadDataOwner();
             LoadListFacilities();
             NumberFacilities = CountFacilities();
 
+            MyMessageQueue = new SnackbarMessageQueue(TimeSpan.FromMilliseconds(2000));
+            MyMessageQueue.DiscardDuplicates = true;
+
             EditInfor = new RelayCommand<ManageOwnerViewModel>((p) => { return true; }, (p) => { OpenEditInforOwnerWindow(); });
             AddFacility = new RelayCommand<object>((p) => { return true; }, (p) => { AddInforFacility(); });
-            RegisterProduct = new RelayCommand<ManageOwnerViewModel>((p) => { return true; }, (p) => { });
+            Logout = new RelayCommand<Window>((p) => { return true; }, (p) => { OpenLoginWindow(p); });
             DetailFacility = new RelayCommand<object>((p) => { return true; }, (p) => { OpenDetailFacilityWindow(p); });
         }
 
@@ -118,12 +122,12 @@ namespace ProductQualityManager.ViewModels.OwnerFacilitiesVM
         public void AddInforFacility()
         {
             if (NameFacility == null || AddressFacility == null)
-                MessageBox.Show("Điền đầy đủ thông tin để thêm cơ sở");
+                MyMessageQueue.Enqueue("Vui lòng điền đầy đủ thông tin!");
             else
             {
                 if (CheckAddress())
                 {
-                    MessageBox.Show("Địa chỉ cơ sở đã có.");
+                    MyMessageQueue.Enqueue("Địa chỉ cơ sở đã có.");
                 }
                 else
                 {
@@ -142,7 +146,22 @@ namespace ProductQualityManager.ViewModels.OwnerFacilitiesVM
                 }
             }
         }
-        //Đăng kí sản phẩm
+
+        public void ClearData()
+        {
+            Name = PhoneNumber = "";
+            NumberFacilities = 0;
+            ListFacilities.Clear();
+        }
+        //Đăng xuất
+        public void OpenLoginWindow(Window p)
+        {
+            //LoginWindow loginWindow = new LoginWindow();
+            ////ClearData();
+            //loginWindow.Show();
+            ////p.Close();
+            
+        }
 
         //Hiện window thông tin chi tiết của cơ sở
         public void OpenDetailFacilityWindow(object p)

@@ -79,7 +79,9 @@ namespace ProductQualityManager.ViewModels.RegistrationSheet
             {
                 if (SelectedProductList[i].MaSanPham == SelectedProduct.MaSanPham)
                 {
-                    SelectedProductList[i].SoLuong = Quantity;
+                    SelectedProductList.RemoveAt(i);
+                    CreateEnrollSheetModel m = new CreateEnrollSheetModel(SelectedProduct.MaSanPham, SelectedProduct.TenSanPham, Quantity);
+                    SelectedProductList.Add(m);
                     return;
                 }
             }
