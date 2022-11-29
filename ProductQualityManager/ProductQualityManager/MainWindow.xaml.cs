@@ -24,10 +24,14 @@ namespace ProductQualityManager
     public partial class MainWindow : Window
     {
         EnrollSheet enrollSheet;
+  
         public MainWindow()
         {
             InitializeComponent();
             this.enrollSheet = new EnrollSheet();
+
+
+            //default
             this.content_Control.Content = enrollSheet;
             //Style = (Style)FindResource("WindowStyle");
 
@@ -56,8 +60,6 @@ namespace ProductQualityManager
                 tt_signout.Visibility = Visibility.Visible;
             }
         }
-
-
 
         private void BG_PreviewMouseLeftButtonDown(object sender, MouseButtonEventArgs e)
         {

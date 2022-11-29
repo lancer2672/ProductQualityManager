@@ -115,7 +115,7 @@
                          CommandParameter="{Binding ElementName=InfoSignUpform}">
                     Đăng kí
                     <Button.Style >
-                        <Style TargetType="Button" >
+                        <Style TargetType="Button" BasedOn="{StaticResource  MaterialDesignRaisedButton}" >
 
                             <Setter Property="IsEnabled" Value="False"></Setter>
                             <Style.Triggers>
