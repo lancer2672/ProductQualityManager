@@ -5,6 +5,7 @@ using ProductQualityManager.Views.OwnerFacilities;
 using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Security.Cryptography;
 using System.Text;
 using System.Threading.Tasks;
 using System.Windows;
@@ -18,11 +19,11 @@ namespace ProductQualityManager.ViewModels.LoginVM
         public bool IsLogin { get; set; }
         private string _username;
         private string _password;
-        public string Username { get => _username; set { _username = value; OnPropertyChanged(); } }
+        public string Username { get => _username; set { _username = value; OnPropertyChanged(Username); } }
 
         //public SnackbarMessageQueue MyMessageQueue { get => myMessageQueue; set { myMessageQueue = value; OnPropertyChanged(nameof(MyMessageQueue)); } }
         //private SnackbarMessageQueue myMessageQueue;
-        public string Password { get => _password; set { _password = value; OnPropertyChanged(); } }
+        public string Password { get => _password; set { _password = value; OnPropertyChanged(Password); } }
 
         public ICommand LoginCommand { get; set; }
         public ICommand PasswordChangedCommand { get; set; }
@@ -48,8 +49,8 @@ namespace ProductQualityManager.ViewModels.LoginVM
             IsLogin = false;
             if (p == null)
                 return;
-            var accCount = DataProvider.Ins.DB.TAIKHOANs.Where(x => x.TenDangNhap == Username && x.MatKhau == Password).Count();
-         
+            string passEncode = MD5Hash(Base64Encode(Password));
+            var accCount = DataProvider.Ins.DB.TAIKHOANs.Where(x => x.TenDangNhap == Username && x.MatKhau == passEncode).Count();
             if (accCount > 0)
             {
              
@@ -58,7 +59,7 @@ namespace ProductQualityManager.ViewModels.LoginVM
                 //p.Close();
                 //Username = "";
                 //Password = "";
-                TAIKHOAN Account = DataProvider.Ins.DB.TAIKHOANs.Where(x => x.TenDangNhap == Username && x.MatKhau == Password).FirstOrDefault();
+                TAIKHOAN Account = DataProvider.Ins.DB.TAIKHOANs.Where(x => x.TenDangNhap == Username && x.MatKhau == passEncode).FirstOrDefault();
                 if (Username == "admin")
                 {
                     MainWindow mainWindow = new MainWindow();
@@ -69,8 +70,11 @@ namespace ProductQualityManager.ViewModels.LoginVM
                 {
          
                     ManageOwnerWindow manageOwnerWindow = new ManageOwnerWindow((int)Account.MaChuCoSo);
-                    manageOwnerWindow.Show();
+                    Username = "";
+                    Password = "";
                     p.Close();
+                    manageOwnerWindow.Show();
+                    
                 }
             }
             else
@@ -102,6 +106,23 @@ namespace ProductQualityManager.ViewModels.LoginVM
                 }
             }
             return false;
+        }
+        public static string Base64Encode(string plainText)
+        {
+            var plainTextBytes = System.Text.Encoding.UTF8.GetBytes(plainText);
+            return System.Convert.ToBase64String(plainTextBytes);
+        }
+        public static string MD5Hash(string input)
+        {
+            StringBuilder hash = new StringBuilder();
+            MD5CryptoServiceProvider md5provider = new MD5CryptoServiceProvider();
+            byte[] bytes = md5provider.ComputeHash(new UTF8Encoding().GetBytes(input));
+
+            for (int i = 0; i < bytes.Length; i++)
+            {
+                hash.Append(bytes[i].ToString("x2"));
+            }
+            return hash.ToString();
         }
     }
 }

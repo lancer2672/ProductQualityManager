@@ -7,6 +7,7 @@ using System.Diagnostics;
 using System.Linq;
 using System.Net;
 using System.Net.Mail;
+using System.Security.Cryptography;
 using System.Text;
 using System.Threading.Tasks;
 using System.Windows;
@@ -58,7 +59,7 @@ namespace ProductQualityManager.ViewModels.LoginVM
                 newChuCoSo.DienTHoai = Phone;
                 if (IsExist(newAccount) == true)
                 {
-                    MessageBox.Show("tài khoản đã tồn tại");
+                    MessageBox.Show("Tài khoản đã tồn tại");
                 }
                 else if (Username != ReUsername)
                 {
@@ -71,7 +72,8 @@ namespace ProductQualityManager.ViewModels.LoginVM
                     {
                         Password = String.Concat(Password, random.Next(10).ToString());
                     }
-                    newAccount.MatKhau = Password;
+                    string passEncode = MD5Hash(Base64Encode(Password));
+                    newAccount.MatKhau = passEncode;
                     DataProvider.Ins.DB.CHUCOSOes.Add(newChuCoSo);
 
                     newAccount.MaChuCoSo = (int)newChuCoSo.MaChuCoSo;
@@ -127,6 +129,22 @@ namespace ProductQualityManager.ViewModels.LoginVM
                 throw;
             }
         }
-        
+        public static string Base64Encode(string plainText)
+        {
+            var plainTextBytes = System.Text.Encoding.UTF8.GetBytes(plainText);
+            return System.Convert.ToBase64String(plainTextBytes);
+        }
+        public static string MD5Hash(string input)
+        {
+            StringBuilder hash = new StringBuilder();
+            MD5CryptoServiceProvider md5provider = new MD5CryptoServiceProvider();
+            byte[] bytes = md5provider.ComputeHash(new UTF8Encoding().GetBytes(input));
+
+            for (int i = 0; i < bytes.Length; i++)
+            {
+                hash.Append(bytes[i].ToString("x2"));
+            }
+            return hash.ToString();
+        }
     }
 }
