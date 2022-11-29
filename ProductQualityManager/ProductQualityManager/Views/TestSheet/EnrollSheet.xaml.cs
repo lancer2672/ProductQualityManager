@@ -18,7 +18,7 @@ namespace ProductQualityManager.Views.TestSheet
     /// <summary>
     /// Interaction logic for EnrollSheet.xaml
     /// </summary>
-    public partial class EnrollSheet : Page
+    public partial class EnrollSheet : UserControl
     {
         public EnrollSheet()
         {

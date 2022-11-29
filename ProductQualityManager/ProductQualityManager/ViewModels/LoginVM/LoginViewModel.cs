@@ -49,9 +49,10 @@ namespace ProductQualityManager.ViewModels.LoginVM
             if (p == null)
                 return;
             var accCount = DataProvider.Ins.DB.TAIKHOANs.Where(x => x.TenDangNhap == Username && x.MatKhau == Password).Count();
+         
             if (accCount > 0)
             {
-                //App.Current.Properties["FacilityOwner"] = Id chu co so 
+             
 
                 //IsLogin = true;
                 //p.Close();
@@ -66,6 +67,7 @@ namespace ProductQualityManager.ViewModels.LoginVM
                 }
                 else
                 {
+         
                     ManageOwnerWindow manageOwnerWindow = new ManageOwnerWindow((int)Account.MaChuCoSo);
                     Username = "";
                     Password = "";

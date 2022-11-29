@@ -1,4 +1,5 @@
 ﻿using ProductQualityManager.Views;
+using ProductQualityManager.Views.TestSheet;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -22,50 +23,68 @@ namespace ProductQualityManager
     /// </summary>
     public partial class MainWindow : Window
     {
+        EnrollSheet enrollSheet;
         public MainWindow()
         {
             InitializeComponent();
+            this.enrollSheet = new EnrollSheet();
+            this.content_Control.Content = enrollSheet;
             //Style = (Style)FindResource("WindowStyle");
-            Main.Content = Pages.ProductPage;
-        }
-        private void navigationDrawer_ItemClicked(object sender, Syncfusion.UI.Xaml.NavigationDrawer.NavigationItemClickedEventArgs e)
-        {
-            switch (e.Item.Name)
-            {
-                case "NavEnrollPage":
-                    Main.Content = Pages.EnrollPage;
-                    break;
 
-                case "NavManageOwner":
-                    Main.Content = Pages.ProductPage;
-                    break;
-                case "NavQLCT":
-                    Main.Content = Pages.ProductCriteriaPage;
-                    break;
-                    //case "NavEmployeeList":
-                    //    Main.Content = Pages.EmployeePage;
-                    //    break;
-                    //case "NavEmployeeType":
-                    //    Main.Content = Pages.EmployeeTypePage;
-                    //    break;
-                    //case "NavPartTimeScheduler":
-                    //    Main.Content = Pages.PartTimeSchedulerPage;
-                    //    break;
-                    //case "NavSource":
-                    //    Main.Content = Pages.SourcePage;
-                    //    break;
-                    //case "NavStatisticRevenue":
-                    //    Main.Content = Pages.StatisticRevenuePage;
-                    //    break;
-                    //case "NavStatisticFoodType":
-                    //    Main.Content = Pages.StatisticFoodTypePage;
-                    //    break;
-                    //case "NavRule":
-                    //    Main.Content = Pages.RegulationPage;
-                    //    break;
-                    //case "NavDashboard":
-                    //    Main.Content = Pages.DashboardPage;
-                    //    break;
+
+        }
+        private void ListViewItem_MouseEnter(object sender, MouseEventArgs e)
+        {
+            // Set tooltip visibility
+
+            if (Tg_Btn.IsChecked == true)
+            {
+                tt_home.Visibility = Visibility.Collapsed;
+                tt_contacts.Visibility = Visibility.Collapsed;
+                tt_messages.Visibility = Visibility.Collapsed;
+                tt_maps.Visibility = Visibility.Collapsed;
+                tt_settings.Visibility = Visibility.Collapsed;
+                tt_signout.Visibility = Visibility.Collapsed;
+            }
+            else
+            {
+                tt_home.Visibility = Visibility.Visible;
+                tt_contacts.Visibility = Visibility.Visible;
+                tt_messages.Visibility = Visibility.Visible;
+                tt_maps.Visibility = Visibility.Visible;
+                tt_settings.Visibility = Visibility.Visible;
+                tt_signout.Visibility = Visibility.Visible;
+            }
+        }
+
+
+
+        private void BG_PreviewMouseLeftButtonDown(object sender, MouseButtonEventArgs e)
+        {
+            Tg_Btn.IsChecked = false;
+        }
+
+        private void CloseBtn_Click(object sender, RoutedEventArgs e)
+        {
+            Close();
+        }
+
+        private void ListViewItem_PreviewMouseLeftButtonDown(object sender, MouseButtonEventArgs e)
+        {
+            var item = sender as ListViewItem;
+            if (item != null && item.IsSelected)
+            {
+                //Do your stuff
+                switch (item.Name)
+                {
+                    case "EnrollSheet":
+                        {
+                            this.content_Control.Content = enrollSheet;
+                            break;
+                        }
+                    default:
+                        break;
+                }
             }
         }
     }

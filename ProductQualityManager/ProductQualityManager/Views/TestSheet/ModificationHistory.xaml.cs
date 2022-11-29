@@ -1,4 +1,5 @@
 ﻿using ProductQualityManager.Models;
+using ProductQualityManager.ViewModels.RegistrationSheet;
 using ProductQualityManager.ViewModels.TestingSheet;
 using System;
 using System.Collections.Generic;
@@ -24,7 +25,7 @@ namespace ProductQualityManager.Views.TestSheet
         public ModificationHistory(RegistrationSheetModel SelectedItem)
         {
             InitializeComponent();
-            DetailRegistrationSheetViewModel VM = new DetailRegistrationSheetViewModel(SelectedItem);
+            ModificationHistoryViewModel VM = new ModificationHistoryViewModel(SelectedItem);
             this.DataContext = VM;
         }
     }
