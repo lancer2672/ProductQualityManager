@@ -16,13 +16,5 @@ namespace ProductQualityManager.Models
         public string TenSanPham { get; set; }
 
         public DetailRegistrationSheetModel() { }
-        public DetailRegistrationSheetModel(CHITIETPHIEUDANGKY p)
-        {
-            MaPhieuDangKy = p.MaPhieuDangKy;
-            MaCTPhieuDangKy = p.MaCTPhieuDangKy;
-            MaSanPham = p.MaSanPham;
-            SoLuong = p.SoLuong;
-            TenSanPham = "";
-        }
     }
 }

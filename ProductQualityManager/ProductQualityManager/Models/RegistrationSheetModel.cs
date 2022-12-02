@@ -11,23 +11,35 @@ namespace ProductQualityManager.Models
     {
 
         public RegistrationSheetModel() { }
-        public RegistrationSheetModel(PHIEUDANGKY PhieuDangKy)
+        public RegistrationSheetModel(PHIEUDANGKY PhieuDangKy, string DonViTinhSanPham, string TenCoSo, string TenSanPham)
         {
             this.MaPhieuDangKy = PhieuDangKy.MaPhieuDangKy;
-            this.MaCoSo = PhieuDangKy.MaCoSo;
-            this.NgayDangKy = PhieuDangKy.NgayDangKy;
-            this.ThoiHanDangKy = PhieuDangKy.HanDangKy;
-            this.TrangThai = PhieuDangKy.TrangThai;
+            this.MaCoSo = (int)PhieuDangKy.MaCoSo;
+         
+            this.MaSanPham = (int)PhieuDangKy.MaSanPham;
+            this.SoLuong = (int)PhieuDangKy.SoLuong;
+            this.TenCoSo = TenCoSo;
+            this.TenSanPham = TenSanPham;
+            this.DonViTinh = DonViTinhSanPham;
+            this.NgayDangKy = (DateTime)PhieuDangKy.NgayDangKy;
+            this.ThoiHanDangKy = (DateTime)PhieuDangKy.HanDangKy;
+            this.TrangThai = (int)PhieuDangKy.TrangThai;
             MauChu = "";
             STrangThai = "";
            
         }
   
         public int MaPhieuDangKy { get; set; }
-        public Nullable<int> MaCoSo { get; set; }
-        public Nullable<System.DateTime> NgayDangKy { get; set; }
-        public Nullable<DateTime> ThoiHanDangKy { get; set; }
-        public Nullable<int> TrangThai { get; set; }
+     
+        public int MaSanPham { get; set; }
+        public int MaCoSo { get; set; }
+        public DateTime NgayDangKy { get; set; }
+        public DateTime ThoiHanDangKy { get; set; }
+        public int TrangThai { get; set; }
+        public int SoLuong { get; set; }
         public string MauChu { get; set; }
+        public string TenCoSo { get; set; }
+        public string TenSanPham { get; set; }
+        public string DonViTinh { get; set; }
         public string STrangThai { get; set; }    }
 }

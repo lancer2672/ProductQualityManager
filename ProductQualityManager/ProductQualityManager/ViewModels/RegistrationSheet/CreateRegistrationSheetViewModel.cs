@@ -20,17 +20,17 @@ namespace ProductQualityManager.ViewModels.RegistrationSheet
         private int _quantity;
         private DateTime _startDate;
         private string _productName;
-        //private COSOSANXUAT _facility;
+        private COSOSANXUAT _facility;
         private SANPHAM _selectedProduct;
         private COSOSANXUAT _selectedFacility;
-        private ObservableCollection<COSOSANXUAT> _facilityList;
+        //private ObservableCollection<COSOSANXUAT> _facilityList;
         private ObservableCollection<SANPHAM> _productList;
         private ObservableCollection<CreateEnrollSheetModel> _selectedProductList;
         private SnackbarMessageQueue _myMessageQueue;
 
         public DateTime DateNow { get; set; }
-        public COSOSANXUAT SelectedFacility { get { return _selectedFacility; } set { _selectedFacility = value; LoadDataProductList(); OnPropertyChanged(nameof(SelectedFacility)); } }
-        public ObservableCollection<COSOSANXUAT> FacilityList { get { return _facilityList; } set { _facilityList = value; OnPropertyChanged(nameof(FacilityList)); } }
+        //public COSOSANXUAT SelectedFacility { get { return _selectedFacility; } set { _selectedFacility = value; LoadDataProductList(); OnPropertyChanged(nameof(SelectedFacility)); } }
+        //public ObservableCollection<COSOSANXUAT> FacilityList { get { return _facilityList; } set { _facilityList = value; OnPropertyChanged(nameof(FacilityList)); } }
         public ObservableCollection<SANPHAM> ProductList { get { return _productList; } set { _productList = value; OnPropertyChanged(nameof(ProductList)); } }
         public ObservableCollection<CreateEnrollSheetModel> SelectedProductList { get { return _selectedProductList; } set { _selectedProductList = value; OnPropertyChanged(nameof(SelectedProductList)); } }
         public string FacilityName { get { return _facilityName; } set { _facilityName = value; OnPropertyChanged(nameof(FacilityName)); } }
@@ -44,7 +44,7 @@ namespace ProductQualityManager.ViewModels.RegistrationSheet
         public ICommand CAddProduct { get; set; }
         public ICommand CDeleteProduct { get; set; }
 
-        public CreateRegistrationSheetViewModel()
+        public CreateRegistrationSheetViewModel(COSOSANXUAT selectedFacility)
         {
       
             DateNow = DateTime.Today;
@@ -59,7 +59,7 @@ namespace ProductQualityManager.ViewModels.RegistrationSheet
             MyMessageQueue = new SnackbarMessageQueue(TimeSpan.FromMilliseconds(1500));
             MyMessageQueue.DiscardDuplicates = true;
 
-            LoadDataFacilityList();
+            //LoadDataFacilityList();
         }
         void AddProduct(object p)
         {
@@ -93,13 +93,13 @@ namespace ProductQualityManager.ViewModels.RegistrationSheet
         {
            
         }
-        void LoadDataFacilityList()
-        {
-            List<COSOSANXUAT> List = DataProvider.Ins.DB.COSOSANXUATs.Where(t => t.MaChuCoSo == OwnerId).ToList();
-            FacilityList = new ObservableCollection<COSOSANXUAT>(List);
-            LoadDataProductList();
+        //void LoadDataFacilityList()
+        //{
+        //    List<COSOSANXUAT> List = DataProvider.Ins.DB.COSOSANXUATs.Where(t => t.MaChuCoSo == OwnerId).ToList();
+        //    FacilityList = new ObservableCollection<COSOSANXUAT>(List);
+        //    LoadDataProductList();
             
-        }
+        //}
         void LoadDataProductList()
         {
             if (SelectedFacility.MaCoSo != 0 )
@@ -127,11 +127,11 @@ namespace ProductQualityManager.ViewModels.RegistrationSheet
             {
                 for(int i=0;i< SelectedProductList.Count; i++)
                 {
-                    CHITIETPHIEUDANGKY newDetailSheet = new CHITIETPHIEUDANGKY();
-                    newDetailSheet.MaSanPham = SelectedProductList[i].MaSanPham;
-                    newDetailSheet.MaPhieuDangKy = NewSheet.MaPhieuDangKy;
-                    newDetailSheet.SoLuong = SelectedProductList[i].SoLuong;
-                    DataProvider.Ins.DB.CHITIETPHIEUDANGKies.Add(newDetailSheet);
+                    //CHITIETPHIEUDANGKY newDetailSheet = new CHITIETPHIEUDANGKY();
+                    //newDetailSheet.MaSanPham = SelectedProductList[i].MaSanPham;
+                    //newDetailSheet.MaPhieuDangKy = NewSheet.MaPhieuDangKy;
+                    //newDetailSheet.SoLuong = SelectedProductList[i].SoLuong;
+                    //DataProvider.Ins.DB.CHITIETPHIEUDANGKies.Add(newDetailSheet);
                 }
                 DataProvider.Ins.DB.PHIEUDANGKies.Add(NewSheet);
                 DataProvider.Ins.DB.SaveChanges();

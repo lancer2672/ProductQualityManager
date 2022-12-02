@@ -35,8 +35,8 @@ namespace ProductQualityManager.ViewModels.TestingSheet
 
         public void LoadDataListView()
         {
-            List<CHITIETPHIEUDANGKY> List = DataProvider.Ins.DB.CHITIETPHIEUDANGKies.Where(p => p.MaPhieuDangKy == IdRegistrationSheet).ToList();
-            DetailRegistrationSheetList = GetDataSheetFromList(List);
+            //List<CHITIETPHIEUDANGKY> List = DataProvider.Ins.DB.CHITIETPHIEUDANGKies.Where(p => p.MaPhieuDangKy == IdRegistrationSheet).ToList();
+            //DetailRegistrationSheetList = GetDataSheetFromList(List);
         }
         //Lấy dữ liệu từ list ở Database chuyển về Obs Collection
         public ObservableCollection<DetailRegistrationSheetModel> GetDataSheetFromList(List<CHITIETPHIEUDANGKY> SheetList)
@@ -44,12 +44,12 @@ namespace ProductQualityManager.ViewModels.TestingSheet
             ObservableCollection<DetailRegistrationSheetModel> SheetListObs = new ObservableCollection<DetailRegistrationSheetModel>();
             int NumberOfRecord = SheetList.Count();
 
-            for (int i = 0; i < NumberOfRecord; i++)
-            {
-                DetailRegistrationSheetModel item = new DetailRegistrationSheetModel(SheetList[i]);
-                item.TenSanPham = GetProductName((int)item.MaSanPham);
-                SheetListObs.Add(item);
-            }
+            //for (int i = 0; i < NumberOfRecord; i++)
+            //{
+            //    DetailRegistrationSheetModel item = new DetailRegistrationSheetModel(SheetList[i]);
+            //    item.TenSanPham = GetProductName((int)item.MaSanPham);
+            //    SheetListObs.Add(item);
+            //}
             return SheetListObs;
         }
         public string GetProductName(int ProductId)

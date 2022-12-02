@@ -33,8 +33,8 @@ namespace ProductQualityManager.ViewModels
         
         
         public ICommand COpenViewDetailWindow { get; set; }
-        public ICommand CApprove { get; set; }
-        public ICommand CReject { get; set; }
+        public ICommand CCheck { get; set; }
+      
         public ICommand COpenModificationHistoryWindow { get; set; }
 
         public RegistrationSheetViewModel()
@@ -42,8 +42,8 @@ namespace ProductQualityManager.ViewModels
             SelectedDate = DateTime.Today;
             TestingSheetListObs = new ObservableCollection<RegistrationSheetModel>();
             COpenViewDetailWindow = new RelayCommand<object>((p) => { return true; }, (p) => { OpenDetailWindow(p); });
-            CApprove = new RelayCommand<object>((p) => { return true; }, (p) => { ApproveSheet(p); });
-            CReject = new RelayCommand<object>((p) => { return true; }, (p) => { RejectSheet(p); });
+            CCheck = new RelayCommand<object>((p) => { return true; }, (p) => { CheckSheet(p); });
+           
             COpenModificationHistoryWindow = new RelayCommand<object>((p) => { return true; }, (p) => { OpenModificationHistoryWindow(p); });
 
             LoadDataSheetList();
@@ -66,57 +66,36 @@ namespace ProductQualityManager.ViewModels
             ModificationHistory window = new ModificationHistory(selectedItem);
             window.Show();
         }
-        public void ApproveSheet(object p)
+
+        //public void RejectSheet(object p)
+        //{
+        //    RegistrationSheetModel selectedItem = p as RegistrationSheetModel;
+
+        //    PHIEUDANGKY sheet = DataProvider.Ins.DB.PHIEUDANGKies.Where(t => t.MaPhieuDangKy == selectedItem.MaPhieuDangKy).FirstOrDefault();
+        //    if (sheet.TrangThai == -1)
+        //    { 
+        //        return; 
+        //    }
+        //    sheet.TrangThai = -1;
+        //    LICHSUDUYETPHIEUDANGKY historySheet = new LICHSUDUYETPHIEUDANGKY();
+        //    historySheet.MaPhieuDangKy = selectedItem.MaPhieuDangKy;
+        //    historySheet.ThoiGianChinhSua = DateTime.Now;
+        //    historySheet.GiaTriChinhSua = -1;
+        //    DataProvider.Ins.DB.LICHSUDUYETPHIEUDANGKies.Add(historySheet);
+        //    try
+        //    {
+        //        DataProvider.Ins.DB.SaveChanges();
+        //        RefreshList();
+        //    }
+        //    catch (Exception e)
+        //    {
+
+        //    }
+        //}
+        public void CheckSheet(object p)
         {
-            RegistrationSheetModel selectedItem = p as RegistrationSheetModel;
-            
-            PHIEUDANGKY sheet = DataProvider.Ins.DB.PHIEUDANGKies.Where(t => t.MaPhieuDangKy == selectedItem.MaPhieuDangKy).FirstOrDefault();
-            if (sheet.TrangThai == 1)
-            {
-                return;
-            }
-            sheet.TrangThai = 1;
-            LICHSUDUYETPHIEUDANGKY historySheet = new LICHSUDUYETPHIEUDANGKY();
-            historySheet.MaPhieuDangKy = selectedItem.MaPhieuDangKy;
-            historySheet.ThoiGianChinhSua = DateTime.Now;
-            historySheet.GiaTriChinhSua = 1;
-            DataProvider.Ins.DB.LICHSUDUYETPHIEUDANGKies.Add(historySheet);
-            try
-            {
-                DataProvider.Ins.DB.SaveChanges();
-                RefreshList();
-
-            }catch(Exception e)
-            {
-
-            }          
+          
         }
-        public void RejectSheet(object p)
-        {
-            RegistrationSheetModel selectedItem = p as RegistrationSheetModel;
-
-            PHIEUDANGKY sheet = DataProvider.Ins.DB.PHIEUDANGKies.Where(t => t.MaPhieuDangKy == selectedItem.MaPhieuDangKy).FirstOrDefault();
-            if (sheet.TrangThai == -1)
-            { 
-                return; 
-            }
-            sheet.TrangThai = -1;
-            LICHSUDUYETPHIEUDANGKY historySheet = new LICHSUDUYETPHIEUDANGKY();
-            historySheet.MaPhieuDangKy = selectedItem.MaPhieuDangKy;
-            historySheet.ThoiGianChinhSua = DateTime.Now;
-            historySheet.GiaTriChinhSua = -1;
-            DataProvider.Ins.DB.LICHSUDUYETPHIEUDANGKies.Add(historySheet);
-            try
-            {
-                DataProvider.Ins.DB.SaveChanges();
-                RefreshList();
-            }
-            catch (Exception e)
-            {
-
-            }
-        }
-
         public void RefreshList()
         {
             TestingSheetListObs.Clear();
@@ -130,7 +109,12 @@ namespace ProductQualityManager.ViewModels
 
             for(int i = 0; i < NumberOfRecord; i++)
             {
-                RegistrationSheetModel TestingSheet = new RegistrationSheetModel(SheetList[i]);
+                int idProduct = (int)SheetList[i].MaSanPham;
+                int idProductFacility = (int)SheetList[i].MaCoSo;
+                COSOSANXUAT produceFacility = DataProvider.Ins.DB.COSOSANXUATs.Where(t => t.MaCoSo == idProductFacility).FirstOrDefault();
+                SANPHAM product = DataProvider.Ins.DB.SANPHAMs.Where(t => t.MaSanPham == idProduct).FirstOrDefault();
+                DONVITINHSANPHAM unit = DataProvider.Ins.DB.DONVITINHSANPHAMs.Where(t => t.MaDonViTinhSP == product.MaDonViTinhSP).FirstOrDefault();
+                RegistrationSheetModel TestingSheet = new RegistrationSheetModel(SheetList[i], unit.TenDonViTinhSP, produceFacility.TenCoSo, product.TenSanPham);
                 TestingSheet.MauChu = GetColorState((int)TestingSheet.TrangThai);
                 TestingSheet.STrangThai = GetStringState((int)TestingSheet.TrangThai);
                 SheetListObs.Add(TestingSheet);
@@ -147,6 +131,8 @@ namespace ProductQualityManager.ViewModels
                     return "Orange";
                 case 1:
                     return "Green";
+                case 2:
+                    return "Gray";
                 default:
                     return "Orange";
             }
@@ -161,15 +147,15 @@ namespace ProductQualityManager.ViewModels
                     return "Đang chờ duyệt";
                 case 1:
                     return "Chấp thuận";
+                case 2:
+                    return "Quá hạn";
                 default:
                     return "Đang chờ duyệt";
             }
         }
         public void OpenDetailWindow(object p)
         {
-            RegistrationSheetModel selectedItem = p as RegistrationSheetModel;
-            ViewDetailWindow DetailWindow = new ViewDetailWindow(selectedItem);
-            DetailWindow.Show();
+           
         }
     }
 }
