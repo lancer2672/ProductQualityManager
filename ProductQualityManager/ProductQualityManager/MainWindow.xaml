@@ -8,9 +8,9 @@
         xmlns:syncfusion="http://schemas.syncfusion.com/wpf"
          xmlns:i1="http://schemas.microsoft.com/expression/2010/interactivity"
         mc:Ignorable="d"
-        ResizeMode="NoResize"
+     
         SizeToContent="Width"
-        WindowStyle="None"
+    
         WindowStartupLocation="CenterScreen"
         Title="MainWindow" Height="650" Width="1300"
         DataContext="{StaticResource MainVM}"
@@ -248,7 +248,6 @@
                     </Grid>
 
                     <!--// ListView with menu list items //-->
-
                     <ListView  x:Name="LV"
                                Background="Transparent"
                               
@@ -291,6 +290,7 @@
                         <!--// Contacts //-->
 
                         <ListViewItem HorizontalAlignment="Left"
+                                       Name="CriteriaSheet"
                                       Margin="0,0,0,15" MouseEnter="ListViewItem_MouseEnter"
                                       >
 
