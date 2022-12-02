@@ -11,6 +11,7 @@ using System.Threading.Tasks;
 using System.Windows.Controls;
 using System.Windows;
 using System.Windows.Input;
+using System.Security.Cryptography;
 
 namespace ProductQualityManager.ViewModels.OwnerFacilitiesVM
 {
@@ -23,7 +24,8 @@ namespace ProductQualityManager.ViewModels.OwnerFacilitiesVM
         private TAIKHOAN _account;
         private string _oldpass;
         private string _newpass1;
-        private string _newpass2;
+        private string _newpass2; 
+        private SnackbarMessageQueue myMessageQueue;
 
         public CHUCOSO Owner { get { return _owner; } set { _owner = value; OnPropertyChanged(nameof(Owner)); } }
         public int IdOwner { get { return _idowner; } set { _idowner = value; OnPropertyChanged(nameof(IdOwner)); } }
@@ -33,6 +35,7 @@ namespace ProductQualityManager.ViewModels.OwnerFacilitiesVM
         public string OldPass { get { return _oldpass; } set { _oldpass = value; OnPropertyChanged(nameof(OldPass)); } }
         public string NewPass1 { get { return _newpass1; } set { _newpass1 = value; OnPropertyChanged(nameof(NewPass1)); } }
         public string NewPass2 { get { return _newpass2; } set { _newpass2 = value; OnPropertyChanged(nameof(NewPass2)); } }
+        public SnackbarMessageQueue MyMessageQueue { get => myMessageQueue; set { myMessageQueue = value; OnPropertyChanged(nameof(MyMessageQueue)); } }
 
         public ICommand ChangePass { get; set; }
         public ICommand SaveInfor { get; set; }
@@ -44,8 +47,14 @@ namespace ProductQualityManager.ViewModels.OwnerFacilitiesVM
             Owner = DataProvider.Ins.DB.CHUCOSOes.Where(x => x.MaChuCoSo == IdOwner).FirstOrDefault();
             Account = DataProvider.Ins.DB.TAIKHOANs.Where(x => x.MaChuCoSo == IdOwner).FirstOrDefault();
             LoadDataOwner();
+
+            MyMessageQueue = new SnackbarMessageQueue(TimeSpan.FromMilliseconds(2000))
+            {
+                DiscardDuplicates = true
+            };
+
             ChangePass = new RelayCommand<object>((p) => { return true; }, (p) => { ChangePassWord(); });
-            SaveInfor = new RelayCommand<Window>((p) => { return true; }, (p) => { SaveInforOwner(p); });
+            SaveInfor = new RelayCommand<Window>((p) => { return true; }, (p) => { SaveInforOwner(); });
         }
 
         //Hiện thông tin chủ cơ sở
@@ -55,37 +64,57 @@ namespace ProductQualityManager.ViewModels.OwnerFacilitiesVM
             PhoneNumber = Owner.DienTHoai;
         }
 
+        //Hash sang Base64
+        public static string Base64Encode(string plainText)
+        {
+            var plainTextBytes = System.Text.Encoding.UTF8.GetBytes(plainText);
+            return System.Convert.ToBase64String(plainTextBytes);
+        }
+
+        //Hash sang MD5
+        public static string MD5Hash(string input)
+        {
+            StringBuilder hash = new StringBuilder();
+            MD5CryptoServiceProvider md5provider = new MD5CryptoServiceProvider();
+            byte[] bytes = md5provider.ComputeHash(new UTF8Encoding().GetBytes(input));
+
+            for (int i = 0; i < bytes.Length; i++)
+            {
+                hash.Append(bytes[i].ToString("x2"));
+            }
+            return hash.ToString();
+        }
+
         //ĐỔi mật khẩu
         public void ChangePassWord()
         {
+            string oldpassEncode = MD5Hash(Base64Encode(OldPass));
             if (OldPass == null)
-                MessageBox.Show("Nhập mật khẩu cũ.");
+                MyMessageQueue.Enqueue("Nhập mật khẩu cũ.");
             else if (NewPass1 == null || NewPass2 == null)
-                MessageBox.Show("Nhập mật khẩu mới.");
-            else if (Account.MatKhau != OldPass)
+                MyMessageQueue.Enqueue("Nhập mật khẩu mới.");
+            else if (Account.MatKhau != oldpassEncode)
             {
-                MessageBox.Show("Mật khẩu cũ không đúng.");
+                MyMessageQueue.Enqueue("Mật khẩu cũ không đúng.");
             }
             else
             {
                 if (NewPass1 != NewPass2)
-                    MessageBox.Show("Mật khẩu không trùng nhau.");
+                    MyMessageQueue.Enqueue("Mật khẩu không trùng nhau.");
                 else
                 {
-                    Account.MatKhau = NewPass1;
+                    Account.MatKhau = MD5Hash(Base64Encode(NewPass1));
                     DataProvider.Ins.DB.SaveChanges();
-                    MessageBox.Show("Thay đổi mật khẩu thành công.");
+                    MyMessageQueue.Enqueue("Thay đổi mật khẩu thành công.");
                 }
             }
         }
         //Lưu thông tin chủ cơ sở
-        public void SaveInforOwner(Window p)
+        public void SaveInforOwner()
         {
             Owner.HoTen = Name;
             Owner.DienTHoai = PhoneNumber;
             DataProvider.Ins.DB.SaveChanges();
-            //p.Close();
-
         }
     }
 }

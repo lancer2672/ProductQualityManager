@@ -5,61 +5,115 @@
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:ProductQualityManager.Views.OwnerFacilities"
         xmlns:materialDesign="http://materialdesigninxaml.net/winfx/xaml/themes" xmlns:i="http://schemas.microsoft.com/expression/2010/interactivity" xmlns:i1="http://schemas.microsoft.com/expression/2010/interactions"
+        xmlns:rules ="clr-namespace:ProductQualityManager.Resources.Utils" 
         mc:Ignorable="d"
         WindowStartupLocation="CenterScreen"
         Title="DetailFacilityWindow" Height="450" Width="400">
-    <StackPanel>
-        <StackPanel.Resources>
-            <Style TargetType="TextBox" BasedOn="{StaticResource MaterialDesignFloatingHintTextBox}">
-                <Setter Property="Width"  Value="360"></Setter>
-                <Setter Property="Margin" Value="20 5 20 5"></Setter>
-            </Style>
-            <!--<Style TargetType="TextBlock">
+    <Grid>
+        <Grid.RowDefinitions>
+            <RowDefinition Height="auto"></RowDefinition>
+            <RowDefinition Height="*"></RowDefinition>
+            <RowDefinition Height="auto"></RowDefinition>
+        </Grid.RowDefinitions>
+        <StackPanel Grid.Row="0">
+            <StackPanel.Resources>
+                <Style TargetType="TextBox" BasedOn="{StaticResource MaterialDesignFloatingHintTextBox}">
+                    <Setter Property="Width"  Value="360"></Setter>
+                    <Setter Property="Margin" Value="20 5 20 5"></Setter>
+                </Style>
+                <!--<Style TargetType="TextBlock">
                 <Setter Property="FontSize" Value="23"/>
                 <Setter Property="FontWeight" Value="DemiBold"/>
                 <Setter Property="Margin" Value="0 0 0 15"/>
             </Style>-->
-        </StackPanel.Resources>
-        <TextBlock  Text="THÔNG TIN CƠ SỞ" HorizontalAlignment="Center" Margin="0 5 0 5"/>
-        <WrapPanel>
-            <StackPanel Orientation="Horizontal">
-                <TextBox Name="NameFacility"
+            </StackPanel.Resources>
+            <TextBlock  Text="THÔNG TIN CƠ SỞ" HorizontalAlignment="Center" Margin="0 5 0 5"/>
+            <WrapPanel>
+                <StackPanel Orientation="Horizontal">
+                    <TextBox Name="NameFacility"
                          materialDesign:HintAssist.Hint="Tên cơ sở">
-                    <TextBox.Text>
-                        <Binding Path="NameFacility" UpdateSourceTrigger="PropertyChanged" Mode="TwoWay"
+                        <TextBox.Text>
+                            <Binding Path="NameFacility" UpdateSourceTrigger="PropertyChanged" Mode="TwoWay"
                                  NotifyOnValidationError="True" ValidatesOnExceptions="True">
-                        </Binding>
-                    </TextBox.Text>
-                </TextBox>
-            </StackPanel>
-            <StackPanel Orientation="Horizontal">
-                <TextBox Name="AddressFacility"
+                                <Binding.ValidationRules>
+                                    <rules:NonEmptyRule></rules:NonEmptyRule>
+                                </Binding.ValidationRules>
+                            </Binding>
+                        </TextBox.Text>
+                    </TextBox>
+                </StackPanel>
+                <StackPanel Orientation="Horizontal">
+                    <TextBox Name="AddressFacility"
                          materialDesign:HintAssist.Hint="Địa chỉ cơ sở">
-                    <TextBox.Text>
-                        <Binding Path="AddressFacility" UpdateSourceTrigger="PropertyChanged" Mode="TwoWay"
+                        <TextBox.Text>
+                            <Binding Path="AddressFacility" UpdateSourceTrigger="PropertyChanged" Mode="TwoWay"
                                  NotifyOnValidationError="True" ValidatesOnExceptions="True">
-                        </Binding>
-                    </TextBox.Text>
-                </TextBox>
-            </StackPanel>
-            <TextBlock  Text="Danh sách sản phẩm" Margin="20,25,0,5"/>
-            <Grid Height="268">
-                <ScrollViewer ScrollViewer.HorizontalScrollBarVisibility="Auto"  Width="auto" Height="auto" Margin="10,10,10,5">
-                    <ListView x:Name="ListProduct"
+                                <Binding.ValidationRules>
+                                    <rules:NonEmptyRule></rules:NonEmptyRule>
+                                </Binding.ValidationRules>
+                            </Binding>
+                        </TextBox.Text>
+                    </TextBox>
+                </StackPanel>
+                <TextBlock  Text="Danh sách sản phẩm" Margin="20,25,0,5"/>
+            </WrapPanel>
+        </StackPanel>
+        <Grid Grid.Row="1">
+            <ScrollViewer ScrollViewer.HorizontalScrollBarVisibility="Auto"  Width="auto" Height="auto" Margin="10,10,10,5">
+                <ListView x:Name="ListProduct"
                                   ItemsSource="{Binding ListProduct}" 
                                   HorizontalAlignment="Stretch"
                                   SelectedItem="{Binding SelectedProduct}" >
-                        <!--ItemContainerStyle="{StaticResource ListItemContainer}">-->
-                        <ListView.View>
-                            <GridView>
-                                <GridViewColumn Header="STT" DisplayMemberBinding="{Binding RelativeSource={RelativeSource Mode=FindAncestor,AncestorType=ListViewItem},Converter={StaticResource  IndexConverter}}" />
-                                <GridViewColumn Header="Tên sản phẩm" DisplayMemberBinding="{Binding TenSanPham}"/>
-                                <GridViewColumn Header="Tình trạng" DisplayMemberBinding="{Binding TinhTrang}"/>
-                            </GridView>
-                        </ListView.View>
-                    </ListView>
-                </ScrollViewer>
-            </Grid>
-        </WrapPanel>
-    </StackPanel>
+                    <!--ItemContainerStyle="{StaticResource ListItemContainer}">-->
+                    <ListView.View>
+                        <GridView>
+                            <GridViewColumn Header="STT" DisplayMemberBinding="{Binding RelativeSource={RelativeSource Mode=FindAncestor,AncestorType=ListViewItem},Converter={StaticResource  IndexConverter}}" />
+                            <GridViewColumn Header="Tên sản phẩm" DisplayMemberBinding="{Binding TenSanPham}"/>
+                            <GridViewColumn Header="Tình trạng" DisplayMemberBinding="{Binding TinhTrang}"/>
+                        </GridView>
+                    </ListView.View>
+                </ListView>
+            </ScrollViewer>
+        </Grid>
+        <StackPanel Grid.Row="2" Margin="0 10 0 0" 
+                    Orientation="Horizontal" 
+                    HorizontalAlignment="Right">
+            <StackPanel.Resources>
+                <Style TargetType="Button"  BasedOn="{StaticResource MaterialDesignRaisedButton}">
+                    <Setter Property="Margin" Value="0,0,12,12"/>
+                    <Setter Property="Height" Value="Auto"/>
+                    <Setter Property="HorizontalAlignment" Value="Right"/>
+                    <Style.Triggers>
+                        <Trigger Property="IsMouseOver" Value="True">
+                            <Setter Property="Background" Value="#ff3838"/>
+                        </Trigger>
+                    </Style.Triggers>
+                </Style>
+            </StackPanel.Resources>
+            <Button  ToolTip="Sửa thông tin cá nhân" Command="{Binding EditInforFacility}">
+                <DockPanel>
+                    <materialDesign:PackIcon Kind="AccountEditOutline" />
+                    <TextBlock Text="Sửa thông tin" FontSize="12"/>
+                </DockPanel>
+            </Button>
+            <Button ToolTip="Dăng kí sản phẩm" Command="{Binding Register}">
+                <DockPanel>
+                    <materialDesign:PackIcon Kind="Add" />
+                    <TextBlock Text="Đăng kí" FontSize="12"/>
+                </DockPanel>
+            </Button>
+            <Button ToolTip="Lưu" Command="{Binding SaveAndExit}">
+                <DockPanel>
+                    <materialDesign:PackIcon Kind="ContentSaveAll" />
+                    <TextBlock Text="Lưu" FontSize="12"/>
+                </DockPanel>
+                <i:Interaction.Triggers>
+                    <i:EventTrigger EventName="Click">
+                        <i1:CallMethodAction MethodName="Close" 
+                                                 TargetObject="{Binding RelativeSource={RelativeSource Mode=FindAncestor, AncestorType=Window}}"/>
+                    </i:EventTrigger>
+                </i:Interaction.Triggers>
+            </Button>
+        </StackPanel>
+    </Grid>
 </Window>
