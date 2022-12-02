@@ -29,6 +29,7 @@ namespace ProductQualityManager.Views.OwnerFacilities
             this.DataContext = manageownerVM;
         }
 
+        // Đăng xuất
         private void Button_Click(object sender, RoutedEventArgs e)
         {
             LoginWindow loginWindow = new LoginWindow();
