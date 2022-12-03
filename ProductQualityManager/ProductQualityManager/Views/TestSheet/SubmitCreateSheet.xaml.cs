@@ -1,4 +1,6 @@
-﻿using System;
+﻿using ProductQualityManager.Models.Database;
+using ProductQualityManager.ViewModels.RegistrationSheet;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
@@ -19,9 +21,11 @@ namespace ProductQualityManager.Views.TestSheet
     /// </summary>
     public partial class SubmitCreateSheet : Window
     {
-        public SubmitCreateSheet()
+        public SubmitCreateSheet(CreateRegistrationSheetViewModel vm, COSOSANXUAT facility, CHUCOSO owner)
         {
             InitializeComponent();
+            SubmitCreateSheetViewModel viewModel = new SubmitCreateSheetViewModel(vm, facility, owner);
+            this.DataContext = viewModel;
         }
     }
 }

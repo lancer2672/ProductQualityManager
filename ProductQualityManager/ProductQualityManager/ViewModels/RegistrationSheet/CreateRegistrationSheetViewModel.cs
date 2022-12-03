@@ -1,6 +1,7 @@
 ﻿using MaterialDesignThemes.Wpf;
 using ProductQualityManager.Models;
 using ProductQualityManager.Models.Database;
+using ProductQualityManager.Views.TestSheet;
 using System;
 using System.Collections.Generic;
 using System.Collections.ObjectModel;
@@ -43,7 +44,7 @@ namespace ProductQualityManager.ViewModels.RegistrationSheet
         public int CriteriaValue { get { return _criteriaValue; } set { _criteriaValue = value; OnPropertyChanged(nameof(CriteriaValue)); } }
         public DateTime StartDay { get { return _startDate; } set { _startDate = value; OnPropertyChanged(nameof(StartDay)); } }
         public string ProductName { get { return _productName; } set { _productName = value; OnPropertyChanged(nameof(ProductName)); } }
-        public SANPHAM SelectedProduct { get { return _selectedProduct; } set { _selectedProduct = value;  OnPropertyChanged(nameof(SelectedProduct)); } }
+        public SANPHAM SelectedProduct { get { return _selectedProduct; } set { _selectedProduct = value; DetailRegistrationSheetList.Clear(); OnPropertyChanged(nameof(SelectedProduct)); } }
         public CHITIEUSANPHAM SelectedCriteria { get { return _selectedCriteria; } set { _selectedCriteria = value;  OnPropertyChanged(nameof(SelectedCriteria)); } }
         public SnackbarMessageQueue MyMessageQueue { get { return _myMessageQueue; } set { _myMessageQueue = value; OnPropertyChanged(nameof(MyMessageQueue)); } }
 
@@ -138,29 +139,43 @@ namespace ProductQualityManager.ViewModels.RegistrationSheet
         }
         void SubmitForm(Window p)
         {
-            PHIEUDANGKY NewSheet = new PHIEUDANGKY();
-            NewSheet.MaCoSo = _selectedFacility.MaCoSo;
-            NewSheet.TrangThai = 0;
-            NewSheet.NgayDangKy = DateTime.Now;
-            if(StartDay < DateTime.Now)
+            if (StartDay < DateTime.Now)
             {
                 MyMessageQueue.Enqueue("Lỗi. Ngày hết hạn không hợp lệ!");
                 return;
             }
-            NewSheet.HanDangKy = StartDay;
-            
+            if (Quantity == 0)
+            {
+                MyMessageQueue.Enqueue("Lỗi. Số lượng phải lớn hơn 0");
+                return;
+            }
+            if(DetailRegistrationSheetList.Count == 0)
+            {
+                MyMessageQueue.Enqueue("Lỗi. Vui lòng điền ít nhất 1 chỉ tiêu");
+                return;
+            }
+            CHUCOSO owner = DataProvider.Ins.DB.CHUCOSOes.Where(t => t.MaChuCoSo == _selectedFacility.MaChuCoSo).FirstOrDefault();
+            SubmitCreateSheet newWindow = new SubmitCreateSheet(this, _selectedFacility, owner);
+            newWindow.ShowDialog();
 
-            try
-            {
-               
-                DataProvider.Ins.DB.PHIEUDANGKies.Add(NewSheet);
-                DataProvider.Ins.DB.SaveChanges();
-                p.Close();
-            }
-            catch(Exception e)
-            {
-               
-            }
+            //PHIEUDANGKY NewSheet = new PHIEUDANGKY();
+            //NewSheet.MaCoSo = _selectedFacility.MaCoSo;
+            //NewSheet.TrangThai = 0;
+            //NewSheet.NgayDangKy = DateTime.Now;
+            //NewSheet.HanDangKy = StartDay;
+
+
+            //try
+            //{
+
+            //    DataProvider.Ins.DB.PHIEUDANGKies.Add(NewSheet);
+            //    DataProvider.Ins.DB.SaveChanges();
+            //    p.Close();
+            //}
+            //catch(Exception e)
+            //{
+
+            //}
         }
         void ClearForm()
         {

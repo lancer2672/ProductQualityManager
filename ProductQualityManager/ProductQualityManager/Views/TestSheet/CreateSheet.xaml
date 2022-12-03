@@ -212,15 +212,15 @@
                             CommandParameter="{Binding ElementName=window}"
                         Command="{Binding CSubmitForm}"
                         >
-                    Gửi
+                    Tiếp theo
                     <Button.Style>
                         <Style  TargetType="Button" BasedOn="{StaticResource MaterialDesignRaisedButton}">
                             <Setter Property="IsEnabled" Value="False"/>
                             <Style.Triggers>
                                 <MultiDataTrigger>
                                     <MultiDataTrigger.Conditions>
-
-
+                                        <Condition Binding="{Binding Path=(Validation.HasError), ElementName=productQuantity}" Value="False"/>
+                                        <Condition Binding="{Binding Path=(Validation.HasError), ElementName=productCbx}" Value="False"/>
                                     </MultiDataTrigger.Conditions>
                                     <Setter Property="IsEnabled" Value="True"/>
                                 </MultiDataTrigger>
