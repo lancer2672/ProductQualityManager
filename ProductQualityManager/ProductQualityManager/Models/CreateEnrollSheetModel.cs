@@ -9,28 +9,27 @@ namespace ProductQualityManager.Models
 {
     public class CreateEnrollSheetModel
     {
-        public int MaChiTietDangKy { get; set; } // Primary key
         public int MaPhieuDangKy { get; set; }
         public int MaDonViTinh { get; set; }
         public int MaChiTieu { get; set; }
         public string GiaTri { get; set; }
+        public int int_GiaTri { get; set; }
         public string TenChiTieu { get; set; }
         public string TenDonViTinh { get; set; }
 
         public CreateEnrollSheetModel() { }
-        public CreateEnrollSheetModel(PHIEUDANGKY pdk,DONVITINH dvt, CHITIETPHIEUDANGKY ct, CHITIEUSANPHAM ctsp )
+        public CreateEnrollSheetModel(DONVITINH dvt, int giatri, CHITIEUSANPHAM ctsp )
         {
-            MaChiTietDangKy = ct.MaChiTietDangKy;
-            MaPhieuDangKy = pdk.MaPhieuDangKy;
             MaDonViTinh = dvt.MaDonViTinh;
             MaChiTieu = ctsp.MaChiTieu;
             TenDonViTinh = dvt.TenDonViTinh;
             TenChiTieu = ctsp.TenChiTieu;
-            GiaTri = ct.GiaTriDangKy.ToString() + " " + dvt.TenDonViTinh;
+            int_GiaTri = giatri;
+            GiaTri = giatri.ToString() + " " + dvt.TenDonViTinh;
         }
         public CreateEnrollSheetModel(CreateEnrollSheetModel pre)
         {
-            MaChiTietDangKy = pre.MaChiTietDangKy;
+            int_GiaTri = pre.int_GiaTri;
             MaPhieuDangKy = pre.MaPhieuDangKy;
             MaDonViTinh = pre.MaDonViTinh;
             MaChiTieu = pre.MaChiTieu;

@@ -38,10 +38,21 @@ namespace ProductQualityManager.ViewModels
             CCheck = new RelayCommand<object>((p) => { return true; }, (p) => { CheckSheet(p); });
            
             COpenModificationHistoryWindow = new RelayCommand<object>((p) => { return true; }, (p) => { OpenModificationHistoryWindow(p); });
-
             LoadDataSheetList();
+            CheckOverDueRegistrationForms();
         }
        
+        public void CheckOverDueRegistrationForms()
+        {
+            List<PHIEUDANGKY> list = DataProvider.Ins.DB.PHIEUDANGKies.Where(t => t.TrangThai == 0).ToList();
+            for(int i=0;i< list.Count; i++)
+            {
+                if (list[i].HanDangKy < DateTime.Now)
+                {
+                    list[i].TrangThai = 2;
+                }
+            }
+        }
         //Load danh sách phiếu đăng ký 
         public void LoadDataSheetList() 
         {

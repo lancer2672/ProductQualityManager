@@ -21,7 +21,7 @@ namespace ProductQualityManager.ViewModels.RegistrationSheet
         private DateTime _startDate;
         private string _productName;
         private int _criteriaValue;
-        private PHIEUDANGKY _registrationSheet;
+     
         private SANPHAM _selectedProduct;
         private CreateEnrollSheetModel _selectedRecord;
         private COSOSANXUAT _selectedFacility;
@@ -58,7 +58,7 @@ namespace ProductQualityManager.ViewModels.RegistrationSheet
             DateNow = DateTime.Today;
             StartDay = DateTime.Today.AddDays(7);
             _selectedFacility = selectedFacility;
-            _registrationSheet = new PHIEUDANGKY();
+          
             DetailRegistrationSheetList = new ObservableCollection<CreateEnrollSheetModel>();
             CSubmitForm = new RelayCommand<Window>((p) => { return true; }, (p) => { SubmitForm(p); });
             CAddCriteria = new RelayCommand<object>((p) => { return true; }, (p) => { AddCriteria(p); });
@@ -110,10 +110,9 @@ namespace ProductQualityManager.ViewModels.RegistrationSheet
             }
             DONVITINH unit = DataProvider.Ins.DB.DONVITINHs.Where( t=> t.MaDonViTinh == SelectedCriteria.MaDonViTinh ).FirstOrDefault();
             CHITIETPHIEUDANGKY newDetailSheet= new CHITIETPHIEUDANGKY();
-            newDetailSheet.MaPhieuDangKy = _registrationSheet.MaPhieuDangKy;
             newDetailSheet.MaChiTieu = SelectedCriteria.MaChiTieu;
             newDetailSheet.GiaTriDangKy = CriteriaValue;
-            CreateEnrollSheetModel newItem = new CreateEnrollSheetModel(_registrationSheet, unit, newDetailSheet, SelectedCriteria);
+            CreateEnrollSheetModel newItem = new CreateEnrollSheetModel(unit, CriteriaValue, SelectedCriteria);
 
             DetailRegistrationSheetList.Add(newItem);
 

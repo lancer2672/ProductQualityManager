@@ -1,4 +1,5 @@
-﻿using Microsoft.Expression.Interactivity.Core;
+﻿using MaterialDesignThemes.Wpf;
+using Microsoft.Expression.Interactivity.Core;
 using ProductQualityManager.Models;
 using ProductQualityManager.Models.Database;
 using System;
@@ -15,6 +16,9 @@ namespace ProductQualityManager.ViewModels.RegistrationSheet
 {
     public class SubmitCreateSheetViewModel : BaseViewModel
     {
+        private COSOSANXUAT _facility;
+        private CreateRegistrationSheetViewModel _vm;
+
         public string OwnerName { get; set; } 
         public string OwnerPhoneNumber { get; set; }
         public string OwnerEmail { get; set; }
@@ -26,9 +30,7 @@ namespace ProductQualityManager.ViewModels.RegistrationSheet
         public string ProductQuantity { get; set; }
         public DateTime Now { get; set; }
         public DateTime DueDate { get; set; }
-        CreateRegistrationSheetViewModel _vm;
         public ObservableCollection<CreateEnrollSheetModel> List { get; set; }
-
         public ICommand CSubmitForm { get; set; }
 
 
@@ -46,6 +48,7 @@ namespace ProductQualityManager.ViewModels.RegistrationSheet
             DueDate =vm.StartDay;
             List = vm.DetailRegistrationSheetList;
 
+            _facility = facility;
             _vm = vm;
 
 
@@ -54,7 +57,33 @@ namespace ProductQualityManager.ViewModels.RegistrationSheet
         }
         public void SubmitForm(Window p)
         {
+            try
+            {
+                PHIEUDANGKY newSheet = new PHIEUDANGKY();
+                newSheet.TrangThai = 0;
+                newSheet.MaSanPham = _vm.SelectedProduct.MaSanPham;
+                newSheet.SoLuong = _vm.Quantity;
+                newSheet.MaCoSo = _facility.MaCoSo;
+                newSheet.NgayDangKy = DateTime.Now;
+                newSheet.HanDangKy = _vm.StartDay;
+                DataProvider.Ins.DB.PHIEUDANGKies.Add(newSheet);
+                for (int i=0;i< List.Count; i++)
+                {
+                    CHITIETPHIEUDANGKY item = new CHITIETPHIEUDANGKY();
+                    item.MaPhieuDangKy = newSheet.MaPhieuDangKy;
+                    item.GiaTriDangKy = List[i].int_GiaTri;
+                    item.MaChiTieu = List[i].MaChiTieu;
+                    DataProvider.Ins.DB.CHITIETPHIEUDANGKies.Add(item);
+                }
+                DataProvider.Ins.DB.SaveChanges();
+                p.Close();
+                _vm.MyMessageQueue.Enqueue("Tạo phiếu đăng ký thành công");
 
+            }
+            catch(Exception err)
+            {
+                throw err;
+            }
         }
     }
 }
