@@ -1,4 +1,6 @@
-﻿using System;
+﻿using ProductQualityManager.Models.Database;
+using ProductQualityManager.ViewModels.RegistrationSheet;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
@@ -19,9 +21,11 @@ namespace ProductQualityManager.Views.TestingSheet
     /// </summary>
     public partial class CreateSheet : Window
     {
-        public CreateSheet()
+        public CreateSheet(COSOSANXUAT selectedFacility)
         {
             InitializeComponent();
+            CreateRegistrationSheetViewModel VM = new CreateRegistrationSheetViewModel(selectedFacility);
+            this.DataContext = VM;
         }
     }
 }

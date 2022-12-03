@@ -31,7 +31,7 @@ namespace ProductQualityManager.ViewModels.Product
 
 
         public ICommand CDelete { get; set; }
-        public ICommand CAddProduct { get; set; }
+        public ICommand CAddCriteria { get; set; }
 
         public ProductViewModel()
         {
@@ -40,7 +40,7 @@ namespace ProductQualityManager.ViewModels.Product
             ProductName = "";
             SelectedProduct = new SANPHAM();
             CDelete = new RelayCommand<object>((p) => { return true; }, (p) => { DeleteProduct(p); });
-            CAddProduct = new RelayCommand<object>((p) => { return true; }, (p) => { HandleAddProduct(p); });
+            CAddCriteria = new RelayCommand<object>((p) => { return true; }, (p) => { HandleAddCriteria(p); });
             CriteriaList = new ObservableCollection<ProductCriteria>();
 
             MyMessageQueue = new SnackbarMessageQueue(TimeSpan.FromMilliseconds(1500));
@@ -49,7 +49,7 @@ namespace ProductQualityManager.ViewModels.Product
             LoadFacitlityList();
             LoadProductList();
         }
-        public void HandleAddProduct(object p)
+        public void HandleAddCriteria(object p)
         {
             if (SelectedFacility.MaCoSo != 0)
             {

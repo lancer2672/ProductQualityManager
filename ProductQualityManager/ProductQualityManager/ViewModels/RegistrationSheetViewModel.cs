@@ -20,12 +20,6 @@ namespace ProductQualityManager.ViewModels
         private ObservableCollection<RegistrationSheetModel> _testingSheetListObs;
         private DateTime _selectedDate;
         private RegistrationSheetModel _selectedSheet;
-        //enum State
-        //{
-        //    Denied,
-        //    Undecided,
-        //    Aproved
-        //}
 
         public RegistrationSheetModel SelectedSheet { get { return _selectedSheet; } set { _selectedSheet = value; OnPropertyChanged(nameof(_selectedSheet)); } }
         public DateTime SelectedDate { get { return _selectedDate; } set { _selectedDate = value; LoadDataSheetList(); OnPropertyChanged(nameof(SelectedDate)); } }
@@ -34,7 +28,6 @@ namespace ProductQualityManager.ViewModels
         
         public ICommand COpenViewDetailWindow { get; set; }
         public ICommand CCheck { get; set; }
-      
         public ICommand COpenModificationHistoryWindow { get; set; }
 
         public RegistrationSheetViewModel()

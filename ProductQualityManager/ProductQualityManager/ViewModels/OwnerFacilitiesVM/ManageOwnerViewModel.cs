@@ -12,6 +12,7 @@ using ProductQualityManager.Views.OwnerFacilities;
 using ProductQualityManager.Views.LoginAndSignUp;
 using System.Windows.Controls;
 using System.Windows;
+using ProductQualityManager.Views.TestingSheet;
 
 namespace ProductQualityManager.ViewModels.OwnerFacilitiesVM
 {
@@ -61,9 +62,19 @@ namespace ProductQualityManager.ViewModels.OwnerFacilitiesVM
             EditInfor = new RelayCommand<ManageOwnerViewModel>((p) => { return true; }, (p) => { OpenEditInforOwnerWindow(); });
             AddFacility = new RelayCommand<object>((p) => { return true; }, (p) => { AddInforFacility(); });
             DetailFacility = new RelayCommand<object>((p) => { return true; }, (p) => { OpenDetailFacilityWindow(p); });
-            Register = new RelayCommand<object>((p) => { return true; }, (p) => {  });
+            Register = new RelayCommand<object>((p) => { return true; }, (p) => { OpenCreateRegistrationSheetWindow(p); });
         }
 
+
+        public void OpenCreateRegistrationSheetWindow(object p)
+        {
+            if (SelectFacilities != null)
+            {
+                CreateSheet window = new CreateSheet(SelectFacilities);
+                window.ShowDialog();
+            }
+            
+        }
         //Load thông tin chủ cơ sở sản xuất
         public void LoadDataOwner()
         {

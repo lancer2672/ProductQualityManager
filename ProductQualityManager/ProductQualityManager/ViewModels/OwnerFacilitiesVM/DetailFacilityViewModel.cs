@@ -67,30 +67,30 @@ namespace ProductQualityManager.ViewModels.OwnerFacilitiesVM
         public string CheckRegister(SANPHAM item)
         {
             string statusregister = "Chưa đăng kí";
-            List<PHIEUDANGKY> listPhieuDangKy = DataProvider.Ins.DB.PHIEUDANGKies.ToList();
-;           CHITIETPHIEUDANGKY detailregister;
-            for (int i = 1; i <= listPhieuDangKy.Count; i++)
-            {
-                detailregister = DataProvider.Ins.DB.CHITIETPHIEUDANGKies.Where(x => x.MaSanPham == item.MaSanPham && x.MaPhieuDangKy == listPhieuDangKy[i].MaPhieuDangKy).LastOrDefault();
-                if (detailregister != null)
-                {
-                    IdRegister = i;
-                    break;
-                }
+//            List<PHIEUDANGKY> listPhieuDangKy = DataProvider.Ins.DB.PHIEUDANGKies.ToList();
+//;           CHITIETPHIEUDANGKY detailregister;
+//            for (int i = 1; i <= listPhieuDangKy.Count; i++)
+//            {
+//                detailregister = DataProvider.Ins.DB.CHITIETPHIEUDANGKies.Where(x => x.MaSanPham == item.MaSanPham && x.MaPhieuDangKy == listPhieuDangKy[i].MaPhieuDangKy).LastOrDefault();
+//                if (detailregister != null)
+//                {
+//                    IdRegister = i;
+//                    break;
+//                }
 
-            }
-            if (IdRegister ==0)
-            {
-                statusregister = "Chưa đăng kí";
-            }
-            else if(DateTime.Now >= listPhieuDangKy[IdRegister].HanDangKy)
-            {
-                statusregister = "Chưa đăng kí";
-            }
-            else
-            {
-                statusregister = "Chưa đăng kí";
-            }
+//            }
+//            if (IdRegister ==0)
+//            {
+//                statusregister = "Chưa đăng kí";
+//            }
+//            else if(DateTime.Now >= listPhieuDangKy[IdRegister].HanDangKy)
+//            {
+//                statusregister = "Chưa đăng kí";
+//            }
+//            else
+//            {
+//                statusregister = "Chưa đăng kí";
+//            }
             return statusregister;
         }
 

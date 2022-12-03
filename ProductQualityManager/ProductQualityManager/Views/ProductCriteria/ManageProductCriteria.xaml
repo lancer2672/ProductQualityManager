@@ -157,7 +157,7 @@
                     ToolTip="Thêm "  
                     Name="AddBtn"
                     
-                    Command="{Binding AddProductCriteriaCommand}"
+                    Command="{Binding AddCriteriaCriteriaCommand}"
                     CommandParameter="{Binding ElementName=addCriteriaForm}">
                     <DockPanel>
                         <materialDesign:PackIcon Kind="Add" />

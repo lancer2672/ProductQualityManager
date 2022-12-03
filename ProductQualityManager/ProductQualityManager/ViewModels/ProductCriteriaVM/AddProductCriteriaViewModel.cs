@@ -12,7 +12,7 @@ using System.Windows.Input;
 
 namespace ProductQualityManager.ViewModels.ProductCriteriaVM
 {
-    public class AddProductCriteriaViewModel : BaseViewModel
+    public class AddCriteriaCriteriaViewModel : BaseViewModel
     {
         private ManageProductCriteriaViewModel _manageProductCriteria;
         private ObservableCollection<DONVITINH> _unitList;
@@ -23,14 +23,14 @@ namespace ProductQualityManager.ViewModels.ProductCriteriaVM
         public string CriteriaName { get { return _criteriaName; } set { _criteriaName = value; OnPropertyChanged(nameof(_criteriaName)); } }
         public decimal StandardValue { get { return _standardValue; } set { _standardValue = value; OnPropertyChanged(nameof(_standardValue)); } }
         public DONVITINH SelectedUnit { get { return _selectedUnit; } set { _selectedUnit = value;  OnPropertyChanged(nameof(SelectedUnit)); } }
-        public ICommand AddProductCriteriaCommand { get; set; }
-        public AddProductCriteriaViewModel(ManageProductCriteriaViewModel CriteriaVM)
+        public ICommand AddCriteriaCriteriaCommand { get; set; }
+        public AddCriteriaCriteriaViewModel(ManageProductCriteriaViewModel CriteriaVM)
         {
             _manageProductCriteria = CriteriaVM;
             CriteriaName = "";
             StandardValue = 0;
             UnitList = new ObservableCollection<DONVITINH>();
-            AddProductCriteriaCommand = new RelayCommand<Window>((p) => { return true; }, (p) => { AddProductCriteria(p); });
+            AddCriteriaCriteriaCommand = new RelayCommand<Window>((p) => { return true; }, (p) => { AddCriteriaCriteria(p); });
             LoadUnitList();
         }
         public void LoadUnitList()
@@ -51,7 +51,7 @@ namespace ProductQualityManager.ViewModels.ProductCriteriaVM
             }
             return false;
         }
-        public void AddProductCriteria(Window p)
+        public void AddCriteriaCriteria(Window p)
         {
             if (CriteriaName == "" || StandardValue.ToString() == "")
             {
