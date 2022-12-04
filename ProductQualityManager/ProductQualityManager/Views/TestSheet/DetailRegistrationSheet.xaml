@@ -5,6 +5,7 @@
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:ProductQualityManager.Views.TestSheet"
         mc:Ignorable="d"
+        x:Name="window"
         WindowStartupLocation="CenterScreen"
         xmlns:i="http://schemas.microsoft.com/expression/2010/interactivity"
         xmlns:i1="http://schemas.microsoft.com/expression/2010/interactions"

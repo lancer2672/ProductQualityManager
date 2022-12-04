@@ -89,11 +89,7 @@ namespace ProductQualityManager.ViewModels.TestingSheet
             }
 
         }
-        public void RefreshData()
-        {
-            SearchKey = "";
-            LoadListCustomer();
-        }
+
         public void SubmitForm(Window p)
         {
             PHIEUDANGKY sheet = DataProvider.Ins.DB.PHIEUDANGKies.Where(t => t.MaPhieuDangKy == _vm.SelectedSheet.MaPhieuDangKy).FirstOrDefault();

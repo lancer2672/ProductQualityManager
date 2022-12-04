@@ -30,7 +30,7 @@
                   Visibility="{Binding IsVisibilitySearchCbx}"
                   SelectedIndex="{Binding SearchTypeSelected}" ItemsSource="{Binding SearchOptions}" 
                   Margin="10 0 10 0" Style="{StaticResource MaterialDesignFloatingHintComboBox}" ></ComboBox>
-        <Button Width="100"  Style="{StaticResource MaterialDesignRaisedButton }" Command="{Binding CSearch}">
+        <Button Width="110"  Style="{StaticResource MaterialDesignRaisedButton }" Command="{Binding CSearch}">
             <DockPanel>
                 <materialDesign:PackIcon Kind="Search" />
                 <TextBlock Text="Tìm kiếm"/>

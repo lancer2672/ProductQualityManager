@@ -11,6 +11,7 @@ using System.Windows.Input;
 using System.Windows.Navigation;
 using ProductQualityManager.Views.TestingSheet;
 using ProductQualityManager.Views.TestSheet;
+using Syncfusion.Windows.Shared;
 
 namespace ProductQualityManager.ViewModels
 {
@@ -25,10 +26,10 @@ namespace ProductQualityManager.ViewModels
         private int _searchTypeSelected;
         public RegistrationSheetModel SelectedSheet { get { return _selectedSheet; } set { _selectedSheet = value; OnPropertyChanged(nameof(SelectedSheet)); } }
         public DateTime SelectedDate { get { return _selectedDate; } set { _selectedDate = value; LoadDataSheetList(); OnPropertyChanged(nameof(SelectedDate)); } }
-        public string SearchKey { get { return _searchKey; } set { _searchKey = value; LoadDataSheetList(); OnPropertyChanged(nameof(SearchKey)); } }
+        public string SearchKey { get { return _searchKey; } set { _searchKey = value; OnPropertyChanged(nameof(SearchKey)); } }
         public ObservableCollection<RegistrationSheetModel> TestingSheetListObs { get { return _testingSheetListObs; } set { _testingSheetListObs = value; OnPropertyChanged(nameof(TestingSheetListObs)); } }
         public List<string> SearchOptions { get { return _searchOptions; } set { _searchOptions = value; OnPropertyChanged(nameof(SearchOptions)); } }
-        private int SearchTypeSelected { get { return _searchTypeSelected; } set { _searchTypeSelected = value; OnPropertyChanged(nameof(SearchOptions)); } }
+        public int SearchTypeSelected { get { return _searchTypeSelected; } set { _searchTypeSelected = value; OnPropertyChanged(nameof(SearchTypeSelected)); } }
 
         public ICommand COpenViewDetailWindow { get; set; }
         public ICommand CCheck { get; set; }
@@ -46,21 +47,36 @@ namespace ProductQualityManager.ViewModels
             COpenModificationHistoryWindow = new RelayCommand<object>((p) => { return true; }, (p) => { OpenModificationHistoryWindow(p); });
             LoadDataSheetList();
             CheckOverDueRegistrationForms();
-            SearchOptions = new List<string>() { "ID", "Tên cơ sở" };
+            SearchOptions = new List<string>() { "ID", "Tên cơ sở", "Chưa duyệt" };
         }
         public void Search(object p)
         {
+            if(SearchKey.IsNullOrWhiteSpace() == true)
+            {
+                if (SearchTypeSelected != 2)
+                {
+                    LoadDataSheetList();
+                    return;
+                }
+            }
             switch (SearchTypeSelected)
             {
                 //ID
                 case 0:
                     {
-                        List<PHIEUDANGKY> sheetList = DataProvider.Ins.DB.PHIEUDANGKies.
-                               Where(t => t.NgayDangKy.Value.Day == SelectedDate.Day && 
-                                        t.NgayDangKy.Value.Month == SelectedDate.Month &&
-                                        t.NgayDangKy.Value.Year == SelectedDate.Year &&
-                                        t.MaPhieuDangKy.ToString() == SearchKey).
-                               ToList();
+                        List<COSOSANXUAT> list = DataProvider.Ins.DB.COSOSANXUATs.Where(t => t.MaCoSo.ToString().ToLower().Contains(SearchKey.ToLower())).ToList();
+                        List<PHIEUDANGKY> sheetList = new List<PHIEUDANGKY>();
+                        for (int i = 0; i < list.Count; i++)
+                        {
+                            int id = (int)list[i].MaCoSo;
+
+                            List<PHIEUDANGKY> registrationList = DataProvider.Ins.DB.PHIEUDANGKies.
+                              Where(t => t.NgayDangKy.Value.Day == SelectedDate.Day &&
+                                       t.NgayDangKy.Value.Month == SelectedDate.Month &&
+                                       t.NgayDangKy.Value.Year == SelectedDate.Year &&
+                                       t.MaCoSo == id).ToList();
+                            sheetList.AddRange(registrationList);
+                        }
                         TestingSheetListObs = GetDataSheetFromList(sheetList);
                         break;
                     }
@@ -71,19 +87,25 @@ namespace ProductQualityManager.ViewModels
                         List<PHIEUDANGKY> sheetList = new List<PHIEUDANGKY>();
                         for (int i=0;i< list.Count; i++)
                         {
+                            int id = (int)list[i].MaCoSo;
                             List<PHIEUDANGKY> registrationList = DataProvider.Ins.DB.PHIEUDANGKies.
                               Where(t => t.NgayDangKy.Value.Day == SelectedDate.Day &&
                                        t.NgayDangKy.Value.Month == SelectedDate.Month &&
                                        t.NgayDangKy.Value.Year == SelectedDate.Year &&
-                                       t.MaCoSo == list[i].MaCoSo).ToList();
+                                       t.MaCoSo == id).ToList();
                             sheetList.AddRange(registrationList);
                         }
-                        sheetList = DataProvider.Ins.DB.PHIEUDANGKies.
-                              Where(t => t.NgayDangKy.Value.Day == SelectedDate.Day &&
-                                       t.NgayDangKy.Value.Month == SelectedDate.Month &&
-                                       t.NgayDangKy.Value.Year == SelectedDate.Year &&
-                                       t.MaPhieuDangKy.ToString() == SearchKey).
-                              ToList();
+                        TestingSheetListObs = GetDataSheetFromList(sheetList);
+                        break;
+                    }
+                case 2:
+                    {
+                        List<PHIEUDANGKY> sheetList = DataProvider.Ins.DB.PHIEUDANGKies.
+                               Where(t => t.NgayDangKy.Value.Day == SelectedDate.Day &&
+                                        t.NgayDangKy.Value.Month == SelectedDate.Month &&
+                                        t.NgayDangKy.Value.Year == SelectedDate.Year &&
+                                        t.TrangThai == 0).
+                               ToList();
                         TestingSheetListObs = GetDataSheetFromList(sheetList);
                         break;
                     }

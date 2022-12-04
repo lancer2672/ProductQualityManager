@@ -22,7 +22,7 @@
     <StackPanel Margin="20">
         <Label FontSize="24" Content="PHIẾU ĐĂNG KÝ" HorizontalAlignment="Center"></Label>
         <DatePicker Width="120" SelectedDate="{Binding SelectedDate}"></DatePicker>
-        <sharedControls:SearchBarCombobox>
+        <sharedControls:SearchBarCombobox >
             
         </sharedControls:SearchBarCombobox>
         <ListView 
