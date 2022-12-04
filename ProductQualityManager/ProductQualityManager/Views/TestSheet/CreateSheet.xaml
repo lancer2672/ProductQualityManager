@@ -51,23 +51,7 @@
                     <TextBlock HorizontalAlignment="Center" Text ="PHIẾU ĐĂNG KÝ"></TextBlock>
 
                     <Label Margin="0 0 0 12"  HorizontalContentAlignment="Center" Content="{Binding DateNow}" ContentStringFormat="dd MMM yyyy"></Label>
-                    <!--<ComboBox x:Name="facilityCbx"
-                                  
-                                  materialDesign:HintAssist.Hint="Tên cơ sở sản xuất"
-                                  Width="215" Margin="0,0,0,20" 
-                      
-                                  IsEditable="True"
-                                  ItemsSource="{Binding FacilityList}"
-                                  DisplayMemberPath="TenCoSo"
-                                   VerticalContentAlignment="Bottom">
-                        <ComboBox.SelectedItem>
-                            <Binding Path="SelectedFacility">
-                                <Binding.ValidationRules>
-                                    <rule:SelectionValidationRule ValidatesOnTargetUpdated="True"/>
-                                </Binding.ValidationRules>
-                            </Binding>
-                        </ComboBox.SelectedItem>
-                    </ComboBox>-->
+                
                     <StackPanel Orientation="Horizontal">
                         <Label  Margin="0 10 0 0" Content="Ngày hết hạn"></Label>
                         <DatePicker Padding="0" materialDesign:HintAssist.Hint="Ngày hết hạn" SelectedDate="{Binding StartDay}" Width="150" Margin="0 10 0 0" >
@@ -93,10 +77,11 @@
                     </ComboBox>
 
 
+                    
                     <StackPanel Orientation="Horizontal">
 
                         <TextBox x:Name="productQuantity"
-                        Width="234"
+                        Width="120"
                         materialDesign:HintAssist.Hint="Số lượng" 
                          Style="{StaticResource MaterialDesignFloatingHintTextBox}">
                             <TextBox.Text>
@@ -107,8 +92,14 @@
                                     </Binding.ValidationRules>
                                 </Binding>
                             </TextBox.Text>
-                        </TextBox>
 
+                        </TextBox>
+                        <TextBox 
+                                
+                           Text="{Binding UnitProductName}"
+                         Style="{StaticResource MaterialDesignFloatingHintTextBox}">
+            
+                        </TextBox>
                     </StackPanel>
                     <Label Margin="0 10 0 0" Padding="0" Content="Chỉ tiêu sản phẩm"></Label>
                     <ComboBox  x:Name="criteriaCbx"
@@ -130,19 +121,27 @@
                     <StackPanel Orientation="Horizontal">
 
                         <TextBox x:Name="criteriaValue"
-                        Width="234"
+                        Width="120"
                         materialDesign:HintAssist.Hint="Giá trị" 
                          Style="{StaticResource MaterialDesignFloatingHintTextBox}">
                             <TextBox.Text>
-                                <Binding Path="CriteriaValue" UpdateSourceTrigger="PropertyChanged" NotifyOnValidationError="True" ValidatesOnExceptions="True">
+                                <Binding Path="CriteriaValue" UpdateSourceTrigger="PropertyChanged">
+                                    <!--<Binding.Converter>
+                                        <rule:DecimalConverter></rule:DecimalConverter>
+                                    </Binding.Converter>-->
                                     <Binding.ValidationRules>
                                         <rule:NonEmptyRule/>
-                                        <rule:PositiveNumberRule/>
+                                        <rule:PositiveNumberRule/>  
                                     </Binding.ValidationRules>
                                 </Binding>
                             </TextBox.Text>
+                            <i:Interaction.Behaviors>
+                                <rule:TextBoxInputBehavior InputMode="DecimalInput"></rule:TextBoxInputBehavior>
+                            </i:Interaction.Behaviors>
                         </TextBox>
-
+                        <TextBox 
+                           Text="{Binding UnitCriteriaName}"
+                         Style="{StaticResource MaterialDesignFloatingHintTextBox}"></TextBox>
                     </StackPanel>
                     <Button ToolTip="Thêm sản phẩm"  
                                      Margin="0 20 20 0"   
@@ -174,10 +173,11 @@
                 <StackPanel Grid.Column="1">
                     <Label HorizontalAlignment="Center" Content="Danh sách sản phẩm đăng ký"></Label>
                     <ListView 
+                        ScrollViewer.HorizontalScrollBarVisibility="Disabled"
                         ItemContainerStyle="{StaticResource  ListItemContainer}"
-                            x:Name="Listview"
+                        x:Name="Listview"
                         SelectedItem="{Binding SelectedRecord}"
-                            ItemsSource="{Binding DetailRegistrationSheetList}">
+                        ItemsSource="{Binding DetailRegistrationSheetList}">
                         <ListView.View>
                             <GridView>
                                 <GridViewColumn Header="Mã Chỉ Tiêu" DisplayMemberBinding="{Binding MaChiTieu}"></GridViewColumn>

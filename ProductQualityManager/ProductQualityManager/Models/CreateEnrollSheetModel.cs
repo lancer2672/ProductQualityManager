@@ -13,23 +13,23 @@ namespace ProductQualityManager.Models
         public int MaDonViTinh { get; set; }
         public int MaChiTieu { get; set; }
         public string GiaTri { get; set; }
-        public int int_GiaTri { get; set; }
+        public decimal dec_GiaTri { get; set; }
         public string TenChiTieu { get; set; }
         public string TenDonViTinh { get; set; }
 
         public CreateEnrollSheetModel() { }
-        public CreateEnrollSheetModel(DONVITINH dvt, int giatri, CHITIEUSANPHAM ctsp )
+        public CreateEnrollSheetModel(DONVITINH dvt, decimal giatri, CHITIEUSANPHAM ctsp )
         {
             MaDonViTinh = dvt.MaDonViTinh;
             MaChiTieu = ctsp.MaChiTieu;
             TenDonViTinh = dvt.TenDonViTinh;
             TenChiTieu = ctsp.TenChiTieu;
-            int_GiaTri = giatri;
+            dec_GiaTri = giatri;
             GiaTri = giatri.ToString() + " " + dvt.TenDonViTinh;
         }
         public CreateEnrollSheetModel(CreateEnrollSheetModel pre)
         {
-            int_GiaTri = pre.int_GiaTri;
+            dec_GiaTri = pre.dec_GiaTri;
             MaPhieuDangKy = pre.MaPhieuDangKy;
             MaDonViTinh = pre.MaDonViTinh;
             MaChiTieu = pre.MaChiTieu;

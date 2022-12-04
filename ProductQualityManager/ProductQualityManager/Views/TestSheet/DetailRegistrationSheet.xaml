@@ -1,14 +1,14 @@
-﻿<Window x:Class="ProductQualityManager.Views.TestSheet.SubmitCreateSheet"
+﻿<Window x:Class="ProductQualityManager.Views.TestSheet.DetailRegistrationSheet"
         xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
         xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
         xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:ProductQualityManager.Views.TestSheet"
         mc:Ignorable="d"
-        Name="window"
+        WindowStartupLocation="CenterScreen"
         xmlns:i="http://schemas.microsoft.com/expression/2010/interactivity"
         xmlns:i1="http://schemas.microsoft.com/expression/2010/interactions"
-        Title="SubmitCreateSheet" Height="660" Width="680">
+        Title="DetailRegistrationSheet" Height="650" Width="800">
     <Window.Resources>
         <ResourceDictionary>
             <ResourceDictionary.MergedDictionaries>
@@ -20,56 +20,89 @@
         <Label Content="PHIẾU ĐĂNG KÝ" HorizontalAlignment="Center"></Label>
         <Label Content="Thông tin chủ cơ sở "></Label>
         <StackPanel Margin="20 0 0 0">
-      
-            <TextBlock Text="{Binding OwnerName}"></TextBlock>
+
+            <TextBlock>
+                    <Run Text="Họ và tên:"/>
+                    <Run Text="{Binding OwnerName}"/>
+            </TextBlock>
             <StackPanel Orientation="Horizontal">
-                <TextBlock Text="{Binding OwnerPhoneNumber}" Margin="0 0 100 0"></TextBlock>
+                <TextBlock>
+                    <Run Text="Số điện thoại:"/>
+                    <Run Text="{Binding OwnerPhoneNumber}"/>
+                </TextBlock>
             </StackPanel>
-            
+
         </StackPanel>
         <Label Content="Thông tin cơ sở">
         </Label>
         <StackPanel Margin="20 0 0 0">
-            <TextBlock Text="{Binding FacilityName}"></TextBlock>
-            <TextBlock Text="{Binding FacilityAddress}"></TextBlock>
+            <TextBlock>
+                    <Run Text="Tên cơ sở sản xuất:"/>
+                    <Run Text="{Binding FacilityName}"/>
+            </TextBlock>
+            <TextBlock>
+                    <Run Text="Địa chỉ:"/>
+                    <Run Text="{Binding FacilityAddress}"/>
+            </TextBlock>
         </StackPanel>
         <Label Content="Thông tin đăng ký"></Label>
         <StackPanel Margin="20 0 0 0">
             <StackPanel Orientation="Horizontal">
-                <TextBlock Text="{Binding ProductId}" Margin="0 0 40 0"></TextBlock>
-                <TextBlock Text="{Binding ProductName}"></TextBlock>
+                <TextBlock>
+                    <Run Text="Mã sản phẩm:"/>
+                    <Run Text="{Binding ProductId}"/>
+                </TextBlock>
+                <TextBlock Margin="40 0 0 0">
+                    <Run Text="Tên sản phẩm:"/>
+                    <Run Text="{Binding ProductName}"/>
+                </TextBlock>
             </StackPanel>
             <StackPanel Orientation="Horizontal">
-                <TextBlock>Ngày đăng ký: </TextBlock>
-                <TextBlock Text="{Binding  Now,
+                <TextBlock>Ngày đăng ký:</TextBlock>
+                <TextBlock Text="{Binding  InitDate,
                            StringFormat='{}{0:dd/MM/yyyy}'}" Margin="5 0 40 0"></TextBlock>
                 <TextBlock>Ngày hết hạn:</TextBlock>
                 <TextBlock Text="{Binding DueDate , StringFormat='{}{0:dd/MM/yyyy}'}" Margin="5 0 0 0 "></TextBlock>
             </StackPanel>
-            <TextBlock Text="{Binding ProductQuantity}"></TextBlock>
+            <TextBlock>
+                    <Run Text="Số lượng đăng ký:"/>
+                    <Run Text="{Binding ProductQuantity}"/>
+            </TextBlock>
         </StackPanel>
-        <Label Margin="0 20 0 0"  Content="Chỉ tiêu đăng ký"></Label>
+        <Label Margin="0 0 0 0"  Content="Chỉ tiêu đăng ký"></Label>
         <ListView 
-            Height="300"
             HorizontalAlignment="Center"
+            Height="300"
             ItemContainerStyle="{StaticResource  ListItemContainer}"
             x:Name="Listview"
-            ItemsSource="{Binding ListCriteria}">
+            ItemsSource="{Binding DetailRegistrationSheet}">
             <ListView.View>
                 <GridView>
                     <GridViewColumn Header="Mã Chỉ Tiêu" DisplayMemberBinding="{Binding MaChiTieu}"></GridViewColumn>
                     <GridViewColumn Header="Tên Chỉ Tiêu" DisplayMemberBinding="{Binding TenChiTieu}"></GridViewColumn>
-                    <GridViewColumn Header="Giá Trị Đăng ký"  DisplayMemberBinding="{Binding GiaTri}"></GridViewColumn>
+                    <GridViewColumn Header="Giá Trị Đăng Ký"  DisplayMemberBinding="{Binding GiaTriDangKy}"></GridViewColumn>
+                    <GridViewColumn Header="Giá Trị Tiêu Chuẩn"  DisplayMemberBinding="{Binding GiaTriTieuChuan}"></GridViewColumn>
+                    <GridViewColumn Header="Kết Quả" >
+                        <GridViewColumn.CellTemplate>
+                            <DataTemplate>
+                                <TextBlock FontWeight="Medium" Text="{Binding Path=KetQuaSoSanh}" Foreground="{Binding  Color_KetQuaSoSanh}"/>
+                            </DataTemplate>
+                        </GridViewColumn.CellTemplate>
+                    </GridViewColumn>
                 </GridView>
             </ListView.View>
         </ListView>
+        <TextBlock Margin="0 10 20 0" HorizontalAlignment="Right" FontWeight="DemiBold">
+                    <Run Text="KẾT QUẢ: "/>
+                    <Run Text="{Binding Result}" Foreground="{Binding ResultColor}" />
+        </TextBlock>
         <StackPanel Height="50" Orientation="Horizontal" HorizontalAlignment="Right">
             <Button  x:Name="createBtn" 
                         Margin="0 0 0 0"
                             CommandParameter="{Binding ElementName=window}"
                         Command="{Binding CSubmitForm}"
                         >
-                Gửi
+                Kiểm tra
                 <Button.Style>
                     <Style  TargetType="Button" BasedOn="{StaticResource MaterialDesignRaisedButton}">
                         <Setter Property="IsEnabled" Value="False"/>

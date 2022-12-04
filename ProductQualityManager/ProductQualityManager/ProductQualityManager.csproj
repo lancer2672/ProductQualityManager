@@ -149,6 +149,7 @@
     <Compile Include="Models\RegistrationSheetModel.cs" />
     <Compile Include="Resources\Utils\IndexConverter.cs" />
     <Compile Include="Resources\Utils\Rules.cs" />
+    <Compile Include="Resources\Utils\TextInputBehavior.cs" />
     <Compile Include="Resources\Utils\Validator.cs" />
     <Compile Include="ViewModels\BaseViewModel.cs" />
     <Compile Include="ViewModels\LoginVM\LoginViewModel.cs" />
@@ -164,7 +165,6 @@
     <Compile Include="ViewModels\RegistrationSheetViewModel.cs" />
     <Compile Include="ViewModels\RegistrationSheet\CreateRegistrationSheetViewModel.cs" />
     <Compile Include="ViewModels\RegistrationSheet\DetailRegistrationSheetViewModel.cs" />
-    <Compile Include="ViewModels\RegistrationSheet\ModificationHistoryViewModel.cs" />
     <Compile Include="ViewModels\RegistrationSheet\SubmitCreateSheetViewModel.cs" />
     <Compile Include="Views\LoginAndSignUp\LoginWindow.xaml.cs">
       <DependentUpon>LoginWindow.xaml</DependentUpon>
@@ -193,14 +193,17 @@
     <Compile Include="Views\ProductCriteria\ManageProductCriteria.xaml.cs">
       <DependentUpon>ManageProductCriteria.xaml</DependentUpon>
     </Compile>
+    <Compile Include="Views\SharedControls\SearchBarCombobox.xaml.cs">
+      <DependentUpon>SearchBarCombobox.xaml</DependentUpon>
+    </Compile>
     <Compile Include="Views\TestSheet\CreateSheet.xaml.cs">
       <DependentUpon>CreateSheet.xaml</DependentUpon>
     </Compile>
+    <Compile Include="Views\TestSheet\DetailRegistrationSheet.xaml.cs">
+      <DependentUpon>DetailRegistrationSheet.xaml</DependentUpon>
+    </Compile>
     <Compile Include="Views\TestSheet\EnrollSheet.xaml.cs">
       <DependentUpon>EnrollSheet.xaml</DependentUpon>
-    </Compile>
-    <Compile Include="Views\TestSheet\ModificationHistory.xaml.cs">
-      <DependentUpon>ModificationHistory.xaml</DependentUpon>
     </Compile>
     <Compile Include="Views\TestSheet\SubmitCreateSheet.xaml.cs">
       <DependentUpon>SubmitCreateSheet.xaml</DependentUpon>
@@ -265,6 +268,10 @@
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
+    <Page Include="Views\SharedControls\SearchBarCombobox.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
     <Page Include="Views\Styles\Button.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
@@ -277,11 +284,11 @@
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
-    <Page Include="Views\TestSheet\EnrollSheet.xaml">
+    <Page Include="Views\TestSheet\DetailRegistrationSheet.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
-    <Page Include="Views\TestSheet\ModificationHistory.xaml">
+    <Page Include="Views\TestSheet\EnrollSheet.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>

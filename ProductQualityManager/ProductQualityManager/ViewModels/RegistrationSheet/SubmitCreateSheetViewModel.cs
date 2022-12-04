@@ -30,9 +30,9 @@ namespace ProductQualityManager.ViewModels.RegistrationSheet
         public string ProductQuantity { get; set; }
         public DateTime Now { get; set; }
         public DateTime DueDate { get; set; }
-        public ObservableCollection<CreateEnrollSheetModel> List { get; set; }
         public ICommand CSubmitForm { get; set; }
 
+        public ObservableCollection<CreateEnrollSheetModel> ListCriteria { get; set; }
 
         public SubmitCreateSheetViewModel(CreateRegistrationSheetViewModel vm, COSOSANXUAT facility, CHUCOSO owner)
         {
@@ -46,7 +46,7 @@ namespace ProductQualityManager.ViewModels.RegistrationSheet
             ProductQuantity = "Số lượng đăng ký: " + vm.Quantity.ToString();
             Now = DateTime.Now;
             DueDate =vm.StartDay;
-            List = vm.DetailRegistrationSheetList;
+            ListCriteria = vm.DetailRegistrationSheetList;
 
             _facility = facility;
             _vm = vm;
@@ -67,12 +67,12 @@ namespace ProductQualityManager.ViewModels.RegistrationSheet
                 newSheet.NgayDangKy = DateTime.Now;
                 newSheet.HanDangKy = _vm.StartDay;
                 DataProvider.Ins.DB.PHIEUDANGKies.Add(newSheet);
-                for (int i=0;i< List.Count; i++)
+                for (int i=0;i< ListCriteria.Count; i++)
                 {
                     CHITIETPHIEUDANGKY item = new CHITIETPHIEUDANGKY();
                     item.MaPhieuDangKy = newSheet.MaPhieuDangKy;
-                    item.GiaTriDangKy = List[i].int_GiaTri;
-                    item.MaChiTieu = List[i].MaChiTieu;
+                    item.GiaTriDangKy = ListCriteria[i].dec_GiaTri;
+                    item.MaChiTieu = ListCriteria[i].MaChiTieu;
                     DataProvider.Ins.DB.CHITIETPHIEUDANGKies.Add(item);
                 }
                 DataProvider.Ins.DB.SaveChanges();

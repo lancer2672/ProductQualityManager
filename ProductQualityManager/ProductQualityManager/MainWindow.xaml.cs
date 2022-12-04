@@ -30,7 +30,6 @@ namespace ProductQualityManager
             InitializeComponent();
             this.enrollSheet = new EnrollSheet();
 
-
             //default
             this.content_Control.Content = enrollSheet;
             //Style = (Style)FindResource("WindowStyle");

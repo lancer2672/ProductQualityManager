@@ -1,5 +1,4 @@
-﻿using ProductQualityManager.Models;
-using ProductQualityManager.ViewModels.RegistrationSheet;
+﻿using ProductQualityManager.ViewModels;
 using ProductQualityManager.ViewModels.TestingSheet;
 using System;
 using System.Collections.Generic;
@@ -18,15 +17,15 @@ using System.Windows.Shapes;
 namespace ProductQualityManager.Views.TestSheet
 {
     /// <summary>
-    /// Interaction logic for ModificationHistory.xaml
+    /// Interaction logic for DetailRegistrationSheet.xaml
     /// </summary>
-    public partial class ModificationHistory : Window
+    public partial class DetailRegistrationSheet : Window
     {
-        public ModificationHistory(RegistrationSheetModel SelectedItem)
+        public DetailRegistrationSheet(RegistrationSheetViewModel vm)
         {
             InitializeComponent();
-            ModificationHistoryViewModel VM = new ModificationHistoryViewModel(SelectedItem);
-            this.DataContext = VM;
+            DetailRegistrationSheetViewModel newVM = new DetailRegistrationSheetViewModel(vm);
+            this.DataContext = newVM;
         }
     }
 }

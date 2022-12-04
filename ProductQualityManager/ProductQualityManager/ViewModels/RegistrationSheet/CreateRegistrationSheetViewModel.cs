@@ -20,32 +20,33 @@ namespace ProductQualityManager.ViewModels.RegistrationSheet
         private int _quantity;
         private DateTime _startDate;
         private string _productName;
-        private int _criteriaValue;
-     
+        private string _unitProductName;
+        private string _unitCriteriaName;
+        private string _criteriaValue;
         private SANPHAM _selectedProduct;
         private CreateEnrollSheetModel _selectedRecord;
         private COSOSANXUAT _selectedFacility;
         private CHITIEUSANPHAM _selectedCriteria;
-        //private ObservableCollection<COSOSANXUAT> _facilityList;
         private ObservableCollection<SANPHAM> _productList;
         private ObservableCollection<CHITIEUSANPHAM> _criteriaList;
         private ObservableCollection<CreateEnrollSheetModel> _detailRegistrationSheet;
         private SnackbarMessageQueue _myMessageQueue;
 
         public DateTime DateNow { get; set; }
-        //public COSOSANXUAT SelectedFacility { get { return _selectedFacility; } set { _selectedFacility = value; LoadDataProductList(); OnPropertyChanged(nameof(SelectedFacility)); } }
-        //public ObservableCollection<COSOSANXUAT> FacilityList { get { return _facilityList; } set { _facilityList = value; OnPropertyChanged(nameof(FacilityList)); } }
+      
         public ObservableCollection<SANPHAM> ProductList { get { return _productList; } set { _productList = value; OnPropertyChanged(nameof(ProductList)); } }
         public ObservableCollection<CHITIEUSANPHAM> CriteriaList { get { return _criteriaList; } set { _criteriaList = value; OnPropertyChanged(nameof(CriteriaList)); } }
         public ObservableCollection<CreateEnrollSheetModel> DetailRegistrationSheetList { get { return _detailRegistrationSheet; } set { _detailRegistrationSheet = value; OnPropertyChanged(nameof(DetailRegistrationSheetList)); } }
         public string FacilityName { get { return _facilityName; } set { _facilityName = value; OnPropertyChanged(nameof(FacilityName)); } }
-        public CreateEnrollSheetModel SelectedRecord { get { return _selectedRecord; } set { _selectedRecord = value; OnPropertyChanged(nameof(SelectedRecord)); } }
-        public int Quantity { get { return _quantity; } set { _quantity = value; OnPropertyChanged(nameof(Quantity)); } }
-        public int CriteriaValue { get { return _criteriaValue; } set { _criteriaValue = value; OnPropertyChanged(nameof(CriteriaValue)); } }
-        public DateTime StartDay { get { return _startDate; } set { _startDate = value; OnPropertyChanged(nameof(StartDay)); } }
         public string ProductName { get { return _productName; } set { _productName = value; OnPropertyChanged(nameof(ProductName)); } }
-        public SANPHAM SelectedProduct { get { return _selectedProduct; } set { _selectedProduct = value; DetailRegistrationSheetList.Clear(); OnPropertyChanged(nameof(SelectedProduct)); } }
-        public CHITIEUSANPHAM SelectedCriteria { get { return _selectedCriteria; } set { _selectedCriteria = value;  OnPropertyChanged(nameof(SelectedCriteria)); } }
+        public string UnitProductName { get { return _unitProductName; } set { _unitProductName = value; OnPropertyChanged(nameof(UnitProductName)); } }
+        public string UnitCriteriaName { get { return _unitCriteriaName; } set { _unitCriteriaName = value; OnPropertyChanged(nameof(UnitCriteriaName)); } }
+        public int Quantity { get { return _quantity; } set { _quantity = value; OnPropertyChanged(nameof(Quantity)); } }
+        public string CriteriaValue { get { return _criteriaValue; } set { _criteriaValue = value; OnPropertyChanged(nameof(CriteriaValue)); } }
+        public CreateEnrollSheetModel SelectedRecord { get { return _selectedRecord; } set { _selectedRecord = value; OnPropertyChanged(nameof(SelectedRecord)); } }
+        public DateTime StartDay { get { return _startDate; } set { _startDate = value; OnPropertyChanged(nameof(StartDay)); } }
+        public SANPHAM SelectedProduct { get { return _selectedProduct; } set { _selectedProduct = value; SelectProductChange(); OnPropertyChanged(nameof(SelectedProduct)); } }
+        public CHITIEUSANPHAM SelectedCriteria { get { return _selectedCriteria; } set { _selectedCriteria = value; SelectCriteriaChange();  OnPropertyChanged(nameof(SelectedCriteria)); } }
         public SnackbarMessageQueue MyMessageQueue { get { return _myMessageQueue; } set { _myMessageQueue = value; OnPropertyChanged(nameof(MyMessageQueue)); } }
 
         public ICommand CSubmitForm { get; set; }
@@ -71,6 +72,17 @@ namespace ProductQualityManager.ViewModels.RegistrationSheet
             LoadDataProductList();
             LoadCriteriaList();
             //LoadDataFacilityList();
+        }
+        public void SelectProductChange()
+        {
+            DONVITINHSANPHAM unitProduct = DataProvider.Ins.DB.DONVITINHSANPHAMs.Where(t => t.MaDonViTinhSP == SelectedProduct.MaDonViTinhSP).FirstOrDefault();
+            UnitProductName = unitProduct.TenDonViTinhSP;
+            DetailRegistrationSheetList.Clear();
+        }
+        public void SelectCriteriaChange()
+        {
+            DONVITINH unit = DataProvider.Ins.DB.DONVITINHs.Where(t => t.MaDonViTinh == SelectedCriteria.MaDonViTinh).FirstOrDefault();
+            UnitCriteriaName = unit.TenDonViTinh;
         }
         public void LoadCriteriaList()
         {
@@ -111,8 +123,8 @@ namespace ProductQualityManager.ViewModels.RegistrationSheet
             DONVITINH unit = DataProvider.Ins.DB.DONVITINHs.Where( t=> t.MaDonViTinh == SelectedCriteria.MaDonViTinh ).FirstOrDefault();
             CHITIETPHIEUDANGKY newDetailSheet= new CHITIETPHIEUDANGKY();
             newDetailSheet.MaChiTieu = SelectedCriteria.MaChiTieu;
-            newDetailSheet.GiaTriDangKy = CriteriaValue;
-            CreateEnrollSheetModel newItem = new CreateEnrollSheetModel(unit, CriteriaValue, SelectedCriteria);
+            newDetailSheet.GiaTriDangKy = decimal.Parse(CriteriaValue);
+            CreateEnrollSheetModel newItem = new CreateEnrollSheetModel(unit, decimal.Parse(CriteriaValue), SelectedCriteria);
 
             DetailRegistrationSheetList.Add(newItem);
 
@@ -133,6 +145,7 @@ namespace ProductQualityManager.ViewModels.RegistrationSheet
         //}
         void LoadDataProductList()
         {
+
                 List<SANPHAM> Products = DataProvider.Ins.DB.SANPHAMs.Where(t => t.MaCoSo == _selectedFacility.MaCoSo).ToList();
                 ProductList = new ObservableCollection<SANPHAM>(Products);
         }
@@ -157,24 +170,6 @@ namespace ProductQualityManager.ViewModels.RegistrationSheet
             SubmitCreateSheet newWindow = new SubmitCreateSheet(this, _selectedFacility, owner);
             newWindow.ShowDialog();
 
-            //PHIEUDANGKY NewSheet = new PHIEUDANGKY();
-            //NewSheet.MaCoSo = _selectedFacility.MaCoSo;
-            //NewSheet.TrangThai = 0;
-            //NewSheet.NgayDangKy = DateTime.Now;
-            //NewSheet.HanDangKy = StartDay;
-
-
-            //try
-            //{
-
-            //    DataProvider.Ins.DB.PHIEUDANGKies.Add(NewSheet);
-            //    DataProvider.Ins.DB.SaveChanges();
-            //    p.Close();
-            //}
-            //catch(Exception e)
-            //{
-
-            //}
         }
         void ClearForm()
         {
