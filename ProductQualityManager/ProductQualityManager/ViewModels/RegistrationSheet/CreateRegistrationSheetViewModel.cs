@@ -1,6 +1,7 @@
 ﻿using MaterialDesignThemes.Wpf;
 using ProductQualityManager.Models;
 using ProductQualityManager.Models.Database;
+using ProductQualityManager.Views.TestSheet;
 using System;
 using System.Collections.Generic;
 using System.Collections.ObjectModel;
@@ -15,132 +16,160 @@ namespace ProductQualityManager.ViewModels.RegistrationSheet
 {
     public class CreateRegistrationSheetViewModel : BaseViewModel
     {
-        private int OwnerId = 1;
         private string _facilityName;
         private int _quantity;
         private DateTime _startDate;
         private string _productName;
-        //private COSOSANXUAT _facility;
+        private string _unitProductName;
+        private string _unitCriteriaName;
+        private string _criteriaValue;
         private SANPHAM _selectedProduct;
+        private CreateEnrollSheetModel _selectedRecord;
         private COSOSANXUAT _selectedFacility;
-        private ObservableCollection<COSOSANXUAT> _facilityList;
+        private CHITIEUSANPHAM _selectedCriteria;
         private ObservableCollection<SANPHAM> _productList;
-        private ObservableCollection<CreateEnrollSheetModel> _selectedProductList;
+        private ObservableCollection<CHITIEUSANPHAM> _criteriaList;
+        private ObservableCollection<CreateEnrollSheetModel> _detailRegistrationSheet;
         private SnackbarMessageQueue _myMessageQueue;
 
         public DateTime DateNow { get; set; }
-        public COSOSANXUAT SelectedFacility { get { return _selectedFacility; } set { _selectedFacility = value; LoadDataProductList(); OnPropertyChanged(nameof(SelectedFacility)); } }
-        public ObservableCollection<COSOSANXUAT> FacilityList { get { return _facilityList; } set { _facilityList = value; OnPropertyChanged(nameof(FacilityList)); } }
+      
         public ObservableCollection<SANPHAM> ProductList { get { return _productList; } set { _productList = value; OnPropertyChanged(nameof(ProductList)); } }
-        public ObservableCollection<CreateEnrollSheetModel> SelectedProductList { get { return _selectedProductList; } set { _selectedProductList = value; OnPropertyChanged(nameof(SelectedProductList)); } }
+        public ObservableCollection<CHITIEUSANPHAM> CriteriaList { get { return _criteriaList; } set { _criteriaList = value; OnPropertyChanged(nameof(CriteriaList)); } }
+        public ObservableCollection<CreateEnrollSheetModel> DetailRegistrationSheetList { get { return _detailRegistrationSheet; } set { _detailRegistrationSheet = value; OnPropertyChanged(nameof(DetailRegistrationSheetList)); } }
         public string FacilityName { get { return _facilityName; } set { _facilityName = value; OnPropertyChanged(nameof(FacilityName)); } }
-        public int Quantity { get { return _quantity; } set { _quantity = value; OnPropertyChanged(nameof(Quantity)); } }
-        public DateTime StartDay { get { return _startDate; } set { _startDate = value; OnPropertyChanged(nameof(StartDay)); } }
         public string ProductName { get { return _productName; } set { _productName = value; OnPropertyChanged(nameof(ProductName)); } }
-        public SANPHAM SelectedProduct { get { return _selectedProduct; } set { _selectedProduct = value;  OnPropertyChanged(nameof(SelectedProduct)); } }
+        public string UnitProductName { get { return _unitProductName; } set { _unitProductName = value; OnPropertyChanged(nameof(UnitProductName)); } }
+        public string UnitCriteriaName { get { return _unitCriteriaName; } set { _unitCriteriaName = value; OnPropertyChanged(nameof(UnitCriteriaName)); } }
+        public int Quantity { get { return _quantity; } set { _quantity = value; OnPropertyChanged(nameof(Quantity)); } }
+        public string CriteriaValue { get { return _criteriaValue; } set { _criteriaValue = value; OnPropertyChanged(nameof(CriteriaValue)); } }
+        public CreateEnrollSheetModel SelectedRecord { get { return _selectedRecord; } set { _selectedRecord = value; OnPropertyChanged(nameof(SelectedRecord)); } }
+        public DateTime StartDay { get { return _startDate; } set { _startDate = value; OnPropertyChanged(nameof(StartDay)); } }
+        public SANPHAM SelectedProduct { get { return _selectedProduct; } set { _selectedProduct = value; SelectProductChange(); OnPropertyChanged(nameof(SelectedProduct)); } }
+        public CHITIEUSANPHAM SelectedCriteria { get { return _selectedCriteria; } set { _selectedCriteria = value; SelectCriteriaChange();  OnPropertyChanged(nameof(SelectedCriteria)); } }
         public SnackbarMessageQueue MyMessageQueue { get { return _myMessageQueue; } set { _myMessageQueue = value; OnPropertyChanged(nameof(MyMessageQueue)); } }
 
         public ICommand CSubmitForm { get; set; }
-        public ICommand CAddProduct { get; set; }
+        public ICommand CAddCriteria { get; set; }
         public ICommand CDeleteProduct { get; set; }
-
-        public CreateRegistrationSheetViewModel()
+        public ICommand CDeleteCriteria { get; set; }
+        public CreateRegistrationSheetViewModel(COSOSANXUAT selectedFacility)
         {
       
             DateNow = DateTime.Today;
             StartDay = DateTime.Today.AddDays(7);
-            SelectedFacility = new COSOSANXUAT();
-            SelectedProduct = new SANPHAM();
-            SelectedProductList = new ObservableCollection<CreateEnrollSheetModel>();
+            _selectedFacility = selectedFacility;
+          
+            DetailRegistrationSheetList = new ObservableCollection<CreateEnrollSheetModel>();
             CSubmitForm = new RelayCommand<Window>((p) => { return true; }, (p) => { SubmitForm(p); });
-            CAddProduct = new RelayCommand<object>((p) => { return true; }, (p) => { AddProduct(p); });
+            CAddCriteria = new RelayCommand<object>((p) => { return true; }, (p) => { AddCriteria(p); });
             CDeleteProduct = new RelayCommand<object>((p) => { return true; }, (p) => { DeleteProduct(p); });
+            CDeleteCriteria = new RelayCommand<object>((p) => { return true; }, (p) => { DeleteCriteria(p); });
 
             MyMessageQueue = new SnackbarMessageQueue(TimeSpan.FromMilliseconds(1500));
             MyMessageQueue.DiscardDuplicates = true;
 
-            LoadDataFacilityList();
+            LoadDataProductList();
+            LoadCriteriaList();
+            //LoadDataFacilityList();
         }
-        void AddProduct(object p)
+        public void SelectProductChange()
         {
-            if (SelectedFacility.MaCoSo == 0)
+            DONVITINHSANPHAM unitProduct = DataProvider.Ins.DB.DONVITINHSANPHAMs.Where(t => t.MaDonViTinhSP == SelectedProduct.MaDonViTinhSP).FirstOrDefault();
+            UnitProductName = unitProduct.TenDonViTinhSP;
+            DetailRegistrationSheetList.Clear();
+        }
+        public void SelectCriteriaChange()
+        {
+            DONVITINH unit = DataProvider.Ins.DB.DONVITINHs.Where(t => t.MaDonViTinh == SelectedCriteria.MaDonViTinh).FirstOrDefault();
+            UnitCriteriaName = unit.TenDonViTinh;
+        }
+        public void LoadCriteriaList()
+        {
+            List<CHITIEUSANPHAM> list = DataProvider.Ins.DB.CHITIEUSANPHAMs.ToList();
+            CriteriaList = new ObservableCollection<CHITIEUSANPHAM>(list);
+        }
+        
+        public void DeleteCriteria(object p)
+        {
+            if(SelectedRecord != null)
             {
-                MyMessageQueue.Enqueue("Vui lòng chọn 1 cơ sở");
-                return; 
+                CreateEnrollSheetModel selectedItem = p as CreateEnrollSheetModel;
+                DetailRegistrationSheetList.Remove(selectedItem);
             }
-            if (SelectedProduct.MaSanPham == 0)
+        }
+        public void AddCriteria(object p)
+        {
+            if (SelectedProduct == null)
             {
                 MyMessageQueue.Enqueue("Vui lòng chọn 1 sản phẩm");
                 return;
             }
-            //Check if already existed selected product
-
-            for (int i = 0; i < SelectedProductList.Count; i++)
+            if (SelectedCriteria == null)
             {
-                if (SelectedProductList[i].MaSanPham == SelectedProduct.MaSanPham)
+                MyMessageQueue.Enqueue("Vui lòng chọn chỉ tiêu cho sản phẩm");
+                return;
+            }
+            //check if existed 
+            for (int i = 0; i < DetailRegistrationSheetList.Count; i++)
+            {
+                if (DetailRegistrationSheetList[i].MaChiTieu == SelectedCriteria.MaChiTieu)
                 {
-                    SelectedProductList.RemoveAt(i);
-                    CreateEnrollSheetModel m = new CreateEnrollSheetModel(SelectedProduct.MaSanPham, SelectedProduct.TenSanPham, Quantity);
-                    SelectedProductList.Add(m);
+                    DetailRegistrationSheetList[i].GiaTri = CriteriaValue.ToString() + " "+ DetailRegistrationSheetList[i].TenDonViTinh;
+                    DetailRegistrationSheetList[i] = new CreateEnrollSheetModel(DetailRegistrationSheetList[i]);
                     return;
                 }
             }
+            DONVITINH unit = DataProvider.Ins.DB.DONVITINHs.Where( t=> t.MaDonViTinh == SelectedCriteria.MaDonViTinh ).FirstOrDefault();
+            CHITIETPHIEUDANGKY newDetailSheet= new CHITIETPHIEUDANGKY();
+            newDetailSheet.MaChiTieu = SelectedCriteria.MaChiTieu;
+            newDetailSheet.GiaTriDangKy = decimal.Parse(CriteriaValue);
+            CreateEnrollSheetModel newItem = new CreateEnrollSheetModel(unit, decimal.Parse(CriteriaValue), SelectedCriteria);
 
-            CreateEnrollSheetModel model = new CreateEnrollSheetModel(SelectedProduct.MaSanPham,SelectedProduct.TenSanPham,Quantity);
-            SelectedProductList.Add(model);
+            DetailRegistrationSheetList.Add(newItem);
+
+
+            //Check if already existed selected product
+
         }
         void DeleteProduct(object p)
         {
            
         }
-        void LoadDataFacilityList()
-        {
-            List<COSOSANXUAT> List = DataProvider.Ins.DB.COSOSANXUATs.Where(t => t.MaChuCoSo == OwnerId).ToList();
-            FacilityList = new ObservableCollection<COSOSANXUAT>(List);
-            LoadDataProductList();
+        //void LoadDataFacilityList()
+        //{
+        //    List<COSOSANXUAT> List = DataProvider.Ins.DB.COSOSANXUATs.Where(t => t.MaChuCoSo == OwnerId).ToList();
+        //    FacilityList = new ObservableCollection<COSOSANXUAT>(List);
+        //    LoadDataProductList();
             
-        }
+        //}
         void LoadDataProductList()
         {
-            if (SelectedFacility.MaCoSo != 0 )
-            {
-                SelectedProductList.Clear();
-                List<SANPHAM> Products = DataProvider.Ins.DB.SANPHAMs.Where(t => t.MaCoSo == SelectedFacility.MaCoSo).ToList();
+
+                List<SANPHAM> Products = DataProvider.Ins.DB.SANPHAMs.Where(t => t.MaCoSo == _selectedFacility.MaCoSo).ToList();
                 ProductList = new ObservableCollection<SANPHAM>(Products);
-            }
         }
         void SubmitForm(Window p)
         {
-            PHIEUDANGKY NewSheet = new PHIEUDANGKY();
-            NewSheet.MaCoSo = SelectedFacility.MaCoSo;
-            NewSheet.TrangThai = 0;
-            NewSheet.NgayDangKy = DateTime.Now;
-            if(StartDay < DateTime.Now)
+            if (StartDay < DateTime.Now)
             {
                 MyMessageQueue.Enqueue("Lỗi. Ngày hết hạn không hợp lệ!");
                 return;
             }
-            NewSheet.HanDangKy = StartDay;
-            
+            if (Quantity == 0)
+            {
+                MyMessageQueue.Enqueue("Lỗi. Số lượng phải lớn hơn 0");
+                return;
+            }
+            if(DetailRegistrationSheetList.Count == 0)
+            {
+                MyMessageQueue.Enqueue("Lỗi. Vui lòng điền ít nhất 1 chỉ tiêu");
+                return;
+            }
+            CHUCOSO owner = DataProvider.Ins.DB.CHUCOSOes.Where(t => t.MaChuCoSo == _selectedFacility.MaChuCoSo).FirstOrDefault();
+            SubmitCreateSheet newWindow = new SubmitCreateSheet(this, _selectedFacility, owner);
+            newWindow.ShowDialog();
 
-            try
-            {
-                for(int i=0;i< SelectedProductList.Count; i++)
-                {
-                    CHITIETPHIEUDANGKY newDetailSheet = new CHITIETPHIEUDANGKY();
-                    newDetailSheet.MaSanPham = SelectedProductList[i].MaSanPham;
-                    newDetailSheet.MaPhieuDangKy = NewSheet.MaPhieuDangKy;
-                    newDetailSheet.SoLuong = SelectedProductList[i].SoLuong;
-                    DataProvider.Ins.DB.CHITIETPHIEUDANGKies.Add(newDetailSheet);
-                }
-                DataProvider.Ins.DB.PHIEUDANGKies.Add(NewSheet);
-                DataProvider.Ins.DB.SaveChanges();
-                p.Close();
-            }
-            catch(Exception e)
-            {
-               
-            }
         }
         void ClearForm()
         {

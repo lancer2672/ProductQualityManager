@@ -31,7 +31,7 @@ namespace ProductQualityManager.ViewModels.Product
 
 
         public ICommand CDelete { get; set; }
-        public ICommand CAddProduct { get; set; }
+        public ICommand CAddCriteria { get; set; }
 
         public ProductViewModel()
         {
@@ -40,7 +40,7 @@ namespace ProductQualityManager.ViewModels.Product
             ProductName = "";
             SelectedProduct = new SANPHAM();
             CDelete = new RelayCommand<object>((p) => { return true; }, (p) => { DeleteProduct(p); });
-            CAddProduct = new RelayCommand<object>((p) => { return true; }, (p) => { HandleAddProduct(p); });
+            CAddCriteria = new RelayCommand<object>((p) => { return true; }, (p) => { HandleAddCriteria(p); });
             CriteriaList = new ObservableCollection<ProductCriteria>();
 
             MyMessageQueue = new SnackbarMessageQueue(TimeSpan.FromMilliseconds(1500));
@@ -49,7 +49,7 @@ namespace ProductQualityManager.ViewModels.Product
             LoadFacitlityList();
             LoadProductList();
         }
-        public void HandleAddProduct(object p)
+        public void HandleAddCriteria(object p)
         {
             if (SelectedFacility.MaCoSo != 0)
             {
@@ -104,28 +104,32 @@ namespace ProductQualityManager.ViewModels.Product
             }
             CriteriaList.Clear();
             //Lấy ra phiếu đăng ký của cơ sở cho sản phẩm đó
-            DANGKYCHITIEU RegisterCritera = DataProvider.Ins.DB.DANGKYCHITIEUx.Where(t => t.MaCoSo == SelectedProduct.MaCoSo && t.MaSanPham == SelectedProduct.MaSanPham).FirstOrDefault();
-            // lấy ra chi tiết của phiếu ở phía trên
-            if (RegisterCritera != null)
-            {
-                List<CHITIETCHITIEUSANPHAM> DetailRegisterCriteria = DataProvider.Ins.DB.CHITIETCHITIEUSANPHAMs.Where(t => t.MaDangKyChiTieu == RegisterCritera.MaDangKyChiTieu).ToList();
-                if (DetailRegisterCriteria.Count == 0)
-                {
-                    return;
-                }
-                foreach (var item in DetailRegisterCriteria)
-                {
-                    CHITIEUSANPHAM criteria = DataProvider.Ins.DB.CHITIEUSANPHAMs.Where(t => t.MaChiTieu == item.MaChiTieu).FirstOrDefault();
-                    DONVITINH unit = DataProvider.Ins.DB.DONVITINHs.Where(t => t.MaDonViTinh == criteria.MaDonViTinh).FirstOrDefault();
 
-                    string criteriaName = criteria.TenChiTieu;
-                    decimal criteriaStandard = (decimal)criteria.GiaTriTieuChuan;
-                    string unitName = unit.TenDonViTinh;
-                    decimal registeredValue = (decimal)item.GiaTriDangKy;
-                    ProductCriteria productCriteria = new ProductCriteria(registeredValue, criteriaName, criteriaStandard, unitName);
-                    CriteriaList.Add(productCriteria);
-                }
-            }
+            //DANGKYCHITIEU RegisterCritera = DataProvider.Ins.DB.DANGKYCHITIEUx.Where(t => t.MaCoSo == SelectedProduct.MaCoSo && t.MaSanPham == SelectedProduct.MaSanPham).FirstOrDefault();
+            
+            
+            // lấy ra chi tiết của phiếu ở phía trên
+
+            //if (RegisterCritera != null)
+            //{
+            //    List<CHITIETCHITIEUSANPHAM> DetailRegisterCriteria = DataProvider.Ins.DB.CHITIETCHITIEUSANPHAMs.Where(t => t.MaDangKyChiTieu == RegisterCritera.MaDangKyChiTieu).ToList();
+            //    if (DetailRegisterCriteria.Count == 0)
+            //    {
+            //        return;
+            //    }
+            //    foreach (var item in DetailRegisterCriteria)
+            //    {
+            //        CHITIEUSANPHAM criteria = DataProvider.Ins.DB.CHITIEUSANPHAMs.Where(t => t.MaChiTieu == item.MaChiTieu).FirstOrDefault();
+            //        DONVITINH unit = DataProvider.Ins.DB.DONVITINHs.Where(t => t.MaDonViTinh == criteria.MaDonViTinh).FirstOrDefault();
+
+            //        string criteriaName = criteria.TenChiTieu;
+            //        decimal criteriaStandard = (decimal)criteria.GiaTriTieuChuan;
+            //        string unitName = unit.TenDonViTinh;
+            //        decimal registeredValue = (decimal)item.GiaTriDangKy;
+            //        ProductCriteria productCriteria = new ProductCriteria(registeredValue, criteriaName, criteriaStandard, unitName);
+            //        CriteriaList.Add(productCriteria);
+            //    }
+            //}
         }
     }
 }

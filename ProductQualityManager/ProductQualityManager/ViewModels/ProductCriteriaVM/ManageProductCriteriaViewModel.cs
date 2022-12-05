@@ -30,7 +30,7 @@ namespace ProductQualityManager.ViewModels.ProductCriteriaVM
         public ProductCriteria SelectedCriteria { get { return _selectedCriteria; } set { _selectedCriteria = value; OnPropertyChanged(nameof(SelectedCriteria)); } }
         public ICommand OpenAddCriteriaCommand { get; set; }
         public ICommand OpenEditCriteriaCommand { get; set; }
-        public ICommand AddProductCriteriaCommand { get; set; }
+        public ICommand AddCriteriaCriteriaCommand { get; set; }
 
         public SnackbarMessageQueue MyMessageQueue { get => myMessageQueue; set { myMessageQueue = value; OnPropertyChanged(nameof(MyMessageQueue)); } }
         private SnackbarMessageQueue myMessageQueue;
@@ -45,7 +45,7 @@ namespace ProductQualityManager.ViewModels.ProductCriteriaVM
             StandardValue = 0;
 
             UnitList = new ObservableCollection<DONVITINH>();
-            AddProductCriteriaCommand = new RelayCommand<Grid>((p) => { return true; }, (p) => { AddProductCriteria(p); });
+            AddCriteriaCriteriaCommand = new RelayCommand<Grid>((p) => { return true; }, (p) => { AddCriteriaCriteria(p); });
             LoadUnitList();
 
             MyMessageQueue = new SnackbarMessageQueue(TimeSpan.FromMilliseconds(2000));
@@ -90,7 +90,7 @@ namespace ProductQualityManager.ViewModels.ProductCriteriaVM
         }
         public void OpenAddCriteria(object p)
         {
-            AddProductCriteria window = new AddProductCriteria(this);
+            AddCriteriaCriteria window = new AddCriteriaCriteria(this);
             window.ShowDialog();
         }
         public void OpenEditCriteria(object p)
@@ -128,7 +128,7 @@ namespace ProductQualityManager.ViewModels.ProductCriteriaVM
             }
             return false;
         }
-        public void AddProductCriteria(Grid addCriteriaForm)
+        public void AddCriteriaCriteria(Grid addCriteriaForm)
         {
             if (CriteriaName == "" || StandardValue.ToString() == "")
             {

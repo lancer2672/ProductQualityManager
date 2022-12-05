@@ -10,7 +10,7 @@
         mc:Ignorable="d"
      
         SizeToContent="Width"
-    
+        ResizeMode="NoResize"
         WindowStartupLocation="CenterScreen"
         Title="MainWindow" Height="650" Width="1300"
         DataContext="{StaticResource MainVM}"
@@ -128,15 +128,13 @@
 
         <!--// Background Color //-->
 
-        <StackPanel Orientation="Horizontal" Background="White">
-
-
-
+        
             <!--// Navigation Panel //-->
 
             <Grid  Grid.Column="0"  x:Name="nav_pnl"
                     HorizontalAlignment="Left"
                     Width="65"
+                   Panel.ZIndex="1"
                     Background="#2E333A">
 
                 <StackPanel x:Name="st_pnl">
@@ -508,8 +506,8 @@
 
             </Grid>
             
-            <ContentControl  x:Name="content_Control" PreviewMouseLeftButtonDown="BG_PreviewMouseLeftButtonDown"/>
-        </StackPanel>
+            <ContentControl Panel.ZIndex="0" Margin="65 0 0 0"  x:Name="content_Control" PreviewMouseLeftButtonDown="BG_PreviewMouseLeftButtonDown"/>
+        
 
     </Grid>
 

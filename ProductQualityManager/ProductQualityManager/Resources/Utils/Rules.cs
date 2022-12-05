@@ -94,7 +94,14 @@ namespace ProductQualityManager.Resources.Utils
         {
             try
             {
-                decimal val = Convert.ToDecimal(value);
+                string[] arr = value.ToString().Split('.');
+                string v = "";
+                for(int i=0;i< arr.Length; i++)
+                {
+                        v += arr[i];
+                }
+               
+                decimal val = Convert.ToDecimal(v);
                 if (val < 0) return new ValidationResult(false, "Giá trị phải lớn hơn 0");
                 return ValidationResult.ValidResult;
             }

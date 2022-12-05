@@ -12,6 +12,7 @@ using ProductQualityManager.Views.OwnerFacilities;
 using ProductQualityManager.Views.LoginAndSignUp;
 using System.Windows.Controls;
 using System.Windows;
+using ProductQualityManager.Views.TestingSheet;
 
 namespace ProductQualityManager.ViewModels.OwnerFacilitiesVM
 {
@@ -39,8 +40,8 @@ namespace ProductQualityManager.ViewModels.OwnerFacilitiesVM
 
         public ICommand EditInfor { get; set; }
         public ICommand AddFacility { get; set; }
-        public ICommand Logout { get; set; }
         public ICommand DetailFacility { get; set; }
+        public ICommand Register { get; set; }
 
 
         //Khởi tạo
@@ -53,15 +54,27 @@ namespace ProductQualityManager.ViewModels.OwnerFacilitiesVM
             LoadListFacilities();
             NumberFacilities = CountFacilities();
 
-            MyMessageQueue = new SnackbarMessageQueue(TimeSpan.FromMilliseconds(2000));
-            MyMessageQueue.DiscardDuplicates = true;
+            MyMessageQueue = new SnackbarMessageQueue(TimeSpan.FromMilliseconds(2000))
+            {
+                DiscardDuplicates = true
+            };
 
             EditInfor = new RelayCommand<ManageOwnerViewModel>((p) => { return true; }, (p) => { OpenEditInforOwnerWindow(); });
             AddFacility = new RelayCommand<object>((p) => { return true; }, (p) => { AddInforFacility(); });
-            Logout = new RelayCommand<Window>((p) => { return true; }, (p) => { OpenLoginWindow(p); });
             DetailFacility = new RelayCommand<object>((p) => { return true; }, (p) => { OpenDetailFacilityWindow(p); });
+            Register = new RelayCommand<object>((p) => { return true; }, (p) => { OpenCreateRegistrationSheetWindow(p); });
         }
 
+
+        public void OpenCreateRegistrationSheetWindow(object p)
+        {
+            if (SelectFacilities != null)
+            {
+                CreateSheet window = new CreateSheet(SelectFacilities);
+                window.ShowDialog();
+            }
+            
+        }
         //Load thông tin chủ cơ sở sản xuất
         public void LoadDataOwner()
         {
@@ -140,7 +153,7 @@ namespace ProductQualityManager.ViewModels.OwnerFacilitiesVM
                     };
                     DataProvider.Ins.DB.COSOSANXUATs.Add(NewFacility);
                     DataProvider.Ins.DB.SaveChanges();
-
+                    MyMessageQueue.Enqueue("Thêm cơ sở sản xuất thành công.");
                     NameFacility = AddressFacility = " ";
                     LoadListFacilities();
                 }
@@ -152,15 +165,6 @@ namespace ProductQualityManager.ViewModels.OwnerFacilitiesVM
             Name = PhoneNumber = "";
             NumberFacilities = 0;
             ListFacilities.Clear();
-        }
-        //Đăng xuất
-        public void OpenLoginWindow(Window p)
-        {
-            //LoginWindow loginWindow = new LoginWindow();
-            ////ClearData();
-            //loginWindow.Show();
-            ////p.Close();
-            
         }
 
         //Hiện window thông tin chi tiết của cơ sở

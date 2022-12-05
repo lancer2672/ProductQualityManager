@@ -5,6 +5,7 @@
       xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
       xmlns:local="clr-namespace:ProductQualityManager.Views.TestSheet"
       mc:Ignorable="d" 
+      xmlns:sharedControls="clr-namespace:ProductQualityManager.Views.SharedControls"
       xmlns:materialDesign ="http://materialdesigninxaml.net/winfx/xaml/themes"
       DataContext="{StaticResource TestingSheetVM}"
       d:DesignHeight="450" d:DesignWidth="1000"
@@ -19,8 +20,11 @@
         </ResourceDictionary>
     </UserControl.Resources>
     <StackPanel Margin="20">
-        <Label Content="PHIẾU ĐĂNG KÝ" HorizontalAlignment="Center"></Label>
+        <Label FontSize="24" Content="PHIẾU ĐĂNG KÝ" HorizontalAlignment="Center"></Label>
         <DatePicker Width="120" SelectedDate="{Binding SelectedDate}"></DatePicker>
+        <sharedControls:SearchBarCombobox >
+            
+        </sharedControls:SearchBarCombobox>
         <ListView 
             x:Name="Listview"
             SelectedItem="{Binding SelectedSheet}"
@@ -32,8 +36,11 @@
                 <GridView>
                     <!--<GridViewColumn Header="STT" DisplayMemberBinding="{Binding RelativeSource={RelativeSource Mode=FindAncestor,AncestorType=ListViewItem},Converter={StaticResource  IndexConverter}}"></GridViewColumn>-->
                     <GridViewColumn Header="Mã Cơ Sở" DisplayMemberBinding="{Binding MaCoSo}"></GridViewColumn>
-                    <GridViewColumn Header="Thời gian đăng ký" DisplayMemberBinding="{Binding NgayDangKy}"></GridViewColumn>
-                    <GridViewColumn Header="Ngày hết hạn" DisplayMemberBinding="{Binding ThoiHanDangKy}"></GridViewColumn>
+                    <GridViewColumn Header="Tên cơ sở" DisplayMemberBinding="{Binding TenCoSo}"></GridViewColumn>
+                    <GridViewColumn Header="Tên sản phẩm" DisplayMemberBinding="{Binding TenSanPham}"></GridViewColumn>
+                    <GridViewColumn Header="Thời gian đăng ký" DisplayMemberBinding="{Binding Path=NgayDangKy, StringFormat='dd-MM-yyyy'}"></GridViewColumn>
+                    <GridViewColumn Header="Số lượng" DisplayMemberBinding="{Binding SoLuong}"></GridViewColumn>
+                    <GridViewColumn Header="Ngày hết hạn" DisplayMemberBinding="{Binding Path=ThoiHanDangKy, StringFormat='dd-MM-yyyy'}"></GridViewColumn>
                     <GridViewColumn Header="Trạng thái" >
                         <GridViewColumn.CellTemplate>
                             <DataTemplate>
@@ -41,41 +48,23 @@
                             </DataTemplate>
                         </GridViewColumn.CellTemplate>
                     </GridViewColumn>
-                    <GridViewColumn  >
+                    <!--<GridViewColumn  >
                         <GridViewColumn.CellTemplate>
-                            <!--CommandParameter="{Binding ,RelativeSource={RelativeSource Mode=FindAncestor, AncestorType=ListView}}"-->
+                            --><!--CommandParameter="{Binding ,RelativeSource={RelativeSource Mode=FindAncestor, AncestorType=ListView}}"--><!--
                             <DataTemplate>
-                                <Button ToolTip="Chấp thuận"  
+                                <Button ToolTip="Kiểm tra"  
                                       
                                         Width="70"
-                                        CommandParameter="{Binding }" Command="{Binding DataContext.CApprove, RelativeSource={RelativeSource AncestorType=ListView}}"
+                                        CommandParameter="{Binding }" Command="{Binding DataContext.CCheck, RelativeSource={RelativeSource AncestorType=ListView}}"
                                         >
                                     <DockPanel>
                                         <materialDesign:PackIcon Kind="Check" />
                                     </DockPanel>
                                 </Button>
-                                <!--<Button   Content="Chấp thuận" />-->
+                                --><!--<Button   Content="Chấp thuận" />--><!--
                             </DataTemplate>
                         </GridViewColumn.CellTemplate>
-                    </GridViewColumn>
-                    <GridViewColumn  >
-                        <GridViewColumn.CellTemplate>
-                            <DataTemplate>
-                                <Button ToolTip="Từ chối"  
-                                        
-                                        Width="70"
-                                        
-                                        Style="{StaticResource IconNegativeButton}"
-                                        CommandParameter="{Binding }"  Command="{Binding DataContext.CReject, RelativeSource={RelativeSource AncestorType=ListView}}" 
-                                        >
-                                    <DockPanel>
-                                        <materialDesign:PackIcon Kind="Trash" />
-                                    </DockPanel>
-                                </Button>
-
-                            </DataTemplate>
-                        </GridViewColumn.CellTemplate>
-                    </GridViewColumn>
+                    </GridViewColumn>-->
                     <GridViewColumn  >
                         <GridViewColumn.CellTemplate>
                             <DataTemplate>
@@ -87,30 +76,14 @@
                                         Command="{Binding ElementName=Listview, Path=DataContext.COpenViewDetailWindow }" CommandParameter="{Binding}"
                                         >
                                     <DockPanel>
-                                        <!--<materialDesign:PackIcon Kind="Details" />-->
-                                        <TextBlock Text="Chi tiết"/>
+                                        <!--<materialDesign:PackIcon Kind="Search" />-->
+                                        <TextBlock  Text="Xem"/>
                                     </DockPanel>
                                 </Button>
                             </DataTemplate>
                         </GridViewColumn.CellTemplate>
                     </GridViewColumn>
-                    <GridViewColumn  >
-                        <GridViewColumn.CellTemplate>
-                            <DataTemplate>
-                                <Button ToolTip="Xem lịch sử"  
-                                      
-                                        Width="70"
-                                     
-                                        
-                                        Command="{Binding ElementName=Listview, Path=DataContext.COpenModificationHistoryWindow }" CommandParameter="{Binding}"
-                                        >
-                                    <DockPanel>
-                                        <materialDesign:PackIcon Kind="History" />
-                                    </DockPanel>
-                                </Button>
-                            </DataTemplate>
-                        </GridViewColumn.CellTemplate>
-                    </GridViewColumn>
+                   
                 </GridView>
             </ListView.View>
         </ListView>

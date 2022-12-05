@@ -1,4 +1,4 @@
-﻿<Window x:Class="ProductQualityManager.Views.ProductCriteria.AddProductCriteria"
+﻿<Window x:Class="ProductQualityManager.Views.ProductCriteria.AddCriteriaCriteria"
         xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
         xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
         xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
@@ -63,7 +63,7 @@
                     </Style>
                 </StackPanel.Resources>
                 <Button Margin="0 0 20 0"
-                        Command="{Binding AddProductCriteriaCommand}"
+                        Command="{Binding AddCriteriaCriteriaCommand}"
                         CommandParameter="{Binding ElementName=addCriteriaWindow}">
                     Thêm
                 </Button>

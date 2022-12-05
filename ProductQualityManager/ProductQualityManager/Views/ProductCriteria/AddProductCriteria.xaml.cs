@@ -16,14 +16,14 @@ using System.Windows.Shapes;
 namespace ProductQualityManager.Views.ProductCriteria
 {
     /// <summary>
-    /// Interaction logic for AddProductCriteria.xaml
+    /// Interaction logic for AddCriteriaCriteria.xaml
     /// </summary>
-    public partial class AddProductCriteria : Window
+    public partial class AddCriteriaCriteria : Window
     {
-        public AddProductCriteria(ManageProductCriteriaViewModel ProductCriteriaVM)
+        public AddCriteriaCriteria(ManageProductCriteriaViewModel ProductCriteriaVM)
         {
             InitializeComponent();
-            AddProductCriteriaViewModel addCriteriaVM = new AddProductCriteriaViewModel(ProductCriteriaVM);
+            AddCriteriaCriteriaViewModel addCriteriaVM = new AddCriteriaCriteriaViewModel(ProductCriteriaVM);
             this.DataContext = addCriteriaVM;
         }
     }

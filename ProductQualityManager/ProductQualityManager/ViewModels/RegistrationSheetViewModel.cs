@@ -11,6 +11,7 @@ using System.Windows.Input;
 using System.Windows.Navigation;
 using ProductQualityManager.Views.TestingSheet;
 using ProductQualityManager.Views.TestSheet;
+using Syncfusion.Windows.Shared;
 
 namespace ProductQualityManager.ViewModels
 {
@@ -20,21 +21,19 @@ namespace ProductQualityManager.ViewModels
         private ObservableCollection<RegistrationSheetModel> _testingSheetListObs;
         private DateTime _selectedDate;
         private RegistrationSheetModel _selectedSheet;
-        //enum State
-        //{
-        //    Denied,
-        //    Undecided,
-        //    Aproved
-        //}
-
-        public RegistrationSheetModel SelectedSheet { get { return _selectedSheet; } set { _selectedSheet = value; OnPropertyChanged(nameof(_selectedSheet)); } }
+        private string _searchKey;
+        private List<string> _searchOptions;
+        private int _searchTypeSelected;
+        public RegistrationSheetModel SelectedSheet { get { return _selectedSheet; } set { _selectedSheet = value; OnPropertyChanged(nameof(SelectedSheet)); } }
         public DateTime SelectedDate { get { return _selectedDate; } set { _selectedDate = value; LoadDataSheetList(); OnPropertyChanged(nameof(SelectedDate)); } }
+        public string SearchKey { get { return _searchKey; } set { _searchKey = value; OnPropertyChanged(nameof(SearchKey)); } }
         public ObservableCollection<RegistrationSheetModel> TestingSheetListObs { get { return _testingSheetListObs; } set { _testingSheetListObs = value; OnPropertyChanged(nameof(TestingSheetListObs)); } }
-        
-        
+        public List<string> SearchOptions { get { return _searchOptions; } set { _searchOptions = value; OnPropertyChanged(nameof(SearchOptions)); } }
+        public int SearchTypeSelected { get { return _searchTypeSelected; } set { _searchTypeSelected = value; OnPropertyChanged(nameof(SearchTypeSelected)); } }
+
         public ICommand COpenViewDetailWindow { get; set; }
-        public ICommand CApprove { get; set; }
-        public ICommand CReject { get; set; }
+        public ICommand CCheck { get; set; }
+        public ICommand CSearch { get; set; }
         public ICommand COpenModificationHistoryWindow { get; set; }
 
         public RegistrationSheetViewModel()
@@ -42,81 +41,115 @@ namespace ProductQualityManager.ViewModels
             SelectedDate = DateTime.Today;
             TestingSheetListObs = new ObservableCollection<RegistrationSheetModel>();
             COpenViewDetailWindow = new RelayCommand<object>((p) => { return true; }, (p) => { OpenDetailWindow(p); });
-            CApprove = new RelayCommand<object>((p) => { return true; }, (p) => { ApproveSheet(p); });
-            CReject = new RelayCommand<object>((p) => { return true; }, (p) => { RejectSheet(p); });
+            CSearch = new RelayCommand<object>((p) => { return true; }, (p) => { Search(p); });
+            CCheck = new RelayCommand<object>((p) => { return true; }, (p) => { CheckSheet(p); });
+           
             COpenModificationHistoryWindow = new RelayCommand<object>((p) => { return true; }, (p) => { OpenModificationHistoryWindow(p); });
+            LoadDataSheetList();
+            CheckOverDueRegistrationForms();
+            SearchOptions = new List<string>() { "ID", "Tên cơ sở", "Chưa duyệt" };
+        }
+        public void Search(object p)
+        {
+            if(SearchKey.IsNullOrWhiteSpace() == true)
+            {
+                if (SearchTypeSelected != 2)
+                {
+                    LoadDataSheetList();
+                    return;
+                }
+            }
+            switch (SearchTypeSelected)
+            {
+                //ID
+                case 0:
+                    {
+                        List<COSOSANXUAT> list = DataProvider.Ins.DB.COSOSANXUATs.Where(t => t.MaCoSo.ToString().ToLower().Contains(SearchKey.ToLower())).ToList();
+                        List<PHIEUDANGKY> sheetList = new List<PHIEUDANGKY>();
+                        for (int i = 0; i < list.Count; i++)
+                        {
+                            int id = (int)list[i].MaCoSo;
 
+                            List<PHIEUDANGKY> registrationList = DataProvider.Ins.DB.PHIEUDANGKies.
+                              Where(t => t.NgayDangKy.Value.Day == SelectedDate.Day &&
+                                       t.NgayDangKy.Value.Month == SelectedDate.Month &&
+                                       t.NgayDangKy.Value.Year == SelectedDate.Year &&
+                                       t.MaCoSo == id).ToList();
+                            sheetList.AddRange(registrationList);
+                        }
+                        TestingSheetListObs = GetDataSheetFromList(sheetList);
+                        break;
+                    }
+                //Tên cơ sở
+                case 1:
+                    {   
+                        List<COSOSANXUAT> list = DataProvider.Ins.DB.COSOSANXUATs.Where(t => t.TenCoSo.ToLower().Contains(SearchKey.ToLower())).ToList();
+                        List<PHIEUDANGKY> sheetList = new List<PHIEUDANGKY>();
+                        for (int i=0;i< list.Count; i++)
+                        {
+                            int id = (int)list[i].MaCoSo;
+                            List<PHIEUDANGKY> registrationList = DataProvider.Ins.DB.PHIEUDANGKies.
+                              Where(t => t.NgayDangKy.Value.Day == SelectedDate.Day &&
+                                       t.NgayDangKy.Value.Month == SelectedDate.Month &&
+                                       t.NgayDangKy.Value.Year == SelectedDate.Year &&
+                                       t.MaCoSo == id).ToList();
+                            sheetList.AddRange(registrationList);
+                        }
+                        TestingSheetListObs = GetDataSheetFromList(sheetList);
+                        break;
+                    }
+                case 2:
+                    {
+                        List<PHIEUDANGKY> sheetList = DataProvider.Ins.DB.PHIEUDANGKies.
+                               Where(t => t.NgayDangKy.Value.Day == SelectedDate.Day &&
+                                        t.NgayDangKy.Value.Month == SelectedDate.Month &&
+                                        t.NgayDangKy.Value.Year == SelectedDate.Year &&
+                                        t.TrangThai == 0).
+                               ToList();
+                        TestingSheetListObs = GetDataSheetFromList(sheetList);
+                        break;
+                    }
+                default:
+                    return;
+            }
+        }
+        public void RefreshData()
+        {
+            SearchKey = "";
             LoadDataSheetList();
         }
-       
+        public void CheckOverDueRegistrationForms()
+        {
+            List<PHIEUDANGKY> list = DataProvider.Ins.DB.PHIEUDANGKies.Where(t => t.TrangThai == 0).ToList();
+            for(int i=0;i< list.Count; i++)
+            {
+                if (list[i].HanDangKy < DateTime.Now)
+                {
+                    list[i].TrangThai = 2;
+                }
+            }
+        }
         //Load danh sách phiếu đăng ký 
         public void LoadDataSheetList() 
         {
             List<PHIEUDANGKY> SheetList = DataProvider.Ins.DB.PHIEUDANGKies.
                 Where(t =>t.NgayDangKy.Value.Day == SelectedDate.Day && t.NgayDangKy.Value.Month == SelectedDate.Month && t.NgayDangKy.Value.Year == SelectedDate.Year).
                 ToList();
-            if (SheetList == null) return;
-            SelectedSheet = new RegistrationSheetModel();
             TestingSheetListObs = GetDataSheetFromList(SheetList);
         }
         public void OpenModificationHistoryWindow(object p)
         {
 
-            RegistrationSheetModel selectedItem = p as RegistrationSheetModel;
-            ModificationHistory window = new ModificationHistory(selectedItem);
-            window.Show();
+           
         }
-        public void ApproveSheet(object p)
+
+        public void CheckSheet(object p)
         {
-            RegistrationSheetModel selectedItem = p as RegistrationSheetModel;
-            
-            PHIEUDANGKY sheet = DataProvider.Ins.DB.PHIEUDANGKies.Where(t => t.MaPhieuDangKy == selectedItem.MaPhieuDangKy).FirstOrDefault();
-            if (sheet.TrangThai == 1)
-            {
+            if (SelectedSheet == null)
                 return;
-            }
-            sheet.TrangThai = 1;
-            LICHSUDUYETPHIEUDANGKY historySheet = new LICHSUDUYETPHIEUDANGKY();
-            historySheet.MaPhieuDangKy = selectedItem.MaPhieuDangKy;
-            historySheet.ThoiGianChinhSua = DateTime.Now;
-            historySheet.GiaTriChinhSua = 1;
-            DataProvider.Ins.DB.LICHSUDUYETPHIEUDANGKies.Add(historySheet);
-            try
-            {
-                DataProvider.Ins.DB.SaveChanges();
-                RefreshList();
 
-            }catch(Exception e)
-            {
-
-            }          
+            
         }
-        public void RejectSheet(object p)
-        {
-            RegistrationSheetModel selectedItem = p as RegistrationSheetModel;
-
-            PHIEUDANGKY sheet = DataProvider.Ins.DB.PHIEUDANGKies.Where(t => t.MaPhieuDangKy == selectedItem.MaPhieuDangKy).FirstOrDefault();
-            if (sheet.TrangThai == -1)
-            { 
-                return; 
-            }
-            sheet.TrangThai = -1;
-            LICHSUDUYETPHIEUDANGKY historySheet = new LICHSUDUYETPHIEUDANGKY();
-            historySheet.MaPhieuDangKy = selectedItem.MaPhieuDangKy;
-            historySheet.ThoiGianChinhSua = DateTime.Now;
-            historySheet.GiaTriChinhSua = -1;
-            DataProvider.Ins.DB.LICHSUDUYETPHIEUDANGKies.Add(historySheet);
-            try
-            {
-                DataProvider.Ins.DB.SaveChanges();
-                RefreshList();
-            }
-            catch (Exception e)
-            {
-
-            }
-        }
-
         public void RefreshList()
         {
             TestingSheetListObs.Clear();
@@ -130,7 +163,12 @@ namespace ProductQualityManager.ViewModels
 
             for(int i = 0; i < NumberOfRecord; i++)
             {
-                RegistrationSheetModel TestingSheet = new RegistrationSheetModel(SheetList[i]);
+                int idProduct = (int)SheetList[i].MaSanPham;
+                int idProductFacility = (int)SheetList[i].MaCoSo;
+                COSOSANXUAT produceFacility = DataProvider.Ins.DB.COSOSANXUATs.Where(t => t.MaCoSo == idProductFacility).FirstOrDefault();
+                SANPHAM product = DataProvider.Ins.DB.SANPHAMs.Where(t => t.MaSanPham == idProduct).FirstOrDefault();
+                DONVITINHSANPHAM unit = DataProvider.Ins.DB.DONVITINHSANPHAMs.Where(t => t.MaDonViTinhSP == product.MaDonViTinhSP).FirstOrDefault();
+                RegistrationSheetModel TestingSheet = new RegistrationSheetModel(SheetList[i], unit.TenDonViTinhSP, produceFacility.TenCoSo, product.TenSanPham);
                 TestingSheet.MauChu = GetColorState((int)TestingSheet.TrangThai);
                 TestingSheet.STrangThai = GetStringState((int)TestingSheet.TrangThai);
                 SheetListObs.Add(TestingSheet);
@@ -147,6 +185,8 @@ namespace ProductQualityManager.ViewModels
                     return "Orange";
                 case 1:
                     return "Green";
+                case 2:
+                    return "Gray";
                 default:
                     return "Orange";
             }
@@ -161,15 +201,19 @@ namespace ProductQualityManager.ViewModels
                     return "Đang chờ duyệt";
                 case 1:
                     return "Chấp thuận";
+                case 2:
+                    return "Quá hạn";
                 default:
                     return "Đang chờ duyệt";
             }
         }
         public void OpenDetailWindow(object p)
         {
-            RegistrationSheetModel selectedItem = p as RegistrationSheetModel;
-            ViewDetailWindow DetailWindow = new ViewDetailWindow(selectedItem);
-            DetailWindow.Show();
+           if(SelectedSheet != null)
+            {
+                DetailRegistrationSheet window = new DetailRegistrationSheet(this);
+                window.ShowDialog();
+            }
         }
     }
 }

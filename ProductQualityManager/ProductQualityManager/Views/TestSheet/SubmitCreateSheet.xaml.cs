@@ -14,18 +14,18 @@ using System.Windows.Media;
 using System.Windows.Media.Imaging;
 using System.Windows.Shapes;
 
-namespace ProductQualityManager.Views.TestingSheet
+namespace ProductQualityManager.Views.TestSheet
 {
     /// <summary>
-    /// Interaction logic for CreateSheet.xaml
+    /// Interaction logic for SubmitCreateSheet.xaml
     /// </summary>
-    public partial class CreateSheet : Window
+    public partial class SubmitCreateSheet : Window
     {
-        public CreateSheet(COSOSANXUAT selectedFacility)
+        public SubmitCreateSheet(CreateRegistrationSheetViewModel vm, COSOSANXUAT facility, CHUCOSO owner)
         {
             InitializeComponent();
-            CreateRegistrationSheetViewModel VM = new CreateRegistrationSheetViewModel(selectedFacility);
-            this.DataContext = VM;
+            SubmitCreateSheetViewModel viewModel = new SubmitCreateSheetViewModel(vm, facility, owner);
+            this.DataContext = viewModel;
         }
     }
 }
