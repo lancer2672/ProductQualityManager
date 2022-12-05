@@ -23,11 +23,13 @@ namespace ProductQualityManager.ViewModels.LoginVM
         private string _password;
         private string _name;
         private string _phone;
+        
         public string Username { get => _username; set { _username = value; OnPropertyChanged(); } }
         public string ReUsername { get => _reUsername; set { _reUsername = value; OnPropertyChanged(); } }
         public string Password { get => _password; set { _password = value; OnPropertyChanged(); } }
         public string Name { get => _name; set { _name = value; OnPropertyChanged(); } }
         public string Phone { get => _phone; set { _phone = value; OnPropertyChanged(); } }
+        
         //public SnackbarMessageQueue MyMessageQueue { get => myMessageQueue; set { myMessageQueue = value; OnPropertyChanged(nameof(MyMessageQueue)); } }
         //private SnackbarMessageQueue myMessageQueue;
         public ICommand SignUpCommand { get; set; }
@@ -40,6 +42,7 @@ namespace ProductQualityManager.ViewModels.LoginVM
             Password = "";
             Name = "";
             Phone = "";
+            
 
             SignUpCommand = new RelayCommand<StackPanel>((p) => { return true; }, (p) => { SignUp(p); });
             //PasswordChangedCommand = new RelayCommand<PasswordBox>((p) => { return true; }, (p) => { Password = p.Password; });

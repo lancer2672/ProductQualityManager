@@ -19,11 +19,15 @@ namespace ProductQualityManager.ViewModels.LoginVM
         public bool IsLogin { get; set; }
         private string _username;
         private string _password;
+        private string _wrongUser;
+        private string _wrongUserColor;
         public string Username { get => _username; set { _username = value; OnPropertyChanged(Username); } }
 
         //public SnackbarMessageQueue MyMessageQueue { get => myMessageQueue; set { myMessageQueue = value; OnPropertyChanged(nameof(MyMessageQueue)); } }
         //private SnackbarMessageQueue myMessageQueue;
         public string Password { get => _password; set { _password = value; OnPropertyChanged(Password); } }
+        public string WrongUser { get => _wrongUser; set { _wrongUser = value; OnPropertyChanged(); } }
+        public string WrongUserColor { get => _wrongUserColor; set { _wrongUserColor = value; OnPropertyChanged(); } }
 
         public ICommand LoginCommand { get; set; }
         public ICommand PasswordChangedCommand { get; set; }
@@ -35,7 +39,8 @@ namespace ProductQualityManager.ViewModels.LoginVM
             IsLogin = false;
             Password = "";
             Username = "";
-
+            WrongUser = "*Sai tài khoản hoặc mật khẩu";
+            WrongUserColor = "White";
 
             LoginCommand = new RelayCommand<Window>((p) => { return true; }, (p) => { Login(p); });
             PasswordChangedCommand = new RelayCommand<PasswordBox>((p) => { return true; }, (p) => { Password = p.Password; });
@@ -62,13 +67,14 @@ namespace ProductQualityManager.ViewModels.LoginVM
                 TAIKHOAN Account = DataProvider.Ins.DB.TAIKHOANs.Where(x => x.TenDangNhap == Username && x.MatKhau == passEncode).FirstOrDefault();
                 if (Username == "admin")
                 {
+                    IsLogin = true;
                     MainWindow mainWindow = new MainWindow();
                     mainWindow.Show();
                     p.Close();
                 }
                 else
                 {
-         
+                    IsLogin = true;
                     ManageOwnerWindow manageOwnerWindow = new ManageOwnerWindow((int)Account.MaChuCoSo);
                     Username = "";
                     Password = "";
@@ -80,8 +86,8 @@ namespace ProductQualityManager.ViewModels.LoginVM
             else
             {
                 //MyMessageQueue.Enqueue("Sai tài khoản hoặc mật khẩu");
-                MessageBox.Show("Sai tài khoản hoặc mật khẩu");
-
+                //MessageBox.Show("Sai tài khoản hoặc mật khẩu");
+                WrongUserColor = "Red";
             }
         }
 
