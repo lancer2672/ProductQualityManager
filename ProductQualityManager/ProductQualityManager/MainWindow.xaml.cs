@@ -1,4 +1,6 @@
 ﻿using ProductQualityManager.Views;
+using ProductQualityManager.Views.LoginAndSignUp;
+using ProductQualityManager.Views.ProductCriteria;
 using ProductQualityManager.Views.TestSheet;
 using ProductQualityManager.Views.TestingSheet;
 using ProductQualityManager.Views.LoginAndSignUp;
@@ -27,13 +29,16 @@ namespace ProductQualityManager
     {
         EnrollSheet enrollSheet;
         TestingSheet testingSheet;
+        ManageProductCriteria manageProductCriteria;
         SignUpWindow signUpWindow;
+
   
         public MainWindow()
         {
             InitializeComponent();
             this.enrollSheet = new EnrollSheet();
             this.testingSheet = new TestingSheet();
+            this.manageProductCriteria = new ManageProductCriteria();
             this.signUpWindow = new SignUpWindow();
             //default
             this.content_Control.Content = enrollSheet;
@@ -91,6 +96,11 @@ namespace ProductQualityManager
                     case "TestingSheet":
                         {
                             this.content_Control.Content = testingSheet;
+                            break;
+                        }
+                    case"Criteria" :
+                        {
+                            this.content_Control.Content = manageProductCriteria;
                             break;
                         }
                     case "SignUp":

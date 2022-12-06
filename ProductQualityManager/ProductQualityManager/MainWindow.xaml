@@ -12,7 +12,7 @@
         
         ResizeMode="NoResize"
         WindowStartupLocation="CenterScreen"
-        Title="MainWindow" Height="650" Width="1300"
+        Title="MainWindow" Height="650" Width="1200"
         DataContext="{StaticResource MainVM}"
         x:Name="mainWindow">
     <!--<i1:Interaction.Triggers>
@@ -57,7 +57,7 @@
 
             <Setter Property="Placement" Value="Center"/>
             <Setter Property="Height" Value="30"/>
-            <Setter Property="Width" Value="100"/>
+            <Setter Property="Width" Value="150"/>
             <Setter Property="Background" Value="#4A5668"/>
             <Setter Property="BorderBrush" Value="Transparent"/>
             <Setter Property="Foreground" Value="White"/>
@@ -135,7 +135,8 @@
                     HorizontalAlignment="Left"
                     Width="65"
                    Panel.ZIndex="1"
-                    Background="#2E333A">
+                   Background="DarkBlue">
+                    <!--Background="#2E333A"-->
 
                 <StackPanel x:Name="st_pnl">
 
@@ -205,7 +206,7 @@
                                                 Storyboard.TargetName="nav_pnl"
                                                 Storyboard.TargetProperty="Width"
                                                 BeginTime="0:0:0"
-                                                From="230" To="65"
+                                                From="250" To="65"
                                                 Duration="0:0:0.2">
 
                                             </DoubleAnimation>
@@ -227,7 +228,7 @@
                                                 Storyboard.TargetName="nav_pnl"
                                                 Storyboard.TargetProperty="Width"
                                                 BeginTime="0:0:0"
-                                                From="65" To="230"
+                                                From="65" To="250"
                                                 Duration="0:0:0.3">
 
                                             </DoubleAnimation>
@@ -252,7 +253,7 @@
                                BorderBrush="Transparent"
                                ScrollViewer.HorizontalScrollBarVisibility="Disabled">
 
-                        <!--// EnrollSheet //-->
+                        <!--// Phiếu đăng ký //-->
 
                         <ListViewItem HorizontalAlignment="Left"
                                       Name="EnrollSheet"
@@ -260,13 +261,13 @@
                                       >
 
                             <StackPanel Orientation="Horizontal"
-                                        Width="230">
+                                        Width="250">
 
-                                <Image Source="Resources/Imgs/IconSidebar/img_home.png"
+                                <Image Source="Resources/Imgs/IconSidebar/icon_enroll.png"
                                        Stretch="None"
                                        Margin="12,0,0,0"/>
 
-                                <TextBlock Text="Home"
+                                <TextBlock Text="Phiếu đăng ký"
                                            Margin="25,0,0,0"
                                            Style="{StaticResource font_style}"/>
 
@@ -277,7 +278,7 @@
                             <ListViewItem.ToolTip>
 
                                 <ToolTip x:Name="tt_home"
-                                         Content="Home"
+                                         Content="Phiếu đăng ký"
                                          
                                          Style="{StaticResource tt_style}"/>
 
@@ -285,7 +286,7 @@
 
                         </ListViewItem>
 
-                        <!--// Contacts //-->
+                        <!--// Phiếu kiểm nghiệm //-->
 
                         <ListViewItem HorizontalAlignment="Left"
                                        Name="TestingSheet"
@@ -293,13 +294,13 @@
                                       >
 
                             <StackPanel Orientation="Horizontal"
-                                        Width="230">
+                                        Width="250">
 
-                                <Image  Source="Resources/Imgs/IconSidebar/img_home.png"
+                                <Image  Source="Resources/Imgs/IconSidebar/icon_test.png"
                                        Stretch="None"
                                        Margin="12,0,0,0"/>
 
-                                <TextBlock Text="Contacts"
+                                <TextBlock Text="Phiếu kiểm nghiệm"
                                            Margin="25,0,0,0"
                                            Style="{StaticResource font_style}"/>
 
@@ -310,27 +311,28 @@
                             <ListViewItem.ToolTip>
 
                                 <ToolTip x:Name="tt_contacts"
-                                         Content="Contacts"
+                                         Content="Phiếu kiểm nghiệm"
                                          Style="{StaticResource tt_style}"/>
 
                             </ListViewItem.ToolTip>
 
                         </ListViewItem>
 
-                        <!--// Messages //-->
+                        <!--// Chỉ tiêu //-->
 
                         <ListViewItem HorizontalAlignment="Left"
+                                      x:Name="Criteria"
                                       Margin="0,0,0,15" MouseEnter="ListViewItem_MouseEnter"
                                       >
 
                             <StackPanel Orientation="Horizontal"
-                                        Width="230">
+                                        Width="250">
 
-                                <Image  Source="Resources/Imgs/IconSidebar/img_home.png"
+                                <Image  Source="Resources/Imgs/IconSidebar/icon_criteria.png"
                                        Stretch="None"
                                        Margin="12,0,0,0"/>
 
-                                <TextBlock Text="Messages"
+                                <TextBlock Text="Chỉ tiêu sản phẩm"
                                            Margin="25,0,0,0"
                                            Style="{StaticResource font_style}"/>
 
@@ -341,27 +343,27 @@
                             <ListViewItem.ToolTip>
 
                                 <ToolTip x:Name="tt_messages"
-                                         Content="Messages"
+                                         Content="Chỉ tiêu sản phẩm"
                                          Style="{StaticResource tt_style}"/>
 
                             </ListViewItem.ToolTip>
 
                         </ListViewItem>
 
-                        <!--// Maps //-->
+                        <!--// Quy định //-->
 
                         <ListViewItem HorizontalAlignment="Left"
                                       Margin="0,0,0,15" MouseEnter="ListViewItem_MouseEnter"
                                       >
 
                             <StackPanel Orientation="Horizontal"
-                                        Width="230">
+                                        Width="250">
 
-                                <Image  Source="Resources/Imgs/IconSidebar/img_home.png"
+                                <Image  Source="Resources/Imgs/IconSidebar/icon_regulation.png"
                                        Stretch="None"
                                        Margin="12,0,0,0"/>
 
-                                <TextBlock Text="Maps"
+                                <TextBlock Text="Quy định"
                                            Margin="25,0,0,0"
                                            Style="{StaticResource font_style}"/>
 
@@ -372,14 +374,14 @@
                             <ListViewItem.ToolTip>
 
                                 <ToolTip x:Name="tt_maps"
-                                         Content="Maps"
+                                         Content="Quy định"
                                          Style="{StaticResource tt_style}"/>
 
                             </ListViewItem.ToolTip>
 
                         </ListViewItem>
 
-                        <!--// SignUp //-->
+                        <!--// Đăng ký //-->
 
                         <ListViewItem HorizontalAlignment="Left"
                                       x:Name="SignUp"
@@ -387,13 +389,13 @@
                                       >
 
                             <StackPanel Orientation="Horizontal"
-                                        Width="230">
+                                        Width="250">
 
-                                <Image  Source="Resources/Imgs/IconSidebar/img_home.png"
+                                <Image  Source="Resources/Imgs/IconSidebar/icon_signUp.png"
                                        Stretch="None"
                                        Margin="12,0,0,0"/>
 
-                                <TextBlock Text="Settings"
+                                <TextBlock Text="Đăng ký tài khoản"
                                            Margin="25,0,0,0"
                                            Style="{StaticResource font_style}"/>
 
@@ -404,27 +406,27 @@
                             <ListViewItem.ToolTip>
 
                                 <ToolTip x:Name="tt_settings"
-                                         Content="Settings"
+                                         Content="Đăng ký tài khoản"
                                          Style="{StaticResource tt_style}"/>
 
                             </ListViewItem.ToolTip>
 
                         </ListViewItem>
 
-                        <!--// Sign Out //-->
+                        <!--// Đăng xuất //-->
 
                         <ListViewItem HorizontalAlignment="Left"
                                       Margin="0,0,0,15" MouseEnter="ListViewItem_MouseEnter"
                                       >
 
                             <StackPanel Orientation="Horizontal"
-                                        Width="230">
+                                        Width="250">
 
-                                <Image  Source="Resources/Imgs/IconSidebar/img_home.png"
+                                <Image  Source="Resources/Imgs/IconSidebar/icon_signOut.png"
                                        Stretch="None"
                                        Margin="12,0,0,0"/>
 
-                                <TextBlock Text="Sign Out"
+                                <TextBlock Text="Đăng xuất"
                                            Margin="25,0,0,0"
                                            Style="{StaticResource font_style}"/>
 
@@ -435,7 +437,7 @@
                             <ListViewItem.ToolTip>
 
                                 <ToolTip x:Name="tt_signout"
-                                         Content="Sign Out"
+                                         Content="Đăng xuất"
                                          Style="{StaticResource tt_style}"/>
 
                             </ListViewItem.ToolTip>

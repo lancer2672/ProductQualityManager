@@ -1,4 +1,4 @@
-﻿<Page x:Class="ProductQualityManager.Views.ProductCriteria.ManageProductCriteria"
+﻿<UserControl x:Class="ProductQualityManager.Views.ProductCriteria.ManageProductCriteria"
              xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
              xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
              xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
@@ -6,16 +6,16 @@
              xmlns:local="clr-namespace:ProductQualityManager.Views.ProductCriteria" 
              xmlns:materialDesign="http://materialdesigninxaml.net/winfx/xaml/themes" xmlns:rule="clr-namespace:ProductQualityManager.Resources.Utils"
       mc:Ignorable="d" 
-             d:DesignHeight="450" d:DesignWidth="800"
+             d:DesignHeight="450" d:DesignWidth="1000"
              DataContext="{StaticResource ProductCriteriaVM}">
-    <Page.Resources>
+    <UserControl.Resources>
         <ResourceDictionary>
             <ResourceDictionary.MergedDictionaries>
                 <ResourceDictionary Source="../Styles/ListView.xaml"></ResourceDictionary>
                 <ResourceDictionary Source="../Styles/Button.xaml"></ResourceDictionary>
             </ResourceDictionary.MergedDictionaries>
         </ResourceDictionary>
-    </Page.Resources>
+    </UserControl.Resources>
     <Grid>
         <Grid.RowDefinitions>
             <RowDefinition Height="auto"></RowDefinition>
@@ -164,7 +164,7 @@
                         <TextBlock Text="Thêm"/>
                     </DockPanel>
                     <Button.Style>
-                        <Style TargetType="Button" >
+                        <Style TargetType="Button" BasedOn="{StaticResource MaterialDesignRaisedButton}">
 
                             <Setter Property="IsEnabled" Value="False"></Setter>
                             <Style.Triggers>
@@ -189,4 +189,4 @@
         </materialDesign:Snackbar>
     </Grid>
 
-</Page>
+</UserControl>

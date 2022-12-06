@@ -9,12 +9,12 @@
         xmlns:i1="http://schemas.microsoft.com/expression/2010/interactions"
         xmlns:rule="clr-namespace:ProductQualityManager.Resources.Utils"
         mc:Ignorable="d"
-        Height="450" Width="1000" 
+        Height="500" Width="1000" 
         DataContext="{StaticResource SignUpVM}" x:Name="signUpWindow">
     <Grid>
         <Grid.RowDefinitions>
+            <RowDefinition Height="450"></RowDefinition>
             <RowDefinition Height="auto"></RowDefinition>
-            <RowDefinition Height="50"></RowDefinition>
         </Grid.RowDefinitions>
         <DockPanel Grid.Row="0">
             <Grid>
@@ -165,9 +165,9 @@
             </StackPanel>
 
         </DockPanel>
-        <materialDesign:Snackbar 
+        <materialDesign:Snackbar Grid.Row="1"
                 HorizontalAlignment="Stretch"
                 VerticalAlignment="Stretch"
-                MessageQueue="{Binding MyMessageQueue}" Margin="0,446,0,0.4" Grid.RowSpan="2"/>
+                MessageQueue="{Binding MyMessageQueue}"/>
     </Grid>
 </UserControl>
