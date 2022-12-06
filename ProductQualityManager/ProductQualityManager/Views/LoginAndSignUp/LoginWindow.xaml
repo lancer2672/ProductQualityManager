@@ -115,10 +115,7 @@
                         </i:EventTrigger>
                     </i:Interaction.Triggers>--><!--
                 </Button>-->
-                <Button Command="{Binding OpenSignUpWindowCommand}"
-                        CommandParameter="{Binding ElementName=loginWindow}">
-                    Đăng kí
-                </Button>
+
             </StackPanel>
 
 

@@ -1,4 +1,5 @@
-﻿using ProductQualityManager.Models;
+﻿using MaterialDesignThemes.Wpf;
+using ProductQualityManager.Models;
 using ProductQualityManager.Models.Database;
 using ProductQualityManager.Views.LoginAndSignUp;
 using System;
@@ -29,9 +30,9 @@ namespace ProductQualityManager.ViewModels.LoginVM
         public string Password { get => _password; set { _password = value; OnPropertyChanged(); } }
         public string Name { get => _name; set { _name = value; OnPropertyChanged(); } }
         public string Phone { get => _phone; set { _phone = value; OnPropertyChanged(); } }
-        
-        //public SnackbarMessageQueue MyMessageQueue { get => myMessageQueue; set { myMessageQueue = value; OnPropertyChanged(nameof(MyMessageQueue)); } }
-        //private SnackbarMessageQueue myMessageQueue;
+
+        public SnackbarMessageQueue MyMessageQueue { get => myMessageQueue; set { myMessageQueue = value; OnPropertyChanged(nameof(MyMessageQueue)); } }
+        private SnackbarMessageQueue myMessageQueue;
         public ICommand SignUpCommand { get; set; }
         public ICommand PasswordChangedCommand { get; set; }
         public ICommand RePasswordChangedCommand { get; set; }
@@ -47,8 +48,9 @@ namespace ProductQualityManager.ViewModels.LoginVM
             SignUpCommand = new RelayCommand<StackPanel>((p) => { return true; }, (p) => { SignUp(p); });
             //PasswordChangedCommand = new RelayCommand<PasswordBox>((p) => { return true; }, (p) => { Password = p.Password; });
             //RePasswordChangedCommand = new RelayCommand<PasswordBox>((p) => { return true; }, (p) => { RePassword = p.Password; });
-            
-            
+
+            MyMessageQueue = new SnackbarMessageQueue(TimeSpan.FromMilliseconds(2000));
+            MyMessageQueue.DiscardDuplicates = true;
         }
 
         void SignUp(StackPanel infoSignUpForm)
@@ -62,11 +64,13 @@ namespace ProductQualityManager.ViewModels.LoginVM
                 newChuCoSo.DienTHoai = Phone;
                 if (IsExist(newAccount) == true)
                 {
-                    MessageBox.Show("Tài khoản đã tồn tại");
+                    //MessageBox.Show("Tài khoản đã tồn tại");
+                    MyMessageQueue.Enqueue("Tài khoản đã tồn tại");
                 }
                 else if (Username != ReUsername)
                 {
-                    MessageBox.Show("Email không trùng khớp");
+                    //MessageBox.Show("Email không trùng khớp");
+                    MyMessageQueue.Enqueue("Email không trùng khớp");
                 }
                 else
                 {
@@ -83,7 +87,8 @@ namespace ProductQualityManager.ViewModels.LoginVM
                     DataProvider.Ins.DB.TAIKHOANs.Add(newAccount);
 
                     DataProvider.Ins.DB.SaveChanges();
-                    MessageBox.Show("Tạo tài khoản mới thành công");
+                    //MessageBox.Show("Tạo tài khoản mới thành công");
+                    MyMessageQueue.Enqueue("Tạo tài khoản mới thành công");
                     CreateTimeoutTestMessage(Username, Password);
                     Refresh();
                     //p.Close();

@@ -17,7 +17,7 @@ namespace ProductQualityManager.Views.LoginAndSignUp
     /// <summary>
     /// Interaction logic for SignUpWindow.xaml
     /// </summary>
-    public partial class SignUpWindow : Window
+    public partial class SignUpWindow : UserControl
     {
         public SignUpWindow()
         {

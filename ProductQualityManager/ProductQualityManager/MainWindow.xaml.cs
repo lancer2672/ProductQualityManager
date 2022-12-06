@@ -1,4 +1,5 @@
 ﻿using ProductQualityManager.Views;
+using ProductQualityManager.Views.LoginAndSignUp;
 using ProductQualityManager.Views.TestSheet;
 using System;
 using System.Collections.Generic;
@@ -24,11 +25,13 @@ namespace ProductQualityManager
     public partial class MainWindow : Window
     {
         EnrollSheet enrollSheet;
+        SignUpWindow signUpWindow;
   
         public MainWindow()
         {
             InitializeComponent();
             this.enrollSheet = new EnrollSheet();
+            this.signUpWindow = new SignUpWindow();
 
             //default
             this.content_Control.Content = enrollSheet;
@@ -81,6 +84,11 @@ namespace ProductQualityManager
                     case "EnrollSheet":
                         {
                             this.content_Control.Content = enrollSheet;
+                            break;
+                        }
+                    case "SignUp":
+                        {
+                            this.content_Control.Content = signUpWindow;
                             break;
                         }
                     default:
