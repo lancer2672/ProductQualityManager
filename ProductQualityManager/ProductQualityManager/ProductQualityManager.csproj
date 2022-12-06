@@ -357,6 +357,12 @@
       <DependentUpon>Model1.edmx</DependentUpon>
       <LastGenOutput>Model1.cs</LastGenOutput>
     </Content>
+    <Resource Include="Resources\Imgs\IconSidebar\icon_signOut.png" />
+    <Resource Include="Resources\Imgs\IconSidebar\icon_signUp.png" />
+    <Resource Include="Resources\Imgs\IconSidebar\icon_regulation.png" />
+    <Resource Include="Resources\Imgs\IconSidebar\icon_criteria.png" />
+    <Resource Include="Resources\Imgs\IconSidebar\icon_test.png" />
+    <Resource Include="Resources\Imgs\IconSidebar\icon_enroll.png" />
     <Resource Include="Resources\Imgs\SignUp.png" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />

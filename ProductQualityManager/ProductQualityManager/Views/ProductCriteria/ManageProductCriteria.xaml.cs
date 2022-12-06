@@ -18,7 +18,7 @@ namespace ProductQualityManager.Views.ProductCriteria
     /// <summary>
     /// Interaction logic for ManageProductCriteria.xaml
     /// </summary>
-    public partial class ManageProductCriteria : Page
+    public partial class ManageProductCriteria : UserControl
     {
         public ManageProductCriteria()
         {
