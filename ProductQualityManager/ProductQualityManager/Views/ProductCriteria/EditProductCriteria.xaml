@@ -59,7 +59,7 @@
                         CommandParameter="{Binding ElementName=editCritertiaWindow}">
 
                         
-                    Chỉnh sửa
+                    Lưu
                 </Button>
                 <Button>
                     Thoát

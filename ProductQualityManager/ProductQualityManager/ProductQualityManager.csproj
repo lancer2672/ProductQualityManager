@@ -96,6 +96,9 @@
     <Compile Include="Models\Database\CHITIETPHIEUDANGKY.cs">
       <DependentUpon>Model1.tt</DependentUpon>
     </Compile>
+    <Compile Include="Models\Database\CHITIETPHIEUKIEMNGHIEM.cs">
+      <DependentUpon>Model1.tt</DependentUpon>
+    </Compile>
     <Compile Include="Models\Database\CHITIEUSANPHAM.cs">
       <DependentUpon>Model1.tt</DependentUpon>
     </Compile>
@@ -109,9 +112,6 @@
       <DependentUpon>Model1.tt</DependentUpon>
     </Compile>
     <Compile Include="Models\Database\DONVITINHSANPHAM.cs">
-      <DependentUpon>Model1.tt</DependentUpon>
-    </Compile>
-    <Compile Include="Models\Database\LICHSUDUYETPHIEUDANGKY.cs">
       <DependentUpon>Model1.tt</DependentUpon>
     </Compile>
     <Compile Include="Models\Database\Model1.Context.cs">
@@ -144,9 +144,9 @@
     <Compile Include="Models\DataProvider.cs" />
     <Compile Include="Models\DetailRegistrationSheetModel.cs" />
     <Compile Include="Models\FacilitiesModel.cs" />
-    <Compile Include="Models\ModificationHistoryModel.cs" />
     <Compile Include="Models\ProductCriteria.cs" />
     <Compile Include="Models\RegistrationSheetModel.cs" />
+    <Compile Include="Models\TestingSheetModel.cs" />
     <Compile Include="Resources\Utils\IndexConverter.cs" />
     <Compile Include="Resources\Utils\Rules.cs" />
     <Compile Include="Resources\Utils\TextInputBehavior.cs" />
@@ -166,6 +166,7 @@
     <Compile Include="ViewModels\RegistrationSheet\CreateRegistrationSheetViewModel.cs" />
     <Compile Include="ViewModels\RegistrationSheet\DetailRegistrationSheetViewModel.cs" />
     <Compile Include="ViewModels\RegistrationSheet\SubmitCreateSheetViewModel.cs" />
+    <Compile Include="ViewModels\TestingSheet\TestingSheetViewModel.cs" />
     <Compile Include="Views\LoginAndSignUp\LoginWindow.xaml.cs">
       <DependentUpon>LoginWindow.xaml</DependentUpon>
     </Compile>
@@ -196,17 +197,20 @@
     <Compile Include="Views\SharedControls\SearchBarCombobox.xaml.cs">
       <DependentUpon>SearchBarCombobox.xaml</DependentUpon>
     </Compile>
-    <Compile Include="Views\TestSheet\CreateSheet.xaml.cs">
+    <Compile Include="Views\RegistrationSheet\CreateSheet.xaml.cs">
       <DependentUpon>CreateSheet.xaml</DependentUpon>
     </Compile>
-    <Compile Include="Views\TestSheet\DetailRegistrationSheet.xaml.cs">
+    <Compile Include="Views\RegistrationSheet\DetailRegistrationSheet.xaml.cs">
       <DependentUpon>DetailRegistrationSheet.xaml</DependentUpon>
     </Compile>
-    <Compile Include="Views\TestSheet\EnrollSheet.xaml.cs">
+    <Compile Include="Views\RegistrationSheet\EnrollSheet.xaml.cs">
       <DependentUpon>EnrollSheet.xaml</DependentUpon>
     </Compile>
-    <Compile Include="Views\TestSheet\SubmitCreateSheet.xaml.cs">
+    <Compile Include="Views\RegistrationSheet\SubmitCreateSheet.xaml.cs">
       <DependentUpon>SubmitCreateSheet.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Views\TestingSheet\TestingSheet.xaml.cs">
+      <DependentUpon>TestingSheet.xaml</DependentUpon>
     </Compile>
     <Page Include="MainWindow.xaml">
       <Generator>MSBuild:Compile</Generator>
@@ -280,19 +284,23 @@
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
-    <Page Include="Views\TestSheet\CreateSheet.xaml">
+    <Page Include="Views\RegistrationSheet\CreateSheet.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
-    <Page Include="Views\TestSheet\DetailRegistrationSheet.xaml">
+    <Page Include="Views\RegistrationSheet\DetailRegistrationSheet.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
-    <Page Include="Views\TestSheet\EnrollSheet.xaml">
+    <Page Include="Views\RegistrationSheet\EnrollSheet.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
-    <Page Include="Views\TestSheet\SubmitCreateSheet.xaml">
+    <Page Include="Views\RegistrationSheet\SubmitCreateSheet.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Views\TestingSheet\TestingSheet.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>

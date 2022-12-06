@@ -95,7 +95,7 @@
         </ListView>
         <TextBlock Margin="0 10 20 0" HorizontalAlignment="Right" FontWeight="DemiBold">
                     <Run Text="KẾT QUẢ: "/>
-                    <Run Text="{Binding Result}" Foreground="{Binding ResultColor}" />
+                    <Run Text="{Binding Result}" FontWeight="DemiBold" Foreground="{Binding ResultColor}" />
         </TextBlock>
         <StackPanel Height="50" Orientation="Horizontal" HorizontalAlignment="Right">
             <Button  x:Name="createBtn" 
