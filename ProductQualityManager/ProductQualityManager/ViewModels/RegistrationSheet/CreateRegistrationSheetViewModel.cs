@@ -51,7 +51,6 @@ namespace ProductQualityManager.ViewModels.RegistrationSheet
 
         public ICommand CSubmitForm { get; set; }
         public ICommand CAddCriteria { get; set; }
-        public ICommand CDeleteProduct { get; set; }
         public ICommand CDeleteCriteria { get; set; }
         public CreateRegistrationSheetViewModel(COSOSANXUAT selectedFacility)
         {
@@ -63,7 +62,6 @@ namespace ProductQualityManager.ViewModels.RegistrationSheet
             DetailRegistrationSheetList = new ObservableCollection<CreateEnrollSheetModel>();
             CSubmitForm = new RelayCommand<Window>((p) => { return true; }, (p) => { SubmitForm(p); });
             CAddCriteria = new RelayCommand<object>((p) => { return true; }, (p) => { AddCriteria(p); });
-            CDeleteProduct = new RelayCommand<object>((p) => { return true; }, (p) => { DeleteProduct(p); });
             CDeleteCriteria = new RelayCommand<object>((p) => { return true; }, (p) => { DeleteCriteria(p); });
 
             MyMessageQueue = new SnackbarMessageQueue(TimeSpan.FromMilliseconds(1500));
@@ -88,8 +86,7 @@ namespace ProductQualityManager.ViewModels.RegistrationSheet
         {
             List<CHITIEUSANPHAM> list = DataProvider.Ins.DB.CHITIEUSANPHAMs.ToList();
             CriteriaList = new ObservableCollection<CHITIEUSANPHAM>(list);
-        }
-        
+        }     
         public void DeleteCriteria(object p)
         {
             if(SelectedRecord != null)
@@ -132,17 +129,6 @@ namespace ProductQualityManager.ViewModels.RegistrationSheet
             //Check if already existed selected product
 
         }
-        void DeleteProduct(object p)
-        {
-           
-        }
-        //void LoadDataFacilityList()
-        //{
-        //    List<COSOSANXUAT> List = DataProvider.Ins.DB.COSOSANXUATs.Where(t => t.MaChuCoSo == OwnerId).ToList();
-        //    FacilityList = new ObservableCollection<COSOSANXUAT>(List);
-        //    LoadDataProductList();
-            
-        //}
         void LoadDataProductList()
         {
 

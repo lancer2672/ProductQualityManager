@@ -74,7 +74,7 @@
                         </i1:Interaction.Triggers>
                     </PasswordBox>
                 </DockPanel>
-                <TextBlock Margin="40 20" FontSize="14" Text="{Binding WrongUser}" Foreground="{Binding WrongUserColor}"></TextBlock>
+                <TextBlock Margin="40 20" FontSize="14" Text="{Binding WrongUser}" FontWeight="DemiBold" Foreground="{Binding WrongUserColor}"></TextBlock>
                 
             </StackPanel>
             <StackPanel Grid.Row="2" Margin="0 -100 40 0" Orientation="Horizontal" HorizontalAlignment="Right">

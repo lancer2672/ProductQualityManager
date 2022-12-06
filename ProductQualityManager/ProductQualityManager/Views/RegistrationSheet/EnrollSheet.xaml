@@ -7,7 +7,7 @@
       mc:Ignorable="d" 
       xmlns:sharedControls="clr-namespace:ProductQualityManager.Views.SharedControls"
       xmlns:materialDesign ="http://materialdesigninxaml.net/winfx/xaml/themes"
-      DataContext="{StaticResource TestingSheetVM}"
+      DataContext="{StaticResource RegistrationVM}"
       d:DesignHeight="450" d:DesignWidth="1000"
       >
 
@@ -20,10 +20,10 @@
         </ResourceDictionary>
     </UserControl.Resources>
     <StackPanel Margin="20">
-        <Label FontSize="24" Content="PHIẾU ĐĂNG KÝ" HorizontalAlignment="Center"></Label>
+        <Label FontSize="24" FontWeight="DemiBold" Content="PHIẾU ĐĂNG KÝ" HorizontalAlignment="Center"></Label>
         <DatePicker Width="120" SelectedDate="{Binding SelectedDate}"></DatePicker>
         <sharedControls:SearchBarCombobox >
-            
+          
         </sharedControls:SearchBarCombobox>
         <ListView 
             x:Name="Listview"
@@ -48,24 +48,7 @@
                             </DataTemplate>
                         </GridViewColumn.CellTemplate>
                     </GridViewColumn>
-                    <!--<GridViewColumn  >
-                        <GridViewColumn.CellTemplate>
-                            --><!--CommandParameter="{Binding ,RelativeSource={RelativeSource Mode=FindAncestor, AncestorType=ListView}}"--><!--
-                            <DataTemplate>
-                                <Button ToolTip="Kiểm tra"  
-                                      
-                                        Width="70"
-                                        CommandParameter="{Binding }" Command="{Binding DataContext.CCheck, RelativeSource={RelativeSource AncestorType=ListView}}"
-                                        >
-                                    <DockPanel>
-                                        <materialDesign:PackIcon Kind="Check" />
-                                    </DockPanel>
-                                </Button>
-                                --><!--<Button   Content="Chấp thuận" />--><!--
-                            </DataTemplate>
-                        </GridViewColumn.CellTemplate>
-                    </GridViewColumn>-->
-                    <GridViewColumn  >
+                    <GridViewColumn>
                         <GridViewColumn.CellTemplate>
                             <DataTemplate>
                                 <Button ToolTip="Xem chi tiết"  

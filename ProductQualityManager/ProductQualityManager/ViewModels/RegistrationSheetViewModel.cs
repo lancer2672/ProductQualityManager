@@ -34,7 +34,6 @@ namespace ProductQualityManager.ViewModels
         public ICommand COpenViewDetailWindow { get; set; }
         public ICommand CCheck { get; set; }
         public ICommand CSearch { get; set; }
-        public ICommand COpenModificationHistoryWindow { get; set; }
 
         public RegistrationSheetViewModel()
         {
@@ -44,7 +43,6 @@ namespace ProductQualityManager.ViewModels
             CSearch = new RelayCommand<object>((p) => { return true; }, (p) => { Search(p); });
             CCheck = new RelayCommand<object>((p) => { return true; }, (p) => { CheckSheet(p); });
            
-            COpenModificationHistoryWindow = new RelayCommand<object>((p) => { return true; }, (p) => { OpenModificationHistoryWindow(p); });
             LoadDataSheetList();
             CheckOverDueRegistrationForms();
             SearchOptions = new List<string>() { "ID", "Tên cơ sở", "Chưa duyệt" };
@@ -129,18 +127,12 @@ namespace ProductQualityManager.ViewModels
                 }
             }
         }
-        //Load danh sách phiếu đăng ký 
         public void LoadDataSheetList() 
         {
             List<PHIEUDANGKY> SheetList = DataProvider.Ins.DB.PHIEUDANGKies.
                 Where(t =>t.NgayDangKy.Value.Day == SelectedDate.Day && t.NgayDangKy.Value.Month == SelectedDate.Month && t.NgayDangKy.Value.Year == SelectedDate.Year).
                 ToList();
             TestingSheetListObs = GetDataSheetFromList(SheetList);
-        }
-        public void OpenModificationHistoryWindow(object p)
-        {
-
-           
         }
 
         public void CheckSheet(object p)
@@ -155,7 +147,7 @@ namespace ProductQualityManager.ViewModels
             TestingSheetListObs.Clear();
             LoadDataSheetList();
         }
-        //chuyển dữ liệu từ list(PHieuDANGKY) về observable collection(TestingSheet)
+        //chuyển dữ liệu từ list(PHIEUDANGKY) về observable collection(REGISTRATIONSHEETMODEL)
         public ObservableCollection<RegistrationSheetModel> GetDataSheetFromList( List<PHIEUDANGKY> SheetList)
         {
             ObservableCollection<RegistrationSheetModel> SheetListObs = new ObservableCollection<RegistrationSheetModel>();
