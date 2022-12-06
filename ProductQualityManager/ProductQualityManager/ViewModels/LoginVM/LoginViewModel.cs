@@ -99,7 +99,7 @@ namespace ProductQualityManager.ViewModels.LoginVM
         void OpenSignUpWindow(object p)
         {
             var window = new SignUpWindow();
-            window.ShowDialog();
+            //window.ShowDialog();
         }
         public bool IsExist(TAIKHOAN NewAccount)
         {

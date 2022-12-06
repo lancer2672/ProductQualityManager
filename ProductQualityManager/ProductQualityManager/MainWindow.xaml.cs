@@ -1,6 +1,7 @@
 ﻿using ProductQualityManager.Views;
-using ProductQualityManager.Views.TestingSheet;
 using ProductQualityManager.Views.TestSheet;
+using ProductQualityManager.Views.TestingSheet;
+using ProductQualityManager.Views.LoginAndSignUp;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -26,12 +27,14 @@ namespace ProductQualityManager
     {
         EnrollSheet enrollSheet;
         TestingSheet testingSheet;
-
+        SignUpWindow signUpWindow;
+  
         public MainWindow()
         {
             InitializeComponent();
             this.enrollSheet = new EnrollSheet();
             this.testingSheet = new TestingSheet();
+            this.signUpWindow = new SignUpWindow();
             //default
             this.content_Control.Content = enrollSheet;
             //Style = (Style)FindResource("WindowStyle");
@@ -88,6 +91,11 @@ namespace ProductQualityManager
                     case "TestingSheet":
                         {
                             this.content_Control.Content = testingSheet;
+                            break;
+                        }
+                    case "SignUp":
+                        {
+                            this.content_Control.Content = signUpWindow;
                             break;
                         }
                     default:

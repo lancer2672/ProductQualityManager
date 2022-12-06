@@ -12,14 +12,14 @@ using System.Windows.Media;
 using System.Windows.Media.Imaging;
 using System.Windows.Shapes;
 
-namespace ProductQualityManager.Views.LoginAndSignUp
+namespace ProductQualityManager.Views.TestingSheet
 {
     /// <summary>
-    /// Interaction logic for SignUpWindow.xaml
+    /// Interaction logic for CreateSheet.xaml
     /// </summary>
-    public partial class SignUpWindow : UserControl
+    public partial class CreateSheet : Window
     {
-        public SignUpWindow()
+        public CreateSheet()
         {
             InitializeComponent();
         }
