@@ -5,6 +5,7 @@
              xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
              xmlns:local="clr-namespace:ProductQualityManager.Views.TestingSheet"
              mc:Ignorable="d" 
+             xmlns:materialDesign ="http://materialdesigninxaml.net/winfx/xaml/themes"
              xmlns:sharedControls ="clr-namespace:ProductQualityManager.Views.SharedControls"
              DataContext="{StaticResource TestingSheetVM}"
              d:DesignHeight="450" d:DesignWidth="800">
@@ -18,8 +19,15 @@
     </UserControl.Resources>
     <StackPanel Margin="20">
         <Label Margin="0 0 0 20" FontSize="24" FontWeight="DemiBold" Content="PHIẾU KIỂM NGHIỆM" HorizontalAlignment="Center"></Label>
-        <sharedControls:SearchBarCombobox >
-        </sharedControls:SearchBarCombobox>
+        <StackPanel Orientation="Horizontal">
+            <sharedControls:SearchBarCombobox >
+            </sharedControls:SearchBarCombobox>
+            <Button  ToolTip="Tạo phiếu kiểm nghiệm" Command="{Binding COpenCreateSheetWindow}">
+                <DockPanel>
+                    <materialDesign:PackIcon Kind="Add" />
+                </DockPanel>
+            </Button>
+        </StackPanel>
         <ListView 
             x:Name="Listview"
             SelectedItem="{Binding SelectedItem}"

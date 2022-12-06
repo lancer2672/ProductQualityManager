@@ -15,11 +15,11 @@ using System.Windows.Shapes;
 namespace ProductQualityManager.Views.TestingSheet
 {
     /// <summary>
-    /// Interaction logic for CreateSheet.xaml
+    /// Interaction logic for CreateTestingSheet.xaml
     /// </summary>
-    public partial class CreateSheet : Window
+    public partial class CreateTestingSheet : Window
     {
-        public CreateSheet()
+        public CreateTestingSheet()
         {
             InitializeComponent();
         }

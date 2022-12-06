@@ -1,5 +1,6 @@
 ﻿using ProductQualityManager.Models;
 using ProductQualityManager.Models.Database;
+using ProductQualityManager.Views.TestingSheet;
 using Syncfusion.Windows.Shared;
 using System;
 using System.Collections.Generic;
@@ -26,6 +27,7 @@ namespace ProductQualityManager.ViewModels.TestingSheet
         public int SearchTypeSelected { get { return _searchTypeSelected; } set { _searchTypeSelected = value; OnPropertyChanged(nameof(SearchTypeSelected)); } }
 
         public ICommand CSearch { get; set; }
+        public ICommand COpenCreateSheetWindow { get; set; }
         public ICommand COpenViewDetailWindow { get; set; }
 
 
@@ -34,6 +36,7 @@ namespace ProductQualityManager.ViewModels.TestingSheet
             CSearch = new RelayCommand<object>((p) => { return true; }, (p) => { Search(p); });
             SearchOptions = new List<string>() { "Mã Phiếu", "Mã Cơ sở", "Tên Cơ Sở" };
             COpenViewDetailWindow = new RelayCommand<object>((p) => { return true; }, (p) => { OpenDetailWindow(p); });
+            COpenCreateSheetWindow = new RelayCommand<object>((p) => { return true; }, (p) => { OpenCreateSheetWindow(p); });
 
             LoadListView();
         }
@@ -103,6 +106,11 @@ namespace ProductQualityManager.ViewModels.TestingSheet
         private void OpenDetailWindow(object p)
         {
 
+        }
+        private void OpenCreateSheetWindow(object p)
+        {
+            CreateTestingSheet window = new CreateTestingSheet();
+            window.ShowDialog();
         }
         public void LoadListView()
         {
