@@ -48,23 +48,24 @@
               <ListView.View>
                   <GridView>
                       <!--<GridViewColumn Header="STT" DisplayMemberBinding="{Binding RelativeSource={RelativeSource Mode=FindAncestor,AncestorType=ListViewItem},Converter={StaticResource  IndexConverter}}"></GridViewColumn>-->
-                      <GridViewColumn Header="Mã chỉ tiêu" DisplayMemberBinding="{Binding MaChiTieu}" ></GridViewColumn>
-                      <GridViewColumn Header="Chỉ tiêu" DisplayMemberBinding="{Binding  TenChiTieu}"></GridViewColumn>
-                      <GridViewColumn Header="Giá trị tiêu chuẩn" DisplayMemberBinding="{Binding  GiaTriTieuChuan}"></GridViewColumn>
-                      <GridViewColumn Header="Đơn vị tính" DisplayMemberBinding="{Binding  TenDonViTinh}"></GridViewColumn>
-                      <GridViewColumn>
-                        <GridViewColumn.CellTemplate>
-                            <DataTemplate>
-                                <Button Width="70"
-                                        Command="{Binding ElementName=listCriteria, Path=DataContext.OpenEditCriteriaCommand}" 
-                                        CommandParameter="{Binding }">
-                                    <DockPanel>
-                                        <materialDesign:PackIcon Kind="BorderColor" />
-                                    </DockPanel> 
-                                </Button>
-                            </DataTemplate>
-                        </GridViewColumn.CellTemplate>
-                    </GridViewColumn>
+                            <GridViewColumn Header="Mã chỉ tiêu" DisplayMemberBinding="{Binding MaChiTieu}" ></GridViewColumn>
+                            <GridViewColumn Header="Chỉ tiêu" DisplayMemberBinding="{Binding  TenChiTieu}"></GridViewColumn>
+                            <GridViewColumn Header="Giá trị tiêu chuẩn" DisplayMemberBinding="{Binding  GiaTriTieuChuan}"></GridViewColumn>
+                            <GridViewColumn Header="Giá trị nguy hiểm" DisplayMemberBinding="{Binding  GiaTriNguyHiem}"></GridViewColumn>
+                            <GridViewColumn Header="Đơn vị tính" DisplayMemberBinding="{Binding  TenDonViTinh}"></GridViewColumn>
+                            <GridViewColumn>
+                                <GridViewColumn.CellTemplate>
+                                    <DataTemplate>
+                                        <Button Width="70"
+                                                Command="{Binding ElementName=listCriteria, Path=DataContext.OpenEditCriteriaCommand}" 
+                                                CommandParameter="{Binding }">
+                                                <DockPanel>
+                                                    <materialDesign:PackIcon Kind="BorderColor" />
+                                                 </DockPanel> 
+                                        </Button>
+                                    </DataTemplate>
+                                </GridViewColumn.CellTemplate>
+                            </GridViewColumn>
                   </GridView>
               </ListView.View>
         </ListView>
@@ -118,6 +119,7 @@
                 <RowDefinition Height="auto"></RowDefinition>
                 <RowDefinition Height="auto"></RowDefinition>
                 <RowDefinition Height="auto"></RowDefinition>
+                <RowDefinition Height="auto"></RowDefinition>
             </Grid.RowDefinitions>
             <TextBlock HorizontalAlignment="Center">THÊM CHỈ TIÊU</TextBlock>
                 <TextBox x:Name="criteriaNameTxb"
@@ -145,14 +147,27 @@
                         </Binding>
                     </TextBox.Text>
                 </TextBox>
-                <ComboBox Grid.Row="2" Margin="50 40"
+                <TextBox x:Name="unsafeValueTxb"
+                    Grid.Row="2" Margin="50 10 50 0"
+                    materialDesign:HintAssist.Hint="Giá trị nguy hiểm"
+                    Style="{StaticResource MaterialDesignFloatingHintTextBox}">
+                    <TextBox.Text>
+                        <Binding Path="UnsafeValue" NotifyOnValidationError="True" ValidatesOnExceptions="True">
+                            <Binding.ValidationRules>
+                                <rule:NonEmptyRule/>
+                                <rule:PositiveNumberRule/>
+                            </Binding.ValidationRules>
+                        </Binding>
+                    </TextBox.Text>
+                </TextBox>
+                <ComboBox Grid.Row="3" Margin="50 -30 50 0"
                 materialDesign:HintAssist.Hint="Đơn vị chỉ tiêu"
                 IsEditable="False"
                 ItemsSource="{Binding UnitList}"
                 DisplayMemberPath="TenDonViTinh"
                 SelectedItem="{Binding SelectedUnit,Mode=TwoWay,UpdateSourceTrigger=PropertyChanged}"/>
             <Button Grid.Row="3"
-                    Margin="150 20 10 0"
+                    Margin="150 100 10 0"
                     Width="100"
                     ToolTip="Thêm "  
                     Name="AddBtn"
@@ -172,6 +187,7 @@
                                     <MultiDataTrigger.Conditions>
                                         <Condition Binding="{Binding Path=(Validation.HasError), ElementName=criteriaNameTxb}" Value="False"/>
                                         <Condition Binding="{Binding Path=(Validation.HasError), ElementName=standardValueTxb}" Value="False"/>
+                                        <Condition Binding="{Binding Path=(Validation.HasError), ElementName=unsafeValueTxb}" Value="False"/>
                                     </MultiDataTrigger.Conditions>
                                     <Setter Property="IsEnabled" Value="True"/>
                                 </MultiDataTrigger>

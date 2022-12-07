@@ -6,7 +6,7 @@
         xmlns:materialDesign="http://materialdesigninxaml.net/winfx/xaml/themes"
         xmlns:local="clr-namespace:ProductQualityManager.Views.ProductCriteria" xmlns:i="http://schemas.microsoft.com/expression/2010/interactivity" xmlns:i1="http://schemas.microsoft.com/expression/2010/interactions"
         mc:Ignorable="d"
-        Title="Chỉnh sửa chỉ tiêu" Height="380" Width="400" WindowStartupLocation="CenterScreen"
+        Title="Chỉnh sửa chỉ tiêu" Height="420" Width="400" WindowStartupLocation="CenterScreen"
         x:Name="editCritertiaWindow">
     <StackPanel>
         <TextBlock HorizontalAlignment="Center" FontSize="30">Chỉnh sửa chỉ tiêu sản phẩm</TextBlock>
@@ -17,6 +17,7 @@
                 </Style>
             </Grid.Resources>
             <Grid.RowDefinitions>
+                <RowDefinition></RowDefinition>
                 <RowDefinition></RowDefinition>
                 <RowDefinition></RowDefinition>
                 <RowDefinition></RowDefinition>
@@ -47,7 +48,15 @@
 
                 </TextBox>
             </StackPanel>
-            <StackPanel Grid.Row="3" Margin="0 0 40 0" Orientation="Horizontal" HorizontalAlignment="Right">
+            <StackPanel Grid.Row="3">
+                <TextBox Margin="40 20"
+                    materialDesign:HintAssist.Hint="Giá trị nguy hiểm"
+                    Style="{StaticResource MaterialDesignFloatingHintTextBox}" 
+                    Text="{Binding UnsafeValue}">
+
+                </TextBox>
+            </StackPanel>
+            <StackPanel Grid.Row="4" Margin="0 0 40 0" Orientation="Horizontal" HorizontalAlignment="Right">
                 <StackPanel.Resources>
                     <Style TargetType="Button" BasedOn="{StaticResource MaterialDesignRaisedButton}">
                         <Setter Property="Height" Value="30"></Setter>

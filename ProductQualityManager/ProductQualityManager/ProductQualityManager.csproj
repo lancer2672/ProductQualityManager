@@ -323,6 +323,21 @@
     <Resource Include="Resources\Imgs\IconSidebar\icon_test.png" />
     <Resource Include="Resources\Imgs\IconSidebar\icon_enroll.png" />
     <Resource Include="Resources\Imgs\SignUp.png" />
+<<<<<<< HEAD
+=======
+  </ItemGroup>
+  <ItemGroup>
+    <Content Include="Models\Database\Model1.Context.tt">
+      <Generator>TextTemplatingFileGenerator</Generator>
+      <DependentUpon>Model1.edmx</DependentUpon>
+      <LastGenOutput>Model1.Context.cs</LastGenOutput>
+    </Content>
+    <Content Include="Models\Database\Model1.tt">
+      <Generator>TextTemplatingFileGenerator</Generator>
+      <DependentUpon>Model1.edmx</DependentUpon>
+      <LastGenOutput>Model1.cs</LastGenOutput>
+    </Content>
+>>>>>>> 38328e2384c8c83289fef198518fec4a41517573
   </ItemGroup>
   <ItemGroup>
     <Folder Include="Models\Database\" />

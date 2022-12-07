@@ -16,6 +16,7 @@ namespace ProductQualityManager.Models
         public Nullable<decimal> GiaTriDangKy { get; set; }
         public string TenChiTieu { get; set; }
         public decimal GiaTriTieuChuan { get; set; }
+        public decimal GiaTriNguyHiem { get; set; }
         public string TenDonViTinh { get; set; }
         public ProductCriteria( decimal giaTriDangKy, string tenChiTieu, decimal giaTriTieuChuan, string tenDonViTinh)
         {
@@ -32,6 +33,7 @@ namespace ProductQualityManager.Models
             this.MaChiTieu = ChiTieuSanPham.MaChiTieu;
             this.TenChiTieu = ChiTieuSanPham.TenChiTieu;
             this.GiaTriTieuChuan = (decimal)ChiTieuSanPham.GiaTriTieuChuan;
+            this.GiaTriNguyHiem = (decimal)ChiTieuSanPham.GiaTriNguyHiem;
             this.MaDonViTinh = (int)ChiTieuSanPham.MaDonViTinh;
         }
         public ProductCriteria() { }

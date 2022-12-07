@@ -20,12 +20,14 @@ namespace ProductQualityManager.ViewModels.ProductCriteriaVM
         private string _unitName;
         private string _criteriaName;
         private decimal _standardValue;
+        private decimal _unsafeValue;
         private DONVITINH _selectedUnit;
         public ObservableCollection<DONVITINH> UnitList { get { return _unitList; } set { _unitList = value; OnPropertyChanged(nameof(_unitList)); } }
         public int CriteriaId { get { return _criteriaId; } set { _criteriaId = value; OnPropertyChanged(nameof(_criteriaId)); } }
         public string UnitName { get { return _unitName; } set { _unitName = value; OnPropertyChanged(nameof(_unitName)); } }
         public string CriteriaName { get { return _criteriaName; } set { _criteriaName = value; OnPropertyChanged(nameof(_criteriaName)); } }
         public decimal StandardValue { get { return _standardValue; } set { _standardValue = value; OnPropertyChanged(nameof(_standardValue)); } }
+        public decimal UnsafeValue { get { return _unsafeValue; } set { _unsafeValue = value; OnPropertyChanged(nameof(_unsafeValue)); } }
         public DONVITINH SelectedUnit { get { return _selectedUnit; } set { _selectedUnit = value; OnPropertyChanged(nameof(SelectedUnit)); } }
         public ICommand EditProductCriteriaCommand { get; set; }
         public EditProductCriteriaViewModel(ProductCriteria SelectedCriteria, ManageProductCriteriaViewModel manageProductCriteriaViewModel)
@@ -34,6 +36,7 @@ namespace ProductQualityManager.ViewModels.ProductCriteriaVM
             CriteriaId = (int)SelectedCriteria.MaChiTieu;
             CriteriaName = SelectedCriteria.TenChiTieu;
             StandardValue = SelectedCriteria.GiaTriTieuChuan;
+            UnsafeValue = SelectedCriteria.GiaTriNguyHiem;
             UnitName = SelectedCriteria.TenDonViTinh;
             DONVITINH unit = DataProvider.Ins.DB.DONVITINHs.Where(t => t.TenDonViTinh == UnitName).FirstOrDefault();
             SelectedUnit = unit;
@@ -64,15 +67,20 @@ namespace ProductQualityManager.ViewModels.ProductCriteriaVM
         //}
         public void EditProductCriteria(Window p)
         {
-            if ( CriteriaName == "" || StandardValue.ToString() == "" ||SelectedUnit.ToString() == "")
+            if ( CriteriaName == "" || StandardValue.ToString() == "" || UnsafeValue.ToString() == "" ||SelectedUnit.ToString() == "")
             {
                 MessageBox.Show("Vui lòng điền đẩy đủ thông tin!");
+            }
+            else if (UnsafeValue <= StandardValue)
+            {
+                MessageBox.Show("Giá trị tiêu chuẩn phải nhỏ hơn giá trị nguy hiểm");
             }
             else
             {
                 CHITIEUSANPHAM change = DataProvider.Ins.DB.CHITIEUSANPHAMs.SingleOrDefault(x => x.MaChiTieu == CriteriaId);
                 change.TenChiTieu = CriteriaName;
                 change.GiaTriTieuChuan = StandardValue;
+                change.GiaTriNguyHiem = UnsafeValue;
                 change.MaDonViTinh = SelectedUnit.MaDonViTinh;
                 DataProvider.Ins.DB.SaveChanges();
                 //MessageBox.Show("Chỉnh sửa thành công !");
