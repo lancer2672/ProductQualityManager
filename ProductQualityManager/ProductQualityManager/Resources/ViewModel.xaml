@@ -5,6 +5,7 @@
                     xmlns:LoginViewModel ="clr-namespace:ProductQualityManager.ViewModels.LoginVM"
                     xmlns:ProductCriteria ="clr-namespace:ProductQualityManager.ViewModels.ProductCriteriaVM"
                     xmlns:TestingSheet ="clr-namespace:ProductQualityManager.ViewModels.TestingSheet"
+                    xmlns:Report ="clr-namespace:ProductQualityManager.ViewModels.ReportVM"
                     xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml">
                     <!--TestingSheetVM Cái này là của phiếu đăng ký mà đổi tên thì lỗi nên chưa sửa-->
     <VM:RegistrationSheetViewModel x:Key="RegistrationVM"></VM:RegistrationSheetViewModel>
@@ -16,4 +17,5 @@
     <TestingSheet:TestingSheetViewModel x:Key="TestingSheetVM"></TestingSheet:TestingSheetViewModel>
     <TestingSheet:CreateSheetViewModel x:Key="CreateTestingSheetVM"></TestingSheet:CreateSheetViewModel>
     <ProductCriteria:ManageProductCriteriaViewModel x:Key="ProductCriteriaVM"></ProductCriteria:ManageProductCriteriaViewModel>
+    <Report:ReportViewModel x:Key="ReportVM"></Report:ReportViewModel>
 </ResourceDictionary>

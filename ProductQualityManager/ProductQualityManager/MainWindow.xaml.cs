@@ -18,6 +18,7 @@ using System.Windows.Media.Imaging;
 using System.Windows.Navigation;
 using System.Windows.Shapes;
 using ProductQualityManager.Views.ProductCriteria;
+using ProductQualityManager.Views.Report;
 
 namespace ProductQualityManager
 {
@@ -29,6 +30,7 @@ namespace ProductQualityManager
         EnrollSheet enrollSheet;
         TestingSheet testingSheet;
         ManageProductCriteria manageProductCriteria;
+        Report report;
         SignUpWindow signUpWindow;
   
         public MainWindow()
@@ -37,6 +39,7 @@ namespace ProductQualityManager
             this.enrollSheet = new EnrollSheet();
             this.testingSheet = new TestingSheet();
             this.manageProductCriteria = new ManageProductCriteria();
+            this.report = new Report();
             this.signUpWindow = new SignUpWindow();
 
             //default
@@ -100,6 +103,11 @@ namespace ProductQualityManager
                     case "Criteria":
                         {
                             this.content_Control.Content = manageProductCriteria;
+                            break;
+                        }
+                    case "Report":
+                        {
+                            this.content_Control.Content = report;
                             break;
                         }
                     case "SignUp":
