@@ -24,7 +24,6 @@ namespace ProductQualityManager.ViewModels.TestingSheet
         private int _preMin = 0;
         private int _preIndex = -1;
         private int _min = 0;
-
         private string _facilityName;
         private string _source;
         private string _facilityAddress;
@@ -38,8 +37,9 @@ namespace ProductQualityManager.ViewModels.TestingSheet
         private string _unitCriteriaName;
         private string _result;
         private string _resultColor;
-        // 0: chưa đánh giá, 1; Đạt, -1: Không Đạt, -2:Gây Nguy Hiểm
         private int _id_DanhGia = 0;
+        private TestingSheetViewModel _vm;
+        // 0: chưa đánh giá, 1; Đạt, -1: Không Đạt, -2:Gây Nguy Hiểm
         public ObservableCollection<CreateTestingSheetModel> _testingCriteraList;
         public string UnitCriteriaName { get { return _unitCriteriaName; } set { _unitCriteriaName = value; OnPropertyChanged(nameof(UnitCriteriaName)); } }
         public string Result { get { return _result; } set { _result = value; OnPropertyChanged(nameof(Result)); } }
@@ -60,9 +60,9 @@ namespace ProductQualityManager.ViewModels.TestingSheet
         public ICommand CSubmitForm { get; set; }
         public ICommand CAddCriteria { get; set; }
 
-        public CreateSheetViewModel()
+        public CreateSheetViewModel(TestingSheetViewModel vm)
         {
-      
+            _vm = vm;
             CSearch = new RelayCommand<object>((p) => { return true; }, (p) => { Search(p); });
             CAddImage = new RelayCommand<object>((p) => { return true; }, (p) => { HandleSaveImage(); });
             CSubmitForm = new RelayCommand<Window>((p) => { return true; }, (p) => { HandleCreateTestingSheet(p); });
@@ -115,6 +115,7 @@ namespace ProductQualityManager.ViewModels.TestingSheet
             try
             {
                 DataProvider.Ins.DB.SaveChanges();
+                _vm.LoadListView();
                 p.Close();
             }
             catch(Exception err)

@@ -168,6 +168,7 @@
     <Compile Include="ViewModels\RegistrationSheet\DetailRegistrationSheetViewModel.cs" />
     <Compile Include="ViewModels\RegistrationSheet\SubmitCreateSheetViewModel.cs" />
     <Compile Include="ViewModels\TestingSheet\CreateSheetViewModel.cs" />
+    <Compile Include="ViewModels\TestingSheet\DetailTestingSheetViewModel.cs" />
     <Compile Include="ViewModels\TestingSheet\TestingSheetViewModel.cs" />
     <Compile Include="Views\LoginAndSignUp\LoginWindow.xaml.cs">
       <DependentUpon>LoginWindow.xaml</DependentUpon>

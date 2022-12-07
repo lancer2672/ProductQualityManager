@@ -108,11 +108,14 @@ namespace ProductQualityManager.ViewModels.TestingSheet
         }
         private void OpenDetailWindow(object p)
         {
-
+            if (SelectedItem == null) return;
+            DetailTestingSheet window = new DetailTestingSheet(SelectedItem);
+            window.Show();
         }
         private void OpenCreateSheetWindow(object p)
         {
-            CreateTestingSheet window = new CreateTestingSheet();
+           
+            CreateTestingSheet window = new CreateTestingSheet(this);
             window.ShowDialog();
         }
         public void LoadListView()

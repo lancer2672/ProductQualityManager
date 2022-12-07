@@ -28,7 +28,7 @@ namespace ProductQualityManager.Models
         public int MaDanhGia { get; set; }
         public CreateTestingSheetModel() { }
 
-        public CreateTestingSheetModel(DONVITINH dvt, CHITIETPHIEUDANGKY ctdk,decimal  GiaTriThucTe , CHITIEUSANPHAM ctsp)
+        public CreateTestingSheetModel(DONVITINH dvt, CHITIETPHIEUDANGKY ctdk,decimal GiaTriThucTe , CHITIEUSANPHAM ctsp)
         {
             MaDonViTinh = dvt.MaDonViTinh;
             MaChiTieu = ctsp.MaChiTieu;
@@ -42,7 +42,21 @@ namespace ProductQualityManager.Models
             this.GiaTriThucTe =  GiaTriThucTe == -1 ? "" :  GiaTriThucTe.ToString() +  " " + dvt.TenDonViTinh;
             GiaTri = Dec_GiaTri.ToString() + " " + dvt.TenDonViTinh;
         }
-
+        public CreateTestingSheetModel(DONVITINH dvt, CHITIETPHIEUDANGKY ctdk, CHITIETPHIEUKIEMNGHIEM pkn, CHITIEUSANPHAM ctsp)
+        {
+            MaDonViTinh = dvt.MaDonViTinh;
+            MaChiTieu = ctsp.MaChiTieu;
+            TenDonViTinh = dvt.TenDonViTinh;
+            TenChiTieu = ctsp.TenChiTieu;
+            Dec_GiaTri = (decimal)ctsp.GiaTriTieuChuan;
+            Dec_GiaTriDangKy = (decimal)ctdk.GiaTriDangKy;
+            Dec_GiaTriThucTe = (decimal)pkn.GiaTriKiemNghiem;
+            GiaTriDangKy = ctdk.GiaTriDangKy.ToString() + " " + dvt.TenDonViTinh;
+            //Nếu giá trị = -1 tức là chưa nhập vào giá trị thực tế 
+            this.GiaTriThucTe = pkn.GiaTriKiemNghiem == -1 ? "" : pkn.GiaTriKiemNghiem.ToString() + " " + dvt.TenDonViTinh;
+            GiaTri = Dec_GiaTri.ToString() + " " + dvt.TenDonViTinh;
+            this.SetState((int)pkn.KetQua);
+        }
         public CreateTestingSheetModel(CreateTestingSheetModel preSheet)
         {
             Dec_GiaTri = preSheet.Dec_GiaTri;
@@ -57,6 +71,7 @@ namespace ProductQualityManager.Models
             TenChiTieu = preSheet.TenChiTieu;
             DanhGia = preSheet.DanhGia;
             Color_DanhGia = preSheet.Color_DanhGia;
+            MaDanhGia = preSheet.MaDanhGia;
         }
         // 1 Đạt , -1 Không Đạt, -2 Gây nguy hiểm
         public void SetState(int i)
