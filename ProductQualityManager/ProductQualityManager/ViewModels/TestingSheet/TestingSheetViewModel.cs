@@ -20,6 +20,7 @@ namespace ProductQualityManager.ViewModels.TestingSheet
         private List<string> _searchOptions;
         private int _searchTypeSelected;
 
+
         public string SearchKey { get { return _searchKey; } set { _searchKey = value; OnPropertyChanged(nameof(SearchKey)); } }
         public List<string> SearchOptions { get { return _searchOptions; } set { _searchOptions = value; OnPropertyChanged(nameof(SearchOptions)); } }
         public ObservableCollection<TestingSheetModel> TestingSheetList { get { return _testingSheetList; } set { _testingSheetList = value; OnPropertyChanged(nameof(TestingSheetList)); } }
@@ -34,7 +35,7 @@ namespace ProductQualityManager.ViewModels.TestingSheet
         public TestingSheetViewModel()
         {
             CSearch = new RelayCommand<object>((p) => { return true; }, (p) => { Search(p); });
-            SearchOptions = new List<string>() { "Mã Phiếu", "Mã Cơ sở", "Tên Cơ Sở" };
+            SearchOptions = new List<string>() {"Mã Cơ sở", "Tên Cơ Sở" };
             COpenViewDetailWindow = new RelayCommand<object>((p) => { return true; }, (p) => { OpenDetailWindow(p); });
             COpenCreateSheetWindow = new RelayCommand<object>((p) => { return true; }, (p) => { OpenCreateSheetWindow(p); });
 
@@ -51,23 +52,26 @@ namespace ProductQualityManager.ViewModels.TestingSheet
             switch (SearchTypeSelected)
             {
                 //ID
-                case 0:
-                    {
-                        List<PHIEUKIEMNGHIEM> list = DataProvider.Ins.DB.PHIEUKIEMNGHIEMs.Where(t=>t.MaPhieuKiemNghiem.ToString() == SearchKey).ToList();
-                        foreach (PHIEUKIEMNGHIEM item in list)
-                        {
-                            int id = item.MaPhieuKiemNghiem;
-                            List<COSOSANXUAT> listFacility = DataProvider.Ins.DB.COSOSANXUATs.Where(t => t.MaCoSo == id).ToList();
-                            foreach (COSOSANXUAT facility in listFacility)
-                            {
-                                TestingSheetModel listViewItem = new TestingSheetModel(item, facility);
-                                TestingSheetList.Add(listViewItem);
-                            }
-                        }
-                        break;
-                    }
+
+
+                //case 0:
+                //    {
+                //        List<PHIEUKIEMNGHIEM> list = DataProvider.Ins.DB.PHIEUKIEMNGHIEMs.Where(t=>t.MaPhieuKiemNghiem.ToString().ToLower().Contains(SearchKey.ToLower())).ToList();
+                //        foreach (PHIEUKIEMNGHIEM item in list)
+                //        {
+                //            int id = item.MaPhieuKiemNghiem;
+                //            List<COSOSANXUAT> listFacility = DataProvider.Ins.DB.COSOSANXUATs.Where(t => t.MaCoSo == id).ToList();
+                //            foreach (COSOSANXUAT facility in listFacility)
+                //            {
+                //                TestingSheetModel listViewItem = new TestingSheetModel(item, facility);
+                //                TestingSheetList.Add(listViewItem);
+                //            }
+                //        }
+                //        break;
+                //    }
+
                 //Mã cơ sở
-                case 1:
+                case 0:
                     {                 
                         List<COSOSANXUAT> listFacility = DataProvider.Ins.DB.COSOSANXUATs.Where(t => t.MaCoSo.ToString().ToLower().Contains(SearchKey.ToLower())).ToList();
                         foreach (COSOSANXUAT facility in listFacility)
@@ -84,7 +88,7 @@ namespace ProductQualityManager.ViewModels.TestingSheet
                         break;
                     }
                 //Tên cơ sở
-                case 2:
+                case 1:
                     {
                         List<COSOSANXUAT> listFacility = DataProvider.Ins.DB.COSOSANXUATs.Where(t => t.TenCoSo.Contains(SearchKey.ToLower())).ToList();
                         foreach (COSOSANXUAT facility in listFacility)

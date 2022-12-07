@@ -10,7 +10,7 @@
         xmlns:i="http://schemas.microsoft.com/expression/2010/interactivity"
         xmlns:i1="http://schemas.microsoft.com/expression/2010/interactions"
         DataContext="{StaticResource CreateTestingSheetVM}"
-        Title="CreateTestingSheet" Height="450" Width="800">
+        Title="CreateTestingSheet" Height="600" Width="1100">
     <Window.Resources>
         <ResourceDictionary>
             <ResourceDictionary.MergedDictionaries>
@@ -29,9 +29,8 @@
             <Grid Grid.Row="0">
                 <Grid.ColumnDefinitions>
                     <ColumnDefinition Width="*"></ColumnDefinition>
-                    <ColumnDefinition Width="2*"></ColumnDefinition>
+                    <ColumnDefinition Width="3*"></ColumnDefinition>
                 </Grid.ColumnDefinitions>
-
                 <StackPanel>
                     <StackPanel.Resources>
                         <Style TargetType="TextBox" 
@@ -44,7 +43,7 @@
                             <Setter Property="MinHeight"  Value ="40"></Setter>
                         </Style>
                     </StackPanel.Resources>
-                    <TextBlock HorizontalAlignment="Center" Text ="PHIẾU ĐĂNG KÝ"></TextBlock>
+                    <Label FontSize="20" HorizontalAlignment="Center" Content ="PHIẾU KIỂM NGHIỆM"></Label>
                     <StackPanel Orientation="Horizontal" Margin="0 0 0 20">
                         <Label  Margin="0 10 0 0" Content="Ngày đánh giá"></Label>
                         <DatePicker Padding="0" materialDesign:HintAssist.Hint="Ngày hết hạn" SelectedDate="{Binding StartDay}" Width="150" Margin="0 10 0 0" >
@@ -53,7 +52,7 @@
                     </StackPanel>
 
 
-                    <Label Margin="0 10 0 0" Padding="0" Content="Thông tin cơ sở sản xuất"></Label>
+                    <Label FontSize="16" Margin="0 10 0 0" Padding="0" Content="Thông tin cơ sở sản xuất"></Label>
                     <StackPanel Orientation="Horizontal">
 
                         <TextBox x:Name="facilityId"
@@ -79,6 +78,7 @@
                     
                     <StackPanel Orientation="Horizontal">
                         <TextBlock  Width="234" 
+                                    FontSize="14"
                                     Style="{StaticResource MaterialDesignBody1TextBlock}"
                                     Text="{Binding FacilityName,  TargetNullValue='Tên cơ sở'}" />
                     </StackPanel>
@@ -86,10 +86,28 @@
                         <materialDesign:PackIcon Kind="MapMarkerCheck" HorizontalAlignment="Center" VerticalAlignment="Center" Width="24" Height="26"/>
 
                         <TextBlock  Width="210" 
+                                    FontSize="14"
                                     Style="{StaticResource MaterialDesignBody1TextBlock}"
                                     Text="{Binding FacilityAddress,  TargetNullValue='Không có thông tin'}" />
                     </StackPanel>
-                    <Label Margin="0 10 0 0" Padding="0" Content="Chỉ tiêu sản phẩm"></Label>
+                    <ComboBox  
+                                  x:Name="productCbx"
+                                  materialDesign:HintAssist.Hint="Tên sản phẩm"
+                                  Width="234" Margin="0 10 0 0" 
+                                  HorizontalAlignment="Left"
+                                  IsEditable="True"
+                                  ItemsSource="{Binding ProductList}"
+                                  DisplayMemberPath="TenSanPham"
+                                  VerticalContentAlignment="Bottom">
+                        <ComboBox.SelectedItem>
+                            <Binding Path="SelectedProduct">
+                                <Binding.ValidationRules>
+                                    <rule:SelectionValidationRule ValidatesOnTargetUpdated="True"/>
+                                </Binding.ValidationRules>
+                            </Binding>
+                        </ComboBox.SelectedItem>
+                    </ComboBox>
+                    <Label  FontSize="16" Margin="0 10 0 0" Padding="0" Content="Chỉ tiêu sản phẩm"></Label>
                     <ComboBox  Name="criteriaCbx"
                                   materialDesign:HintAssist.Hint="Tên chỉ tiêu"
                                   Width="234" Margin="0 10 0 0" 
@@ -109,11 +127,12 @@
                     <StackPanel Orientation="Horizontal">
 
                         <TextBox Name="criteriaValue"
-                        Width="120"
-                        materialDesign:HintAssist.Hint="Giá trị" 
-                         Style="{StaticResource MaterialDesignFloatingHintTextBox}">
+                                 Width="120"
+                                Margin="0 10 0 0"
+                                materialDesign:HintAssist.Hint="Giá trị thực tế" 
+                                Style="{StaticResource MaterialDesignFloatingHintTextBox}">
                             <TextBox.Text>
-                                <Binding Path="CriteriaValue" UpdateSourceTrigger="PropertyChanged">
+                                <Binding Path="CriteriaValue"  UpdateSourceTrigger="PropertyChanged">
                                     <!--<Binding.Converter>
                                         <rule:DecimalConverter></rule:DecimalConverter>
                                     </Binding.Converter>-->
@@ -128,6 +147,7 @@
                             </i:Interaction.Behaviors>
                         </TextBox>
                         <TextBox 
+                            Margin="0 10 0 0"
                            Text="{Binding UnitCriteriaName}"
                          Style="{StaticResource MaterialDesignFloatingHintTextBox}"></TextBox>
                     </StackPanel>
@@ -144,7 +164,6 @@
                                 <Style.Triggers>
                                     <MultiDataTrigger>
                                         <MultiDataTrigger.Conditions>
-                                            <Condition Binding="{Binding Path=(Validation.HasError), ElementName=productQuantity}" Value="False"/>
                                             <Condition Binding="{Binding Path=(Validation.HasError), ElementName=productCbx}" Value="False"/>
                                             <Condition Binding="{Binding Path=(Validation.HasError), ElementName=criteriaCbx}" Value="False"/>
                                             <Condition Binding="{Binding Path=(Validation.HasError), ElementName=criteriaValue}" Value="False"/>
@@ -159,19 +178,30 @@
                 </StackPanel>
 
                 <StackPanel Grid.Column="1">
-                    <Label HorizontalAlignment="Center" Content="Danh sách sản phẩm đăng ký"></Label>
+                    <Label HorizontalAlignment="Center" FontSize="20" Content="DANH SÁCH CHỈ TIÊU"></Label>
                     <ListView 
                         ScrollViewer.HorizontalScrollBarVisibility="Disabled"
                         ItemContainerStyle="{StaticResource  ListItemContainer}"
                         Name="Listview"
                         SelectedItem="{Binding SelectedRecord}"
-                        ItemsSource="{Binding DetailRegistrationSheetList}">
+                        ItemsSource="{Binding TestingCriteraList}">
                         <ListView.View>
                             <GridView>
                                 <GridViewColumn Header="Mã Chỉ Tiêu" DisplayMemberBinding="{Binding MaChiTieu}"></GridViewColumn>
                                 <GridViewColumn Header="Tên Chỉ Tiêu" DisplayMemberBinding="{Binding TenChiTieu}"></GridViewColumn>
-                                <GridViewColumn Header="Giá Trị Đăng ký"  DisplayMemberBinding="{Binding GiaTri}"></GridViewColumn>
-                                <GridViewColumn  >
+                                <GridViewColumn Header="Giá Trị Tiêu Chuẩn"  DisplayMemberBinding="{Binding  GiaTri}"></GridViewColumn>
+                                <GridViewColumn Header="Giá Trị Đăng Ký"  DisplayMemberBinding="{Binding GiaTriDangKy}"></GridViewColumn>
+                                <GridViewColumn Header="Giá Trị Thực Tế"  DisplayMemberBinding="{Binding GiaTriThucTe}"></GridViewColumn>
+                                <GridViewColumn Header="Đánh Giá" >
+                                    <GridViewColumn.CellTemplate>
+                                        <DataTemplate>
+                                            <TextBlock FontWeight="Medium" Text="{Binding Path=STrangThai}" Foreground="{Binding  MauChu}"/>
+                                        </DataTemplate>
+                                    </GridViewColumn.CellTemplate>
+                                </GridViewColumn>
+
+
+                                <GridViewColumn>
                                     <GridViewColumn.CellTemplate>
                                         <!--CommandParameter="{Binding ,RelativeSource={RelativeSource Mode=FindAncestor, AncestorType=ListView}}"-->
                                         <DataTemplate>

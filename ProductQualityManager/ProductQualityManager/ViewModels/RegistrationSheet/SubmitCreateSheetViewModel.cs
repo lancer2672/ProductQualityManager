@@ -57,6 +57,12 @@ namespace ProductQualityManager.ViewModels.RegistrationSheet
         }
         public void SubmitForm(Window p)
         {
+            if(checkIfAllowed() == false)
+            {
+                _vm.MyMessageQueue.Enqueue("Lỗi! Phiếu đăng ký của sản phẩm này vẫn còn hạn hoặc chưa được duyệt");
+                p.Close();  
+                return;
+            }
             try
             {
                 PHIEUDANGKY newSheet = new PHIEUDANGKY();
@@ -84,6 +90,21 @@ namespace ProductQualityManager.ViewModels.RegistrationSheet
             {
                 throw err;
             }
+        }
+        private bool checkIfAllowed()
+        {
+            int id = _vm.SelectedProduct.MaSanPham;
+            //kiểm tra xem có phiếu nào của sản phẩm này đang chờ duyệt hay không
+            PHIEUDANGKY checkDueDay = DataProvider.Ins.DB.PHIEUDANGKies.Where(t => t.MaSanPham == id && t.TrangThai != -1).ToList().LastOrDefault();          
+            if(checkDueDay == null)
+            {
+                return true;
+            }
+            if(checkDueDay.HanDangKy > DateTime.Now)
+            {
+                return false;
+            }
+            return true;
         }
     }
 }

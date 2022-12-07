@@ -12,6 +12,7 @@ namespace ProductQualityManager.Models
         public int MaPhieuDangKy { get; set; }
         public int MaDonViTinh { get; set; }
         public int MaChiTieu { get; set; }
+        //Giá trị + đơn vị
         public string GiaTri { get; set; }
         public decimal dec_GiaTri { get; set; }
         public string TenChiTieu { get; set; }
@@ -27,15 +28,15 @@ namespace ProductQualityManager.Models
             dec_GiaTri = giatri;
             GiaTri = giatri.ToString() + " " + dvt.TenDonViTinh;
         }
-        public CreateEnrollSheetModel(CreateEnrollSheetModel pre)
+        public CreateEnrollSheetModel(CreateEnrollSheetModel preSheet)
         {
-            dec_GiaTri = pre.dec_GiaTri;
-            MaPhieuDangKy = pre.MaPhieuDangKy;
-            MaDonViTinh = pre.MaDonViTinh;
-            MaChiTieu = pre.MaChiTieu;
-            TenDonViTinh = pre.TenDonViTinh;
-            TenChiTieu = pre.TenChiTieu;
-            GiaTri = pre.GiaTri;
+            dec_GiaTri = preSheet.dec_GiaTri;
+            MaPhieuDangKy = preSheet.MaPhieuDangKy;
+            MaDonViTinh = preSheet.MaDonViTinh;
+            MaChiTieu = preSheet.MaChiTieu;
+            TenDonViTinh = preSheet.TenDonViTinh;
+            TenChiTieu = preSheet.TenChiTieu;
+            GiaTri = preSheet.GiaTri;
         }
     }
 }
