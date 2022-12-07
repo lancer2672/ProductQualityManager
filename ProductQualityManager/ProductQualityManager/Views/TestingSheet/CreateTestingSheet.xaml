@@ -1,18 +1,16 @@
-﻿<Window x:Class="ProductQualityManager.Views.TestingSheet.CreateSheet"
+﻿<Window x:Class="ProductQualityManager.Views.TestingSheet.CreateTestingSheet"
         xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
         xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
         xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:ProductQualityManager.Views.TestingSheet"
+        mc:Ignorable="d"
         xmlns:materialDesign ="http://materialdesigninxaml.net/winfx/xaml/themes"
+        xmlns:rule="clr-namespace:ProductQualityManager.Resources.Utils"
         xmlns:i="http://schemas.microsoft.com/expression/2010/interactivity"
         xmlns:i1="http://schemas.microsoft.com/expression/2010/interactions"
-        xmlns:rule="clr-namespace:ProductQualityManager.Resources.Utils"
-        mc:Ignorable="d"
-        x:Name="window"
-        WindowStartupLocation="CenterOwner"
-       
-        Title="CreateSheet" Height="550" Width="800">
+        DataContext="{StaticResource CreateTestingSheetVM}"
+        Title="CreateTestingSheet" Height="600" Width="1100">
     <Window.Resources>
         <ResourceDictionary>
             <ResourceDictionary.MergedDictionaries>
@@ -31,9 +29,8 @@
             <Grid Grid.Row="0">
                 <Grid.ColumnDefinitions>
                     <ColumnDefinition Width="*"></ColumnDefinition>
-                    <ColumnDefinition Width="2*"></ColumnDefinition>
+                    <ColumnDefinition Width="3*"></ColumnDefinition>
                 </Grid.ColumnDefinitions>
-
                 <StackPanel>
                     <StackPanel.Resources>
                         <Style TargetType="TextBox" 
@@ -46,18 +43,55 @@
                             <Setter Property="MinHeight"  Value ="40"></Setter>
                         </Style>
                     </StackPanel.Resources>
-                    <Label HorizontalAlignment="Center" FontSize="20" Content ="PHIẾU ĐĂNG KÝ"></Label>
-
-                    <Label Margin="0 0 0 12"  HorizontalContentAlignment="Center" Content="{Binding DateNow}" ContentStringFormat="dd MMM yyyy"></Label>
-
-                    <StackPanel Orientation="Horizontal">
-                        <Label FontSize="16"  Margin="0 10 0 0" Content="Ngày hết hạn"></Label>
-                        <DatePicker Padding="0" materialDesign:HintAssist.Hint="Ngày hết hạn" SelectedDate="{Binding StartDay}" Width="130" Margin="0 10 0 0" >
+                    <Label FontSize="20" HorizontalAlignment="Center" Content ="PHIẾU KIỂM NGHIỆM"></Label>
+                    <StackPanel Orientation="Horizontal" Margin="0 0 0 20">
+                        <Label  Margin="0 10 0 0" Content="Ngày đánh giá"></Label>
+                        <DatePicker Padding="0" materialDesign:HintAssist.Hint="Ngày hết hạn" SelectedDate="{Binding StartDay}" Width="150" Margin="0 10 0 0" >
 
                         </DatePicker>
                     </StackPanel>
-                    <Label Margin="0 10 0 0" FontSize="16" Padding="0" Content="Thông tin sản phẩm"></Label>
-                    <ComboBox  x:Name="productCbx"
+
+
+                    <Label FontSize="16" Margin="0 10 0 0" Padding="0" Content="Thông tin cơ sở sản xuất"></Label>
+                    <StackPanel Orientation="Horizontal">
+
+                        <TextBox x:Name="facilityId"
+                        Width="120"
+                        materialDesign:HintAssist.Hint="Mã cơ sở" 
+                         Style="{StaticResource MaterialDesignFloatingHintTextBox}">
+                            <TextBox.Text>
+                                <Binding Path="SearchId" UpdateSourceTrigger="PropertyChanged" NotifyOnValidationError="True" ValidatesOnExceptions="True">
+                                    <Binding.ValidationRules>
+                                        <rule:NonEmptyRule/>
+                                        <rule:PositiveNumberRule/>
+                                    </Binding.ValidationRules>
+                                </Binding>
+                            </TextBox.Text>
+                        </TextBox>
+
+                        <Button  ToolTip="Tìm kiếm" Command="{Binding CSearch}">
+                            <DockPanel>
+                                <materialDesign:PackIcon Kind="Search" />
+                            </DockPanel>
+                        </Button>
+                    </StackPanel>
+                    
+                    <StackPanel Orientation="Horizontal">
+                        <TextBlock  Width="234" 
+                                    FontSize="14"
+                                    Style="{StaticResource MaterialDesignBody1TextBlock}"
+                                    Text="{Binding FacilityName,  TargetNullValue='Tên cơ sở'}" />
+                    </StackPanel>
+                    <StackPanel Orientation="Horizontal">
+                        <materialDesign:PackIcon Kind="MapMarkerCheck" HorizontalAlignment="Center" VerticalAlignment="Center" Width="24" Height="26"/>
+
+                        <TextBlock  Width="210" 
+                                    FontSize="14"
+                                    Style="{StaticResource MaterialDesignBody1TextBlock}"
+                                    Text="{Binding FacilityAddress,  TargetNullValue='Không có thông tin'}" />
+                    </StackPanel>
+                    <ComboBox  
+                                  x:Name="productCbx"
                                   materialDesign:HintAssist.Hint="Tên sản phẩm"
                                   Width="234" Margin="0 10 0 0" 
                                   HorizontalAlignment="Left"
@@ -73,34 +107,8 @@
                             </Binding>
                         </ComboBox.SelectedItem>
                     </ComboBox>
-
-
-
-                    <StackPanel Orientation="Horizontal">
-
-                        <TextBox x:Name="productQuantity"
-                        Width="120"
-                        materialDesign:HintAssist.Hint="Số lượng" 
-                         Style="{StaticResource MaterialDesignFloatingHintTextBox}">
-                            <TextBox.Text>
-                                <Binding Path="Quantity" UpdateSourceTrigger="PropertyChanged" NotifyOnValidationError="True" ValidatesOnExceptions="True">
-                                    <Binding.ValidationRules>
-                                        <rule:NonEmptyRule/>
-                                        <rule:PositiveNumberRule/>
-                                    </Binding.ValidationRules>
-                                </Binding>
-                            </TextBox.Text>
-
-                        </TextBox>
-                        <TextBox 
-                                
-                           Text="{Binding UnitProductName}"
-                         Style="{StaticResource MaterialDesignFloatingHintTextBox}">
-
-                        </TextBox>
-                    </StackPanel>
-                    <Label Margin="0 10 0 0" Padding="0" FontSize="16" Content="Chỉ tiêu sản phẩm"></Label>
-                    <ComboBox  x:Name="criteriaCbx"
+                    <Label  FontSize="16" Margin="0 10 0 0" Padding="0" Content="Chỉ tiêu sản phẩm"></Label>
+                    <ComboBox  Name="criteriaCbx"
                                   materialDesign:HintAssist.Hint="Tên chỉ tiêu"
                                   Width="234" Margin="0 10 0 0" 
                                   HorizontalAlignment="Left"
@@ -118,12 +126,13 @@
                     </ComboBox>
                     <StackPanel Orientation="Horizontal">
 
-                        <TextBox x:Name="criteriaValue"
-                        Width="120"
-                        materialDesign:HintAssist.Hint="Giá trị" 
-                         Style="{StaticResource MaterialDesignFloatingHintTextBox}">
+                        <TextBox Name="criteriaValue"
+                                 Width="120"
+                                Margin="0 10 0 0"
+                                materialDesign:HintAssist.Hint="Giá trị thực tế" 
+                                Style="{StaticResource MaterialDesignFloatingHintTextBox}">
                             <TextBox.Text>
-                                <Binding Path="CriteriaValue" UpdateSourceTrigger="PropertyChanged">
+                                <Binding Path="CriteriaValue"  UpdateSourceTrigger="PropertyChanged">
                                     <!--<Binding.Converter>
                                         <rule:DecimalConverter></rule:DecimalConverter>
                                     </Binding.Converter>-->
@@ -138,6 +147,7 @@
                             </i:Interaction.Behaviors>
                         </TextBox>
                         <TextBox 
+                            Margin="0 10 0 0"
                            Text="{Binding UnitCriteriaName}"
                          Style="{StaticResource MaterialDesignFloatingHintTextBox}"></TextBox>
                     </StackPanel>
@@ -154,7 +164,6 @@
                                 <Style.Triggers>
                                     <MultiDataTrigger>
                                         <MultiDataTrigger.Conditions>
-                                            <Condition Binding="{Binding Path=(Validation.HasError), ElementName=productQuantity}" Value="False"/>
                                             <Condition Binding="{Binding Path=(Validation.HasError), ElementName=productCbx}" Value="False"/>
                                             <Condition Binding="{Binding Path=(Validation.HasError), ElementName=criteriaCbx}" Value="False"/>
                                             <Condition Binding="{Binding Path=(Validation.HasError), ElementName=criteriaValue}" Value="False"/>
@@ -173,15 +182,26 @@
                     <ListView 
                         ScrollViewer.HorizontalScrollBarVisibility="Disabled"
                         ItemContainerStyle="{StaticResource  ListItemContainer}"
-                        x:Name="Listview"
+                        Name="Listview"
                         SelectedItem="{Binding SelectedRecord}"
-                        ItemsSource="{Binding DetailRegistrationSheetList}">
+                        ItemsSource="{Binding TestingCriteraList}">
                         <ListView.View>
                             <GridView>
                                 <GridViewColumn Header="Mã Chỉ Tiêu" DisplayMemberBinding="{Binding MaChiTieu}"></GridViewColumn>
                                 <GridViewColumn Header="Tên Chỉ Tiêu" DisplayMemberBinding="{Binding TenChiTieu}"></GridViewColumn>
-                                <GridViewColumn Header="Giá Trị Đăng ký"  DisplayMemberBinding="{Binding GiaTri}"></GridViewColumn>
-                                <GridViewColumn  >
+                                <GridViewColumn Header="Giá Trị Tiêu Chuẩn"  DisplayMemberBinding="{Binding  GiaTri}"></GridViewColumn>
+                                <GridViewColumn Header="Giá Trị Đăng Ký"  DisplayMemberBinding="{Binding GiaTriDangKy}"></GridViewColumn>
+                                <GridViewColumn Header="Giá Trị Thực Tế"  DisplayMemberBinding="{Binding GiaTriThucTe}"></GridViewColumn>
+                                <GridViewColumn Header="Đánh Giá" >
+                                    <GridViewColumn.CellTemplate>
+                                        <DataTemplate>
+                                            <TextBlock FontWeight="Medium" Text="{Binding Path=STrangThai}" Foreground="{Binding  MauChu}"/>
+                                        </DataTemplate>
+                                    </GridViewColumn.CellTemplate>
+                                </GridViewColumn>
+
+
+                                <GridViewColumn>
                                     <GridViewColumn.CellTemplate>
                                         <!--CommandParameter="{Binding ,RelativeSource={RelativeSource Mode=FindAncestor, AncestorType=ListView}}"-->
                                         <DataTemplate>
@@ -203,7 +223,7 @@
                 </StackPanel>
             </Grid>
             <StackPanel Grid.Row="1"  Orientation="Horizontal" HorizontalAlignment="Right">
-                <Button  x:Name="createBtn" 
+                <Button  Name="createBtn" 
                         Margin="0 0 0 0"
                             CommandParameter="{Binding ElementName=window}"
                         Command="{Binding CSubmitForm}"
@@ -235,7 +255,7 @@
                         </i:EventTrigger>
                     </i:Interaction.Triggers>
                 </Button>
-                
+
             </StackPanel>
             <materialDesign:Snackbar
                 Grid.Row="3"
@@ -243,6 +263,5 @@
                     VerticalAlignment="Stretch"
                     MessageQueue="{Binding MyMessageQueue}" Height="40"/>
         </Grid>
-
     </Border>
 </Window>

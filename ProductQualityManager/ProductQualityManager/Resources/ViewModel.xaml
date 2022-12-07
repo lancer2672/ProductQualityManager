@@ -14,5 +14,6 @@
     <VM:MainViewModel x:Key="MainVM"></VM:MainViewModel>
     <ProductVM:ProductViewModel x:Key="ProductVM"></ProductVM:ProductViewModel>
     <TestingSheet:TestingSheetViewModel x:Key="TestingSheetVM"></TestingSheet:TestingSheetViewModel>
+    <TestingSheet:CreateSheetViewModel x:Key="CreateTestingSheetVM"></TestingSheet:CreateSheetViewModel>
     <ProductCriteria:ManageProductCriteriaViewModel x:Key="ProductCriteriaVM"></ProductCriteria:ManageProductCriteriaViewModel>
 </ResourceDictionary>
