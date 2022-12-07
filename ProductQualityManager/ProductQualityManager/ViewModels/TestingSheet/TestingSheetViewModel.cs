@@ -53,7 +53,6 @@ namespace ProductQualityManager.ViewModels.TestingSheet
             {
                 //ID
 
-
                 //case 0:
                 //    {
                 //        List<PHIEUKIEMNGHIEM> list = DataProvider.Ins.DB.PHIEUKIEMNGHIEMs.Where(t=>t.MaPhieuKiemNghiem.ToString().ToLower().Contains(SearchKey.ToLower())).ToList();

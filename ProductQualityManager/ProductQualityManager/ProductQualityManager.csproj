@@ -219,6 +219,9 @@
     <Compile Include="Views\TestingSheet\CreateTestingSheet.xaml.cs">
       <DependentUpon>CreateTestingSheet.xaml</DependentUpon>
     </Compile>
+    <Compile Include="Views\TestingSheet\DetailTestingSheet.xaml.cs">
+      <DependentUpon>DetailTestingSheet.xaml</DependentUpon>
+    </Compile>
     <Compile Include="Views\TestingSheet\TestingSheet.xaml.cs">
       <DependentUpon>TestingSheet.xaml</DependentUpon>
     </Compile>
@@ -315,6 +318,10 @@
       <Generator>MSBuild:Compile</Generator>
     </Page>
     <Page Include="Views\TestingSheet\CreateTestingSheet.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Views\TestingSheet\DetailTestingSheet.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>

@@ -20,7 +20,7 @@
     <StackPanel Margin="20">
         <Label Margin="0 0 0 20" FontSize="24" FontWeight="DemiBold" Content="PHIẾU KIỂM NGHIỆM" HorizontalAlignment="Center"></Label>
         <StackPanel Orientation="Horizontal">
-            <sharedControls:SearchBarCombobox >
+            <sharedControls:SearchBarCombobox>
             </sharedControls:SearchBarCombobox>
             <Button  ToolTip="Tạo phiếu kiểm nghiệm" Command="{Binding COpenCreateSheetWindow}">
                 <DockPanel>
