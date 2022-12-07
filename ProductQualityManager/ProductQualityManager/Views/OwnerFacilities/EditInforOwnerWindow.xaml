@@ -10,21 +10,28 @@
         xmlns:rules ="clr-namespace:ProductQualityManager.Resources.Utils" 
         mc:Ignorable="d"
         WindowStartupLocation="CenterScreen"
-        Title="Sửa thông tin chủ cơ sở" Height="400" Width="400">
-    <StackPanel>
-        <StackPanel.Resources>
-            <Style TargetType="TextBox" BasedOn="{StaticResource MaterialDesignFloatingHintTextBox}">
-                <Setter Property="Width"  Value="360"></Setter>
-                <Setter Property="Margin" Value="20 5 20 5"></Setter>
-            </Style>
-            <!--<Style TargetType="TextBlock">
+        Title="Sửa thông tin chủ cơ sở" Height="420" Width="400">
+    <Grid>
+        <Grid.RowDefinitions>
+            <RowDefinition Height="auto"></RowDefinition>
+            <RowDefinition Height="*"></RowDefinition>
+            <RowDefinition Height="auto"></RowDefinition>
+        </Grid.RowDefinitions>
+        <Grid Grid.Row="0">
+            <TextBlock Text="THÔNG TIN CHỦ CƠ SỞ" HorizontalAlignment="Center" Margin="0 5 0 5"/>
+        </Grid>
+        <StackPanel Grid.Row="1">
+            <StackPanel.Resources>
+                <Style TargetType="TextBox" BasedOn="{StaticResource MaterialDesignFloatingHintTextBox}">
+                    <Setter Property="Width"  Value="360"></Setter>
+                    <Setter Property="Margin" Value="20 5 20 5"></Setter>
+                </Style>
+                <!--<Style TargetType="TextBlock">
                 <Setter Property="FontSize" Value="23"/>
                 <Setter Property="FontWeight" Value="DemiBold"/>
                 <Setter Property="Margin" Value="0 0 0 15"/>
             </Style>-->
-        </StackPanel.Resources>
-        <TextBlock  Text="THÔNG TIN CHỦ CƠ SỞ" HorizontalAlignment="Center" Margin="0 5 0 5"/>
-        <WrapPanel>
+            </StackPanel.Resources>
             <StackPanel Orientation="Horizontal">
                 <TextBox Name="Name"
                          materialDesign:HintAssist.Hint="Họ tên" >
@@ -115,6 +122,12 @@
                     </i:Interaction.Triggers>
                 </Button>
             </StackPanel>
-        </WrapPanel>
-    </StackPanel>
+        </StackPanel>
+        <StackPanel Grid.Row="2" >
+            <materialDesign:Snackbar HorizontalAlignment="Stretch"
+                                         VerticalAlignment="Bottom"
+                                         MessageQueue="{Binding MyMessageQueue}">
+            </materialDesign:Snackbar>
+        </StackPanel>
+    </Grid>
 </Window>

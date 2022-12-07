@@ -24,7 +24,7 @@ namespace ProductQualityManager.ViewModels.OwnerFacilitiesVM
         private TAIKHOAN _account;
         private string _oldpass;
         private string _newpass1;
-        private string _newpass2; 
+        private string _newpass2;
         private SnackbarMessageQueue myMessageQueue;
 
         public CHUCOSO Owner { get { return _owner; } set { _owner = value; OnPropertyChanged(nameof(Owner)); } }
@@ -88,12 +88,11 @@ namespace ProductQualityManager.ViewModels.OwnerFacilitiesVM
         //ĐỔi mật khẩu
         public void ChangePassWord()
         {
-            string oldpassEncode = MD5Hash(Base64Encode(OldPass));
             if (OldPass == null)
                 MyMessageQueue.Enqueue("Nhập mật khẩu cũ.");
             else if (NewPass1 == null || NewPass2 == null)
                 MyMessageQueue.Enqueue("Nhập mật khẩu mới.");
-            else if (Account.MatKhau != oldpassEncode)
+            else if (Account.MatKhau != MD5Hash(Base64Encode(OldPass)))
             {
                 MyMessageQueue.Enqueue("Mật khẩu cũ không đúng.");
             }
