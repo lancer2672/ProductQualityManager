@@ -23,6 +23,7 @@
         <Grid>
             <Grid.RowDefinitions>
                 <RowDefinition Height="*"></RowDefinition>
+                <RowDefinition Height="Auto"></RowDefinition>
                 <RowDefinition Height="50"></RowDefinition>
             </Grid.RowDefinitions>
 
@@ -222,13 +223,28 @@
                     </ListView>
                 </StackPanel>
             </Grid>
-            <StackPanel Grid.Row="1"  Orientation="Horizontal" HorizontalAlignment="Right">
-                <Button  Name="createBtn" 
-                        Margin="0 0 0 0"
+            <TextBlock Grid.Row="1" Margin="0 10 20 0" HorizontalAlignment="Right" FontWeight="DemiBold">
+                    <Run Text="KẾT QUẢ: "/>
+                    <Run Text="{Binding Result}" FontWeight="DemiBold" Foreground="{Binding ResultColor}" />
+            </TextBlock>
+            <StackPanel Grid.Row="2"  Orientation="Horizontal" HorizontalAlignment="Right">
+
+                <Button ToolTip="Thêm ảnh"  
+                        Style="{StaticResource  MaterialDesignRaisedButton}"
+                        Command="{Binding CAddImage}"
+                      >
+                    <DockPanel>
+                        <materialDesign:PackIcon Kind="Camera" />
+                    </DockPanel>
+                </Button>
+
+
+                <Button Name="createBtn" 
+                        Margin="20 0 0 0"
                             CommandParameter="{Binding ElementName=window}"
                         Command="{Binding CSubmitForm}"
                         >
-                    Tiếp theo
+                    Tạo
                     <Button.Style>
                         <Style  TargetType="Button" BasedOn="{StaticResource MaterialDesignRaisedButton}">
                             <Setter Property="IsEnabled" Value="False"/>
@@ -244,6 +260,7 @@
                         </Style>
                     </Button.Style>
                 </Button>
+              
 
                 <Button Margin="20 0 0 0" Content="Hủy">
                     <i:Interaction.Triggers>
@@ -255,7 +272,6 @@
                         </i:EventTrigger>
                     </i:Interaction.Triggers>
                 </Button>
-
             </StackPanel>
             <materialDesign:Snackbar
                 Grid.Row="3"
