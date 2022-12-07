@@ -119,5 +119,10 @@ namespace ProductQualityManager
                 }
             }
         }
+
+        private void mainWindow_Loaded(object sender, RoutedEventArgs e)
+        {
+            enrollSheet = new EnrollSheet();
+        }
     }
 }

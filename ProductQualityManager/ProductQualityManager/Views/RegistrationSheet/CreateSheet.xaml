@@ -165,9 +165,7 @@
                             </Style>
                         </Button.Style>
                     </Button>
-
                 </StackPanel>
-
                 <StackPanel Grid.Column="1">
                     <Label HorizontalAlignment="Center" FontSize="20" Content="DANH SÁCH CHỈ TIÊU"></Label>
                     <ListView 
@@ -224,7 +222,6 @@
                         </Style>
                     </Button.Style>
                 </Button>
-
                 <Button Margin="20 0 0 0" Content="Hủy">
                     <i:Interaction.Triggers>
                         <i:EventTrigger EventName="Click">
