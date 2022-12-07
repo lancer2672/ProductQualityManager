@@ -18,6 +18,7 @@ namespace ProductQualityManager.ViewModels.ProductCriteriaVM
         private ObservableCollection<DONVITINH> _unitList;
         private string _criteriaName;
         private decimal _standardValue;
+        private decimal _unsafeValue;
         private DONVITINH _selectedUnit;
         private ObservableCollection<ProductCriteria> _criteriaList;
         private ProductCriteria _selectedCriteria;
@@ -25,6 +26,7 @@ namespace ProductQualityManager.ViewModels.ProductCriteriaVM
         public ObservableCollection<DONVITINH> UnitList { get { return _unitList; } set { _unitList = value; OnPropertyChanged(nameof(_unitList)); } }
         public string CriteriaName { get { return _criteriaName; } set { _criteriaName = value; OnPropertyChanged(nameof(CriteriaName)); } }
         public decimal StandardValue { get { return _standardValue; } set { _standardValue = value; OnPropertyChanged(nameof(StandardValue)); } }
+        public decimal UnsafeValue { get { return _unsafeValue; } set { _unsafeValue = value; OnPropertyChanged(nameof(UnsafeValue)); } }
         public DONVITINH SelectedUnit { get { return _selectedUnit; } set { _selectedUnit = value; OnPropertyChanged(nameof(SelectedUnit)); } }
         public ObservableCollection<ProductCriteria> CriteriaList { get { return _criteriaList; } set { _criteriaList = value; OnPropertyChanged(nameof(CriteriaList)); } }
         public ProductCriteria SelectedCriteria { get { return _selectedCriteria; } set { _selectedCriteria = value; OnPropertyChanged(nameof(SelectedCriteria)); } }
@@ -43,6 +45,7 @@ namespace ProductQualityManager.ViewModels.ProductCriteriaVM
 
             CriteriaName = "";
             StandardValue = 0;
+            UnsafeValue = 0;
 
             UnitList = new ObservableCollection<DONVITINH>();
             AddCriteriaCriteriaCommand = new RelayCommand<Grid>((p) => { return true; }, (p) => { AddCriteriaCriteria(p); });
@@ -61,6 +64,7 @@ namespace ProductQualityManager.ViewModels.ProductCriteriaVM
                 newCriteria.MaChiTieu = criteriaList[i].MaChiTieu;
                 newCriteria.TenChiTieu = criteriaList[i].TenChiTieu;
                 newCriteria.GiaTriTieuChuan = (decimal)criteriaList[i].GiaTriTieuChuan;
+                newCriteria.GiaTriNguyHiem = (decimal)criteriaList[i].GiaTriNguyHiem;
                 newCriteria.TenDonViTinh = FindUnit((int)criteriaList[i].MaDonViTinh);
                 list.Add(newCriteria);
 
@@ -108,6 +112,7 @@ namespace ProductQualityManager.ViewModels.ProductCriteriaVM
         {
             CriteriaName = "";
             StandardValue = 0;
+            UnsafeValue = 0;
         }
 
         public void LoadUnitList()
@@ -130,15 +135,20 @@ namespace ProductQualityManager.ViewModels.ProductCriteriaVM
         }
         public void AddCriteriaCriteria(Grid addCriteriaForm)
         {
-            if (CriteriaName == "" || StandardValue.ToString() == "")
+            if (CriteriaName == "" || StandardValue.ToString() == "" || UnsafeValue.ToString() == "")
             {
                 MyMessageQueue.Enqueue("Vui lòng điền đầy đủ thông tin");
+            }
+            else if (UnsafeValue <= StandardValue)
+            {
+                MyMessageQueue.Enqueue("Giá trị tiêu chuẩn phải nhỏ hơn giá trị nguy hiểm");
             }
             else if (Resources.Utils.Validator.IsValid(addCriteriaForm))
             {
                 CHITIEUSANPHAM newCriteria = new CHITIEUSANPHAM();
                 newCriteria.TenChiTieu = CriteriaName;
                 newCriteria.GiaTriTieuChuan = StandardValue;
+                newCriteria.GiaTriNguyHiem = UnsafeValue;
 
                 newCriteria.MaDonViTinh = SelectedUnit.MaDonViTinh;
                 DataProvider.Ins.DB.CHITIEUSANPHAMs.Add(newCriteria);
@@ -147,6 +157,7 @@ namespace ProductQualityManager.ViewModels.ProductCriteriaVM
                 MyMessageQueue.Enqueue("Thêm chỉ tiêu thành công");
                 CriteriaName = "";
                 StandardValue = 0;
+                UnsafeValue = 0;
                 ManageProductCriteria window = new ManageProductCriteria();
                 RefreshData(window);
 

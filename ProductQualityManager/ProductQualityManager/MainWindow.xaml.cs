@@ -108,6 +108,13 @@ namespace ProductQualityManager
                             this.content_Control.Content = signUpWindow;
                             break;
                         }
+                    case "SignOut" :
+                        {
+                            LoginWindow loginWindow = new LoginWindow();
+                            loginWindow.Show();
+                            this.Close();
+                            break;
+                        }
                     default:
                         break;
                 }

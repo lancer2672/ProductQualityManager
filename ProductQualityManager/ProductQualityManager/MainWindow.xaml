@@ -415,7 +415,8 @@
 
                         <!--// Đăng xuất //-->
 
-                        <ListViewItem HorizontalAlignment="Left"
+                        <ListViewItem HorizontalAlignment="Left" 
+                                      x:Name="SignOut"
                                       Margin="0,0,0,15" MouseEnter="ListViewItem_MouseEnter"
                                       >
 

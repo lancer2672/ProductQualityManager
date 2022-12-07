@@ -69,6 +69,9 @@ namespace ProductQualityManager.ViewModels.LoginVM
                 {
                     IsLogin = true;
                     MainWindow mainWindow = new MainWindow();
+                    Username = "";
+                    Password = "";
+                    WrongUserColor = "White";
                     mainWindow.Show();
                     p.Close();
                 }
@@ -78,6 +81,7 @@ namespace ProductQualityManager.ViewModels.LoginVM
                     ManageOwnerWindow manageOwnerWindow = new ManageOwnerWindow((int)Account.MaChuCoSo);
                     Username = "";
                     Password = "";
+                    WrongUserColor = "White";
                     p.Close();
                     manageOwnerWindow.Show();
                     
