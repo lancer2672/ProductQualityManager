@@ -9,11 +9,10 @@ namespace ProductQualityManager.Models
 {
     public class Products
     {
-        public int MaSanPham { get; set; }
-        public Nullable<int> MaCoSo { get; set; }
-        public string TenSanPham { get; set; }
-        public Nullable<int> MaDonViTinhSP { get; set; }
-        public string StatusRegister { get; set; }
-        public string Result { get; set; }
+        public int IdProduct { get; set; }
+        public Nullable<int> IdFacility { get; set; }
+        public string NameProduct { get; set; }
+        public string NameUnit { get; set; }
+        public string Status { get; set; }
     }
 }

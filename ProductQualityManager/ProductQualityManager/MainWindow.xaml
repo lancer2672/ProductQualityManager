@@ -6,6 +6,7 @@
         xmlns:i="http://schemas.microsoft.com/xaml/behaviors"
         xmlns:local="clr-namespace:ProductQualityManager"
         xmlns:syncfusion="http://schemas.syncfusion.com/wpf"
+        Loaded="mainWindow_Loaded"
          xmlns:i1="http://schemas.microsoft.com/expression/2010/interactivity"
         mc:Ignorable="d"
      
@@ -15,14 +16,6 @@
         Title="MainWindow" Height="650" Width="1200"
         DataContext="{StaticResource MainVM}"
         x:Name="mainWindow">
-    <!--<i1:Interaction.Triggers>
-        <i1:EventTrigger EventName="Loaded">
-            <i1:InvokeCommandAction Command="{Binding LoadedWindowCommand}"
-                                    CommandParameter="{Binding ElementName=mainWindow}">
-                
-            </i1:InvokeCommandAction>
-        </i1:EventTrigger>
-    </i1:Interaction.Triggers>-->
     <Window.Resources>
 
         <!--// Toggle Button Style Template //-->

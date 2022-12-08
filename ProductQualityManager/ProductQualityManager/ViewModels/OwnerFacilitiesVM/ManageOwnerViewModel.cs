@@ -65,16 +65,6 @@ namespace ProductQualityManager.ViewModels.OwnerFacilitiesVM
             Register = new RelayCommand<object>((p) => { return true; }, (p) => { OpenCreateRegistrationSheetWindow(p); });
         }
 
-
-        public void OpenCreateRegistrationSheetWindow(object p)
-        {
-            if (SelectFacilities != null)
-            {
-                CreateSheet window = new CreateSheet(SelectFacilities);
-                window.ShowDialog();
-            }
-            
-        }
         //Load thông tin chủ cơ sở sản xuất
         public void LoadDataOwner()
         {
@@ -117,6 +107,7 @@ namespace ProductQualityManager.ViewModels.OwnerFacilitiesVM
             EditInforOwnerWindow EditInforWindow = new EditInforOwnerWindow(IdOwner);
             EditInforWindow.ShowDialog();
             LoadDataOwner();
+            MyMessageQueue.Enqueue("Lưu thông tin thành công.");
         }
 
         //Kiểm tra địa chỉ (true: đã có, false: chưa có)
@@ -160,6 +151,7 @@ namespace ProductQualityManager.ViewModels.OwnerFacilitiesVM
             }
         }
 
+        //
         public void ClearData()
         {
             Name = PhoneNumber = "";
@@ -172,7 +164,17 @@ namespace ProductQualityManager.ViewModels.OwnerFacilitiesVM
         {
             SelectFacilities = p as COSOSANXUAT;
             DetailFacilityWindow DetailFacilityWindow = new DetailFacilityWindow(SelectFacilities);
-            DetailFacilityWindow.Show();
+            DetailFacilityWindow.ShowDialog();
+            LoadListFacilities();
+            MyMessageQueue.Enqueue("Lưu thông tin thành công.");
+        }
+
+        //Hiện window tạo phiếu đăng kí
+        public void OpenCreateRegistrationSheetWindow(object p)
+        {
+            SelectFacilities = p as COSOSANXUAT;
+            CreateSheet window = new CreateSheet(SelectFacilities);
+            window.ShowDialog();
         }
     }
 }

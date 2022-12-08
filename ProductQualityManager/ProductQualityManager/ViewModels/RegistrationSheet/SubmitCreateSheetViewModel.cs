@@ -83,6 +83,7 @@ namespace ProductQualityManager.ViewModels.RegistrationSheet
                 }
                 DataProvider.Ins.DB.SaveChanges();
                 p.Close();
+                
                 _vm.MyMessageQueue.Enqueue("Tạo phiếu đăng ký thành công");
 
             }

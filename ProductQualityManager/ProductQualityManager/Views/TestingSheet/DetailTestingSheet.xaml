@@ -5,8 +5,41 @@
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:ProductQualityManager.Views.TestingSheet"
         mc:Ignorable="d"
+        WindowStartupLocation="CenterScreen"
         Title="DetailTestingSheet" Height="450" Width="800">
+    <Window.Resources>
+        <ResourceDictionary>
+            <ResourceDictionary.MergedDictionaries>
+                <ResourceDictionary Source="../Styles/ListView.xaml"></ResourceDictionary>
+            </ResourceDictionary.MergedDictionaries>
+        </ResourceDictionary>
+    </Window.Resources>
     <Grid>
-        
+        <ListView 
+                        ScrollViewer.HorizontalScrollBarVisibility="Disabled"
+                        ItemContainerStyle="{StaticResource  ListItemContainer}"
+                        Name="Listview"
+                        SelectedItem="{Binding SelectedRecord}"
+                        ItemsSource="{Binding TestingCriteraList}">
+            <ListView.View>
+                <GridView>
+                    <GridViewColumn Header="Mã Chỉ Tiêu" DisplayMemberBinding="{Binding MaChiTieu}"></GridViewColumn>
+                    <GridViewColumn Header="Tên Chỉ Tiêu" DisplayMemberBinding="{Binding TenChiTieu}"></GridViewColumn>
+                    <GridViewColumn Header="Giá Trị Tiêu Chuẩn"  DisplayMemberBinding="{Binding  GiaTri}"></GridViewColumn>
+                    <GridViewColumn Header="Giá Trị Đăng Ký"  DisplayMemberBinding="{Binding GiaTriDangKy}"></GridViewColumn>
+                    <GridViewColumn Header="Giá Trị Thực Tế"  DisplayMemberBinding="{Binding GiaTriThucTe}"></GridViewColumn>
+                    <GridViewColumn Header="Đánh Giá" >
+                        <GridViewColumn.CellTemplate>
+                            <DataTemplate>
+                                <TextBlock FontWeight="Medium" Text="{Binding Path=DanhGia}" Foreground="{Binding Color_DanhGia}"/>
+                            </DataTemplate>
+                        </GridViewColumn.CellTemplate>
+                    </GridViewColumn>
+
+
+                   
+                </GridView>
+            </ListView.View>
+        </ListView>
     </Grid>
 </Window>

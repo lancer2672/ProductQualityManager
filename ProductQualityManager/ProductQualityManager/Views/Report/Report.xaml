@@ -4,6 +4,7 @@
              xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
              xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
              xmlns:local="clr-namespace:ProductQualityManager.Views.Report" xmlns:materialDesign="http://materialdesigninxaml.net/winfx/xaml/themes"
+             xmlns:syncfusion="http://schemas.syncfusion.com/wpf" xmlns:chart="clr-namespace:Syncfusion.UI.Xaml.Charts;assembly=Syncfusion.SfChart.WPF" xmlns:i="http://schemas.microsoft.com/expression/2010/interactivity"
              mc:Ignorable="d" 
              d:DesignHeight="450" d:DesignWidth="800"
              DataContext="{StaticResource ReportVM}">
@@ -18,58 +19,109 @@
     <Grid>
         <Grid.RowDefinitions>
             <RowDefinition Height="auto"></RowDefinition>
+            <RowDefinition Height="auto"></RowDefinition>
             <RowDefinition Height="*"></RowDefinition>
         </Grid.RowDefinitions>
-        <StackPanel Grid.Row="0">
-            <Label FontSize="24" FontWeight="DemiBold" Content="BÁO CÁO SẢN PHẨM" HorizontalAlignment="Center"></Label>
-            <ComboBox Grid.Row="3"
-                      Width="200"
-                materialDesign:HintAssist.Hint="Chọn cơ sở"
-                IsEditable="False"
-                ItemsSource="{Binding FacilityList}"
-                DisplayMemberPath="TenCoSo"
-                SelectedItem="{Binding SelectedFacility,Mode=TwoWay,UpdateSourceTrigger=PropertyChanged}"/>
-        </StackPanel>
-       
+        <Label Grid.Row="0" FontSize="24" FontWeight="DemiBold" Content="BÁO CÁO SẢN PHẨM" HorizontalAlignment="Center"></Label>
+        <ComboBox>
+            
+        </ComboBox>
         <Grid Grid.Row="1">
             <Grid.ColumnDefinitions>
-                <ColumnDefinition Width="auto"></ColumnDefinition>
-                <ColumnDefinition></ColumnDefinition>
+                <ColumnDefinition Width="0.15*"></ColumnDefinition>
+                <ColumnDefinition  Width="0.85*"></ColumnDefinition>
             </Grid.ColumnDefinitions>
-            <StackPanel Grid.Column="0">
-
-                <ListView  Grid.Row="0"  Margin="0 20"
-                 x:Name="listCriteria"
+            <ComboBox Grid.Column="1" Width="160" FontSize="14" HorizontalAlignment="Left" 
+                      materialDesign:HintAssist.Hint="Tên co sở sản xuất"                        
+                      ItemsSource="{Binding ListNameFacility}" 
+                      IsEditable="True"
+                      IsTextSearchCaseSensitive="False"
+                      DisplayMemberPath="TenCoSo" 
+                      SelectedValue="{Binding SelectedFacility}"
+                      Style="{StaticResource MaterialDesignFloatingHintComboBox}">
+                <i:Interaction.Triggers>
+                    <i:EventTrigger EventName="SelectionChanged">
+                        <i:InvokeCommandAction Command="{Binding SelectionChangeCommand}" />
+                    </i:EventTrigger>
+                </i:Interaction.Triggers>
+            </ComboBox>
+        </Grid>
+        <Grid Grid.Row="2">
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition Width="0.7*"></ColumnDefinition>
+                <ColumnDefinition  Width="*"></ColumnDefinition>
+            </Grid.ColumnDefinitions>
+            <ScrollViewer Grid.Column="0" ScrollViewer.HorizontalScrollBarVisibility="Auto"  Width="auto" Height="auto">
+                <ListView 
+                           x:Name="listCriteria"
                            ItemsSource="{Binding ReportList, Mode=TwoWay}" 
                            SelectedItem="{Binding SelectedCriteria}"
-                           ItemContainerStyle="{StaticResource  ListItemContainer}"
-                            ScrollViewer.VerticalScrollBarVisibility="Visible"
-                            ScrollViewer.HorizontalScrollBarVisibility="Hidden">
+                           ItemContainerStyle="{StaticResource  ListItemContainer}" Margin="40,0,0,0"  >
                     <ListView.View>
                         <GridView>
-                            <!--<GridViewColumn Header="STT" DisplayMemberBinding="{Binding RelativeSource={RelativeSource Mode=FindAncestor,AncestorType=ListViewItem},Converter={StaticResource  IndexConverter}}"></GridViewColumn>-->
-                            <GridViewColumn Header="Mã cơ sở" DisplayMemberBinding="{Binding  MaCoSo}"></GridViewColumn>
-                            <GridViewColumn Header="Mã sản phẩm" DisplayMemberBinding="{Binding MaSanPham}" ></GridViewColumn>
+                            <GridViewColumn Header="STT" DisplayMemberBinding="{Binding RelativeSource={RelativeSource Mode=FindAncestor,AncestorType=ListViewItem},Converter={StaticResource  IndexConverter}}"></GridViewColumn>
+                            <!--<GridViewColumn Header="Mã sản phẩm" DisplayMemberBinding="{Binding MaSanPham}" ></GridViewColumn>-->
                             <GridViewColumn Header="Tên sản phẩm" DisplayMemberBinding="{Binding  TenSanPham}"></GridViewColumn>
+                            <!--<GridViewColumn Header="Tên cơ sở" DisplayMemberBinding="{Binding  TenCoSo}"></GridViewColumn>-->
                             <GridViewColumn Header="Tình trạng" DisplayMemberBinding="{Binding  TinhTrang}"></GridViewColumn>
-                            <!--<GridViewColumn>
-                        <GridViewColumn.CellTemplate>
-                            <DataTemplate>
-                                <Button Width="70"
-                                                Command="{Binding ElementName=listCriteria, Path=DataContext.OpenEditCriteriaCommand}" 
-                                                CommandParameter="{Binding }">
-                                    <DockPanel>
-                                        <materialDesign:PackIcon Kind="BorderColor" />
-                                    </DockPanel>
-                                </Button>
-                            </DataTemplate>
-                        </GridViewColumn.CellTemplate>
-                    </GridViewColumn>-->
                         </GridView>
                     </ListView.View>
                 </ListView>
-            </StackPanel>
+            </ScrollViewer>
+            <syncfusion:SfChart Grid.Column="1" Header="Tỷ lệ sản phẩm" FontSize="20">
+                <chart:DoughnutSeries 
+                        EnableAnimation="True"
+                        DoughnutCoefficient="1"
+                        EnableSmartLabels="True"
+                        ExplodeIndex="1"
+                        ExplodeOnMouseClick="True"
+                        ExplodeRadius="10"
+                        LabelPosition="Inside"
+                        ListenPropertyChange="True"
+                        Palette="Metro"
+                        SelectedIndex="{Binding SelectedIndex, Mode=TwoWay}"
+                        ItemsSource="{Binding ProductStatusChart}" 
+                        XBindingPath="TinhTrang"
+                        YBindingPath="TyLe">
+                    <chart:DoughnutSeries.CenterView>
+                        <ContentControl >
+                            <StackPanel HorizontalAlignment="Center" VerticalAlignment="Center">
+                                <TextBlock
+                                        Foreground="Black" FontWeight="Bold" 
+                                        FontSize="12" 
+                                        FontFamily="Helvetica"  
+                                        HorizontalAlignment="Center"
+                                        Text="{Binding SelectedItemName, Mode=TwoWay}"
+                                        TextAlignment="Center"
+                                        TextWrapping="Wrap" />
+                                <TextBlock
+                                        Foreground="Black"
+                                        FontWeight="Bold" FontSize="12" 
+                                        FontFamily="Helvetica"
+                                        Text="{Binding SelectedItemPercentage, StringFormat={}{0}%, Mode=TwoWay}"
+                                        TextAlignment="Center"
+                                        TextWrapping="Wrap" />
+                            </StackPanel>
+                        </ContentControl>
+                    </chart:DoughnutSeries.CenterView>
+                    <chart:DoughnutSeries.AdornmentsInfo>
+                        <chart:ChartAdornmentInfo
+                                SegmentLabelContent="YValue"
+                                SegmentLabelFormat="0'%'"
+                                ShowLabel="True"
+                                Background="Transparent"/>
+                    </chart:DoughnutSeries.AdornmentsInfo>
+                </chart:DoughnutSeries>
+                <chart:SfChart.Behaviors>
+                    <chart:ChartSelectionBehavior EnableSegmentSelection="True" />
+                </chart:SfChart.Behaviors>
+                <chart:SfChart.Legend>
+                    <chart:ChartLegend FontSize="12"
+                                    DockPosition="Right" 
+                                    ItemMargin="0,8,0,0"/>
+                </chart:SfChart.Legend>
+            </syncfusion:SfChart>
         </Grid>
-        
+
     </Grid>
 </UserControl>
