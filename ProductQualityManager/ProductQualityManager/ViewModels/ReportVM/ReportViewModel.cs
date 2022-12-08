@@ -37,6 +37,11 @@ namespace ProductQualityManager.ViewModels.ReportVM
                     SelectedItemName = ProductStatusChart[SelectedIndex].TinhTrang;
                     SelectedItemPercentage = ProductStatusChart[SelectedIndex].TyLe;
                 }
+                else
+                {
+                    SelectedItemName = "";
+                    SelectedItemPercentage = 0;
+                }
             }
         }
         public ICommand SelectionChangeCommand { get; set; }

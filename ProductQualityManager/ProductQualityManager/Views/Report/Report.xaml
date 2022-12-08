@@ -69,9 +69,8 @@
                 <chart:DoughnutSeries 
                         EnableAnimation="True"
                         DoughnutCoefficient="1"
-                        EnableSmartLabels="True"
-                        ExplodeIndex="1"
-                        ExplodeOnMouseClick="True"
+                        EnableSmartLabels="False"
+                        ExplodeOnMouseClick="False"
                         ExplodeRadius="10"
                         LabelPosition="Inside"
                         ListenPropertyChange="True"
@@ -82,7 +81,7 @@
                         YBindingPath="TyLe">
                     <chart:DoughnutSeries.CenterView>
                         <ContentControl >
-                            <StackPanel HorizontalAlignment="Center" VerticalAlignment="Center">
+                            <StackPanel x:Name="stackpanel" HorizontalAlignment="Center" VerticalAlignment="Center" Visibility="Hidden">
                                 <TextBlock
                                         Foreground="Black" FontWeight="Bold" 
                                         FontSize="12" 
@@ -110,10 +109,12 @@
                     </chart:DoughnutSeries.AdornmentsInfo>
                 </chart:DoughnutSeries>
                 <chart:SfChart.Behaviors>
-                    <chart:ChartSelectionBehavior EnableSegmentSelection="True" />
+                    <chart:ChartSelectionBehavior EnableSegmentSelection="True"  >
+                    </chart:ChartSelectionBehavior>
                 </chart:SfChart.Behaviors>
                 <chart:SfChart.Legend>
                     <chart:ChartLegend FontSize="12"
+                                       FontFamily="Helvetica" 
                                     DockPosition="Right" 
                                     ItemMargin="0,8,0,0"/>
                 </chart:SfChart.Legend>
