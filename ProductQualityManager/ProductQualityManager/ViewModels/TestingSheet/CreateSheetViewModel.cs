@@ -236,7 +236,7 @@ namespace ProductQualityManager.ViewModels.TestingSheet
             }
         }
         private void LoadListCriteria()
-        {
+        {   
             if(_facility != null && SelectedProduct != null)
             {
                 CriteriaList.Clear();
