@@ -20,10 +20,17 @@
             <RowDefinition Height="auto"></RowDefinition>
             <RowDefinition Height="*"></RowDefinition>
         </Grid.RowDefinitions>
-        <Label Grid.Row="0" FontSize="24" FontWeight="DemiBold" Content="BÁO CÁO SẢN PHẨM" HorizontalAlignment="Center"></Label>
-        <ComboBox>
-            
-        </ComboBox>
+        <StackPanel Grid.Row="0">
+            <Label FontSize="24" FontWeight="DemiBold" Content="BÁO CÁO SẢN PHẨM" HorizontalAlignment="Center"></Label>
+            <ComboBox Grid.Row="3"
+                      Width="200"
+                materialDesign:HintAssist.Hint="Chọn cơ sở"
+                IsEditable="False"
+                ItemsSource="{Binding FacilityList}"
+                DisplayMemberPath="TenCoSo"
+                SelectedItem="{Binding SelectedFacility,Mode=TwoWay,UpdateSourceTrigger=PropertyChanged}"/>
+        </StackPanel>
+       
         <Grid Grid.Row="1">
             <Grid.ColumnDefinitions>
                 <ColumnDefinition Width="auto"></ColumnDefinition>
@@ -41,10 +48,9 @@
                     <ListView.View>
                         <GridView>
                             <!--<GridViewColumn Header="STT" DisplayMemberBinding="{Binding RelativeSource={RelativeSource Mode=FindAncestor,AncestorType=ListViewItem},Converter={StaticResource  IndexConverter}}"></GridViewColumn>-->
+                            <GridViewColumn Header="Mã cơ sở" DisplayMemberBinding="{Binding  MaCoSo}"></GridViewColumn>
                             <GridViewColumn Header="Mã sản phẩm" DisplayMemberBinding="{Binding MaSanPham}" ></GridViewColumn>
                             <GridViewColumn Header="Tên sản phẩm" DisplayMemberBinding="{Binding  TenSanPham}"></GridViewColumn>
-                            <GridViewColumn Header="Mã cơ sở" DisplayMemberBinding="{Binding  MaCoSo}"></GridViewColumn>
-                            <GridViewColumn Header="Tên cơ sở" DisplayMemberBinding="{Binding  TenCoSo}"></GridViewColumn>
                             <GridViewColumn Header="Tình trạng" DisplayMemberBinding="{Binding  TinhTrang}"></GridViewColumn>
                             <!--<GridViewColumn>
                         <GridViewColumn.CellTemplate>

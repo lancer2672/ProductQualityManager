@@ -12,11 +12,17 @@ namespace ProductQualityManager.ViewModels.ReportVM
     public class ReportViewModel : BaseViewModel
     {
         private ObservableCollection<ProductReport> _reportList;
+        private ObservableCollection<COSOSANXUAT> _facilityList;
+        private COSOSANXUAT _selectedFacility;
         public ObservableCollection<ProductReport> ReportList { get { return _reportList; } set { _reportList = value; OnPropertyChanged(nameof(ReportList)); } }
+        public ObservableCollection<COSOSANXUAT> FacilityList { get { return _facilityList; } set { _facilityList = value; OnPropertyChanged(nameof(_facilityList)); } }
+        public COSOSANXUAT SelectedFacility { get { return _selectedFacility; } set { _selectedFacility = value; OnPropertyChanged(nameof(SelectedFacility)); } }
         public ReportViewModel()
         {
             ReportList = new ObservableCollection<ProductReport>();
+            FacilityList = new ObservableCollection<COSOSANXUAT>();
             LoadReportList();
+            LoadFacilityList();
         }
         public ObservableCollection<ProductReport> GetReportFromList(List<SANPHAM> reportList)
         {
@@ -24,17 +30,14 @@ namespace ProductQualityManager.ViewModels.ReportVM
 
             for (int i = 0; i < reportList.Count; i++)
             {
-                if (reportList[i].TinhTrang == "Cấm" || reportList[i].TinhTrang == "Hết hạn đăng ký")
-                {
-                    ProductReport newReport = new ProductReport();
-                    newReport.MaSanPham = reportList[i].MaSanPham;
-                    newReport.TenSanPham = reportList[i].TenSanPham;
-                    newReport.MaCoSo = reportList[i].MaCoSo;
-                    newReport.TenCoSo = FindFacilityName((int)reportList[i].MaCoSo);
-                    newReport.TinhTrang = reportList[i].TinhTrang;
+                ProductReport newReport = new ProductReport();
+                newReport.MaCoSo = reportList[i].MaCoSo;
+                newReport.MaSanPham = reportList[i].MaSanPham;
+                newReport.TenSanPham = reportList[i].TenSanPham;
+                //newReport.TenCoSo = FindFacilityName((int)reportList[i].MaCoSo);
+                newReport.TinhTrang = reportList[i].TinhTrang;
 
-                    list.Add(newReport);
-                }    
+                list.Add(newReport);
             }
 
             return list;
@@ -43,6 +46,11 @@ namespace ProductQualityManager.ViewModels.ReportVM
         {
             List<SANPHAM> listReport = DataProvider.Ins.DB.SANPHAMs.ToList();
             ReportList = GetReportFromList(listReport);
+        }
+        public void LoadFacilityList()
+        {
+            //List<COSOSANXUAT> facilityList = DataProvider.Ins.DB.COSOSANXUATs.Where(t => t.MaCoSo == SelectedFacility.MaCoSo).ToList();
+            //FacilityList = new ObservableCollection<COSOSANXUAT>(facilityList);
         }
         public string FindFacilityName(int maCoSo)
         {
