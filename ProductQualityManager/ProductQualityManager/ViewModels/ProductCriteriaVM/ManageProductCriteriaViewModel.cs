@@ -20,19 +20,22 @@ namespace ProductQualityManager.ViewModels.ProductCriteriaVM
         private decimal _standardValue;
         private decimal _unsafeValue;
         private DONVITINH _selectedUnit;
+        private string _newUnit;
         private ObservableCollection<ProductCriteria> _criteriaList;
         private ProductCriteria _selectedCriteria;
 
-        public ObservableCollection<DONVITINH> UnitList { get { return _unitList; } set { _unitList = value; OnPropertyChanged(nameof(_unitList)); } }
+        public ObservableCollection<DONVITINH> UnitList { get { return _unitList; } set { _unitList = value; OnPropertyChanged(nameof(UnitList)); } }
         public string CriteriaName { get { return _criteriaName; } set { _criteriaName = value; OnPropertyChanged(nameof(CriteriaName)); } }
         public decimal StandardValue { get { return _standardValue; } set { _standardValue = value; OnPropertyChanged(nameof(StandardValue)); } }
         public decimal UnsafeValue { get { return _unsafeValue; } set { _unsafeValue = value; OnPropertyChanged(nameof(UnsafeValue)); } }
         public DONVITINH SelectedUnit { get { return _selectedUnit; } set { _selectedUnit = value; OnPropertyChanged(nameof(SelectedUnit)); } }
+        public string NewUnit { get { return _newUnit; } set { _newUnit = value; OnPropertyChanged(nameof(NewUnit)); } }
         public ObservableCollection<ProductCriteria> CriteriaList { get { return _criteriaList; } set { _criteriaList = value; OnPropertyChanged(nameof(CriteriaList)); } }
         public ProductCriteria SelectedCriteria { get { return _selectedCriteria; } set { _selectedCriteria = value; OnPropertyChanged(nameof(SelectedCriteria)); } }
         public ICommand OpenAddCriteriaCommand { get; set; }
         public ICommand OpenEditCriteriaCommand { get; set; }
-        public ICommand AddCriteriaCriteriaCommand { get; set; }
+        public ICommand AddCriteriaCommand { get; set; }
+        public ICommand AddUnitCommand { get; set; }
 
         public SnackbarMessageQueue MyMessageQueue { get => myMessageQueue; set { myMessageQueue = value; OnPropertyChanged(nameof(MyMessageQueue)); } }
         private SnackbarMessageQueue myMessageQueue;
@@ -46,9 +49,11 @@ namespace ProductQualityManager.ViewModels.ProductCriteriaVM
             CriteriaName = "";
             StandardValue = 0;
             UnsafeValue = 0;
+            NewUnit = "";
 
             UnitList = new ObservableCollection<DONVITINH>();
-            AddCriteriaCriteriaCommand = new RelayCommand<Grid>((p) => { return true; }, (p) => { AddCriteriaCriteria(p); });
+            AddCriteriaCommand = new RelayCommand<StackPanel>((p) => { return true; }, (p) => { AddCriteria(p); });
+            AddUnitCommand = new RelayCommand<StackPanel>((p) => { return true; }, (p) => { AddUnit(p); });
             LoadUnitList();
 
             MyMessageQueue = new SnackbarMessageQueue(TimeSpan.FromMilliseconds(2000));
@@ -117,7 +122,6 @@ namespace ProductQualityManager.ViewModels.ProductCriteriaVM
 
         public void LoadUnitList()
         {
-            //int facilityOwnerId = (int)App.Current.Properties["FacilityOwner"];
             List<DONVITINH> unitList = DataProvider.Ins.DB.DONVITINHs.ToList();
             UnitList = new ObservableCollection<DONVITINH>(unitList);
         }
@@ -133,7 +137,7 @@ namespace ProductQualityManager.ViewModels.ProductCriteriaVM
             }
             return false;
         }
-        public void AddCriteriaCriteria(Grid addCriteriaForm)
+        public void AddCriteria(StackPanel addCriteriaForm)
         {
             if (CriteriaName == "" || StandardValue.ToString() == "" || UnsafeValue.ToString() == "")
             {
@@ -163,5 +167,33 @@ namespace ProductQualityManager.ViewModels.ProductCriteriaVM
 
             }
         }
+        public void AddUnit (StackPanel addUnitForm)
+        {
+            if (NewUnit == "")
+            {
+                MyMessageQueue.Enqueue("Vui lòng điền đầy đủ thông tin");
+            }
+            else if (Resources.Utils.Validator.IsValid(addUnitForm))
+            {
+                
+                DONVITINH newUnit = new DONVITINH();
+                newUnit.TenDonViTinh = NewUnit;
+                if (IsExistUnit(newUnit))
+                {
+                    MyMessageQueue.Enqueue("Đơn vị tính đã tồn tại");
+                }
+                else
+                {
+                    DataProvider.Ins.DB.DONVITINHs.Add(newUnit);
+                    DataProvider.Ins.DB.SaveChanges();
+
+                    MyMessageQueue.Enqueue("Thêm đơn vị tính thành công");
+
+                    NewUnit = "";
+                    LoadUnitList();
+                }
+            }
+        }
+
     }
 }

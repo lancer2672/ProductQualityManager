@@ -22,32 +22,32 @@
             <RowDefinition></RowDefinition>
             <RowDefinition Height="auto"></RowDefinition>
         </Grid.RowDefinitions>
+        <Label Grid.Row="0" FontSize="24" FontWeight="DemiBold" Content="THÔNG TIN CHỈ TIÊU" HorizontalAlignment="Center"></Label>
         <Grid Grid.Row="1">
-        <Grid.ColumnDefinitions>
-            <ColumnDefinition Width="Auto"></ColumnDefinition>
-            <ColumnDefinition Width="*"></ColumnDefinition>
-        </Grid.ColumnDefinitions>
-    
-        <Grid Grid.Column="0">
-            <Grid.RowDefinitions>
-                <RowDefinition Height="*"></RowDefinition>
-                <RowDefinition Height="auto"></RowDefinition>
-                <RowDefinition Height="auto"></RowDefinition>
-            </Grid.RowDefinitions>
-            <TextBlock HorizontalAlignment="Center" Height="450"  VerticalAlignment="Bottom">THÔNG TIN CHỈ TIÊU</TextBlock>
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition Width="Auto"></ColumnDefinition>
+                <ColumnDefinition Width="*"></ColumnDefinition>
+            </Grid.ColumnDefinitions>
+
+            <Grid Grid.Column="0">
+                <Grid.RowDefinitions>
+                    <RowDefinition Height="*"></RowDefinition>
+                    <RowDefinition Height="auto"></RowDefinition>
+                    <RowDefinition Height="auto"></RowDefinition>
+                </Grid.RowDefinitions>
 
 
-        
-        <ListView  Grid.Row="0"  Margin="0 20"
+
+                <ListView  Grid.Row="0"  Margin="0 20"
                  x:Name="listCriteria"
                            ItemsSource="{Binding CriteriaList, Mode=TwoWay}" 
                            SelectedItem="{Binding SelectedCriteria}"
                            ItemContainerStyle="{StaticResource  ListItemContainer}"
                             ScrollViewer.VerticalScrollBarVisibility="Visible"
                             ScrollViewer.HorizontalScrollBarVisibility="Hidden">
-              <ListView.View>
-                  <GridView>
-                      <!--<GridViewColumn Header="STT" DisplayMemberBinding="{Binding RelativeSource={RelativeSource Mode=FindAncestor,AncestorType=ListViewItem},Converter={StaticResource  IndexConverter}}"></GridViewColumn>-->
+                    <ListView.View>
+                        <GridView>
+                            <!--<GridViewColumn Header="STT" DisplayMemberBinding="{Binding RelativeSource={RelativeSource Mode=FindAncestor,AncestorType=ListViewItem},Converter={StaticResource  IndexConverter}}"></GridViewColumn>-->
                             <GridViewColumn Header="Mã chỉ tiêu" DisplayMemberBinding="{Binding MaChiTieu}" ></GridViewColumn>
                             <GridViewColumn Header="Chỉ tiêu" DisplayMemberBinding="{Binding  TenChiTieu}"></GridViewColumn>
                             <GridViewColumn Header="Giá trị tiêu chuẩn" DisplayMemberBinding="{Binding  GiaTriTieuChuan}"></GridViewColumn>
@@ -59,19 +59,19 @@
                                         <Button Width="70"
                                                 Command="{Binding ElementName=listCriteria, Path=DataContext.OpenEditCriteriaCommand}" 
                                                 CommandParameter="{Binding }">
-                                                <DockPanel>
-                                                    <materialDesign:PackIcon Kind="BorderColor" />
-                                                 </DockPanel> 
+                                            <DockPanel>
+                                                <materialDesign:PackIcon Kind="BorderColor" />
+                                            </DockPanel>
                                         </Button>
                                     </DataTemplate>
                                 </GridViewColumn.CellTemplate>
                             </GridViewColumn>
-                  </GridView>
-              </ListView.View>
-        </ListView>
-            
-        
-        <!--<StackPanel Grid.Row="1"  Orientation="Horizontal"  HorizontalAlignment="Right">
+                        </GridView>
+                    </ListView.View>
+                </ListView>
+
+
+                <!--<StackPanel Grid.Row="1"  Orientation="Horizontal"  HorizontalAlignment="Right">
               
             <UC2:SearchBarCombobox x:Name="SearchBarCombobox" ></UC2:SearchBarCombobox>
                 <Button Margin="0 20 10 0"
@@ -110,94 +110,136 @@
             </Button>
 
         </StackPanel>-->
-        
-       
-    </Grid>
-        <Grid Grid.Column="1" x:Name="addCriteriaForm">
-            <Grid.RowDefinitions>
-                <RowDefinition Height="auto"></RowDefinition>
-                <RowDefinition Height="auto"></RowDefinition>
-                <RowDefinition Height="auto"></RowDefinition>
-                <RowDefinition Height="auto"></RowDefinition>
-                <RowDefinition Height="auto"></RowDefinition>
-            </Grid.RowDefinitions>
-            <TextBlock FontSize="16" HorizontalAlignment="Center">THÊM CHỈ TIÊU</TextBlock>
-                <TextBox x:Name="criteriaNameTxb"
-                    Grid.Row="0" Margin="50 50 50 20"
+
+
+            </Grid>
+            <Grid Grid.Column="1">
+                <Grid.RowDefinitions>
+                    <RowDefinition Height="auto"></RowDefinition>
+                    <RowDefinition Height="auto"></RowDefinition>
+                </Grid.RowDefinitions>
+                <StackPanel Grid.Row="0" x:Name="addCriteriaForm">
+                    <Label HorizontalAlignment="Center" FontWeight="DemiBold">THÊM CHỈ TIÊU</Label>
+                    <TextBox x:Name="criteriaNameTxb"
+                     Margin="50 0 50 20"
                     materialDesign:HintAssist.Hint="Tên chỉ tiêu"
                     Style="{StaticResource MaterialDesignFloatingHintTextBox}">
-                    <TextBox.Text>
-                        <Binding Path="CriteriaName" UpdateSourceTrigger="PropertyChanged" NotifyOnValidationError="True" ValidatesOnExceptions="True">
-                            <Binding.ValidationRules>
-                                <rule:NonEmptyRule/>
-                            </Binding.ValidationRules>
-                        </Binding>
-                    </TextBox.Text>
-                </TextBox>
-                <TextBox x:Name="standardValueTxb"
-                    Grid.Row="1" Margin="50 10"
+                        <TextBox.Text>
+                            <Binding Path="CriteriaName" UpdateSourceTrigger="PropertyChanged" NotifyOnValidationError="True" ValidatesOnExceptions="True">
+                                <Binding.ValidationRules>
+                                    <rule:NonEmptyRule/>
+                                </Binding.ValidationRules>
+                            </Binding>
+                        </TextBox.Text>
+                    </TextBox>
+                    <TextBox x:Name="standardValueTxb"
+                     Margin="50 10"
                     materialDesign:HintAssist.Hint="Giá trị tiêu chuẩn"
                     Style="{StaticResource MaterialDesignFloatingHintTextBox}">
-                    <TextBox.Text>
-                        <Binding Path="StandardValue" NotifyOnValidationError="True" ValidatesOnExceptions="True">
-                            <Binding.ValidationRules>
-                                <rule:NonEmptyRule/>
-                                <rule:PositiveNumberRule/>
-                            </Binding.ValidationRules>
-                        </Binding>
-                    </TextBox.Text>
-                </TextBox>
-                <TextBox x:Name="unsafeValueTxb"
-                    Grid.Row="2" Margin="50 10 50 0"
+                        <TextBox.Text>
+                            <Binding Path="StandardValue" NotifyOnValidationError="True" ValidatesOnExceptions="True">
+                                <Binding.ValidationRules>
+                                    <rule:NonEmptyRule/>
+                                    <rule:PositiveNumberRule/>
+                                </Binding.ValidationRules>
+                            </Binding>
+                        </TextBox.Text>
+                    </TextBox>
+                    <TextBox x:Name="unsafeValueTxb"
+                     Margin="50 10 50 0"
                     materialDesign:HintAssist.Hint="Giá trị nguy hiểm"
                     Style="{StaticResource MaterialDesignFloatingHintTextBox}">
-                    <TextBox.Text>
-                        <Binding Path="UnsafeValue" NotifyOnValidationError="True" ValidatesOnExceptions="True">
-                            <Binding.ValidationRules>
-                                <rule:NonEmptyRule/>
-                                <rule:PositiveNumberRule/>
-                            </Binding.ValidationRules>
-                        </Binding>
-                    </TextBox.Text>
-                </TextBox>
-                <ComboBox Grid.Row="3" Margin="50 -30 50 0"
+                        <TextBox.Text>
+                            <Binding Path="UnsafeValue" NotifyOnValidationError="True" ValidatesOnExceptions="True">
+                                <Binding.ValidationRules>
+                                    <rule:NonEmptyRule/>
+                                    <rule:PositiveNumberRule/>
+                                </Binding.ValidationRules>
+                            </Binding>
+                        </TextBox.Text>
+                    </TextBox>
+                    <ComboBox Margin="50 40 50 0"
                 materialDesign:HintAssist.Hint="Đơn vị chỉ tiêu"
                 IsEditable="False"
                 ItemsSource="{Binding UnitList}"
                 DisplayMemberPath="TenDonViTinh"
                 SelectedItem="{Binding SelectedUnit,Mode=TwoWay,UpdateSourceTrigger=PropertyChanged}"/>
-            <Button Grid.Row="3"
-                    Margin="150 100 10 0"
+                    <Button
+                    Margin="150 30 10 0"
                     Width="100"
                     ToolTip="Thêm "  
                     Name="AddBtn"
                     
-                    Command="{Binding AddCriteriaCriteriaCommand}"
+                    Command="{Binding AddCriteriaCommand}"
                     CommandParameter="{Binding ElementName=addCriteriaForm}">
-                    <DockPanel>
-                        <materialDesign:PackIcon Kind="Add" />
-                        <TextBlock Text="Thêm"/>
-                    </DockPanel>
-                    <Button.Style>
-                        <Style TargetType="Button" BasedOn="{StaticResource MaterialDesignRaisedButton}">
+                        <DockPanel>
+                            <materialDesign:PackIcon Kind="Add" />
+                            <TextBlock Text="Thêm"/>
+                        </DockPanel>
+                        <Button.Style>
+                            <Style TargetType="Button" BasedOn="{StaticResource MaterialDesignRaisedButton}">
 
-                            <Setter Property="IsEnabled" Value="False"></Setter>
-                            <Style.Triggers>
-                                <MultiDataTrigger>
-                                    <MultiDataTrigger.Conditions>
-                                        <Condition Binding="{Binding Path=(Validation.HasError), ElementName=criteriaNameTxb}" Value="False"/>
-                                        <Condition Binding="{Binding Path=(Validation.HasError), ElementName=standardValueTxb}" Value="False"/>
-                                        <Condition Binding="{Binding Path=(Validation.HasError), ElementName=unsafeValueTxb}" Value="False"/>
-                                    </MultiDataTrigger.Conditions>
-                                    <Setter Property="IsEnabled" Value="True"/>
-                                </MultiDataTrigger>
-                            </Style.Triggers>
-                        </Style>
-                    </Button.Style>
-                </Button>
+                                <Setter Property="IsEnabled" Value="False"></Setter>
+                                <Style.Triggers>
+                                    <MultiDataTrigger>
+                                        <MultiDataTrigger.Conditions>
+                                            <Condition Binding="{Binding Path=(Validation.HasError), ElementName=criteriaNameTxb}" Value="False"/>
+                                            <Condition Binding="{Binding Path=(Validation.HasError), ElementName=standardValueTxb}" Value="False"/>
+                                            <Condition Binding="{Binding Path=(Validation.HasError), ElementName=unsafeValueTxb}" Value="False"/>
+                                        </MultiDataTrigger.Conditions>
+                                        <Setter Property="IsEnabled" Value="True"/>
+                                    </MultiDataTrigger>
+                                </Style.Triggers>
+                            </Style>
+                        </Button.Style>
+                    </Button>
+                </StackPanel>
+                <StackPanel Grid.Row="1" x:Name="addUnitForm" Margin="0 40">
+                    <Label Content="THÊM ĐƠN VỊ CHỈ TIÊU" FontWeight="DemiBold" HorizontalAlignment="Center"></Label>
+                    <TextBox x:Name="newUnitTxb"
+                     Margin="50 0 50 20"
+                    materialDesign:HintAssist.Hint="Tên đơn vị chỉ tiêu"
+                    Style="{StaticResource MaterialDesignFloatingHintTextBox}">
+                        <TextBox.Text>
+                            <Binding Path="NewUnit" UpdateSourceTrigger="PropertyChanged" NotifyOnValidationError="True" ValidatesOnExceptions="True">
+                                <Binding.ValidationRules>
+                                    <rule:NonEmptyRule/>
+                                </Binding.ValidationRules>
+                            </Binding>
+                        </TextBox.Text>
+                    </TextBox>
+                    <Button
+                    Margin="150 30 10 0"
+                    Width="100"
+                    ToolTip="Thêm "  
+                    Name="AddUnitBtn"
+                    
+                    Command="{Binding AddUnitCommand}"
+                    CommandParameter="{Binding ElementName=addUnitForm}">
+                        <DockPanel>
+                            <materialDesign:PackIcon Kind="Add" />
+                            <TextBlock Text="Thêm"/>
+                        </DockPanel>
+                        <Button.Style>
+                            <Style TargetType="Button" BasedOn="{StaticResource MaterialDesignRaisedButton}">
+
+                                <Setter Property="IsEnabled" Value="False"></Setter>
+                                <Style.Triggers>
+                                    <MultiDataTrigger>
+                                        <MultiDataTrigger.Conditions>
+                                            <Condition Binding="{Binding Path=(Validation.HasError), ElementName=newUnitTxb}" Value="False"/>
+                                        </MultiDataTrigger.Conditions>
+                                        <Setter Property="IsEnabled" Value="True"/>
+                                    </MultiDataTrigger>
+                                </Style.Triggers>
+                            </Style>
+                        </Button.Style>
+                    </Button>
+                </StackPanel>
+
+            </Grid>
+
         </Grid>
-        
-    </Grid>
         <materialDesign:Snackbar Grid.Row="2" 
                 HorizontalAlignment="Stretch"
                 VerticalAlignment="Stretch"

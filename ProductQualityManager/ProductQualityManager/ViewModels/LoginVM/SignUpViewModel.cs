@@ -62,7 +62,7 @@ namespace ProductQualityManager.ViewModels.LoginVM
                 CHUCOSO newChuCoSo = new CHUCOSO();
                 newChuCoSo.HoTen = Name;
                 newChuCoSo.DienTHoai = Phone;
-                if (IsExist(newAccount) == true)
+                if (!IsExist(newAccount) == true)
                 {
                     //MessageBox.Show("Tài khoản đã tồn tại");
                     MyMessageQueue.Enqueue("Tài khoản đã tồn tại");
@@ -124,7 +124,7 @@ namespace ProductQualityManager.ViewModels.LoginVM
 
             var client = new SmtpClient("smtp.gmail.com", 587)
             {
-                Credentials = new NetworkCredential("quanlychatluongsanpham@gmail.com", "yzojpnmxyrgwwjyt"),
+                Credentials = new NetworkCredential("quanlychatluongsanpham@gmail.com", "nyglcwryncmbiwhu"),
                 EnableSsl = true
             };
 
