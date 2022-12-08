@@ -23,9 +23,6 @@
             <RowDefinition Height="*"></RowDefinition>
         </Grid.RowDefinitions>
         <Label Grid.Row="0" FontSize="24" FontWeight="DemiBold" Content="BÁO CÁO SẢN PHẨM" HorizontalAlignment="Center"></Label>
-        <ComboBox>
-            
-        </ComboBox>
         <Grid Grid.Row="1">
             <Grid.ColumnDefinitions>
                 <ColumnDefinition Width="0.15*"></ColumnDefinition>

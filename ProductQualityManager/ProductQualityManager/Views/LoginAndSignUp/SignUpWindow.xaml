@@ -23,7 +23,7 @@
                     <ColumnDefinition></ColumnDefinition>
                 </Grid.ColumnDefinitions>
                 <Grid Grid.Column="0">
-                    <Border Padding="35">
+                    <Border Padding="35" Background="#FFA9DEFC">
                         <Image Source="/Resources/Imgs/SignUp.png"></Image>
                     </Border>
                 </Grid>
