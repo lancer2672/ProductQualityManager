@@ -6,7 +6,7 @@
         xmlns:local="clr-namespace:ProductQualityManager.Views.TestingSheet"
         mc:Ignorable="d"
         WindowStartupLocation="CenterScreen"
-        Title="DetailTestingSheet" Height="450" Width="800">
+        Title="DetailTestingSheet" Height="450" Width="900">
     <Window.Resources>
         <ResourceDictionary>
             <ResourceDictionary.MergedDictionaries>

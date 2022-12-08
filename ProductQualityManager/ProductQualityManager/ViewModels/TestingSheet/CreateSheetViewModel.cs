@@ -147,7 +147,6 @@ namespace ProductQualityManager.ViewModels.TestingSheet
                 }
                 else if (TestingCriteraList[i].DanhGia == "Không Đạt")
                 {
-
                     value = -1;
                 }
                 else if (TestingCriteraList[i].DanhGia == "Gây Nguy Hiểm")

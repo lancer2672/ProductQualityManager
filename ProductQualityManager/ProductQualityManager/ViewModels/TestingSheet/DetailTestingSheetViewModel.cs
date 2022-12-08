@@ -24,8 +24,6 @@ namespace ProductQualityManager.ViewModels.TestingSheet
         {
             TestingCriteraList = new ObservableCollection<CreateTestingSheetModel>();
             PHIEUKIEMNGHIEM sheet = DataProvider.Ins.DB.PHIEUKIEMNGHIEMs.Where(t => t.MaPhieuKiemNghiem == item.MaPhieuKiemNghiem).FirstOrDefault();
-
-            
                 List<CHITIETPHIEUKIEMNGHIEM> list = DataProvider.Ins.DB.CHITIETPHIEUKIEMNGHIEMs.Where(t => t.MaPhieuKiemNghiem == sheet.MaPhieuKiemNghiem).ToList();
                 foreach (CHITIETPHIEUKIEMNGHIEM p in list)
                 {
