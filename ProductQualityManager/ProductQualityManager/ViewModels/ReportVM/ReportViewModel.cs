@@ -102,14 +102,26 @@ namespace ProductQualityManager.ViewModels.ReportVM
                     ReportList.Add(item);
                 }
                 ProductStatusChart = new ObservableCollection<ProductStatusChart>() { };
-                ProductStatusChart csx = new ProductStatusChart(SelectedFacility.MaCoSo, "Chưa sản xuất", (int)(tyle_csx * 100/ (tyle_csx + tyle_dsx + tyle_hhsx + tyle_cam)));
-                ProductStatusChart.Add(csx);
-                ProductStatusChart dsx = new ProductStatusChart(SelectedFacility.MaCoSo, "Đang sản xuất", (int)(tyle_dsx * 100 / (tyle_csx + tyle_dsx + tyle_hhsx + tyle_cam)));
-                ProductStatusChart.Add(dsx);
-                ProductStatusChart hhsx = new ProductStatusChart(SelectedFacility.MaCoSo, "Hết hạn sản xuất", (int)(tyle_hhsx * 100 / (tyle_csx + tyle_dsx + tyle_hhsx + tyle_cam)));
-                ProductStatusChart.Add(hhsx);
-                ProductStatusChart cam = new ProductStatusChart(SelectedFacility.MaCoSo, "Cấm", (int)(tyle_cam * 100 / (tyle_csx + tyle_dsx + tyle_hhsx + tyle_cam)));
-                ProductStatusChart.Add(cam);
+                if (tyle_csx != 0)
+                {
+                    ProductStatusChart csx = new ProductStatusChart(SelectedFacility.MaCoSo, "Chưa sản xuất", (int)(tyle_csx * 100 / (tyle_csx + tyle_dsx + tyle_hhsx + tyle_cam)));
+                    ProductStatusChart.Add(csx);
+                }
+                if(tyle_dsx != 0)
+                {
+                    ProductStatusChart dsx = new ProductStatusChart(SelectedFacility.MaCoSo, "Đang sản xuất", (int)(tyle_dsx * 100 / (tyle_csx + tyle_dsx + tyle_hhsx + tyle_cam)));
+                    ProductStatusChart.Add(dsx);
+                }
+                if(tyle_hhsx != 0)
+                {
+                    ProductStatusChart hhsx = new ProductStatusChart(SelectedFacility.MaCoSo, "Hết hạn sản xuất", (int)(tyle_hhsx * 100 / (tyle_csx + tyle_dsx + tyle_hhsx + tyle_cam)));
+                    ProductStatusChart.Add(hhsx);
+                }
+                if (tyle_cam != 0)
+                {
+                    ProductStatusChart cam = new ProductStatusChart(SelectedFacility.MaCoSo, "Cấm", (int)(tyle_cam * 100 / (tyle_csx + tyle_dsx + tyle_hhsx + tyle_cam)));
+                    ProductStatusChart.Add(cam);
+                }               
             }
         }
         public string FindFacilityName(int maCoSo)
