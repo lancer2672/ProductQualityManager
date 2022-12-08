@@ -18,7 +18,8 @@
         </ResourceDictionary>
     </UserControl.Resources>
     <StackPanel Margin="20">
-        <Label Margin="0 0 0 20" FontSize="24" FontWeight="DemiBold" Content="PHIẾU KIỂM NGHIỆM" HorizontalAlignment="Center"></Label>
+        <Label  FontSize="24" FontWeight="DemiBold" Content="PHIẾU KIỂM NGHIỆM" HorizontalAlignment="Center"></Label>
+        <DatePicker Margin="0 0 0 20" Width="120" SelectedDate="{Binding SelectedDate}"></DatePicker>
         <StackPanel Orientation="Horizontal">
             <sharedControls:SearchBarCombobox>
             </sharedControls:SearchBarCombobox>
@@ -60,6 +61,21 @@
                                     <DockPanel>
                                         <!--<materialDesign:PackIcon Kind="Search" />-->
                                         <TextBlock  Text="Xem"/>
+                                    </DockPanel>
+                                </Button>
+                            </DataTemplate>
+                        </GridViewColumn.CellTemplate>
+                    </GridViewColumn>
+                    <GridViewColumn>
+                        <GridViewColumn.CellTemplate>
+                            <DataTemplate>
+                                <Button ToolTip="Xem chi tiết"  
+                                        Width="100"
+                                        Margin="20 0 0 0"
+                                        Command="{Binding ElementName=Listview, Path=DataContext.COpenImage }" CommandParameter="{Binding}"
+                                        >
+                                    <DockPanel>
+                                        <materialDesign:PackIcon Kind="Image" />
                                     </DockPanel>
                                 </Button>
                             </DataTemplate>

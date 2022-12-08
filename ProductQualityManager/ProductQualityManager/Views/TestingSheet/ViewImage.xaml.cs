@@ -1,6 +1,4 @@
-﻿using ProductQualityManager.Models;
-using ProductQualityManager.ViewModels.TestingSheet;
-using System;
+﻿using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
@@ -17,15 +15,19 @@ using System.Windows.Shapes;
 namespace ProductQualityManager.Views.TestingSheet
 {
     /// <summary>
-    /// Interaction logic for DetailTestingSheet.xaml
+    /// Interaction logic for ViewImage.xaml
     /// </summary>
-    public partial class DetailTestingSheet : Window
+    public partial class ViewImage : Window
     {
-        public DetailTestingSheet(TestingSheetModel item)
+        public ViewImage(string source)
         {
             InitializeComponent();
-            DetailTestingSheetViewModel newVM = new DetailTestingSheetViewModel(item);
-            this.DataContext = newVM;
+
+            BitmapImage bmi = new BitmapImage();
+            bmi.BeginInit();
+            bmi.UriSource = new Uri(source, UriKind.Absolute);
+            bmi.EndInit();
+            img.Source = bmi;
         }
     }
 }

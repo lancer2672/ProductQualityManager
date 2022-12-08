@@ -73,7 +73,7 @@ namespace ProductQualityManager.ViewModels.TestingSheet
                 CHITIEUSANPHAM criteria = DataProvider.Ins.DB.CHITIEUSANPHAMs.Where(t => t.MaChiTieu == criteriaId).FirstOrDefault();
                 DONVITINH unit = DataProvider.Ins.DB.DONVITINHs.Where(t => t.MaDonViTinh == criteria.MaDonViTinh).FirstOrDefault();
                 DetailRegistrationSheetModel item = new DetailRegistrationSheetModel(detailSheets[i], unit, criteria);
-                if(detailSheets[i].GiaTriDangKy < criteria.GiaTriTieuChuan)
+                if(detailSheets[i].GiaTriDangKy <= criteria.GiaTriTieuChuan)
                 {
                     item.KetQuaSoSanh = "Đạt tiêu chuẩn";
                     item.Color_KetQuaSoSanh = "Green";

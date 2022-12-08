@@ -173,6 +173,7 @@
     <Compile Include="ViewModels\RegistrationSheet\SubmitCreateSheetViewModel.cs" />
     <Compile Include="ViewModels\ReportVM\ReportViewModel.cs" />
     <Compile Include="ViewModels\TestingSheet\CreateSheetViewModel.cs" />
+    <Compile Include="ViewModels\TestingSheet\DetailTestingSheetViewModel.cs" />
     <Compile Include="ViewModels\TestingSheet\TestingSheetViewModel.cs" />
     <Compile Include="Views\LoginAndSignUp\LoginWindow.xaml.cs">
       <DependentUpon>LoginWindow.xaml</DependentUpon>
@@ -227,6 +228,9 @@
     </Compile>
     <Compile Include="Views\TestingSheet\TestingSheet.xaml.cs">
       <DependentUpon>TestingSheet.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Views\TestingSheet\ViewImage.xaml.cs">
+      <DependentUpon>ViewImage.xaml</DependentUpon>
     </Compile>
     <Page Include="MainWindow.xaml">
       <Generator>MSBuild:Compile</Generator>
@@ -329,6 +333,10 @@
       <Generator>MSBuild:Compile</Generator>
     </Page>
     <Page Include="Views\TestingSheet\TestingSheet.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Views\TestingSheet\ViewImage.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>

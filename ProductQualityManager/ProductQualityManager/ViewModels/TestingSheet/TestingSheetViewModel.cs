@@ -19,8 +19,9 @@ namespace ProductQualityManager.ViewModels.TestingSheet
         private string _searchKey;
         private List<string> _searchOptions;
         private int _searchTypeSelected;
+        private DateTime _selectedDate;
 
-
+        public DateTime SelectedDate { get { return _selectedDate; } set { _selectedDate = value; LoadListView(); OnPropertyChanged(nameof(SelectedDate)); } }
         public string SearchKey { get { return _searchKey; } set { _searchKey = value; OnPropertyChanged(nameof(SearchKey)); } }
         public List<string> SearchOptions { get { return _searchOptions; } set { _searchOptions = value; OnPropertyChanged(nameof(SearchOptions)); } }
         public ObservableCollection<TestingSheetModel> TestingSheetList { get { return _testingSheetList; } set { _testingSheetList = value; OnPropertyChanged(nameof(TestingSheetList)); } }
@@ -28,18 +29,28 @@ namespace ProductQualityManager.ViewModels.TestingSheet
         public int SearchTypeSelected { get { return _searchTypeSelected; } set { _searchTypeSelected = value; OnPropertyChanged(nameof(SearchTypeSelected)); } }
 
         public ICommand CSearch { get; set; }
+        public ICommand COpenImage { get; set; }
         public ICommand COpenCreateSheetWindow { get; set; }
         public ICommand COpenViewDetailWindow { get; set; }
 
 
         public TestingSheetViewModel()
         {
+            SelectedDate = DateTime.Today;
             CSearch = new RelayCommand<object>((p) => { return true; }, (p) => { Search(p); });
+            COpenImage = new RelayCommand<object>((p) => { return true; }, (p) => { OpenImageWindow(); });
             SearchOptions = new List<string>() {"Mã Cơ sở", "Tên Cơ Sở" };
             COpenViewDetailWindow = new RelayCommand<object>((p) => { return true; }, (p) => { OpenDetailWindow(p); });
             COpenCreateSheetWindow = new RelayCommand<object>((p) => { return true; }, (p) => { OpenCreateSheetWindow(p); });
 
             LoadListView();
+        }
+        private void OpenImageWindow()
+        {
+            if (SelectedItem == null) return;
+            PHIEUKIEMNGHIEM p = DataProvider.Ins.DB.PHIEUKIEMNGHIEMs.Where(t => t.MaPhieuKiemNghiem == SelectedItem.MaPhieuKiemNghiem).FirstOrDefault();
+            ViewImage window = new ViewImage(p.Anh);
+            window.Show();
         }
         public void Search(object p)
         {
@@ -76,7 +87,8 @@ namespace ProductQualityManager.ViewModels.TestingSheet
                         foreach (COSOSANXUAT facility in listFacility)
                         {
                             int id = facility.MaCoSo;
-                            List<PHIEUKIEMNGHIEM> list = DataProvider.Ins.DB.PHIEUKIEMNGHIEMs.Where(t=>t.MaCoSo == id).ToList();
+                            List<PHIEUKIEMNGHIEM> list = DataProvider.Ins.DB.PHIEUKIEMNGHIEMs.Where(t=>t.MaCoSo == id && t.NgayDanhGia.Value.Day == SelectedDate.Day &&
+                            t.NgayDanhGia.Value.Month == SelectedDate.Month && t.NgayDanhGia.Value.Year == SelectedDate.Year).ToList();
                             foreach (PHIEUKIEMNGHIEM item in list)
                             {
                                 TestingSheetModel listViewItem = new TestingSheetModel(item, facility);
@@ -93,7 +105,8 @@ namespace ProductQualityManager.ViewModels.TestingSheet
                         foreach (COSOSANXUAT facility in listFacility)
                         {
                             int id = facility.MaCoSo;
-                            List<PHIEUKIEMNGHIEM> list = DataProvider.Ins.DB.PHIEUKIEMNGHIEMs.Where(t => t.MaCoSo == id).ToList();
+                            List<PHIEUKIEMNGHIEM> list = DataProvider.Ins.DB.PHIEUKIEMNGHIEMs.Where(t => t.MaCoSo == id && t.NgayDanhGia.Value.Day == SelectedDate.Day &&
+                            t.NgayDanhGia.Value.Month == SelectedDate.Month && t.NgayDanhGia.Value.Year == SelectedDate.Year).ToList();
                             foreach (PHIEUKIEMNGHIEM item in list)
                             {
                                 TestingSheetModel listViewItem = new TestingSheetModel(item, facility);
@@ -108,17 +121,21 @@ namespace ProductQualityManager.ViewModels.TestingSheet
         }
         private void OpenDetailWindow(object p)
         {
-
+            if (SelectedItem == null) return;
+            DetailTestingSheet window = new DetailTestingSheet(SelectedItem);
+            window.Show();
         }
         private void OpenCreateSheetWindow(object p)
         {
-            CreateTestingSheet window = new CreateTestingSheet();
+           
+            CreateTestingSheet window = new CreateTestingSheet(this);
             window.ShowDialog();
         }
         public void LoadListView()
         {
             TestingSheetList = new ObservableCollection<TestingSheetModel>();
-            List<PHIEUKIEMNGHIEM> list = DataProvider.Ins.DB.PHIEUKIEMNGHIEMs.ToList();
+            List<PHIEUKIEMNGHIEM> list = DataProvider.Ins.DB.PHIEUKIEMNGHIEMs.Where(t => t.NgayDanhGia.Value.Day == SelectedDate.Day &&
+                            t.NgayDanhGia.Value.Month == SelectedDate.Month && t.NgayDanhGia.Value.Year == SelectedDate.Year).ToList();
             foreach (PHIEUKIEMNGHIEM item in list)
             {
                 List<COSOSANXUAT> listFacility = DataProvider.Ins.DB.COSOSANXUATs.Where(t => t.MaCoSo == item.MaCoSo).ToList();

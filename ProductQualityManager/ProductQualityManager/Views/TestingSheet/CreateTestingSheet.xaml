@@ -5,12 +5,13 @@
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:ProductQualityManager.Views.TestingSheet"
         mc:Ignorable="d"
+        x:Name="window"
         xmlns:materialDesign ="http://materialdesigninxaml.net/winfx/xaml/themes"
         xmlns:rule="clr-namespace:ProductQualityManager.Resources.Utils"
         xmlns:i="http://schemas.microsoft.com/expression/2010/interactivity"
         xmlns:i1="http://schemas.microsoft.com/expression/2010/interactions"
-        DataContext="{StaticResource CreateTestingSheetVM}"
-        Title="CreateTestingSheet" Height="600" Width="1100">
+        
+        Title="CreateTestingSheet" Height="600" Width="1200">
     <Window.Resources>
         <ResourceDictionary>
             <ResourceDictionary.MergedDictionaries>
@@ -29,8 +30,8 @@
 
             <Grid Grid.Row="0">
                 <Grid.ColumnDefinitions>
-                    <ColumnDefinition Width="*"></ColumnDefinition>
-                    <ColumnDefinition Width="3*"></ColumnDefinition>
+                    <ColumnDefinition Width="2*"></ColumnDefinition>
+                    <ColumnDefinition Width="7*"></ColumnDefinition>
                 </Grid.ColumnDefinitions>
                 <StackPanel>
                     <StackPanel.Resources>
@@ -196,7 +197,7 @@
                                 <GridViewColumn Header="Đánh Giá" >
                                     <GridViewColumn.CellTemplate>
                                         <DataTemplate>
-                                            <TextBlock FontWeight="Medium" Text="{Binding Path=STrangThai}" Foreground="{Binding  MauChu}"/>
+                                            <TextBlock FontWeight="Medium" Text="{Binding Path=DanhGia}" Foreground="{Binding Color_DanhGia}"/>
                                         </DataTemplate>
                                     </GridViewColumn.CellTemplate>
                                 </GridViewColumn>
@@ -226,7 +227,7 @@
             <TextBlock Grid.Row="1" Margin="0 10 20 0" HorizontalAlignment="Right" FontWeight="DemiBold">
                     <Run Text="KẾT QUẢ: "/>
                     <Run Text="{Binding Result}" FontWeight="DemiBold" Foreground="{Binding ResultColor}" />
-            </TextBlock>
+            </TextBlock>    
             <StackPanel Grid.Row="2"  Orientation="Horizontal" HorizontalAlignment="Right">
 
                 <Button ToolTip="Thêm ảnh"  
@@ -251,7 +252,6 @@
                             <Style.Triggers>
                                 <MultiDataTrigger>
                                     <MultiDataTrigger.Conditions>
-                                        <Condition Binding="{Binding Path=(Validation.HasError), ElementName=productQuantity}" Value="False"/>
                                         <Condition Binding="{Binding Path=(Validation.HasError), ElementName=productCbx}" Value="False"/>
                                     </MultiDataTrigger.Conditions>
                                     <Setter Property="IsEnabled" Value="True"/>

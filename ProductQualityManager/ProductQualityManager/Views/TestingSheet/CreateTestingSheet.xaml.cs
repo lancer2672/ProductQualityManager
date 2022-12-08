@@ -1,4 +1,5 @@
-﻿using System;
+﻿using ProductQualityManager.ViewModels.TestingSheet;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
@@ -19,9 +20,10 @@ namespace ProductQualityManager.Views.TestingSheet
     /// </summary>
     public partial class CreateTestingSheet : Window
     {
-        public CreateTestingSheet()
+        public CreateTestingSheet(TestingSheetViewModel vm)
         {
             InitializeComponent();
+            this.DataContext = new CreateSheetViewModel(vm);
         }
     }
 }
