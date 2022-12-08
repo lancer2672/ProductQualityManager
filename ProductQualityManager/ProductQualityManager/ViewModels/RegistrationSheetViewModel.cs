@@ -130,7 +130,8 @@ namespace ProductQualityManager.ViewModels
         public void LoadDataSheetList() 
         {
             List<PHIEUDANGKY> SheetList = DataProvider.Ins.DB.PHIEUDANGKies.
-                Where(t =>t.NgayDangKy.Value.Day == SelectedDate.Day && t.NgayDangKy.Value.Month == SelectedDate.Month && t.NgayDangKy.Value.Year == SelectedDate.Year).
+                Where(t =>t.NgayDangKy.Value.Day == SelectedDate.Day && 
+                            t.NgayDangKy.Value.Month == SelectedDate.Month && t.NgayDangKy.Value.Year == SelectedDate.Year).
                 ToList();
             TestingSheetListObs = GetDataSheetFromList(SheetList);
         }
@@ -142,7 +143,7 @@ namespace ProductQualityManager.ViewModels
 
             
         }
-        public void RefreshList()
+            public void RefreshList()
         {
             TestingSheetListObs.Clear();
             LoadDataSheetList();

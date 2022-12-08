@@ -101,7 +101,7 @@ namespace ProductQualityManager.ViewModels.TestingSheet
             newSheet.MaPhieuDangKy = _registrationSheet.MaPhieuDangKy;
             newSheet.KetQua = _min;
             newSheet.NgayDanhGia = DateTime.Now;
-
+            newSheet.Anh = _source;
             DataProvider.Ins.DB.PHIEUKIEMNGHIEMs.Add(newSheet);
             for (int i = 0; i < TestingCriteraList.Count; i++)
             {
@@ -217,11 +217,8 @@ namespace ProductQualityManager.ViewModels.TestingSheet
             if (ofd.ShowDialog() == System.Windows.Forms.DialogResult.OK)
             {
                 string selectedFileName = ofd.FileName;
-                BitmapImage bitmap = new BitmapImage();
-                bitmap.BeginInit();
-                bitmap.UriSource = new Uri(selectedFileName);
-                bitmap.EndInit();
-                string _source = bitmap.ToString();
+                _source = selectedFileName;
+                MyMessageQueue.Enqueue("Thêm ảnh thành công");
             }
         }
         private void SelectCriteriaChange()

@@ -229,6 +229,9 @@
     <Compile Include="Views\TestingSheet\TestingSheet.xaml.cs">
       <DependentUpon>TestingSheet.xaml</DependentUpon>
     </Compile>
+    <Compile Include="Views\TestingSheet\ViewImage.xaml.cs">
+      <DependentUpon>ViewImage.xaml</DependentUpon>
+    </Compile>
     <Page Include="MainWindow.xaml">
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
@@ -330,6 +333,10 @@
       <Generator>MSBuild:Compile</Generator>
     </Page>
     <Page Include="Views\TestingSheet\TestingSheet.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Views\TestingSheet\ViewImage.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>

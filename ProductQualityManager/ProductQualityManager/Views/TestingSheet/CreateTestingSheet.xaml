@@ -230,14 +230,14 @@
             </TextBlock>    
             <StackPanel Grid.Row="2"  Orientation="Horizontal" HorizontalAlignment="Right">
 
-                <!--<Button ToolTip="Thêm ảnh"  
+                <Button ToolTip="Thêm ảnh"  
                         Style="{StaticResource  MaterialDesignRaisedButton}"
                         Command="{Binding CAddImage}"
                       >
                     <DockPanel>
                         <materialDesign:PackIcon Kind="Camera" />
                     </DockPanel>
-                </Button>-->
+                </Button>
 
 
                 <Button Name="createBtn" 
