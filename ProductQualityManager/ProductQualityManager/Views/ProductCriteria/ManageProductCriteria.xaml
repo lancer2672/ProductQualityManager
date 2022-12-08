@@ -34,7 +34,7 @@
                 <RowDefinition Height="auto"></RowDefinition>
                 <RowDefinition Height="auto"></RowDefinition>
             </Grid.RowDefinitions>
-            <TextBlock HorizontalAlignment="Center" Height="450" FontSize="20" VerticalAlignment="Bottom">THÔNG TIN CHỈ TIÊU</TextBlock>
+            <TextBlock HorizontalAlignment="Center" Height="450"  VerticalAlignment="Bottom">THÔNG TIN CHỈ TIÊU</TextBlock>
 
 
         
