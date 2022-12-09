@@ -23,8 +23,14 @@
         <StackPanel Grid.Row="1">
             <StackPanel.Resources>
                 <Style TargetType="TextBox" BasedOn="{StaticResource MaterialDesignFloatingHintTextBox}">
-                    <Setter Property="Width"  Value="360"></Setter>
-                    <Setter Property="Margin" Value="20 5 20 5"></Setter>
+                    <Setter Property="Width"  Value="360"/>
+                    <Setter Property="Margin" Value="20 5 20 5"/>
+                    <Setter Property="FontSize" Value="12"/>
+                </Style>
+                <Style TargetType="PasswordBox" BasedOn="{StaticResource MaterialDesignFloatingHintPasswordBox}">
+                    <Setter Property="Width"  Value="360"/>
+                    <Setter Property="Margin" Value="20 5 20 5"/>
+                    <Setter Property="FontSize" Value="12"/>
                 </Style>
                 <!--<Style TargetType="TextBlock">
                 <Setter Property="FontSize" Value="23"/>
@@ -61,34 +67,61 @@
                 </TextBox>
             </StackPanel>
             <StackPanel Orientation="Horizontal">
-                <TextBox Name="OldPass"
+                <PasswordBox x:Name="OldPass"
+                             materialDesign:HintAssist.Hint="Mật khẩu">
+                    <i:Interaction.Triggers>
+                        <i:EventTrigger EventName="PasswordChanged">
+                            <i:InvokeCommandAction Command="{Binding OldPassCommand}" 
+                                   CommandParameter="{Binding ElementName=OldPass}"/>
+                        </i:EventTrigger>
+                    </i:Interaction.Triggers>
+                </PasswordBox>
+                <!--<TextBox Name="OldPass"
                          materialDesign:HintAssist.Hint="Mật khẩu cũ" >
                     <TextBox.Text>
                         <Binding Path="OldPass" UpdateSourceTrigger="PropertyChanged" Mode="TwoWay"
                                  NotifyOnValidationError="True" ValidatesOnExceptions="True">
                         </Binding>
                     </TextBox.Text>
-                </TextBox>
+                </TextBox>-->
             </StackPanel>
             <StackPanel Orientation="Horizontal">
-                <TextBox Name="NewPass1"
+                <PasswordBox x:Name="NewPass1"
+                             materialDesign:HintAssist.Hint="Mật khẩu mới">
+                    <i:Interaction.Triggers>
+                        <i:EventTrigger EventName="PasswordChanged">
+                            <i:InvokeCommandAction Command="{Binding NewPass1Command}" 
+                                   CommandParameter="{Binding ElementName=NewPass1}"/>
+                        </i:EventTrigger>
+                    </i:Interaction.Triggers>
+                </PasswordBox>
+                <!--<TextBox Name="NewPass1"
                          materialDesign:HintAssist.Hint="Mật khẩu mới" >
                     <TextBox.Text>
                         <Binding Path="NewPass1" UpdateSourceTrigger="PropertyChanged" Mode="TwoWay"
                                  NotifyOnValidationError="True" ValidatesOnExceptions="True">
                         </Binding>
                     </TextBox.Text>
-                </TextBox>
+                </TextBox>-->
             </StackPanel>
             <StackPanel Orientation="Horizontal">
-                <TextBox Name="NewPass2"
+                <PasswordBox x:Name="NewPass2"
+                             materialDesign:HintAssist.Hint="Nhập lại mật khẩu mới">
+                    <i:Interaction.Triggers>
+                        <i:EventTrigger EventName="PasswordChanged">
+                            <i:InvokeCommandAction Command="{Binding NewPass2Command}" 
+                                   CommandParameter="{Binding ElementName=NewPass2}"/>
+                        </i:EventTrigger>
+                    </i:Interaction.Triggers>
+                </PasswordBox>
+                <!--<TextBox Name="NewPass2"
                          materialDesign:HintAssist.Hint="Nhập lại mật khẩu mới" >
                     <TextBox.Text>
                         <Binding Path="NewPass2" UpdateSourceTrigger="PropertyChanged" Mode="TwoWay"
                                  NotifyOnValidationError="True" ValidatesOnExceptions="True">
                         </Binding>
                     </TextBox.Text>
-                </TextBox>
+                </TextBox>-->
             </StackPanel>
             <StackPanel Margin="120 25 0 0" Orientation="Horizontal"  HorizontalAlignment="Left" >
                 <StackPanel.Resources>

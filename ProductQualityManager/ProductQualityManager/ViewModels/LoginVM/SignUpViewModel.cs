@@ -62,7 +62,7 @@ namespace ProductQualityManager.ViewModels.LoginVM
                 CHUCOSO newChuCoSo = new CHUCOSO();
                 newChuCoSo.HoTen = Name;
                 newChuCoSo.DienTHoai = Phone;
-                if (!IsExist(newAccount) == true)
+                if (IsExist(newAccount) == true)
                 {
                     //MessageBox.Show("Tài khoản đã tồn tại");
                     MyMessageQueue.Enqueue("Tài khoản đã tồn tại");

@@ -100,6 +100,11 @@ namespace ProductQualityManager.ViewModels.RegistrationSheet
                 _vm.MyMessageQueue.Enqueue("Sản phẩm bị cấm không thể tạo phiếu đăng ký");
                 return false;
             }
+            if (_vm.SelectedProduct.TinhTrang == "Ngưng sản xuất")
+            {
+                _vm.MyMessageQueue.Enqueue("Sản phẩm hiện tại đang bị tạm ngưng sản xuất ");
+                return false;
+            }
             //kiểm tra xem có phiếu nào của sản phẩm này đang chờ duyệt hay không
             PHIEUDANGKY checkDueDay = DataProvider.Ins.DB.PHIEUDANGKies.Where(t => t.MaSanPham == id && t.TrangThai != -1).ToList().LastOrDefault();          
             if(checkDueDay == null)

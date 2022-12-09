@@ -228,11 +228,11 @@ namespace ProductQualityManager.ViewModels.OwnerFacilitiesVM
             }
         }
 
-        //Sửa sản phầm
+        //Sửa thông tin sản phầm
         public void EditProduct()
         {
             if (SelectedProduct == null)
-                return;
+                MyMessageQueue.Enqueue("Vui lòng chọn sản phẩm muốn sửa!");
             else
             {
                 SANPHAM sanpham = DataProvider.Ins.DB.SANPHAMs.Where(x => x.MaSanPham == SelectedProduct.IdProduct).FirstOrDefault();
