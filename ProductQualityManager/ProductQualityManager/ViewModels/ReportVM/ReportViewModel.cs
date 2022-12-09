@@ -89,7 +89,7 @@ namespace ProductQualityManager.ViewModels.ReportVM
         {
             if (SelectedFacility != null) 
             {
-                int tyle_csx = 0, tyle_dsx = 0, tyle_hhsx = 0, tyle_cam = 0;
+                int tyle_csx = 0, tyle_dsx = 0, tyle_hhsx = 0,tyle_nsx = 0, tyle_cam = 0;
                 //var sqlstring = "from SANPHAM as product, SelectedFacility as facility " + "where product.MaCoSo = facility.MaCoSo " + "order by product.TinhTrang ";
                 //var result = DataProvider.Ins.DB.Database.SqlQuery<SANPHAM>(sqlstring).ToList();
                 List<SANPHAM> listproduct = DataProvider.Ins.DB.SANPHAMs.Where(x => x.MaCoSo == SelectedFacility.MaCoSo).OrderBy(x=>x.TinhTrang).ToList();
@@ -102,6 +102,8 @@ namespace ProductQualityManager.ViewModels.ReportVM
                         tyle_dsx++;
                     if (item.TinhTrang == "Hết hạn sản xuất")
                         tyle_hhsx++;
+                    if (item.TinhTrang == "Ngưng sản xuất")
+                        tyle_nsx++;
                     if (item.TinhTrang == "Cấm")
                         tyle_cam++;
                     ReportList.Add(item);
@@ -109,22 +111,27 @@ namespace ProductQualityManager.ViewModels.ReportVM
                 ProductStatusChart = new ObservableCollection<ProductStatusChart>() { };
                 if (tyle_csx != 0)
                 {
-                    ProductStatusChart csx = new ProductStatusChart(SelectedFacility.MaCoSo, "Chưa sản xuất", (int)(tyle_csx * 100 / (tyle_csx + tyle_dsx + tyle_hhsx + tyle_cam)));
+                    ProductStatusChart csx = new ProductStatusChart(SelectedFacility.MaCoSo, "Chưa sản xuất", (int)(tyle_csx * 100 / (tyle_csx + tyle_dsx + tyle_hhsx + tyle_nsx + tyle_cam)));
                     ProductStatusChart.Add(csx);
                 }
                 if(tyle_dsx != 0)
                 {
-                    ProductStatusChart dsx = new ProductStatusChart(SelectedFacility.MaCoSo, "Đang sản xuất", (int)(tyle_dsx * 100 / (tyle_csx + tyle_dsx + tyle_hhsx + tyle_cam)));
+                    ProductStatusChart dsx = new ProductStatusChart(SelectedFacility.MaCoSo, "Đang sản xuất", (int)(tyle_dsx * 100 / (tyle_csx + tyle_dsx + tyle_hhsx + tyle_nsx + tyle_cam)));
                     ProductStatusChart.Add(dsx);
                 }
                 if(tyle_hhsx != 0)
                 {
-                    ProductStatusChart hhsx = new ProductStatusChart(SelectedFacility.MaCoSo, "Hết hạn sản xuất", (int)(tyle_hhsx * 100 / (tyle_csx + tyle_dsx + tyle_hhsx + tyle_cam)));
+                    ProductStatusChart hhsx = new ProductStatusChart(SelectedFacility.MaCoSo, "Hết hạn sản xuất", (int)(tyle_hhsx * 100 / (tyle_csx + tyle_dsx + tyle_hhsx + tyle_nsx + tyle_cam)));
                     ProductStatusChart.Add(hhsx);
+                }
+                if (tyle_nsx != 0)
+                {
+                    ProductStatusChart nsx = new ProductStatusChart(SelectedFacility.MaCoSo, "Cấm", (int)(tyle_nsx * 100 / (tyle_csx + tyle_dsx + tyle_hhsx + tyle_nsx + tyle_cam)));
+                    ProductStatusChart.Add(nsx);
                 }
                 if (tyle_cam != 0)
                 {
-                    ProductStatusChart cam = new ProductStatusChart(SelectedFacility.MaCoSo, "Cấm", (int)(tyle_cam * 100 / (tyle_csx + tyle_dsx + tyle_hhsx + tyle_cam)));
+                    ProductStatusChart cam = new ProductStatusChart(SelectedFacility.MaCoSo, "Cấm", (int)(tyle_cam * 100 / (tyle_csx + tyle_dsx + tyle_hhsx + tyle_nsx + tyle_cam)));
                     ProductStatusChart.Add(cam);
                 }               
             }

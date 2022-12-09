@@ -37,6 +37,9 @@ namespace ProductQualityManager.ViewModels.OwnerFacilitiesVM
         public string NewPass2 { get { return _newpass2; } set { _newpass2 = value; OnPropertyChanged(nameof(NewPass2)); } }
         public SnackbarMessageQueue MyMessageQueue { get => myMessageQueue; set { myMessageQueue = value; OnPropertyChanged(nameof(MyMessageQueue)); } }
 
+        public ICommand OldPassCommand { get; set; }
+        public ICommand NewPass1Command { get; set; }
+        public ICommand NewPass2Command { get; set; }
         public ICommand ChangePass { get; set; }
         public ICommand SaveInfor { get; set; }
 
@@ -53,6 +56,9 @@ namespace ProductQualityManager.ViewModels.OwnerFacilitiesVM
                 DiscardDuplicates = true
             };
 
+            OldPassCommand = new RelayCommand<PasswordBox>((p) => { return true; }, (p) => { OldPass = p.Password; });
+            NewPass1Command = new RelayCommand<PasswordBox>((p) => { return true; }, (p) => { NewPass1 = p.Password; });
+            NewPass2Command = new RelayCommand<PasswordBox>((p) => { return true; }, (p) => { NewPass2 = p.Password; });
             ChangePass = new RelayCommand<object>((p) => { return true; }, (p) => { ChangePassWord(); });
             SaveInfor = new RelayCommand<Window>((p) => { return true; }, (p) => { SaveInforOwner(); });
         }

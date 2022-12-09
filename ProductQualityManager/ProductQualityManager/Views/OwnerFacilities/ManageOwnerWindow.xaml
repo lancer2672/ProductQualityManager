@@ -139,11 +139,11 @@
                                 <Setter Property="Margin" Value="0,0,12,0"/>
                                 <Setter Property="Height" Value="Auto"/>
                                 <Setter Property="HorizontalAlignment" Value="Right"/>
-                                <Style.Triggers>
+                                <!--<Style.Triggers>
                                     <Trigger Property="IsMouseOver" Value="True">
                                         <Setter Property="Background" Value="#ff3838"/>
                                     </Trigger>
-                                </Style.Triggers>
+                                </Style.Triggers>-->
                             </Style>
                         </StackPanel.Resources>
                         <Button ToolTip="Thêm cơ sở sản xuất" Command="{Binding AddFacility}">

@@ -27,7 +27,7 @@
         <StackPanel Grid.Row="0">
             <StackPanel.Resources>
                 <Style TargetType="TextBox" BasedOn="{StaticResource MaterialDesignFloatingHintTextBox}">
-                    <Setter Property="Width"  Value="260"></Setter>
+                    <Setter Property="Width"  Value="188"></Setter>
                     <Setter Property="Margin" Value="20 5 20 5"></Setter>
                 </Style>
                 <!--<Style TargetType="TextBlock">
@@ -41,6 +41,7 @@
                 <Grid.ColumnDefinitions>
                     <ColumnDefinition Width="*"></ColumnDefinition>
                     <ColumnDefinition Width="*"></ColumnDefinition>
+                    <ColumnDefinition Width="144"></ColumnDefinition>
                 </Grid.ColumnDefinitions>
                 <StackPanel Grid.Column="0" Orientation="Horizontal">
                     <TextBox Name="NameFacility"
@@ -67,6 +68,15 @@
                             </Binding>
                         </TextBox.Text>
                     </TextBox>
+                </StackPanel>
+                <StackPanel Grid.Column="2">
+                    <Button  ToolTip="Sửa thông tin cá nhân" Command="{Binding EditInforFacilityCommand}"
+                             Margin="10" Height="auto" HorizontalAlignment="Right">
+                        <DockPanel>
+                            <materialDesign:PackIcon Kind="AccountEditOutline" />
+                            <TextBlock Text="Sửa thông tin" FontSize="12"/>
+                        </DockPanel>
+                    </Button>
                 </StackPanel>
             </Grid>
             <Grid>
@@ -146,20 +156,14 @@
         <StackPanel Grid.Row="2"  
                     Orientation="Horizontal"
                     Width="auto" Height="auto" 
-                    Margin="270,0,0,0">
+                    Margin="405,0,0,61" Grid.RowSpan="2">
             <StackPanel.Resources>
                 <Style TargetType="Button"  BasedOn="{StaticResource MaterialDesignRaisedButton}">
-                    <Setter Property="Margin" Value="0 10 15 10"/>
+                    <Setter Property="Margin" Value="0 10 15 0"/>
                     <Setter Property="Height" Value="Auto"/>
-                    <Setter Property="HorizontalAlignment" Value="Left"/>
+                    <Setter Property="HorizontalAlignment" Value="Right"/>
                 </Style>
             </StackPanel.Resources>
-            <Button  ToolTip="Sửa thông tin cá nhân" Command="{Binding EditInforFacilityCommand}">
-                <DockPanel>
-                    <materialDesign:PackIcon Kind="AccountEditOutline" />
-                    <TextBlock Text="Sửa thông tin" FontSize="12"/>
-                </DockPanel>
-            </Button>
             <Button ToolTip="Dăng kí sản phẩm" Command="{Binding RegisterCommand}">
                 <DockPanel>
                     <materialDesign:PackIcon Kind="Add" />
