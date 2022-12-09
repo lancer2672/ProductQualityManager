@@ -59,6 +59,7 @@ namespace ProductQualityManager.ViewModels.ProductCriteriaVM
             MyMessageQueue = new SnackbarMessageQueue(TimeSpan.FromMilliseconds(2000));
             MyMessageQueue.DiscardDuplicates = true;
         }
+
         public ObservableCollection<ProductCriteria> GetCriteriaFromList(List<CHITIEUSANPHAM> criteriaList)
         {
             ObservableCollection<ProductCriteria> list = new ObservableCollection<ProductCriteria>();

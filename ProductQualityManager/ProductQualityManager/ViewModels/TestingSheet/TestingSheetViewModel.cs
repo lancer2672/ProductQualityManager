@@ -1,4 +1,5 @@
-﻿using ProductQualityManager.Models;
+﻿using MaterialDesignThemes.Wpf;
+using ProductQualityManager.Models;
 using ProductQualityManager.Models.Database;
 using ProductQualityManager.Views.TestingSheet;
 using Syncfusion.Windows.Shared;
@@ -20,6 +21,7 @@ namespace ProductQualityManager.ViewModels.TestingSheet
         private List<string> _searchOptions;
         private int _searchTypeSelected;
         private DateTime _selectedDate;
+        private SnackbarMessageQueue _myMessageQueue;
 
         public DateTime SelectedDate { get { return _selectedDate; } set { _selectedDate = value; LoadListView(); OnPropertyChanged(nameof(SelectedDate)); } }
         public string SearchKey { get { return _searchKey; } set { _searchKey = value; OnPropertyChanged(nameof(SearchKey)); } }
@@ -27,6 +29,7 @@ namespace ProductQualityManager.ViewModels.TestingSheet
         public ObservableCollection<TestingSheetModel> TestingSheetList { get { return _testingSheetList; } set { _testingSheetList = value; OnPropertyChanged(nameof(TestingSheetList)); } }
         public TestingSheetModel SelectedItem { get { return _selectedItem; } set { _selectedItem = value; OnPropertyChanged(nameof(SelectedItem)); } }
         public int SearchTypeSelected { get { return _searchTypeSelected; } set { _searchTypeSelected = value; OnPropertyChanged(nameof(SearchTypeSelected)); } }
+        public SnackbarMessageQueue MyMessageQueue { get { return _myMessageQueue; } set { _myMessageQueue = value; OnPropertyChanged(nameof(MyMessageQueue)); } }
 
         public ICommand CSearch { get; set; }
         public ICommand COpenImage { get; set; }
@@ -44,11 +47,19 @@ namespace ProductQualityManager.ViewModels.TestingSheet
             COpenCreateSheetWindow = new RelayCommand<object>((p) => { return true; }, (p) => { OpenCreateSheetWindow(p); });
 
             LoadListView();
+
+            MyMessageQueue = new SnackbarMessageQueue(TimeSpan.FromMilliseconds(1500));
+            MyMessageQueue.DiscardDuplicates = true;
         }
         private void OpenImageWindow()
         {
             if (SelectedItem == null) return;
             PHIEUKIEMNGHIEM p = DataProvider.Ins.DB.PHIEUKIEMNGHIEMs.Where(t => t.MaPhieuKiemNghiem == SelectedItem.MaPhieuKiemNghiem).FirstOrDefault();
+            if (p.Anh == null)
+            {
+                MyMessageQueue.Enqueue("Không có ảnh!!!");
+                return;
+            }
             ViewImage window = new ViewImage(p.Anh);
             window.Show();
         }

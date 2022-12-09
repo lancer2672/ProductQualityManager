@@ -59,7 +59,6 @@ namespace ProductQualityManager.ViewModels.RegistrationSheet
         {
             if(checkIfAllowed() == false)
             {
-                _vm.MyMessageQueue.Enqueue("Lỗi! Phiếu đăng ký của sản phẩm này vẫn còn hạn hoặc chưa được duyệt");
                 p.Close();  
                 return;
             }
@@ -81,9 +80,10 @@ namespace ProductQualityManager.ViewModels.RegistrationSheet
                     item.MaChiTieu = ListCriteria[i].MaChiTieu;
                     DataProvider.Ins.DB.CHITIETPHIEUDANGKies.Add(item);
                 }
+                SANPHAM product = DataProvider.Ins.DB.SANPHAMs.Where(t => t.MaSanPham == _vm.SelectedProduct.MaSanPham).FirstOrDefault();
+                product.TinhTrang = "Đang sản xuất";
                 DataProvider.Ins.DB.SaveChanges();
                 p.Close();
-                
                 _vm.MyMessageQueue.Enqueue("Tạo phiếu đăng ký thành công");
 
             }
@@ -95,6 +95,11 @@ namespace ProductQualityManager.ViewModels.RegistrationSheet
         private bool checkIfAllowed()
         {
             int id = _vm.SelectedProduct.MaSanPham;
+            if(_vm.SelectedProduct.TinhTrang == "Cấm")
+            {
+                _vm.MyMessageQueue.Enqueue("Sản phẩm bị cấm không thể tạo phiếu đăng ký");
+                return false;
+            }
             //kiểm tra xem có phiếu nào của sản phẩm này đang chờ duyệt hay không
             PHIEUDANGKY checkDueDay = DataProvider.Ins.DB.PHIEUDANGKies.Where(t => t.MaSanPham == id && t.TrangThai != -1).ToList().LastOrDefault();          
             if(checkDueDay == null)
@@ -103,6 +108,7 @@ namespace ProductQualityManager.ViewModels.RegistrationSheet
             }
             if(checkDueDay.HanDangKy > DateTime.Now)
             {
+                _vm.MyMessageQueue.Enqueue("Lỗi! Phiếu đăng ký của sản phẩm này vẫn còn hạn hoặc chưa được duyệt");
                 return false;
             }
             return true;

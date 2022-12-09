@@ -58,7 +58,8 @@ namespace ProductQualityManager.ViewModels.OwnerFacilitiesVM
             ListProduct = new ObservableCollection<Products>();
             SelectedProduct = null;
             GetListProduct();
-
+            CheckOverDueStatusProducts();
+            
             MyMessageQueue = new SnackbarMessageQueue(TimeSpan.FromMilliseconds(2000))
             {
                 DiscardDuplicates = true
@@ -72,7 +73,31 @@ namespace ProductQualityManager.ViewModels.OwnerFacilitiesVM
             SaveCommand = new RelayCommand<object>((p) => { return true; }, (p) => { SaveAndExit(); });
 
         }
-
+        private void CheckOverDueStatusProducts()
+        {
+            for(int i = 0; i < ListProduct.Count; i++)
+            {
+                int id = ListProduct[i].IdProduct;
+                PHIEUDANGKY sheet = DataProvider.Ins.DB.PHIEUDANGKies.Where(t => t.MaSanPham == id && t.TrangThai == 1).ToList().LastOrDefault();
+                if(sheet != null)
+                {
+                    if(sheet.HanDangKy < DateTime.Now)
+                    {
+                        ListProduct[i].Status = "Hết hạn sản xuất";
+                        SANPHAM product = DataProvider.Ins.DB.SANPHAMs.Where(t => t.MaSanPham == id).FirstOrDefault();
+                        product.TinhTrang = "Hết hạn sản xuất";
+                    }
+                }
+                try
+                {
+                    DataProvider.Ins.DB.SaveChanges();
+                }
+                catch(Exception err)
+                {
+                    throw err;
+                }
+            }
+        }
         //Kiểm tra tình trạng đăng kí của sản phẩm
         //public string CheckRegister(SANPHAM item)
         //{

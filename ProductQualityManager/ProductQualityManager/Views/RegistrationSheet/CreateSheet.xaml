@@ -21,14 +21,14 @@
             </ResourceDictionary.MergedDictionaries>
         </ResourceDictionary>
     </Window.Resources>
-    <Border Margin="20">
+    <Border >
         <Grid>
             <Grid.RowDefinitions>
-                <RowDefinition Height="*"></RowDefinition>
-                <RowDefinition Height="50"></RowDefinition>
+                <RowDefinition  Height="*"></RowDefinition>
+                <RowDefinition Height="60"></RowDefinition>
             </Grid.RowDefinitions>
 
-            <Grid Grid.Row="0">
+            <Grid Margin="20" Grid.Row="0">
                 <Grid.ColumnDefinitions>
                     <ColumnDefinition Width="*"></ColumnDefinition>
                     <ColumnDefinition Width="2*"></ColumnDefinition>
@@ -200,7 +200,7 @@
                     </ListView>
                 </StackPanel>
             </Grid>
-            <StackPanel Grid.Row="1"  Orientation="Horizontal" HorizontalAlignment="Right">
+            <StackPanel Grid.Row="1" Margin="0 0 20 20"  Orientation="Horizontal" HorizontalAlignment="Right">
                 <Button  x:Name="createBtn" 
                         Margin="0 0 0 0"
                             CommandParameter="{Binding ElementName=window}"
@@ -236,6 +236,7 @@
             </StackPanel>
             <materialDesign:Snackbar
                 Grid.Row="3"
+                Margin="0 20 0 0"
                     HorizontalAlignment="Stretch"
                     VerticalAlignment="Stretch"
                     MessageQueue="{Binding MyMessageQueue}" Height="40"/>

@@ -102,6 +102,7 @@ namespace ProductQualityManager.ViewModels.TestingSheet
             newSheet.KetQua = _min;
             newSheet.NgayDanhGia = DateTime.Now;
             newSheet.Anh = _source;
+            SetProductState();
             DataProvider.Ins.DB.PHIEUKIEMNGHIEMs.Add(newSheet);
             for (int i = 0; i < TestingCriteraList.Count; i++)
             {
@@ -123,6 +124,28 @@ namespace ProductQualityManager.ViewModels.TestingSheet
                 throw err;
             }
 
+        }
+        private void SetProductState()
+        {
+            SANPHAM product = DataProvider.Ins.DB.SANPHAMs.Where(t => t.MaSanPham == SelectedProduct.MaSanPham).FirstOrDefault();
+            switch (_min)
+            {
+                case -1:
+                    {
+                        product.TinhTrang = "Ngưng sản xuất";
+                        break;
+                    }
+                case -2:
+                    {
+                        product.TinhTrang = "Cấm";
+                        break;
+                    }
+                default:
+                    {
+                        return;
+                    }
+            }
+            DataProvider.Ins.DB.SaveChanges();
         }
         private void AddCriteriaToList()
         {

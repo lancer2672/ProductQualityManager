@@ -42,9 +42,10 @@ namespace ProductQualityManager.ViewModels
             COpenViewDetailWindow = new RelayCommand<object>((p) => { return true; }, (p) => { OpenDetailWindow(p); });
             CSearch = new RelayCommand<object>((p) => { return true; }, (p) => { Search(p); });
             CCheck = new RelayCommand<object>((p) => { return true; }, (p) => { CheckSheet(p); });
-           
+            
             LoadDataSheetList();
             CheckOverDueRegistrationForms();
+
             SearchOptions = new List<string>() { "ID", "Tên cơ sở", "Chưa duyệt" };
         }
         public void Search(object p)
