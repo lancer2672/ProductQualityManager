@@ -19,6 +19,7 @@ using System.Windows.Navigation;
 using System.Windows.Shapes;
 using ProductQualityManager.Views.ProductCriteria;
 using ProductQualityManager.Views.Report;
+using ProductQualityManager.ViewModels;
 
 namespace ProductQualityManager
 {
@@ -130,7 +131,7 @@ namespace ProductQualityManager
 
         private void mainWindow_Loaded(object sender, RoutedEventArgs e)
         {
-            enrollSheet = new EnrollSheet();
+            (enrollSheet.DataContext as RegistrationSheetViewModel).LoadDataSheetList();
         }
     }
 }
