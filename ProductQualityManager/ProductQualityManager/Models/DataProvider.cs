@@ -20,10 +20,10 @@ namespace ProductQualityManager.Models
             }
             set => _ins = value;
         }
-        public ProductManagerEntities DB { get; set; }
+        public ProductManagerEntities1 DB { get; set; }
         private DataProvider()
         {
-            DB = new ProductManagerEntities();
+            DB = new ProductManagerEntities1();
 
         }
     }

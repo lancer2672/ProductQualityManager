@@ -70,9 +70,7 @@ namespace ProductQualityManager.ViewModels
                             int id = (int)list[i].MaCoSo;
 
                             List<PHIEUDANGKY> registrationList = DataProvider.Ins.DB.PHIEUDANGKies.
-                              Where(t => t.NgayDangKy.Value.Day == SelectedDate.Day &&
-                                       t.NgayDangKy.Value.Month == SelectedDate.Month &&
-                                       t.NgayDangKy.Value.Year == SelectedDate.Year &&
+                              Where(t =>
                                        t.MaCoSo == id).ToList();
                             sheetList.AddRange(registrationList);
                         }
@@ -88,9 +86,7 @@ namespace ProductQualityManager.ViewModels
                         {
                             int id = (int)list[i].MaCoSo;
                             List<PHIEUDANGKY> registrationList = DataProvider.Ins.DB.PHIEUDANGKies.
-                              Where(t => t.NgayDangKy.Value.Day == SelectedDate.Day &&
-                                       t.NgayDangKy.Value.Month == SelectedDate.Month &&
-                                       t.NgayDangKy.Value.Year == SelectedDate.Year &&
+                              Where(t => 
                                        t.MaCoSo == id).ToList();
                             sheetList.AddRange(registrationList);
                         }
@@ -100,9 +96,7 @@ namespace ProductQualityManager.ViewModels
                 case 2:
                     {
                         List<PHIEUDANGKY> sheetList = DataProvider.Ins.DB.PHIEUDANGKies.
-                               Where(t => t.NgayDangKy.Value.Day == SelectedDate.Day &&
-                                        t.NgayDangKy.Value.Month == SelectedDate.Month &&
-                                        t.NgayDangKy.Value.Year == SelectedDate.Year &&
+                               Where(t => 
                                         t.TrangThai == 0).
                                ToList();
                         TestingSheetListObs = GetDataSheetFromList(sheetList);

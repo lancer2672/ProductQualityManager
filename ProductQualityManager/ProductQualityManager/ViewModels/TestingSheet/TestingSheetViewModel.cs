@@ -98,8 +98,7 @@ namespace ProductQualityManager.ViewModels.TestingSheet
                         foreach (COSOSANXUAT facility in listFacility)
                         {
                             int id = facility.MaCoSo;
-                            List<PHIEUKIEMNGHIEM> list = DataProvider.Ins.DB.PHIEUKIEMNGHIEMs.Where(t=>t.MaCoSo == id && t.NgayDanhGia.Value.Day == SelectedDate.Day &&
-                            t.NgayDanhGia.Value.Month == SelectedDate.Month && t.NgayDanhGia.Value.Year == SelectedDate.Year).ToList();
+                            List<PHIEUKIEMNGHIEM> list = DataProvider.Ins.DB.PHIEUKIEMNGHIEMs.Where(t=>t.MaCoSo == id).ToList();
                             foreach (PHIEUKIEMNGHIEM item in list)
                             {
                                 TestingSheetModel listViewItem = new TestingSheetModel(item, facility);
@@ -116,8 +115,7 @@ namespace ProductQualityManager.ViewModels.TestingSheet
                         foreach (COSOSANXUAT facility in listFacility)
                         {
                             int id = facility.MaCoSo;
-                            List<PHIEUKIEMNGHIEM> list = DataProvider.Ins.DB.PHIEUKIEMNGHIEMs.Where(t => t.MaCoSo == id && t.NgayDanhGia.Value.Day == SelectedDate.Day &&
-                            t.NgayDanhGia.Value.Month == SelectedDate.Month && t.NgayDanhGia.Value.Year == SelectedDate.Year).ToList();
+                            List<PHIEUKIEMNGHIEM> list = DataProvider.Ins.DB.PHIEUKIEMNGHIEMs.Where(t => t.MaCoSo == id).ToList();
                             foreach (PHIEUKIEMNGHIEM item in list)
                             {
                                 TestingSheetModel listViewItem = new TestingSheetModel(item, facility);
