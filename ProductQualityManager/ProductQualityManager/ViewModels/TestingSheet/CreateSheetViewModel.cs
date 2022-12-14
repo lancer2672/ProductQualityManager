@@ -38,11 +38,13 @@ namespace ProductQualityManager.ViewModels.TestingSheet
         private string _result;
         private string _resultColor;
         private int _id_DanhGia = 0;
+        private DateTime _selectedDate;
         private TestingSheetViewModel _vm;
         // 0: chưa đánh giá, 1; Đạt, -1: Không Đạt, -2:Gây Nguy Hiểm
         public ObservableCollection<CreateTestingSheetModel> _testingCriteraList;
         public string UnitCriteriaName { get { return _unitCriteriaName; } set { _unitCriteriaName = value; OnPropertyChanged(nameof(UnitCriteriaName)); } }
         public string Result { get { return _result; } set { _result = value; OnPropertyChanged(nameof(Result)); } }
+        public DateTime SelectedDate { get { return _selectedDate; } set { _selectedDate = value; OnPropertyChanged(nameof(SelectedDate)); } }
         public string ResultColor { get { return _resultColor; } set { _resultColor = value; OnPropertyChanged(nameof(ResultColor)); } }
         public string CriteriaValue { get { return _criteriaValue; } set { _criteriaValue = value; OnPropertyChanged(nameof(CriteriaValue)); } }
         public int SearchId { get { return _searchId; } set { _searchId = value; OnPropertyChanged(nameof(SearchId)); } }
@@ -63,6 +65,7 @@ namespace ProductQualityManager.ViewModels.TestingSheet
         public CreateSheetViewModel(TestingSheetViewModel vm)
         {
             _vm = vm;
+            SelectedDate = DateTime.Now;
             CSearch = new RelayCommand<object>((p) => { return true; }, (p) => { Search(p); });
             CAddImage = new RelayCommand<object>((p) => { return true; }, (p) => { HandleSaveImage(); });
             CSubmitForm = new RelayCommand<Window>((p) => { return true; }, (p) => { HandleCreateTestingSheet(p); });
@@ -95,12 +98,16 @@ namespace ProductQualityManager.ViewModels.TestingSheet
                 return;
             }
 
-
+            if(SelectedDate.Day > DateTime.Now.Day)
+            {
+                MyMessageQueue.Enqueue("Ngày tạo phiếu không được lớn hơn ngày hiện tại");
+                return;
+            }
             PHIEUKIEMNGHIEM newSheet = new PHIEUKIEMNGHIEM();
             newSheet.MaCoSo = _facility.MaCoSo;
             newSheet.MaPhieuDangKy = _registrationSheet.MaPhieuDangKy;
             newSheet.KetQua = _min;
-            newSheet.NgayDanhGia = DateTime.Now;
+            newSheet.NgayDanhGia = SelectedDate;
             newSheet.Anh = _source;
             SetProductState();
             DataProvider.Ins.DB.PHIEUKIEMNGHIEMs.Add(newSheet);
